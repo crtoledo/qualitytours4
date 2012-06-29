@@ -65,11 +65,11 @@ reemplazo se uso 'errorVal'.
 <fieldset>
 <?php echo Form::open('administrador/ingresar') ?>
     <div align="center">
-        <h1> Convertir Usuario-Adminitrador </h1>
+        <h1> Convertir Usuario-Administrador </h1>
         <table>
      <tr>
         <td>Usuario</td>
-        <td><?php echo  Form::dbSelect('administrador.id','nombre_usu',array('usuario','find'),'-Seleccione-','class=seleccion_usuario') ?></td>
+        <td><?php echo  Form::dbSelect('administrador.id','username_usu',array('usuario','find',"rol_usu='turista'"),'-Seleccione-','class=seleccion_usuario') ?></td>
     </tr>
     
 
