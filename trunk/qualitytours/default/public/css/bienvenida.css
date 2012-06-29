@@ -45,7 +45,7 @@ body{
     background-color: #000;
 }
 #footer {
-    background-color: #8A6F5C;
+    background-color: #FFFFFF;
     border-top: 4px solid #555555;
     color: white;
     padding: 1em;
@@ -61,7 +61,7 @@ body{
 }
 #footer p{
     font-size: 14px;
-    color: #d1a88b;
+    color: #000000;
 }
 #footer ul.links {
     text-align: center;
