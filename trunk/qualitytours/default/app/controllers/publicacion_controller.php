@@ -35,7 +35,7 @@ class PublicacionController extends AppController
                   
 	}
         
-    public function editar($id)
+    public function editar()
     {
         //se captura el id para futuros usos
         $this->id_pub=$id;
