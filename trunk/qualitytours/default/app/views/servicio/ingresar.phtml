@@ -1,0 +1,41 @@
+<div><?php View::content() ?></div> 
+
+<fieldset>
+<?php echo Form::open('servicio/ingresar') ?>
+    <div align="center">
+        <h1> Publicar nuevo servicio </h1>
+        <table>
+    <tr>
+        <td>Centro turístico:&nbsp;</td>
+        <td><?php echo $nombre_cliente; ?></td>
+    </tr>        
+    <tr>
+        <td>Nombre:&nbsp;</td>
+        <td><?php echo Form::text('servicio.nombre_ser', "class='input-medium nombre' placeholder='Titulo del servicio'") ?></td>
+    </tr>
+    <tr>
+        <td>Detalle:&nbsp;</td>
+        <td>
+            <?php echo Form::textarea('servicio.detalle_ser','rows=10')?>
+            <?php View::partial('nicedit/nicEdit'); ?>
+        </td>
+    </tr>
+    <tr>
+        <td>Precio:&nbsp;</td>
+        <td><?php echo Form::text('servicio.precio_ser',"class='input-medium precio' placeholder='$' ") ?></td>
+    </tr>
+</table>
+    </div>
+    <div align="center">
+    <?php echo Form::hidden('servicio.estado_ser','','TRUE')?>
+    <?php echo Form::hidden('servicio.visitar_ser','',0)?>
+    <?php echo Form::hidden('servicio.id_usu','',Auth::get('id'))?>
+    <table>
+        <tr>
+            <td><?php echo Form::submit('Publicar Servicio','class="btn btn-submit boton"') ?>&nbsp;</td>
+            <td><?php echo Form::reset('Reiniciar','class="btn btn-info"')?></td>
+        </tr>         
+    </table>
+   </div>
+<?php echo Form::close() ?> 
+</fieldset>
