@@ -1,0 +1,109 @@
+<div><?php View::content() ?></div> <br>
+<script type="text/javascript">
+    //Validación con jquery
+    //El siguiente script valida que los campos no estén vacios y el formato del RUT
+$(document).ready(function () {
+    
+    $(".boton").click(function (){
+        $(".errorVal").remove();
+        
+        if( $(".calendario").val() == "" )
+        {
+            $(".calendario").focus().after("<span class='errorVal'>Seleccione una fecha de publicación</span>");
+            return false;
+        }
+         
+        if( $(".titulo").val() == "" )
+        {
+            $(".titulo").focus().after("<span class='errorVal'>Seleccione título para la publicación</span>");
+            return false;
+        }
+    });
+    
+    
+    //Para el caso del listbox, no se puede borrar el error de validación con keyup
+    //Ya que no es un textbox, usamos el metodo blur
+    $(".calendario").change(function()
+    {
+        if( $(this).val() != "" )
+        {
+            $(".errorVal").fadeOut();
+            return false;
+        }
+    });
+    
+    $(".titulo").keyup(function()
+    {
+        if( $(this).val() != "" )
+        {
+            $(".errorVal").fadeOut();
+            return false;
+        }
+    });
+    
+});
+</script>
+
+<!--
+El CSS a continuación da estilo a los mensaje de error en la validación
+, no se usó "error" ya que kumbia ya tiene un estilo para esa clase, en su
+reemplazo se uso 'errorVal'.
+-->
+
+<style>
+    .errorVal{
+    background-color: #BC1010;
+    padding: 6px 12px;
+    border-radius: 4px;
+    color: white;
+    font-weight: bold;
+    margin-left: 16px;
+    margin-top: 6px;
+    position: absolute;
+}
+.errorVal:before{ /* Este es un truco para crear una flechita */
+    content: '';
+    border-top: 8px solid transparent;
+    border-bottom: 8px solid transparent;
+    border-right: 8px solid #BC1010;
+    border-left: 8px solid transparent;
+    left: -16px;
+    position: absolute;
+    top: 5px;
+}
+</style>
+<div align="center"><h1>Ingresar una nueva publicación</h1></div>
+
+<!-- captura de id para enviarlo al controlador       -->
+<?php $id =  Auth::get('id');   ?>
+<?php echo Form::open('publicacion/ingresar') ?>
+<div align="center">
+    <table>
+        <tr>
+            <td>Fecha  Publicación: </td>
+            <td><?php echo Calendar::text('publicacion.fecha_pub','class="calendario"')?></td>
+        </tr>
+        <tr>
+            <td>Título:</td>
+            <td><?php echo Form::text('publicacion.titulo_pub','class="titulo"')?></td> 
+        </tr>
+        <tr>
+            <td>Detalle:</td>
+            <td><?php echo Form::textarea('publicacion.detalle_pub','rows=10')?>
+            <?php View::partial('nicedit/nicedit'); ?>
+            </td>
+        </tr>     
+    </table>
+</div>
+<br>
+<div align="center">
+    <table>
+        <tr>
+             <td><?php echo Form::submit('Publicar','class="btn btn-submit boton" ') ?>&nbsp;</td>
+        </tr>   
+    </table>
+</div>
+
+<?php echo Form::hidden('publicacion.id_usu',null , $id); ?>
+<?php echo Form::hidden('publicacion.estado_pub',null , 1); ?>
+<?php echo Form::close() ?> 

@@ -1,28 +1,43 @@
 <!DOCTYPE html>
 <html lang="es">
  <head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv='Content-type' content='text/html; charset=<?php echo APP_CHARSET ?>' />
-  <title>KumbiaPHP web &amp; app Framework</title>
-  <?php Tag::css('bienvenida') ?>
-  <?php Tag::css('style') ?>
-  <?php echo Html::includeCss() ?>
+  <title>Quality tours</title>
+  <?php
+  
+  
+    echo Tag::js('jquery/jquery-1.7.2.min');
+    echo Tag::js('bootstrap.min');
+    Tag::css('bienvenida');
+    Tag::css('style');
+    Tag::css('bootstrap.min');
+    echo Html::includeCss();
+    
+  ?>
+    
+    <script>
+        $('.dropdown-toggle').dropdown();
+    </script>
+    
 </head>
 <body>
+   <div class="container">
     <div id='content'>
-        <div id='head'>
-            <h1 id='logo'>KumbiaPHP</h1><div id='info-app'>web &amp; app Framework versión <?php echo kumbia_version() ?></div>
+        <div align="center">
+     <?php echo Html::img('logo.png','logo','width = 400 heigt = 200') ?> 
+ </div> <br>
+ 
+<!-- Partial del menu-->
+<div> <?php View::partial('kumbia/menuprincipal') ?></div>
+        
 
-            <div class='alignright'>
-                <p id='config'>
-                    <span class='app'><?php echo basename(dirname(APP_PATH)) ?></span>
-                    <?php echo Html::link('pages/show/kumbia/status/', 'Config', 'title="Ver configuración de la aplicación"') ?>
-                </p>
-             </div>
-        </div>
-
+        <!--Muestra la pagina correspondiente (vista)-->
+       
         <?php View::content(); ?>
-
+        <!--Muestra el footer-->
         <?php View::partial('kumbia/footer') ?>
     </div>
+   </div>
 </body>
 </html>

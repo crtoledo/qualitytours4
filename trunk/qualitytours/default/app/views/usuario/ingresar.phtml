@@ -1,0 +1,52 @@
+<div><?php View::content() ?></div> 
+
+<br>
+<fieldset>
+<?php echo Form::open('usuario/ingresar') ?>
+    <div align="center">
+        <h1> Regístrate en Qualitytours </h1>
+        <table>
+    <tr>
+        <td>Username:&nbsp;</td>
+        <td><?php echo Form::text('usuario.username_usu', "class='input-medium' placeholder='Username'") ?></td>
+    </tr>
+    <tr>
+        <td>Password:&nbsp;</td>
+        <td><?php echo Form::pass('usuario.password_usu', "class='input-medium' placeholder='Password'") ?></td>
+    </tr>
+
+    <tr>
+        <td>Nombre:&nbsp;</td>
+        <td><?php echo Form::text('usuario.nombre_usu',"class='input-medium'") ?></td>
+    </tr>
+    <tr>
+        <td>Apellido:&nbsp;</td>
+        <td><?php echo Form::text('usuario.apellido_usu',"class='input-medium'") ?></td>
+    </tr>
+    <tr>
+        <td>Rut:&nbsp;</td>
+        <td><?php echo Form::text('usuario.rut_usu',"class='input-medium' placeholder='ej: 6.765.223-1'") ?></td>
+    </tr>
+    <tr>
+        <td>E-mail:&nbsp;</td>
+        <td><?php echo Form::text('usuario.email_usu',"class='input-medium'") ?></td>
+    </tr>
+
+</table>
+    </div>
+    <div align="center">
+    <table>
+        <tr>
+            <td><?php echo Form::submit('Ingresar Usuario','class="btn btn-submit"') ?>&nbsp;</td>
+            <td><?php echo Form::reset('Reiniciar','class="btn btn-info"')?></td>
+        </tr>         
+    </table>
+   </div>
+
+ 
+<?php echo Form::hidden('usuario.estado_usu',null , 1); ?>
+<?php echo Form::hidden('usuario.rol_usu',null,'turista'); ?>
+
+<?php echo Form::close() ?> 
+    </fieldset>
+
