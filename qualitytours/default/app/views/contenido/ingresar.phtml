@@ -1,0 +1,35 @@
+
+<!-- captura de id  del usuario para enviarlo al controlador       -->
+<?php $id =  Auth::get('id'); 
+//captura del id de la publicacion
+$id_pub= $id_pub;
+?>
+
+<div align="center">
+    <table>
+        <tr>
+            <td>  <?php echo Form::openMultipart('contenido/ingresar') ?>
+                  Ingrese una imagen .jpg , .gif ó .png :
+                  <?php echo Form::file('imagen') ?>
+                  <?php echo Form::hidden('oculto') //para saber si se envió el form ?>
+                   
+            </td>      
+            
+        </tr>
+        <tr>
+            <td>  
+                <div align="center"> <?php echo  Form::submit('subir','class="btn btn-submit boton" ')  ?></div>
+                  <?php echo Form::close() ?>
+            </td>
+        </tr>
+         
+        
+    </table>
+</div>
+<br>
+
+
+<?php echo Form::hidden('contenido.id_pub',null , $id_pub); ?>
+<?php echo Form::hidden('contenido.id_usu',null , $id); ?>
+<?php echo Form::hidden('contenido.estado_con',null , 1); ?>
+<?php echo Form::close() ?> 

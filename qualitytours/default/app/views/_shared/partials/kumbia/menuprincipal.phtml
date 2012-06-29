@@ -1,0 +1,124 @@
+
+        <div class="navbar ">
+            <div class="navbar-inner">
+                <div class="container">
+
+                    <a class="brand" href="#">Quality Tours</a>
+                    
+                    <ul class="nav">
+                        
+<!--                        HOME-->
+                        <li class="active">
+                            <?php echo Html::link('index/','Home');?>
+                        </li>
+                        
+                        <!--LINK al Config-->
+                        <li><?php echo Html::link('pages/show/kumbia/status/', 'Config', 'title="Ver configuración de la aplicación"') ?></li>
+                        
+<!--                        BUSCAR-->
+                        <li><a href="#">Buscar</a></li>
+                        
+<!--                        CUENTA-->
+                        <li class="dropdown">
+                            <a href="#"
+                                class="dropdown-toggle"
+                                data-toggle="dropdown">
+                                Cuenta
+                                <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">1er link</a></li>
+                                <li><a href="#">2do link</a></li>
+                            </ul>
+                        </li>
+                        
+<!--                        Panel de administración-->
+                        <?php
+                        if(Auth::is_valid())
+                        {
+                            if (Session::get('rol_usu') == 'administrador')
+                            { ?>
+                                <li class="dropdown">
+                                    <a href="#"
+                                        class="dropdown-toggle"
+                                        data-toggle="dropdown">
+                                        Administraci&oacute;n
+                                        <b class="caret"></b>
+                                    </a>
+                                    
+                                    <ul class="dropdown-menu">
+                                        <li><?php echo Html::link('cliente/ingresar/','ingresar cliente');?></li>
+                                        <li><?php echo Html::link('publicacion/ingresar/','ingresar publicacion');?></li>
+                                        <li><?php echo Html::link('administrador/ingresar/','ingresar administrador');?></li>
+                                       
+                                    </ul>
+                                </li>
+                            <?php
+                            }
+                        }
+                        ?>
+                        
+                        
+                    </ul>
+                    
+                    <ul class="nav pull-right">
+                        
+<!--                        CAMPO DE BUSQUEDA-->
+                        <form class="navbar-search">
+                            <input type="text" class="search-query span2" placeholder="Buscar destinos">
+                        </form>
+                        
+
+<!--                        MENU INICIO/CIERRE DE SESION-->
+                            <li class="dropdown">
+                                <a href="#"
+                                    class="dropdown-toggle"
+                                    data-toggle="dropdown">
+                                    <?php
+                                    if(Auth::is_valid())
+                                    {
+                                        echo Auth::get('username_usu');
+                                    }
+                                    else
+                                    {
+                                        echo "Iniciar sesión";
+                                    }
+                                    ?>
+                                    <b class="caret"></b>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        
+                                        <?php
+                                        //Si el user esta loguedao se mostrará la opción para cerrar sesión en el menu desplegable
+                                        if(Auth::is_valid())
+                                        {
+                                            echo "<li>";
+                                            echo Html::link('usuario/cerrarsesion','Cerrar Sesión');
+                                            echo "</li>";
+                                        }
+                                        else
+                                        { //Si no esta logueado se mostrará el form para iniciar sesión
+                                            ?>
+                                        <?php echo Form::open('usuario/autenticar','post','class=navbar-form'); ?>
+                                            <center>
+                                                Usuario 
+                                                <?php echo Form::text("username_usu","class='span2'");?>
+                                                Contraseña 
+                                                <?php echo Form::pass("password_usu","class='span2'");?>
+                                                <?php echo Form::submit('Ingresar',"class='btn btn-primary'"); ?>
+                                                
+                                                <li>  <?php echo Html::link('usuario/ingresar/','Regístrate');?></li>
+                                            </center>
+                                        </form>
+                                        <?php } ?>
+                                        
+                                    </li>
+                                </ul>
+                            </li>
+                    </ul>
+                    
+                </div>
+            </div>
+            
+        </div>
