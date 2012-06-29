@@ -52,6 +52,8 @@ class PublicacionController extends AppController
                     if($publicacion->save())
                  {
                    Flash::success('Publicación ingresado satisfactoriamente');
+                   Input::delete();
+                   Router::redirect('/');
                  }
                 else
                  {
