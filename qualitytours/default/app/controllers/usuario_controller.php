@@ -23,7 +23,7 @@ class UsuarioController extends AppController
             else
             {
                 Flash::success('Usuario ingresado satisfactoriamente');
-
+                Router::redirect("/");
             }
 
             }
