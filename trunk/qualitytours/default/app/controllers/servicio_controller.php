@@ -50,7 +50,7 @@ class ServicioController extends AppController
                     }
                     else
                     {
-                        Flash::error('Error al publicar el servicio');
+                        Flash::info('Error al publicar el servicio');
                     }
                 
                 }           
