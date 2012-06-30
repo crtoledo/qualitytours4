@@ -1,32 +1,30 @@
-<div><?php View::content() ?></div> 
+<div><?php View::content(); ?></div> 
 
 <script type="text/javascript">
-    //Validación con jquery
-    //El siguiente script valida que los campos no estén vacios y el formato del RUT
-$(document).ready(function () {
-    
-    $(".boton").click(function (){
-        $(".errorVal").remove();
+    $(document).ready(function (){
         
-        if( $(".nombre").val() == "" ){
-            $(".nombre").focus().after("<span class='errorVal'>Ingrese el nombre del servicio</span>");
-            return false;
-        }else if( $(".precio").val() == "" ){
-            $(".precio").focus().after("<span class='errorVal'>Ingrese el precio unitario del servicio</span>");
-            return false;
-        }
-    });
-    
-    //Borrar mensaje de error si el usuario a llenado el campo nombre o precio del servicio
-    $(".nombre, .precio").keyup(function()
-    {
+        $(".boton").click(function(){
+            $(".errorVal").remove();
+            if($(".nombre").val() == "" ){
+                $(".nombre").focus().after("<span class='errorVal'>Ingrese el nombre del servicio</span>");
+                return false;
+            }else if($(".precio").val() == "" ){
+                $(".precio").focus().after("<span class='errorVal'>Ingrese el precio unitario del servicio</span>");
+                return false;
+            }
+        });
+        
+     //Borrar mensaje de error si el usuario a llenado el campo nombre o precio del servicio
+     $(".nombre, .precio").keyup(function (){
         if( $(this).val() != "" )
         {
             $(".errorVal").fadeOut();
             return false;
         }
-    });    
-
+     });   
+     
+ }); //Fin funcion principal
+  
 </script>
 
 <style>
@@ -69,8 +67,9 @@ $(document).ready(function () {
     <tr>
         <td>Detalle:&nbsp;</td>
         <td>
-            <?php View::partial('nicedit/nicEdit'); ?>
+            
             <?php echo Form::textarea('servicio.detalle_ser','rows=10 class="detalle"')?>
+            <?php View::partial('nicedit/nicEdit'); ?>
             
         </td>
     </tr>
