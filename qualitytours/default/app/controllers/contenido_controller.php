@@ -61,6 +61,7 @@ class ContenidoController extends AppController
                 if ($archivo->save())
                 {
                     Flash::valid('Imagen subida correctamente...!!!');
+                    Flash::info();
                     Router::redirect('/');
                 }
                 else
