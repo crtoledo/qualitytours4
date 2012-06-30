@@ -21,6 +21,21 @@
                 <td><?php echo "<div align='center'> <p align='left'>".$publicacion->detalle_pub."</div>"  ?></td>
             </tr>
             <tr>
+                <td>
+                    <?php   //BUCAR IMAGENES ASOCIADAS AL ID DE LA PUBLICACION 
+                           $imagen= Load::model('contenido')->find("conditions: id_pub=".$publicacion->id);
+                           foreach($imagen as $buscar)
+                           {
+                 
+                            
+                               echo  Html::img("../default/public/img/upload/".$buscar->ruta_con,"imagen");
+                           }
+                        
+                             
+                     ?>
+                      
+                </td>
+            <tr>
                 <td><?php echo "<div align='right'> <p align='right'><h5>Publicado el:&nbsp;".$publicacion->fecha_pub."</h5></div>"  ?></td>
             </tr>
             <!--                            generar espacion entre las publicaciones-->
