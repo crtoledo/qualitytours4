@@ -22,7 +22,7 @@ class PublicacionController extends AppController
             //verifica si el rol pertenece como corresponde
             else
             {
-                 if(Auth::get('rol_usu') != 'administrador')
+                 if(Auth::get('rol_usu') != 'administrador' && Auth::get('rol_usu') != 'cliente' )
                 {
                     Flash::info('No posee los privilegios necesarios');
 		    Router::redirect("/");
