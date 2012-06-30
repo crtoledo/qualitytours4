@@ -32,7 +32,31 @@
                             </ul>
                         </li>
                         
-<!--                        Panel de administración-->
+<!--                    Menu del cliente-->
+                        <?php
+                        if(Auth::is_valid())
+                        {
+                            if (Session::get('rol_usu') == 'cliente')
+                            { ?>
+                                <li class="dropdown">
+                                    <a href="#"
+                                        class="dropdown-toggle"
+                                        data-toggle="dropdown">
+                                        Cliente
+                                        <b class="caret"></b>
+                                    </a>
+                                    
+                                    <ul class="dropdown-menu">
+                                        <li><?php echo Html::link('servicio/ingresar/','Publicar servicio');?></li>
+                                       
+                                    </ul>
+                                </li>
+                            <?php
+                            }
+                        }
+                        ?>
+                        
+<!--                    Panel de administración-->
                         <?php
                         if(Auth::is_valid())
                         {
