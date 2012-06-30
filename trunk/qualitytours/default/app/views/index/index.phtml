@@ -1,7 +1,7 @@
 
 <!--Capturan los valores de la publicación-->
 
-<?php $arr= Load::model('publicacion')->find("conditions: estado_pub='t'"); ?>
+<?php $arr= Load::model('publicacion')->find("conditions: estado_pub='t'","order: id DESC"); ?>
 
      
 
@@ -28,7 +28,7 @@
                            {
                  
                             
-                               echo  Html::img("../default/public/img/upload/".$buscar->ruta_con,"imagen");
+                               echo  Html::img("../default/public/img/upload/".$buscar->ruta_con,"imagen","width='300' height='300'");
                            }
                         
                              
