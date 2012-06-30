@@ -56,9 +56,10 @@ class ContenidoController extends AppController
             //por defecto la libreria Upload trabaja con archivos...
             $archivo = Upload::factory('imagen', 'image'); 
             $archivo->setExtensions(array('jpg', 'png', 'gif'));//le asignamos las extensiones a permitir
+           
             if ($archivo->isUploaded()) 
             {
-                if ($archivo->save())
+                if ($archivo->saveRandom())
                 {
                     Flash::valid('Imagen subida correctamente...!!!');
                     Flash::info();
