@@ -1,0 +1,140 @@
+<?php 
+
+//NO BORRAR ESTE CODIGO HASTA QUE LA VISTA ESTE TERMINADA
+$regiones = array(
+    ""  => "-Seleccione Región",
+    
+    "XV"  => "Arica y Parinacota",
+    "I"   => "Tarapacá",
+    "II"  => "Antofagasta",
+    "III" => "Atacama",
+    "IV"  => "Coquimbo",
+    "V"   => "Valparaíso",
+    "RM"  => "Metropolitana",
+    "VI"  => "O'Higgins",
+    "VII" => "Maule",
+    "VIII"=> "Biobío",
+    "IX"  => "Araucanía",
+    "XIV" => "Los Ríos",
+    "X"   => "Los Lagos",
+    "XI"  => "Aysén",
+    "XII" => "Magallanes",
+);
+
+$ciudades_XV = array(
+    "" => "Seleccione Ciudad",
+    "Arica" => "Arica",
+);
+
+$ciudades_I = array(
+"Iquique" => "Iquique" ,
+"Alto Hospicio" => "Alto Hospicio" ,
+"Pozo Almonte" => "Pozo Almonte" ,
+);
+
+
+$ciudades_II = array(
+"Antofagasta" => "Antofagasta",
+"Calama" => "Calama",
+"Tocopilla" => "Tocopilla",
+"Taltal" => "Taltal",
+"Mejillones" => "Mejillones",
+"María Elena" => "María Elena",
+);
+
+?>
+
+<!--PARA GOOGLE MAPS COMIENZO-->
+<style type="text/css">
+  html { height: 100% }
+  body { height: 100%; margin: 0px; padding: 0px }
+  #map_canvas { height: 100% }
+</style>
+
+<meta name="viewport" content="initial-scale=1.0, user-scalable=yes" />
+
+<script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=false">
+//Esto carga el api de Google Maps
+</script>
+
+<script type="text/javascript">
+//Este código carga el mapa en santiago cuando el html se ha terminado
+//de ejecutar completamente
+var map;
+$(document).ready(function(){
+
+    var myOptions = {
+          zoom: 8,
+          center: new google.maps.LatLng(-33.45, -70.66),
+          mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+    map = new google.maps.Map(document.getElementById('map_canvas'),
+            myOptions);
+      
+});
+</script>
+<!--FIN CODIGO PARA GOOGLE MAPS-->
+
+<fieldset>
+    <div align="center">
+        <table>
+            <tr>
+                <td>Centro turístico:&nbsp;</td>
+                <td><?php echo $nombre_cliente; ?></td>
+            </tr>
+        </table>
+        <br><h6>Indique la ubicación de su destino turístico</h6>
+        <div id="map_canvas" style="width:400px; height:400px"></div>
+                
+    </div>
+</fieldset>
+    
+    
+ 
+<!-- ANTIGUO
+NO BORREN ESTE CODIGO POR MIENTRAS HASTA QUE LA VISTA ESTE COMPLETAMENTE
+LISTA
+<fieldset>
+    <?php echo Form::open('ubicacion/ingresar') ?>
+    <div align="center">
+        <h1> Ingrese la locación de su centro turístico </h1>
+        <table>
+            <tr>
+                <td>Centro turístico:&nbsp;</td>
+                <td><?php echo $nombre_cliente; ?></td>
+            </tr>        
+            <tr>
+                <td>Región:&nbsp;</td>
+                <td><?php echo Form::select('ubicacion.region_ubi',$regiones,"class='region'", '')?></td>
+            </tr>
+            <tr>
+                <td>Ciudad:&nbsp;</td>
+                <td><?php echo Form::text('cliente.rut_cli', "class='input-medium rut' placeholder='ej: 6.765.223-1'") ?></td>
+            </tr>
+            <tr>
+                <td>Giro:&nbsp;</td>
+                <td><?php echo Form::text('cliente.giro_cli', "class='input-medium giro' ") ?></td>
+            </tr>
+            <tr>
+                <td>Telefono:&nbsp;</td>
+                <td><?php echo Form::text('cliente.telefono_cli', "class='input-medium telefono'") ?></td>
+            </tr>
+
+        </table>
+    </div>
+    
+      
+    
+    <div align="center">
+        <table>
+            <tr>
+                <td><?php echo Form::submit('Ingresar Usuario', 'class="btn btn-submit boton"') ?>&nbsp;</td>
+                <td><?php echo Form::reset('Reiniciar', 'class="btn btn-info"') ?></td>
+            </tr>         
+        </table>
+    </div>
+    
+    <?php echo Form::close() ?> 
+</fieldset>
+FIN ANTIGUO
+-->
