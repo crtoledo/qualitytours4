@@ -1,5 +1,58 @@
 <div><?php View::content() ?></div> 
 
+<script type="text/javascript">
+    //Validación con jquery
+    //El siguiente script valida que los campos no estén vacios y el formato del RUT
+$(document).ready(function () {
+    
+    $(".boton").click(function (){
+        $(".errorVal").remove();
+        
+        if( $(".nombre").val() == "" ){
+            $(".nombre").focus().after("<span class='errorVal'>Ingrese el nombre del servicio</span>");
+            return false;
+        }else if( $(".precio").val() == "" ){
+            $(".precio").focus().after("<span class='errorVal'>Ingrese el precio unitario del servicio</span>");
+            return false;
+        }
+    });
+    
+    //Borrar mensaje de error si el usuario a llenado el campo nombre o precio del servicio
+    $(".nombre, .precio").keyup(function()
+    {
+        if( $(this).val() != "" )
+        {
+            $(".errorVal").fadeOut();
+            return false;
+        }
+    });    
+
+</script>
+
+<style>
+    .errorVal{
+    background-color: #BC1010;
+    padding: 6px 12px;
+    border-radius: 4px;
+    color: white;
+    font-weight: bold;
+    margin-left: 16px;
+    margin-top: 6px;
+    position: absolute;
+}
+.errorVal:before{ /* Este es un truco para crear una flechita */
+    content: '';
+    border-top: 8px solid transparent;
+    border-bottom: 8px solid transparent;
+    border-right: 8px solid #BC1010;
+    border-left: 8px solid transparent;
+    left: -16px;
+    position: absolute;
+    top: 5px;
+}
+</style>
+
+
 <fieldset>
 <?php echo Form::open('servicio/ingresar') ?>
     <div align="center">
@@ -11,13 +64,14 @@
     </tr>        
     <tr>
         <td>Nombre:&nbsp;</td>
-        <td><?php echo Form::text('servicio.nombre_ser', "class='input-medium nombre' placeholder='Titulo del servicio'") ?></td>
+        <td><?php echo Form::text('servicio.nombre_ser', "class='input-medium nombre' placeholder='Título del servicio'") ?></td>
     </tr>
     <tr>
         <td>Detalle:&nbsp;</td>
         <td>
-            <?php echo Form::textarea('servicio.detalle_ser','rows=10')?>
             <?php View::partial('nicedit/nicEdit'); ?>
+            <?php echo Form::textarea('servicio.detalle_ser','rows=10 class="detalle"')?>
+            
         </td>
     </tr>
     <tr>
@@ -28,7 +82,7 @@
     </div>
     <div align="center">
     <?php echo Form::hidden('servicio.estado_ser','','TRUE')?>
-    <?php echo Form::hidden('servicio.visitar_ser','',0)?>
+    <?php echo Form::hidden('servicio.visitas_ser','',0)?>
     <?php echo Form::hidden('servicio.id_usu','',Auth::get('id'))?>
     <table>
         <tr>
