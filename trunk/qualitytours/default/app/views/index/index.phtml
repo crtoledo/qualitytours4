@@ -9,9 +9,11 @@
   <div class="row-fluid">
     <div class="span8">
        
-        <?php foreach ($arr as $publicacion ) {?>
+        
         <div align="center">
         <table class='table-bordered'>
+        <?php foreach ($arr as $publicacion ) {?>
+        
             <tr>
                 <td><?php echo "<div align='center'> <h6>".$publicacion->titulo_pub."</h6></div><br>"  ?></td>
             </tr>
@@ -21,6 +23,15 @@
             <tr>
                 <td><?php echo "<div align='right'> <p align='right'><h5>Publicado el:&nbsp;".$publicacion->fecha_pub."</h5></div>"  ?></td>
             </tr>
+            <!--                            generar espacion entre las publicaciones-->
+           <tr>
+                 <td>&nbsp;</td>
+           </tr>
+            <!--                            generar espacion entre las publicaciones-->
+           <tr>
+                 <td>&nbsp;</td>
+            </tr>
+            
 <!--              Opcion del administrador-->
                         <?php
                         if(Auth::is_valid())
@@ -31,18 +42,22 @@
                                 <td><div align="right"> <?php  echo Html::link("publicacion/editar/".$publicacion->id,'Editar');?></div>  </td>
     
                             </tr>
-
-                            <?php
+                            
+                       <?php
                             }
                         }
                         ?>
                         
             
-        </table>
-        </div>    
+          
         
         <?php } ?>
-        
+
+                            
+                          
+        </table>
+            
+        </div>  
     </div>
     <div class="span2">
       <!--Body content-->
