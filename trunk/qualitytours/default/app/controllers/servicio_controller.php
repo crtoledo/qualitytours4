@@ -32,6 +32,11 @@ class ServicioController extends AppController
             //POSEE LOS PRIVILEGIOS
             else
             {
+                //Obtenemos el nombre del centro turístico
+                $cliente = new Cliente();
+                $cliente->find(Auth::get('id'));
+                $this->nombre_cliente = $cliente->nombre_cli; 
+                
                 //SI HAY DATOS PARA INGRESAR SALVARLOS A LA BD ENTRA AL IF
                 if (Input::hasPost('servicio'))
                 {
@@ -48,15 +53,7 @@ class ServicioController extends AppController
                         Flash::error('Error al publicar el servicio');
                     }
                 
-                }
-                //DE LO CONTRARIO OBTENEMOS EL NOMBRE DEL CLIENTE PARA EL FORM DE INGRESO
-                else
-                {
-                    $cliente = new Cliente();
-                    $cliente->find(Auth::get('id'));
-                    $this->nombre_cliente = $cliente->nombre_cli;   
-                }
-                
+                }           
                 
                 //Ingreso del servicio a la BD
             } 
