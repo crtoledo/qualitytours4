@@ -5,33 +5,34 @@
     //El siguiente script valida que los campos no estén vacios y el formato del RUT
 $(document).ready(function () {
     var rutreg = /^\d{1,2}\.\d{3}\.\d{3}[-][0-9kK]{1}$/;
+    var emailreg = /^[_a-z0-9-]+(.[_a-z0-9-]+)*@[a-z0-9-]+(.[a-z0-9-]+)*(.[a-z]{2,3})$/;
     $(".boton").click(function (){
         $(".errorVal").remove();
         
         
-         if( $(".nombre").val() == "" ){
-            $(".nombre").focus().after("<span class='errorVal'>Ingrese su nombre</span>");
+         if( $(".username").val() == "" ){
+            $(".username").focus().after("<span class='errorVal'>Ingrese username</span>");
             return false;
-        }else if( $(".rut").val() == "" || !rutreg.test($(".rut").val()) ){
-            $(".rut").focus().after("<span class='errorVal'>Ingrese un rut con puntos y guión</span>");
+        }else if( $(".password").val() == ""){
+            $(".password").focus().after("<span class='errorVal'>Ingrese  password</span>");
             return false;
-        }else if( $(".username").val() == ""){
-            $(".username").focus().after("<span class='errorVal'>Ingrese  username</span>");
+        }else if( $(".nombre").val() == ""){
+            $(".nombre").focus().after("<span class='errorVal'>Ingrese  nombre</span>");
             return false;
-        }else if( $(".password").val() == "" ){
-            $(".password").focus().after("<span class='errorVal'>Ingrese password</span>");
+        }else if( $(".apellido").val() == "" ){
+            $(".apellido").focus().after("<span class='errorVal'>Ingrese apellido</span>");
             return false;
-        } else if($(".apellido").val()== ""){
-           $(".apellido").focus().after("<span class='errorVal'>Ingrese apellido</span>");
-           return false;
-        }else if($(".email").val()== ""){
+        } else if( $(".rut").val() == "" || !rutreg.test($(".rut").val()) ){
+            $(".rut").focus().after("<span class='errorVal'>Ingrese rut correctamente</span>");
+            return false;
+        }else if($(".email").val() == "" || !emailreg.test($(".email").val()) ){
            $(".email").focus().after("<span class='errorVal'>Ingrese email</span>");
            return false;
         }
     });
     
     //Borrar mensaje de error si el usuario a llenado el campo
-    $(".nombre, .username, .password, .apellido,.rut, .email").keyup(function()
+    $(".nombre, .username, .password, .apellido").keyup(function()
     {
         if( $(this).val() != "" )
         {
@@ -41,9 +42,8 @@ $(document).ready(function () {
     });
     
     
-    //Para el caso del listbox, no se puede borrar el error de validación con keyup
-    //Ya que no es un textbox, usamos el metodo blur
-   
+    
+    
     
     //Borrar el mensaje de error si el usuario ingresa un rut con formato válido
     $(".rut").keyup(function()
@@ -55,7 +55,18 @@ $(document).ready(function () {
         }
     });
     
+    //borrar el mensaje de error si se ingresa un email valido
+    $(".email").keyup(function()
+    {
+        if( $(this).val() != "" && emailreg.test($(this).val()))
+        {
+            $(".errorVal").fadeOut();
+            return false;
+        }
+    });
     
+    
+
     
 });
 </script>
