@@ -582,12 +582,7 @@ dd {
   margin-left: 130px;
 }
 
-hr {
-  margin: 18px 0;
-  border: 0;
-  border-top: 1px solid #eeeeee;
-  border-bottom: 1px solid #ffffff;
-}
+
 
 strong {
   font-weight: bold;
@@ -4957,4 +4952,10 @@ a.badge:hover {
 
 .invisible {
   visibility: hidden;
+}
+hr, .hrcolor {
+   height: 1px;
+   border: 0;
+   color: #000;
+   background-color: #000000;
 }
