@@ -67,8 +67,16 @@
                                     $usuario->find($buscar->id_usu);
                                     $username = $usuario->username_usu;  
                             ?>        
-                            <div align="left">  <?php echo"<font color='#777777'>".$username."&nbsp; dice:</font><br>".$buscar->detalle_com."<br> <div align='right'><font color='#777777'>".$buscar->fecha_com."</font></div><hr>"; ?> </div>  
-                           <?php } ?>
+                            <div align="left">  <?php echo"<font color='#777777'>".$username."&nbsp; dice:</font><br>".$buscar->detalle_com."<br> <div align='right'><font color='#777777'>".$buscar->fecha_com."</font></div>"; ?> </div>  
+                            <?php if(Auth::get("id")== $buscar->id_usu) 
+                                  {?>
+                                     <?php echo  Html::link('comentario/eliminar/'.$buscar->id,'eliminar')?>
+                                   
+
+                            
+                            <?php } ?>
+                            <hr>
+                     <?php } ?>
 <!--                            FORMULARIO DE COMENTARIO-->
                            <?php echo Form::open('comentario/ingresar'); ?>
                            <center>   
@@ -97,7 +105,7 @@
                 </td>
             </tr>
              <?php
-                            }
+                        }
                         }
                         ?>
 <!--              Opcion del administrador-->
