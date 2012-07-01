@@ -1,7 +1,54 @@
-<?php
+<div><?php View::content() ?></div> 
 
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-?>
+<?php echo Form::open('usuario/buscar'); ?>
+    <div align="center">
+        <h1> Buscar usuarios </h1>
+        <table>
+            <tr>
+                <td>Seleccione el tipo de usuario:&nbsp;&nbsp;</td>
+                <td><?php echo Form::check('turista', '1');?> Turista&nbsp;&nbsp; 
+                <?php echo Form::check('cliente', '2');?> Centro turistico </td>
+            </tr>
+            <tr>
+                <td>Palabra clave </td>
+                <td><?php echo Form::text('usuario',"class='input-medium palabra' placeholder='Ingrese busqueda'") ?></td>
+            </tr>
+        </table>
+<?php echo Form::close(); ?>
+        
+<!--Resultado de la busqueda-->
+        <br>
+        <br>
+        <h4> Resultado de la busqueda </h4>
+        <br>
+        <table class="table table-condensed">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Username</th>
+                    <th>Nombre</th>
+                    <th>Apellido</th>
+                    <th>Email</th>
+                    <th> </th>
+                    <th> </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>Katto</td>
+                    <td>Cristian</td>
+                    <td>Toledo</td>
+                    <td>Ehijo</td>
+                    <td><?php echo Form::submit('Editar','class="btn btn-info boton"') ?></td>
+                    <td><?php echo Form::submit('Eliminar','class="btn btn-danger boton"') ?></td>
+                </tr
+            </tbody>
+        </table>
+    </div>
+
+
+            <tr>
+                <td> </td>
+                <td> </td>
+            </tr>
