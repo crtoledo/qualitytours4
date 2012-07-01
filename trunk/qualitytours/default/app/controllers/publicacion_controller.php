@@ -77,5 +77,12 @@ class PublicacionController extends AppController
         }
 
     }
+    public function editarpub($id)
+    {
+    
+       //se captura el id para futuros usos
+        $this->id_pub=$id;
+    }
+            
 }
 
