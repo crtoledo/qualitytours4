@@ -28,7 +28,7 @@
                            {
                  
                             
-                               echo  Html::img("../default/public/img/upload/".$buscar->ruta_con,"imagen");
+                               echo  Html::img("../default/public/img/upload/".$buscar->ruta_con,"imagen","width=300 heiht=200");
                            }
                         
                              
@@ -38,15 +38,24 @@
             <tr>
                 <td><?php echo "<div align='right'> <p align='right'><h5>Publicado el:&nbsp;".$publicacion->fecha_pub."</h5></div>"  ?></td>
             </tr>
-<!--            SECCION DE COMENTARIO-->
+            <?php
+                        if(Auth::is_valid())
+                        {
+                            if (Session::get('rol_usu') == 'administrador' || Session::get('rol_usu') == 'turista' || Session::get('rol_usu') == 'cliente')
+                        { ?>
+            
             <tr>
                 <td>
                     <div align="right">
                     <ul class="nav nav-pills nav-stacked">
                       
                         <li class="dropdown active">
-                             <a class="dropdown-toggle"data-toggle="dropdown"href="#">
-                            Comentar                              
+<!--                            SE CUENTAN LOS COMENTARIOS-->
+                             <?php $contador = Load::model('comentario')->count("estado_com = 't' and id_pub=".$publicacion->id);?>
+                          <a class="dropdown-toggle"data-toggle="dropdown"href="#">
+                         
+                             <?php echo $contador ?> comentarios - Comentar     
+                            
                          <b class="caret active"></b>
                        </a>
                             
@@ -57,12 +66,31 @@
                              <div align="right">
                                 <ul class="dropdown-menu">
                                     <li>
-                                        
-                                        
-                                        <?php echo Form::open('comentario/ingresar'); ?>
-                                            <center>
+<!--                         SECCION DE LISTAR COMENTARIOS-->
+                                     
+                            <?php  
+                           $comentario= Load::model('comentario')->find("conditions: estado_com='t' and id_pub=".$publicacion->id);
+                           
+                           foreach($comentario as $buscar)
+                             
+                           { ?>
+                                   
+                           <?php 
+//                             CAPTURAR EL NOMBRE DE USUARIO
+                                    Load::model('usuario');
+                                    $usuario = new Usuario();
+                                    $usuario->find($buscar->id_usu);
+                                    $username = $usuario->username_usu;  
+                            ?>        
+                                <div align="left">  <?php echo"<font color='#777777'>".$username."&nbsp; dice:</font><br>".$buscar->detalle_com."<hr>"; ?> </div>  
+    
+                              <br>
+                     <?php } ?>
+
+                              <?php echo Form::open('comentario/ingresar'); ?>
+                                 <center>
                                                 
-                                                <?php echo Form::textarea("comentario.detalle_com");?>
+                              <?php echo Form::textarea("comentario.detalle_com");?>
                                                 
                                                
                                                 <?php echo Form::submit('Comentar',"class='btn btn-primary boton'"); ?>
@@ -91,6 +119,11 @@
                     
                 </td>
             </tr>
+             <?php
+                            }
+                        }
+                        ?>
+                        
                 
             <!--                            generar espacion entre las publicaciones-->
            <tr>
