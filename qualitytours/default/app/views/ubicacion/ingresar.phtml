@@ -60,6 +60,7 @@ $ciudades_II = array(
 <script type="text/javascript">
 //Este código carga el mapa en santiago cuando el html se ha terminado
 //de ejecutar completamente
+//FUNCTION INITIALIZE
 var map;
 $(document).ready(function(){
 
@@ -71,7 +72,48 @@ $(document).ready(function(){
     map = new google.maps.Map(document.getElementById('map_canvas'),
             myOptions);
       
+    google.maps.event.addListener(map, 'click', function(event) {
+    //AÑADIMOS EL MARCADOR
+    addMarker(event.latLng);
+    
+    //Modificamos los campos de latitud y longitud
+    document.getElementById('ubicacion_latitud_ubi').disabled=false;
+    document.getElementById("ubicacion_latitud_ubi").value = event.latLng.lat();
+    document.getElementById('ubicacion_latitud_ubi').disabled=true;
+    
+    document.getElementById('ubicacion_longitud_ubi').disabled=false;
+    document.getElementById("ubicacion_longitud_ubi").value = event.latLng.lng();
+    document.getElementById('ubicacion_longitud_ubi').disabled=true;
+    
+  });
+  
 });
+</script>
+
+<script type="text/javascript">
+    
+    function addMarker(location) {
+        //deleteOverlays();
+        marker = new google.maps.Marker({
+            position: location,
+            map: map,
+            title:"<?php echo $nombre_cliente ?>"
+        });
+       //REVISAR ESTA LINEA PORQUE ME DA UN ERROR
+       // markersArray.push(marker); 
+        
+    }
+    
+    function deleteOverlays() {
+    if (markersArray) {
+        for (i in markersArray) {
+            markersArray[i].setMap(null);
+        }
+        markersArray.length = 0;
+    }
+      
+}
+    
 </script>
 <!--FIN CODIGO PARA GOOGLE MAPS-->
 
@@ -84,7 +126,16 @@ $(document).ready(function(){
             </tr>
         </table>
         <br><h6>Indique la ubicación de su destino turístico</h6>
+        
         <div id="map_canvas" style="width:400px; height:400px"></div>
+        
+        <table>
+            <tr>
+                <td><?php echo Form::text('ubicacion.latitud_ubi','class="latitud" disabled="true"','')?></td>
+                <td><?php echo Form::text('ubicacion.longitud_ubi','class="longitud" disabled="true"','')?></td>
+            </tr>
+        </table>
+        
                 
     </div>
 </fieldset>
