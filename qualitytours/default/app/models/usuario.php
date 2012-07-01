@@ -28,6 +28,21 @@ class Usuario extends ActiveRecord
      //la expresion regular original es ^\d{1,2}\.\d{3}\.\d{3}[-][0-9kK]{1}$
      //pero por alguna razón kumbia necesita que se le agregue ^ al final
     }
+    
+    public function getdatosusuarios($page,$datoabuscar, $ppage=10)
+    {
+       return $this->paginate("username_usu LIKE '%".$datoabuscar."%' and estado_usu=TRUE and rol_usu='turista'" ,"page: $page", "per_page: $ppage");
+    }
+    
+    public function getdatosclientes($page,$datoabuscar, $ppage=10)
+    {
+       return $this->paginate("username_usu LIKE '%".$datoabuscar."%' and estado_usu=TRUE and rol_usu='cliente'" ,"page: $page", "per_page: $ppage");
+    }
+    
+    public function getdatosambos($page,$datoabuscar, $ppage=10)
+    {
+       return $this->paginate("username_usu LIKE '%".$datoabuscar."%' and estado_usu=TRUE" ,"page: $page", "per_page: $ppage");
+    }
 
 }
 ?>

@@ -1,4 +1,59 @@
 <div><?php View::content() ?></div> 
+<script type="text/javascript">
+    //Validación con jquery
+    //El siguiente script valida que los campos no estén vacios y el formato del RUT
+$(document).ready(function () {
+    $(".boton").click(function (){
+        $(".errorVal").remove();
+        
+        
+         if( $(".palabra").val() == "" ){
+            $(".palabra").focus().after("<span class='errorVal'>Ingrese username a buscar</span>");
+            return false;
+        }
+    });
+    
+    //Borrar mensaje de error si el usuario a llenado el campo
+    $(".palabra").keyup(function()
+    {
+        if( $(this).val() != "" )
+        {
+            $(".errorVal").fadeOut();
+            return false;
+        }
+    });
+ 
+});
+</script>
+
+<!--
+El CSS a continuación da estilo a los mensaje de error en la validación
+, no se usó "error" ya que kumbia ya tiene un estilo para esa clase, en su
+reemplazo se uso 'errorVal'.
+-->
+
+<style>
+    .errorVal{
+    background-color: #BC1010;
+    padding: 6px 12px;
+    border-radius: 4px;
+    color: white;
+    font-weight: bold;
+    margin-left: 16px;
+    margin-top: 6px;
+    position: absolute;
+}
+.errorVal:before{ /* Este es un truco para crear una flechita */
+    content: '';
+    border-top: 8px solid transparent;
+    border-bottom: 8px solid transparent;
+    border-right: 8px solid #BC1010;
+    border-left: 8px solid transparent;
+    left: -16px;
+    position: absolute;
+    top: 5px;
+}
+</style>
 
 <?php echo Form::open('usuario/buscar'); ?>
     <div align="center">
@@ -6,15 +61,18 @@
         <table>
             <tr>
                 <td>Seleccione el tipo de usuario:&nbsp;&nbsp;</td>
-                <td><?php echo Form::check('turista', '1');?> Turista&nbsp;&nbsp; 
-                <?php echo Form::check('cliente', '2');?> Centro turistico </td>
+                <td><?php echo Form::radio('eleccion', 'turista', null, true);?> Turista&nbsp;&nbsp; 
+                    <?php echo Form::radio('eleccion', 'cliente');?> Centro turistico&nbsp;&nbsp; 
+                    <?php echo Form::radio('eleccion', 'ambos');?> Ambos</td><br>
             </tr>
             <tr>
                 <td>Palabra clave </td>
-                <td><?php echo Form::text('usuario',"class='input-medium palabra' placeholder='Ingrese busqueda'") ?></td>
+                <td><?php echo Form::text('usuario',"class='span3 palabra' placeholder='Ingrese username'") ?></td>
             </tr>
         </table>
+        <?php echo Form::submit('Buscar','class="btn btn-primary boton"') ;?>
 <?php echo Form::close(); ?>
+        
         
 <!--Resultado de la busqueda-->
         <br>
@@ -24,31 +82,49 @@
         <table class="table table-condensed">
             <thead>
                 <tr>
-                    <th>#</th>
+                    <th>id</th>
                     <th>Username</th>
                     <th>Nombre</th>
                     <th>Apellido</th>
                     <th>Email</th>
+                    <th>Tipo </th>
                     <th> </th>
                     <th> </th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>Katto</td>
+                <?php if($tabla_activada == '1') {?>
+                <?php
+                    foreach($listaobtenida->items as $item) :
+                        $id_usu = $item->id;
+                        $username = $item->username_usu;
+                        $nombre = $item->nombre_usu;
+                        $apellido = $item->apellido_usu;
+                        $email = $item->email_usu;
+                        $tipo_usuario = $item->rol_usu;
+                        echo '<tr>';
+                        echo '<td>'.$id_usu.'</td>';
+                        echo '<td>'.$username.'</td>';
+                        echo '<td>'.$nombre.'</td>';
+                        echo '<td>'.$apellido.'</td>';
+                        echo '<td>'.$email.'</td>';
+                        echo '<td>'.$tipo_usuario.'</td>';
+                        echo '<td>'. Form::submit('Editar','class="btn btn-info boton"').'</td>';
+                        echo '<td>'. Form::submit('Eliminar','class="btn btn-danger boton"').'</td>';
+                        echo '</tr>';
+                    endforeach; ?>
+<!--                <td>1</td>
+                    <td><?php ?></td>
                     <td>Cristian</td>
                     <td>Toledo</td>
                     <td>Ehijo</td>
-                    <td><?php echo Form::submit('Editar','class="btn btn-info boton"') ?></td>
-                    <td><?php echo Form::submit('Eliminar','class="btn btn-danger boton"') ?></td>
-                </tr
+                    <td><?php //echo Form::submit('Editar','class="btn btn-info boton"') ?></td>
+                    <td><?php //echo Form::submit('Eliminar','class="btn btn-danger boton"') ?></td>-->
+                <?php } ?>
             </tbody>
         </table>
-    </div>
-
-
-            <tr>
-                <td> </td>
-                <td> </td>
-            </tr>
+        <?php if($tabla_activada == '1') {
+        if($listaobtenida->prev) echo Html::linkAction("buscar/$listaobtenida->prev/2/$datoabuscarr/$opcionn", '<< Anterior |');
+        if($listaobtenida->next) echo Html::linkAction("buscar/$listaobtenida->next/2/$datoabuscarr/$opcionn", 'Próximo >>'); 
+        }?>
+     </div>
