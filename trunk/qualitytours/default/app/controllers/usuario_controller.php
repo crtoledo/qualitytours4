@@ -28,6 +28,18 @@ class UsuarioController extends AppController
 
             }
         } 
+        
+        
+    public function modificar(){
+        
+    }
+    
+    
+    public function buscar(){
+        
+    }
+    
+    
     
     public function admin(){
         
