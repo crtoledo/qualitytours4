@@ -22,17 +22,14 @@
             </tr>
             <tr>
                 <td>
-                    <?php   //BUCAR IMAGENES ASOCIADAS AL ID DE LA PUBLICACION 
-                           $imagen= Load::model('contenido')->find("conditions: id_pub=".$publicacion->id);
-                           foreach($imagen as $buscar)
-                           {
-                 
-                            
-                               echo  Html::img("../default/public/img/upload/".$buscar->ruta_con,"imagen","width=300 heiht=200");
-                           }
-                        
+                  <?php   //BUCAR IMAGENES ASOCIADAS AL ID DE LA PUBLICACION 
+                      $imagen= Load::model('contenido')->find("conditions: id_pub=".$publicacion->id);
+                       foreach($imagen as $buscar)
+                       {
+                           echo  Html::img("../default/public/img/upload/".$buscar->ruta_con,"imagen","width=300 heiht=200");
+                       }    
                              
-                     ?>
+                  ?>
                       
                 </td>
             <tr>
@@ -45,36 +42,28 @@
                         { ?>
             
             <tr>
-                <td>
-                    <div align="right">
-                    <ul class="nav nav-pills nav-stacked">
-                      
-                        <li class="dropdown active">
+            <td>
+               <div align="right">
+               <ul class="nav nav-pills nav-stacked">
+                  <li class="dropdown active">
 <!--                            SE CUENTAN LOS COMENTARIOS-->
-                             <?php $contador = Load::model('comentario')->count("estado_com = 't' and id_pub=".$publicacion->id);?>
+                        <?php $contador = Load::model('comentario')->count("estado_com = 't' and id_pub=".$publicacion->id);?>
                           <a class="dropdown-toggle"data-toggle="dropdown"href="#">
-                         
-                             <?php echo $contador ?> comentarios - Comentar     
-                            
-                         <b class="caret active"></b>
-                       </a>
-                            
+                        <?php echo $contador ?> comentarios - Comentar      
+                          <b class="caret active"></b>
+                          </a>   
                        <ul class="dropdown-menu active">
 <!--                           FORMULARIO DE COMENTARIO!-->
                            
-                         <li class="dropdown">
-                             <div align="right">
-                                <ul class="dropdown-menu">
-                                    <li>
-<!--                         SECCION DE LISTAR COMENTARIOS-->
-                                     
-                            <?php  
+                       <li class="dropdown">
+                       <div align="right">
+                       <ul class="dropdown-menu">
+                   <li>
+<!--                         SECCION DE LISTAR COMENTARIOS-->       
+                           <?php  
                            $comentario= Load::model('comentario')->find("conditions: estado_com='t' and id_pub=".$publicacion->id);
-                           
-                           foreach($comentario as $buscar)
-                             
-                           { ?>
-                                   
+                           foreach($comentario as $buscar) 
+                           {?>    
                            <?php 
 //                             CAPTURAR EL NOMBRE DE USUARIO
                                     Load::model('usuario');
@@ -82,58 +71,32 @@
                                     $usuario->find($buscar->id_usu);
                                     $username = $usuario->username_usu;  
                             ?>        
-                                <div align="left">  <?php echo"<font color='#777777'>".$username."&nbsp; dice:</font><br>".$buscar->detalle_com."<hr>"; ?> </div>  
-    
-                              <br>
-                     <?php } ?>
-
-                              <?php echo Form::open('comentario/ingresar'); ?>
-                                 <center>
+                            <div align="left">  <?php echo"<font color='#777777'>".$username."&nbsp; dice:</font><br>".$buscar->detalle_com."<hr>"; ?> </div>  
+                           <?php } ?>
+<!--                            FORMULARIO DE COMENTARIO-->
+                           <?php echo Form::open('comentario/ingresar'); ?>
+                           <center>               
+                                 <?php echo Form::textarea("comentario.detalle_com");?>
+                                 <?php echo Form::submit('Comentar',"class='btn btn-primary boton'"); ?>
+                                 <?php echo Form::hidden('comentario.id_pub',null , $publicacion->id); ?>
+                                 <?php echo Form::hidden('comentario.id_usu',null , Auth::get('id')); ?>
+                                 <?php echo Form::hidden('comentario.estado_com',null , 1); ?>
                                                 
-                              <?php echo Form::textarea("comentario.detalle_com");?>
-                                                
-                                               
-                                                <?php echo Form::submit('Comentar',"class='btn btn-primary boton'"); ?>
-                                                <?php echo Form::hidden('comentario.id_pub',null , $publicacion->id); ?>
-                                                <?php echo Form::hidden('comentario.id_usu',null , Auth::get('id')); ?>
-                                                <?php echo Form::hidden('comentario.estado_com',null , 1); ?>
-                                                
-                                                <?php Form::close(); ?>
-                                                
-                                            </center>
-                                        </form>
-                                        
-                                        
-                                    </li>
+                           <?php Form::close(); ?>   
+                           </center>       
+                            </li>
                                 </ul>
                              </div>  
-                            </li>
-                           
-                       </ul>
-                      
-                      </li>
-                      </div>
-                        
-                    </ul>
-                     
-                    
+                           </li>
+                      </ul>
+                    </li>
+                  </div>
                 </td>
             </tr>
              <?php
                             }
                         }
                         ?>
-                        
-                
-            <!--                            generar espacion entre las publicaciones-->
-           <tr>
-                 <td>&nbsp;</td>
-           </tr>
-            <!--                            generar espacion entre las publicaciones-->
-           <tr>
-                 <td>&nbsp;</td>
-            </tr>
-            
 <!--              Opcion del administrador-->
                         <?php
                         if(Auth::is_valid())
@@ -145,7 +108,7 @@
     
                             </tr>
                             
-                       <?php
+                        <?php
                             }
                         }
                         ?>

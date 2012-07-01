@@ -130,3 +130,9 @@ color: #8A6F5C;
 #conf p {
 color: #15428b;
 }
+hr, .hrcolor {
+   height: 1px;
+   border: 0;
+   color: #666;
+   background-color: #32d7e6;
+}
