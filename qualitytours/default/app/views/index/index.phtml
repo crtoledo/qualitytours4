@@ -1,10 +1,6 @@
 
 <!--Capturan los valores de la publicación-->
-
 <?php $arr= Load::model('publicacion')->find("conditions: estado_pub='t'","order: id DESC"); ?>
-
-     
-
 <div class="container-fluid">
   <div class="row-fluid">
     <div class="span10">
@@ -71,16 +67,23 @@
                                     $usuario->find($buscar->id_usu);
                                     $username = $usuario->username_usu;  
                             ?>        
-                            <div align="left">  <?php echo"<font color='#777777'>".$username."&nbsp; dice:</font><br>".$buscar->detalle_com."<hr>"; ?> </div>  
+                            <div align="left">  <?php echo"<font color='#777777'>".$username."&nbsp; dice:</font><br>".$buscar->detalle_com."<br> <div align='right'><font color='#777777'>".$buscar->fecha_com."</font></div><hr>"; ?> </div>  
                            <?php } ?>
 <!--                            FORMULARIO DE COMENTARIO-->
                            <?php echo Form::open('comentario/ingresar'); ?>
-                           <center>               
+                           <center>   
+                                 <?php
+                                 $Fecha= date('d-m-Y');
+                                 //$Hora= date('H:i:s');
+                                //futuro uso  $cadena = $Fecha.$Hora;
+                                 ?>
+                               
                                  <?php echo Form::textarea("comentario.detalle_com");?>
                                  <?php echo Form::submit('Comentar',"class='btn btn-primary boton'"); ?>
                                  <?php echo Form::hidden('comentario.id_pub',null , $publicacion->id); ?>
                                  <?php echo Form::hidden('comentario.id_usu',null , Auth::get('id')); ?>
                                  <?php echo Form::hidden('comentario.estado_com',null , 1); ?>
+                                 <?php echo Form::hidden('comentario.fecha_com',null , $Fecha); ?>
                                                 
                            <?php Form::close(); ?>   
                            </center>       
