@@ -62,6 +62,7 @@ $ciudades_II = array(
 //de ejecutar completamente
 //FUNCTION INITIALIZE
 var map;
+var markersArray = [];
 $(document).ready(function(){
 
     var myOptions = {
@@ -93,17 +94,18 @@ $(document).ready(function(){
 <script type="text/javascript">
     
     function addMarker(location) {
-        //deleteOverlays();
+        deleteOverlays(); //LIMPIAMOS MARCADORES ANTERIORES
         marker = new google.maps.Marker({
             position: location,
             map: map,
             title:"<?php echo $nombre_cliente ?>"
         });
-       //REVISAR ESTA LINEA PORQUE ME DA UN ERROR
-       // markersArray.push(marker); 
+       
+        markersArray.push(marker); 
         
     }
     
+    //LIMPIA EL ARRAY DE MARCADORES
     function deleteOverlays() {
     if (markersArray) {
         for (i in markersArray) {
