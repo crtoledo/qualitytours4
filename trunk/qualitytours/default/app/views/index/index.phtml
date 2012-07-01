@@ -28,7 +28,7 @@
                            {
                  
                             
-                               echo  Html::img("../default/public/img/upload/".$buscar->ruta_con,"imagen","width='300' height='300'");
+                               echo  Html::img("../default/public/img/upload/".$buscar->ruta_con,"imagen");
                            }
                         
                              
@@ -38,6 +38,60 @@
             <tr>
                 <td><?php echo "<div align='right'> <p align='right'><h5>Publicado el:&nbsp;".$publicacion->fecha_pub."</h5></div>"  ?></td>
             </tr>
+<!--            SECCION DE COMENTARIO-->
+            <tr>
+                <td>
+                    <div align="right">
+                    <ul class="nav nav-pills nav-stacked">
+                      
+                        <li class="dropdown active">
+                             <a class="dropdown-toggle"data-toggle="dropdown"href="#">
+                            Comentar                              
+                         <b class="caret active"></b>
+                       </a>
+                            
+                       <ul class="dropdown-menu active">
+<!--                           FORMULARIO DE COMENTARIO!-->
+                           
+                         <li class="dropdown">
+                             <div align="right">
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        
+                                        
+                                        <?php echo Form::open('comentario/ingresar'); ?>
+                                            <center>
+                                                
+                                                <?php echo Form::textarea("comentario.detalle_com");?>
+                                                
+                                               
+                                                <?php echo Form::submit('Comentar',"class='btn btn-primary boton'"); ?>
+                                                <?php echo Form::hidden('comentario.id_pub',null , $publicacion->id); ?>
+                                                <?php echo Form::hidden('comentario.id_usu',null , Auth::get('id')); ?>
+                                                <?php echo Form::hidden('comentario.estado_com',null , 1); ?>
+                                                
+                                                <?php Form::close(); ?>
+                                                
+                                            </center>
+                                        </form>
+                                        
+                                        
+                                    </li>
+                                </ul>
+                             </div>  
+                            </li>
+                           
+                       </ul>
+                      
+                      </li>
+                      </div>
+                        
+                    </ul>
+                     
+                    
+                </td>
+            </tr>
+                
             <!--                            generar espacion entre las publicaciones-->
            <tr>
                  <td>&nbsp;</td>
