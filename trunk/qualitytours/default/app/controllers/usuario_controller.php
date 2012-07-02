@@ -44,6 +44,8 @@ class UsuarioController extends AppController
     public function buscar($page=1, $paginador_activado=1,$datoguardado=1,$opcion='nada'){
         if(Auth::is_valid())
         {
+          if(Auth::get('rol_usu')== 'administrador')
+           {
             if(input::hasPost('usuario'))
             {
                 $this->tabla_activada='1';
@@ -54,6 +56,7 @@ class UsuarioController extends AppController
                 {
                     $obtenerdatos = new Usuario();
                     $this->listaobtenida = $obtenerdatos->getdatosusuarios($page,$palabraclave);
+                    //campos para paginar
                     $this->datoabuscarr = $palabraclave;
                     $this->opcionn = $opciondebusqueda;
                 }
@@ -61,6 +64,7 @@ class UsuarioController extends AppController
                 {
                     $obtenerdatos = new Usuario();
                     $this->listaobtenida = $obtenerdatos->getdatosclientes($page,$palabraclave);
+                    //campos para paginar
                     $this->datoabuscarr = $palabraclave;
                     $this->opcionn = $opciondebusqueda;                    
                 }
@@ -68,9 +72,11 @@ class UsuarioController extends AppController
                 {
                     $obtenerdatos = new Usuario();
                     $this->listaobtenida = $obtenerdatos->getdatosambos($page,$palabraclave);
+                    //campos para paginar
                     $this->datoabuscarr = $palabraclave;
                     $this->opcionn = $opciondebusqueda;                      
                 }
+                // funcionara cuando se active la paginacion
                    else if($paginador_activado == 2 )
                     {
                        $this->opcionn = $opcion;
@@ -96,8 +102,12 @@ class UsuarioController extends AppController
                             $this->opcionn = $opcion;
                        }    
                     }                
-                
+                }   
             }
+            else
+            {
+                Router::redirect("/");
+            } 
         }
         else
         {
@@ -109,6 +119,39 @@ class UsuarioController extends AppController
     
     public function admin(){
         
+    }
+
+    
+    public function eliminar($id){
+       if(Auth::is_valid())
+        {
+           if(Auth::get('rol_usu')== 'administrador')
+           {
+                //problemas tabla cliente y usuario
+                $algo = $id;
+                $usuarioaeliminar = new Usuario;
+                $usuario = $usuarioaeliminar->find($id);
+                $usuario->estado_usu = 'False';
+
+                if ($usuario->update())
+                {
+
+                }
+                else
+                {
+                    Flash::error('No se puede eliminar');
+                }
+           }
+           else
+           {
+                Flash::info('No posee los privilegios necesarios');
+                Router::redirect("/");
+           }
+        }
+       else
+        {
+            Router::redirect("/");
+        }
     }
             
     

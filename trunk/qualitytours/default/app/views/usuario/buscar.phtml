@@ -6,13 +6,12 @@ $(document).ready(function () {
     $(".boton").click(function (){
         $(".errorVal").remove();
         
-        
          if( $(".palabra").val() == "" ){
             $(".palabra").focus().after("<span class='errorVal'>Ingrese username a buscar</span>");
             return false;
         }
     });
-    
+     
     //Borrar mensaje de error si el usuario a llenado el campo
     $(".palabra").keyup(function()
     {
@@ -22,7 +21,19 @@ $(document).ready(function () {
             return false;
         }
     });
- 
+    
+    //boton de confirmacion
+    $('.eliminar').confirm({
+      timeout:3000,
+      msg:'Desea eliminar&nbsp;',
+      dialogShow:'fadeIn',
+      dialogSpeed:'slow',
+      buttons: {
+        wrapper:'<button class="btn btn-info" value="Si"></button>',
+        separator:'  '
+      }  
+    });
+    
 });
 </script>
 
@@ -109,22 +120,18 @@ reemplazo se uso 'errorVal'.
                         echo '<td>'.$apellido.'</td>';
                         echo '<td>'.$email.'</td>';
                         echo '<td>'.$tipo_usuario.'</td>';
-                        echo '<td>'. Form::submit('Editar','class="btn btn-info boton"').'</td>';
-                        echo '<td>'. Form::submit('Eliminar','class="btn btn-danger boton"').'</td>';
+                        echo '<td>'. Form::button('Modificar','class="btn btn-info boton"').'</td>'; 
+                        echo Form::open('usuario/eliminar/'.$id_usu); 
+                        echo '<td>'. Form::submit('Eliminar','class= "btn btn-danger eliminar"').'</td>';
+                        echo Form::close(); 
+                        //echo '<td>'.'<a class="btn eliminar" onclick=”return confirm("¿Está seguro?");>Launch Modal</a>'.'</td>';
                         echo '</tr>';
                     endforeach; ?>
-<!--                <td>1</td>
-                    <td><?php ?></td>
-                    <td>Cristian</td>
-                    <td>Toledo</td>
-                    <td>Ehijo</td>
-                    <td><?php //echo Form::submit('Editar','class="btn btn-info boton"') ?></td>
-                    <td><?php //echo Form::submit('Eliminar','class="btn btn-danger boton"') ?></td>-->
                 <?php } ?>
             </tbody>
         </table>
-        <?php if($tabla_activada == '1') {
-        if($listaobtenida->prev) echo Html::linkAction("buscar/$listaobtenida->prev/2/$datoabuscarr/$opcionn", '<< Anterior |');
-        if($listaobtenida->next) echo Html::linkAction("buscar/$listaobtenida->next/2/$datoabuscarr/$opcionn", 'Próximo >>'); 
-        }?>
+        <?php //if($tabla_activada == '1') {
+        //if($listaobtenida->prev) echo Html::linkAction("buscar/$listaobtenida->prev/2/$datoabuscarr/$opcionn", '<< Anterior |');
+        //if($listaobtenida->next) echo Html::linkAction("buscar/$listaobtenida->next/2/$datoabuscarr/$opcionn", 'Próximo >>'); 
+        //}?>
      </div>
