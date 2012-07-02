@@ -85,15 +85,47 @@ $(document).ready(function(){
     document.getElementById('ubicacion_longitud_ubi').disabled=false;
     document.getElementById("ubicacion_longitud_ubi").value = event.latLng.lng();
     document.getElementById('ubicacion_longitud_ubi').disabled=true;
+ 
     
   });
   
 });
 </script>
 
+
+
+
+<script type="text/javascript"> //OBTENCION DE LA DIRECCION BOTON OBTENER DIRECCION
+    $(document).ready(function(){
+        //Al presionar el boton se ejecutará lo siguiente
+        $(".json-direccion").click(function (){
+            
+            //Obtenemos las coordenadas del marcador
+            var lat =  document.getElementById("ubicacion_latitud_ubi").value;
+            var lng =  document.getElementById("ubicacion_longitud_ubi").value;
+            
+            //Dandole formato a nuestras coordenadas
+            var latlng = new google.maps.LatLng(lat,lng);
+            
+            //Consultamos la dirección de nuestras coordenadas
+            var geocoder = new google.maps.Geocoder();
+            geocoder.geocode( {'latLng': latlng },
+            function(data, status) 
+            { 
+                console.log(data); //Linea para analizar el objeto que devuelve
+                $(".tablaform").after("<br>"+data[0].formatted_address); 
+            });
+
+
+        });
+    });
+
+</script>
+
 <script type="text/javascript">
-    
-    function addMarker(location) {
+    //MANEJO DE MARCADORES EN EL MAPA
+
+function addMarker(location) {
         deleteOverlays(); //LIMPIAMOS MARCADORES ANTERIORES
         marker = new google.maps.Marker({
             position: location,
@@ -131,10 +163,15 @@ $(document).ready(function(){
         
         <div id="map_canvas" style="width:400px; height:400px"></div>
         
-        <table>
+        <table class="tablaform">
             <tr>
                 <td><?php echo Form::text('ubicacion.latitud_ubi','class="latitud" disabled="true"','')?></td>
                 <td><?php echo Form::text('ubicacion.longitud_ubi','class="longitud" disabled="true"','')?></td>
+            </tr>
+            <tr>
+                <td>
+                    <?php echo Form::button('Obtener direccion','class="json-direccion btn btn-inf"')?>
+                </td>
             </tr>
         </table>
         
