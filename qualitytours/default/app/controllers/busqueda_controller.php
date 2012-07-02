@@ -14,6 +14,11 @@ class BusquedaController extends AppController
     {
         
     }
+    public function buscando($buscar)
+    {
+        $this->busqueda = $buscar;
+       // Router::redirect("busqueda/buscando/".$busqueda);
+    }
     
   
     
