@@ -69,12 +69,15 @@ class PublicacionController extends AppController
     
   
     
-    public function borrar()
+    public function eliminar($id)
     {
-        if(Input::hasPost('publicacion'))
-        {
-            
-        }
+       $publicacion = new Publicacion();
+       if($publicacion->sql("update Publicacion set estado_pub='f' where id=".$id))
+       {
+           Flash::success('Publicación eliminada');
+	   Router::redirect("/");
+       }
+               
 
     }
     public function editarpub($id)
