@@ -1,6 +1,7 @@
 <?php
 load::model('servicio');
 load::model('cliente');
+load::model('ubicacion');
 class ServicioController extends AppController
 {
     public function index()
@@ -11,6 +12,44 @@ class ServicioController extends AppController
     public function before_filter()
     {
            
+    }
+    
+    public function detalle($id_servicio)
+    {
+        if(!Auth::is_valid())
+        {
+                Flash::info('Debe iniciar sesión');
+                Router::redirect("/");
+        }
+        else
+        {
+            //Obtenemos el servicio
+            $servicio = new Servicio();
+            
+
+            if ($servicio->count("conditions: id=".$id_servicio) != 0)
+            {
+                Flash::info($id_cliente);
+                $servicio->find($id_servicio);
+                $this->nombre= $servicio->nombre_ser;
+                $this->detalle = $servicio->detalle_ser;
+                $this->precio = $servicio->precio_ser;
+
+                //Obtenemos el id del cliente
+                $id_cliente = $servicio->id_usu;
+            
+                //Obtenemos la ubicacion
+                $ubicacion = new Ubicacion();
+                $ubicacion->find("conditions: id_usu=".$id_cliente);
+                $this->latitud = $ubicacion->latitud_ubi;
+                $this->longitud = $ubicacion->longitud_ubi;
+            }
+            else //No existe servicio con ese id
+            {
+                Flash::info('No se puede encontrar el servicio indicado');
+                Router::redirect("/");
+            }
+        }
     }
     
     public function ingresar()
