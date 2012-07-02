@@ -82,6 +82,28 @@ class PublicacionController extends AppController
     
        //se captura el id para futuros usos
         $this->id_pub=$id;
+        
+    }
+    public function actualizar()
+    {
+        if(Input::hasPost('publicacion'))
+            {
+           
+                    $publicacion = new Publicacion(Input::post('publicacion'));
+            
+                    $fecha = $publicacion->fecha_pub;
+                    $titulo = $publicacion->titulo_pub;
+                    $detalle = $publicacion->detalle_pub;
+                    $id = $publicacion->id;
+                    
+                    if($publicacion->sql("update Publicacion set fecha_pub='".$fecha."' , titulo_pub='".$titulo."', detalle_pub='".$detalle."' where id=".$id))
+                    {
+                        Flash::success('Publicación actualizada');
+			Router::redirect("/");
+                    }
+                    
+
+            }
     }
             
 }

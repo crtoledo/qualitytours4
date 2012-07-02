@@ -75,24 +75,30 @@ reemplazo se uso 'errorVal'.
 <div align="center"><h1>Editar publicación</h1></div>
 
 
-<?php echo Form::open('publicacion/editarpub') ?>
-<?php $arr= Load::model('publicacion')->find($id_pub); ?>
-<?php foreach ($arr as $buscar ) {?>
-  $
-<?php } ?>
+<?php echo Form::open('publicacion/actualizar') ?>
+<?php  Load::model('publicacion'); ?>
+<?php 
+        $publicacion = new Publicacion();
+        $publicacion->find($id_pub);
+        $fecha = $publicacion->fecha_pub;
+        $titulo = $publicacion->titulo_pub;
+        $detalle = $publicacion->detalle_pub;
+  
+  
+  ?>
 <div align="center">
     <table>
         <tr>
             <td>Fecha  Publicación: </td>
-            <td><?php echo Calendar::text('publicacion.fecha_pub','class="calendario"')?></td>
+            <td><?php echo Calendar::text('publicacion.fecha_pub',' class="calendario"',$fecha)?></td>
         </tr>
         <tr>
             <td>Título:</td>
-            <td><?php echo Form::text('publicacion.titulo_pub','class="titulo"')?></td> 
+            <td><?php echo Form::text('publicacion.titulo_pub',' class="titulo"',$titulo)?></td> 
         </tr>
         <tr>
             <td>Detalle:</td>
-            <td><?php echo Form::textarea('publicacion.detalle_pub','rows=10')?>
+            <td><?php echo Form::textarea('publicacion.detalle_pub','rows=10',$detalle)?>
             <?php View::partial('nicedit/nicEdit'); ?>
             </td>
         </tr>     
@@ -102,11 +108,11 @@ reemplazo se uso 'errorVal'.
 <div align="center">
     <table>
         <tr>
-             <td><?php echo Form::submit('Publicar','class="btn btn-submit boton" ') ?>&nbsp;</td>
+             <td><?php echo Form::submit('Editar','class="btn btn-submit boton" ') ?>&nbsp;</td>
         </tr>   
     </table>
 </div>
 
-<?php echo Form::hidden('publicacion.id_usu',null , $id); ?>
-<?php echo Form::hidden('publicacion.estado_pub',null , 1); ?>
+
+<?php echo Form::hidden('publicacion.id',null , $id_pub); ?>
 <?php echo Form::close() ?> 
