@@ -78,7 +78,7 @@ reemplazo se uso 'errorVal'.
 <?php echo Form::open('publicacion/editarpub') ?>
 <?php $arr= Load::model('publicacion')->find($id_pub); ?>
 <?php foreach ($arr as $buscar ) {?>
-
+  $
 <?php } ?>
 <div align="center">
     <table>
@@ -107,6 +107,6 @@ reemplazo se uso 'errorVal'.
     </table>
 </div>
 
-<?php //echo Form::hidden('publicacion.id_usu',null , $id); ?>
+<?php echo Form::hidden('publicacion.id_usu',null , $id); ?>
 <?php echo Form::hidden('publicacion.estado_pub',null , 1); ?>
 <?php echo Form::close() ?> 
