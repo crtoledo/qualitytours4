@@ -72,6 +72,7 @@ class ClienteController extends AppController
                 if($cliente->sql("insert into Cliente (id_usu,username_usu,password_usu,rol_usu,nombre_usu,apellido_usu,rut_usu,email_usu,estado_usu,nombre_cli,rut_cli,giro_cli,telefono_cli,visitas_cli) values(".$id.",'".$username_usu."','".$password_usu."','".$rol_usu."','".$nombre_usu."','".$apellido_usu."','".$rut_usu."','".$email_usu."','".$estado_usu."','".$nombre_cli."','".$rut_cli."','".$giro."','".$telefono."',".$visitas.");")&&($user->sql("update Usuario set rol_usu='cliente' where id=".$id)))
                 {
                     Flash::success("Cliente ingresado correctamente");
+                    Input::delete();
                 }
                 else
                 {
