@@ -1,5 +1,6 @@
 <?php
 load::model('usuario');
+load::model('cliente');
 
 class UsuarioController extends AppController 
 {
@@ -8,6 +9,8 @@ class UsuarioController extends AppController
        //ayuda a que no salga error cuando se ingresa al formulario de busqueda por primera vez
        //con esto no sale error de variable no definida
        $this->tabla_activada='0'; 
+       //0= nadie, 1= turista, 2= cliente
+       $this->diferenciador= '0';
    }
 
 
@@ -36,8 +39,44 @@ class UsuarioController extends AppController
         } 
         
         
-    public function modificar(){
+    public function modificar($id){
         
+        $usuarioamodificar = new Usuario;
+        $verificarrol = $usuarioamodificar->find($id);
+        if($verificarrol->rol_usu=='turista')
+        {
+            if(Input::hasPost('usuario'))
+            {
+                $usuarioactualizado = new usuario;
+                if($usuarioactualizado->update(Input::post('usuario')))
+                {
+                    Flash::info("Usuario ".$verificarrol->username_usu." modificado con exito");
+                    Router::redirect("usuario/buscar");
+                }
+            }
+            else
+            {
+                $this->diferenciador='1';
+                $this->usuario = $verificarrol;
+            }
+        }
+        else
+        {
+            $clienteamodificar = new cliente;
+            if(Input::hasPost('usuario'))
+            {
+                if($clienteactualizado->update(Input::post('usuario')))
+                {
+                    Flash::info("Usuario ".$verificarrol->username_usu." modificado con exito");
+                    Router::redirect("usuario/buscar");
+                }
+            }
+            else
+            {             
+                $this->diferenciador='2';
+                $this->cliente = $clienteamodificar->find("id_usu='$id'"); 
+            }
+        }
     }
     
     
@@ -48,10 +87,14 @@ class UsuarioController extends AppController
            {
             if(input::hasPost('usuario'))
             {
+                //se activa la tabla seccion resultados
                 $this->tabla_activada='1';
+                //se obtiene el tipo de eleccion
                 $opciondebusqueda = input::post('eleccion');
+                //se obtiene lo que se quiere buscar
                 $palabraclave =input::post('usuario');
                 
+                //si la opcion es turista
                 if($opciondebusqueda=='turista')
                 {
                     $obtenerdatos = new Usuario();
@@ -60,6 +103,7 @@ class UsuarioController extends AppController
                     $this->datoabuscarr = $palabraclave;
                     $this->opcionn = $opciondebusqueda;
                 }
+                //si la opcion es cliente
                 else if ($opciondebusqueda=='cliente')
                 {
                     $obtenerdatos = new Usuario();
@@ -68,6 +112,7 @@ class UsuarioController extends AppController
                     $this->datoabuscarr = $palabraclave;
                     $this->opcionn = $opciondebusqueda;                    
                 }
+                //si la opcion es turistas y clientes
                 else if ($opciondebusqueda=='ambos')
                 {
                     $obtenerdatos = new Usuario();
@@ -128,20 +173,36 @@ class UsuarioController extends AppController
            if(Auth::get('rol_usu')== 'administrador')
            {
                 //problemas tabla cliente y usuario
-                $algo = $id;
                 $usuarioaeliminar = new Usuario;
                 $usuario = $usuarioaeliminar->find($id);
                 $usuario->estado_usu = 'False';
-
-                if ($usuario->update())
+                
+                //se verfica si es cliente
+                if($usuario->rol_usu == 'cliente')
                 {
+                    $clienteaeliminar = new Cliente;
+                    $cliente = $clienteaeliminar->find($id);
+                    $cliente->estado_usu = 'False';
+                    // si es cliente se actualiza la tabla usuario y la tabla cliente
+                   if ($usuario->update()&& $cliente->update())
+                    {
 
+                    }
+                    else
+                    {
+                        Flash::error('No se puede eliminar');
+                    }
                 }
+                //en caso de que solo es turista, se actualiza solamente la tabla usuario
+                else if ($usuario->update())
+                 {
+
+                 }
                 else
-                {
+                 {
                     Flash::error('No se puede eliminar');
-                }
-           }
+                 }
+         }
            else
            {
                 Flash::info('No posee los privilegios necesarios');
