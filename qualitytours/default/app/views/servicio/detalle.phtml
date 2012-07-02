@@ -12,8 +12,8 @@
 </script>
 
 <script type="text/javascript">
-//Este código carga el mapa en santiago cuando el html se ha terminado
-//de ejecutar completamente
+//Este código carga el mapa con un marcador en la ubicacion
+//del centro turístico
 //FUNCTION INITIALIZE
 var map;
 var latlng = new google.maps.LatLng(<?php echo $latitud; ?>,<?php echo $longitud; ?>)
@@ -41,21 +41,26 @@ $(document).ready(function(){
 <?php
 
 
-echo "<br>";
-echo "Nombre: ".$nombre;
-echo "<br>";
-echo "Detalle: ".$detalle;
-echo "<br>";
-echo "Latitud: ".$latitud;
-echo "<br>";
-echo "Longitud: ".$longitud;
-echo "<br>";
-echo "Precio: ".$precio;
-echo "<br>";
-echo "<br>";
-echo "<br>";
+
 
 
 ?>
-
-<div id="map_canvas" style="width:400px; height:400px"></div>
+<table class="table table-bordered">
+    <tr>  
+        <thead>
+            <td width="400px"><div id="map_canvas" style="width:400px; height:400px"></div></td>
+            <td
+                width="600px">
+                <h2><?php echo $nombre_cliente?></h2>
+                <br>
+                <h2><?php echo $nombre?></h2>
+                <br>
+                <h3><?php echo $precio?></h3>
+                <br>
+                <h4><?php echo $direccion."<br>".$ciudad."<br>".$region?></h4>
+                <br>
+                <h5><?php echo $detalle?></h5>
+            </td>
+        </thead>
+    </tr>
+</table>

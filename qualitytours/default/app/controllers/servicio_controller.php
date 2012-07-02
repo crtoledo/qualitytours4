@@ -37,11 +37,19 @@ class ServicioController extends AppController
 
                 //Obtenemos el id del cliente
                 $id_cliente = $servicio->id_usu;
+                
+                //Obtenemos el nombre del centro turistico (cliente)
+                $cli = new Cliente();
+                $cli->find($id_cliente);
+                $this->nombre_cliente = $cli->nombre_cli;
             
                 //Obtenemos la ubicacion
                 $ubicacion->find_by_sql("select *  from ubicacion where   id_usu = ".$id_cliente);
-                $this->latitud = $ubicacion->latitud_ubi;
+                $this->latitud  = $ubicacion->latitud_ubi;
                 $this->longitud = $ubicacion->longitud_ubi;
+                $this->direccion= $ubicacion->direccion_ubi;
+                $this->ciudad   = $ubicacion->ciudad_ubi;
+                $this->region   = $ubicacion->region_ubi;
             }
             else //No existe servicio con ese id
             {
