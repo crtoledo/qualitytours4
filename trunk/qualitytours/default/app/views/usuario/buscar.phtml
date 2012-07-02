@@ -65,7 +65,7 @@ reemplazo se uso 'errorVal'.
     top: 5px;
 }
 </style>
-
+<!--formulario de busqueda-->
 <?php echo Form::open('usuario/buscar'); ?>
     <div align="center">
         <h1> Buscar usuarios </h1>
@@ -93,6 +93,7 @@ reemplazo se uso 'errorVal'.
         <table class="table table-condensed">
             <thead>
                 <tr>
+                    <!-- cabecera de la tabla-->
                     <th>id</th>
                     <th>Username</th>
                     <th>Nombre</th>
@@ -105,7 +106,7 @@ reemplazo se uso 'errorVal'.
             </thead>
             <tbody>
                 <?php if($tabla_activada == '1') {?>
-                <?php
+                <?php //la tabla, seccion resultados
                     foreach($listaobtenida->items as $item) :
                         $id_usu = $item->id;
                         $username = $item->username_usu;
@@ -120,11 +121,12 @@ reemplazo se uso 'errorVal'.
                         echo '<td>'.$apellido.'</td>';
                         echo '<td>'.$email.'</td>';
                         echo '<td>'.$tipo_usuario.'</td>';
-                        echo '<td>'. Form::button('Modificar','class="btn btn-info boton"').'</td>'; 
+                        echo Form::open('usuario/modificar/'.$id_usu); 
+                        echo '<td>'. Form::submit('Modificar','class= "btn btn-info modificar"').'</td>';
+                        echo Form::close(); 
                         echo Form::open('usuario/eliminar/'.$id_usu); 
                         echo '<td>'. Form::submit('Eliminar','class= "btn btn-danger eliminar"').'</td>';
                         echo Form::close(); 
-                        //echo '<td>'.'<a class="btn eliminar" onclick=”return confirm("¿Está seguro?");>Launch Modal</a>'.'</td>';
                         echo '</tr>';
                     endforeach; ?>
                 <?php } ?>

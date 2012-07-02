@@ -58,7 +58,7 @@ class ClienteController extends AppController
                 $id= $datos_user->id;        
                 $username_usu = $datos_user->username_usu;
                 $password_usu = $datos_user->password_usu;
-                $rol_usu = $datos_user->rol_usu;
+                $rol_usu = 'cliente';
                 $nombre_usu = $datos_user->nombre_usu;
                 $apellido_usu = $datos_user->apellido_usu;
                 $rut_usu = $datos_user->rut_usu;
