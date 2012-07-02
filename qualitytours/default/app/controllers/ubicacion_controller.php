@@ -19,20 +19,31 @@ class UbicacionController extends AppController
                 $cliente->find(Auth::get('id'));
                 $this->nombre_cliente = $cliente->nombre_cli;
                 $this->id_usu = Auth::get('id');
-                if (Input::hasPost('ubicacion'))
+                
+                $v_ubi = new Ubicacion();
+                if($v_ubi->count("conditions: id_usu=".Auth::get('id')) == 0) //Verificamos que no exista ya la ubicacion
                 {
-                    $ubicacion = new Ubicacion(Input::post('ubicacion'));
-                    if ($ubicacion->save())
+
+                    if (Input::hasPost('ubicacion'))
                     {
-                        Flash::success('Su ubicación fue registrada');
-                        Input::delete();
-                        Router::redirect("/");
+                        $ubicacion = new Ubicacion(Input::post('ubicacion'));
+                        if ($ubicacion->save())
+                        {
+                            Flash::success('Su ubicación fue registrada');
+                            Input::delete();
+                            Router::redirect("/");
+                        }
+                        else
+                        {
+                            Flash::info('Error en el ingreso de su ubicacion');
+                            Router::redirect('/');
+                        }
                     }
-                    else
-                    {
-                        Flash::info('Error en el ingreso de su ubicacion');
-                        Router::redirect('/');
-                    }
+                }
+                else
+                {
+                    Flash::info('Su ubicación ya fue ingresada, si requiere modificarla comuniquese con un administrador');
+                    Router::redirect("/");
                 }
                 
             }
