@@ -1,0 +1,28 @@
+<?php 
+
+ $arr= Load::model('ubicacion')->find();
+
+?>
+
+
+<script type="text/javascript">
+        jQuery(document).ready(function() {
+            var alCities = [
+                
+            <?php    foreach ($arr as $buscar)
+            {
+                echo "'".$buscar->region_ubi."','".$buscar->ciudad_ubi."', ";  
+            }
+            ?>           
+                
+            ].sort();
+            $('#city').typeahead({source: alCities, items:5});
+        });
+ </script>
+
+
+
+
+ 
+ 
+Buscar ubicación:<input type="search" id="city" name="city" placeholder="Type a city name" data-provide="typeahead" class="search-query" />

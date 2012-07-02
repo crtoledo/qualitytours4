@@ -1,3 +1,28 @@
+<!--CODIGO PARA BUSQUEDA -->
+<?php 
+
+ $arr= Load::model('ubicacion')->find(); 
+
+?>
+
+
+<script type="text/javascript">
+        jQuery(document).ready(function() {
+            var alCities = [
+//             ARRAY DE CIUDADES y region   
+             <?php    foreach ($arr as $buscar)
+            {
+                echo "'".$buscar->region_ubi."','".$buscar->ciudad_ubi."', ";  
+            }
+            ?>  
+              
+                
+            ].sort();
+            $('#ciudad').typeahead({source: alCities, items:5});
+        });
+ </script>
+
+
 
         <div class="navbar ">
             <div class="navbar-inner">
@@ -16,7 +41,7 @@
                         <li><?php echo Html::link('pages/show/kumbia/status/', 'Config', 'title="Ver configuración de la aplicación"') ?></li>
                         
 <!--                        BUSCAR-->
-                        <li><a href="#">Buscar</a></li>
+                        <li><?php echo Html::link('busqueda/buscar','buscar');?></li>
                         
 <!--                    Menu del usuario-->
                         <?php
@@ -100,7 +125,7 @@
                         
 <!--                        CAMPO DE BUSQUEDA-->
                         <form class="navbar-search">
-                            <input type="text" class="search-query span2" placeholder="Buscar destinos">
+                            <input type="text" id="ciudad" class="search-query span2" placeholder="Buscar destinos" data-provide="typeahead" class="search-query">
                         </form>
                         
 
