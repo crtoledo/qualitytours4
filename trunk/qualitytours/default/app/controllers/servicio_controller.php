@@ -23,15 +23,15 @@ class ServicioController extends AppController
         }
         else
         {
-            //Obtenemos el servicio
+            //Creamos objetos que necesitaremos
             $servicio = new Servicio();
+            $ubicacion = new Ubicacion();
             
 
             if ($servicio->count("conditions: id=".$id_servicio) != 0)
             {
-                Flash::info($id_cliente);
                 $servicio->find($id_servicio);
-                $this->nombre= $servicio->nombre_ser;
+                $this->nombre = $servicio->nombre_ser;
                 $this->detalle = $servicio->detalle_ser;
                 $this->precio = $servicio->precio_ser;
 
@@ -39,8 +39,7 @@ class ServicioController extends AppController
                 $id_cliente = $servicio->id_usu;
             
                 //Obtenemos la ubicacion
-                $ubicacion = new Ubicacion();
-                $ubicacion->find("conditions: id_usu=".$id_cliente);
+                $ubicacion->find_by_sql("select *  from ubicacion where   id_usu = ".$id_cliente);
                 $this->latitud = $ubicacion->latitud_ubi;
                 $this->longitud = $ubicacion->longitud_ubi;
             }
