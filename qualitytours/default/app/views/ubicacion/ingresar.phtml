@@ -1,48 +1,47 @@
-<?php 
+<!--Estilos para mensajes y errores de validación-->
 
-//NO BORRAR ESTE CODIGO HASTA QUE LA VISTA ESTE TERMINADA
-$regiones = array(
-    ""  => "-Seleccione Región",
-    
-    "XV"  => "Arica y Parinacota",
-    "I"   => "Tarapacá",
-    "II"  => "Antofagasta",
-    "III" => "Atacama",
-    "IV"  => "Coquimbo",
-    "V"   => "Valparaíso",
-    "RM"  => "Metropolitana",
-    "VI"  => "O'Higgins",
-    "VII" => "Maule",
-    "VIII"=> "Biobío",
-    "IX"  => "Araucanía",
-    "XIV" => "Los Ríos",
-    "X"   => "Los Lagos",
-    "XI"  => "Aysén",
-    "XII" => "Magallanes",
-);
-
-$ciudades_XV = array(
-    "" => "Seleccione Ciudad",
-    "Arica" => "Arica",
-);
-
-$ciudades_I = array(
-"Iquique" => "Iquique" ,
-"Alto Hospicio" => "Alto Hospicio" ,
-"Pozo Almonte" => "Pozo Almonte" ,
-);
-
-
-$ciudades_II = array(
-"Antofagasta" => "Antofagasta",
-"Calama" => "Calama",
-"Tocopilla" => "Tocopilla",
-"Taltal" => "Taltal",
-"Mejillones" => "Mejillones",
-"María Elena" => "María Elena",
-);
-
-?>
+<style>
+    .mensajeVal{
+    background-color: #4AC948;
+    padding: 6px 12px;
+    border-radius: 4px;
+    color: white;
+    font-weight: bold;
+    margin-left: 16px;
+    margin-top: 6px;
+    position: absolute;
+}
+    .mensajeVal:before{ /* Este es un truco para crear una flechita */
+    content: '';
+    border-top: 8px solid transparent;
+    border-bottom: 8px solid transparent;
+    border-right: 8px solid #BC1010;
+    border-left: 8px solid transparent;
+    left: -16px;
+    position: absolute;
+    top: 5px;
+}
+    .errorVal{
+    background-color: #BC1010;
+    padding: 6px 12px;
+    border-radius: 4px;
+    color: white;
+    font-weight: bold;
+    margin-left: 16px;
+    margin-top: 6px;
+    position: absolute;
+}
+.errorVal:before{ /* Este es un truco para crear una flechita */
+    content: '';
+    border-top: 8px solid transparent;
+    border-bottom: 8px solid transparent;
+    border-right: 8px solid #BC1010;
+    border-left: 8px solid transparent;
+    left: -16px;
+    position: absolute;
+    top: 5px;
+}
+</style>
 
 <!--PARA GOOGLE MAPS COMIENZO-->
 <style type="text/css">
@@ -64,7 +63,12 @@ $ciudades_II = array(
 var map;
 var markersArray = [];
 $(document).ready(function(){
+    
+    //Ocultamos el boton de obtener direccion e inhabilitamos campos
+    $(".json-direccion, .submit, .advertencia, .tr_direccion, .tr_ciudad, .tr_region, .advertencia_json").hide();
+    $(".direccion, .ciudad, .region").attr('readonly','readonly');
 
+    //Setup del mapa
     var myOptions = {
           zoom: 8,
           center: new google.maps.LatLng(-33.45, -70.66),
@@ -73,21 +77,20 @@ $(document).ready(function(){
     map = new google.maps.Map(document.getElementById('map_canvas'),
             myOptions);
       
-    google.maps.event.addListener(map, 'click', function(event) {
+   
+    google.maps.event.addListener(map, 'click', function(event) {  //Al hacer click en el mapa...
+    
     //AÑADIMOS EL MARCADOR
     addMarker(event.latLng);
     
+    //Habilitamos el boton obtener dirección
+    if ( $(".direccion").val() == "" ) $(".json-direccion, .advertencia_json").show();
+    
     //Modificamos los campos de latitud y longitud
-    document.getElementById('ubicacion_latitud_ubi').disabled=false;
     document.getElementById("ubicacion_latitud_ubi").value = event.latLng.lat();
-    document.getElementById('ubicacion_latitud_ubi').disabled=true;
-    
-    document.getElementById('ubicacion_longitud_ubi').disabled=false;
     document.getElementById("ubicacion_longitud_ubi").value = event.latLng.lng();
-    document.getElementById('ubicacion_longitud_ubi').disabled=true;
- 
     
-  });
+    }); //Fin al hacer click en el mapa
   
 });
 </script>
@@ -112,8 +115,27 @@ $(document).ready(function(){
             geocoder.geocode( {'latLng': latlng },
             function(data, status) 
             { 
-                console.log(data); //Linea para analizar el objeto que devuelve
-                $(".tablaform").after("<br>"+data[0].formatted_address); 
+                //0 - Lineas de ayuda para la codificacion (luego comentarlas)
+                //console.log(data); //Linea para analizar el objeto que devuelve
+                //$(".tablaform").after("<br>"+data[0].formatted_address); 
+                
+                //1 - Actualizar value de direccion
+                if (data[0].address_components.length > 6 )
+                    $(".direccion").val(data[0].address_components[1].long_name+' '+data[0].address_components[0].long_name);
+                else
+                    $(".direccion").val(data[0].address_components[0].long_name);
+                
+                //2 - Actualizar value de ciudad
+                $(".ciudad").val(data[1].address_components[0].long_name);
+                    
+                //3 - Actualizar value de la región
+                $(".region").val(data[4].address_components[0].long_name);
+                
+                //4 - Limitamos el uso del boton a una vez escondiéndolo
+                $(".json-direccion, .advertencia_json").hide();
+
+                //5 - Mostramos el botón submit y su advertencia
+                $(".submit, .advertencia, .tr_direccion, .tr_ciudad, .tr_region").show();
             });
 
 
@@ -150,7 +172,7 @@ function addMarker(location) {
     
 </script>
 <!--FIN CODIGO PARA GOOGLE MAPS-->
-
+<?php echo Form::open('ubicacion/ingresar') ?>
 <fieldset>
     <div align="center">
         <table>
@@ -162,69 +184,42 @@ function addMarker(location) {
         <br><h6>Indique la ubicación de su destino turístico</h6>
         
         <div id="map_canvas" style="width:400px; height:400px"></div>
-        
+        <br>
         <table class="tablaform">
             <tr>
-                <td><?php echo Form::text('ubicacion.latitud_ubi','class="latitud" disabled="true"','')?></td>
-                <td><?php echo Form::text('ubicacion.longitud_ubi','class="longitud" disabled="true"','')?></td>
+                <td><?php echo Form::hidden('ubicacion.latitud_ubi','class="latitud" placeholder=" l a t i t u d "','')?></td>
+                <td><?php echo Form::hidden('ubicacion.longitud_ubi','class="longitud" placeholder=" l o n g i t u d "','')?></td>
+            </tr>
+            <tr class="tr_direccion">
+                <td>Dirección:&nbsp;</td>
+                <td><?php echo Form::text('ubicacion.direccion_ubi','class="direccion" ','')?></td>
+            </tr>
+            <tr class="tr_ciudad">
+                <td>Ciudad:&nbsp;</td>
+                <td><?php echo Form::text('ubicacion.ciudad_ubi','class="ciudad" ','')?></td>
+            </tr>
+            <tr class="tr_region">
+                <td>Regi&oacute;n:&nbsp;</td>
+                <td><?php echo Form::text('ubicacion.region_ubi','class="region" ','')?></td>
             </tr>
             <tr>
-                <td>
-                    <?php echo Form::button('Obtener direccion','class="json-direccion btn btn-inf"')?>
-                </td>
+                <td colspan="2"><center>
+                    <p class="advertencia_json"><i>Obtener la dirección de su marcador en el mapa</i></p>
+                    <?php echo Form::button('Obtener direccion','class="json-direccion btn btn-success"')?>
+                </center></td>
             </tr>
+            <tr>
+                <td colspan="2"><center>
+                    <p class="advertencia"><i>Verifique los datos antes de ingresar su ubicación</i></p>
+                    <?php echo Form::submit('Confirmar ubicación', 'class="btn btn-primary submit"') ?>&nbsp;
+                </center></td>
+            </tr> 
         </table>
+        
+        <?php echo Form::hidden('ubicacion.id_usu','',$id_usu)?>
         
                 
     </div>
 </fieldset>
+<?php echo Form::close() ?>     
     
-    
- 
-<!-- ANTIGUO
-NO BORREN ESTE CODIGO POR MIENTRAS HASTA QUE LA VISTA ESTE COMPLETAMENTE
-LISTA
-<fieldset>
-    <?php echo Form::open('ubicacion/ingresar') ?>
-    <div align="center">
-        <h1> Ingrese la locación de su centro turístico </h1>
-        <table>
-            <tr>
-                <td>Centro turístico:&nbsp;</td>
-                <td><?php echo $nombre_cliente; ?></td>
-            </tr>        
-            <tr>
-                <td>Región:&nbsp;</td>
-                <td><?php echo Form::select('ubicacion.region_ubi',$regiones,"class='region'", '')?></td>
-            </tr>
-            <tr>
-                <td>Ciudad:&nbsp;</td>
-                <td><?php echo Form::text('cliente.rut_cli', "class='input-medium rut' placeholder='ej: 6.765.223-1'") ?></td>
-            </tr>
-            <tr>
-                <td>Giro:&nbsp;</td>
-                <td><?php echo Form::text('cliente.giro_cli', "class='input-medium giro' ") ?></td>
-            </tr>
-            <tr>
-                <td>Telefono:&nbsp;</td>
-                <td><?php echo Form::text('cliente.telefono_cli', "class='input-medium telefono'") ?></td>
-            </tr>
-
-        </table>
-    </div>
-    
-      
-    
-    <div align="center">
-        <table>
-            <tr>
-                <td><?php echo Form::submit('Ingresar Usuario', 'class="btn btn-submit boton"') ?>&nbsp;</td>
-                <td><?php echo Form::reset('Reiniciar', 'class="btn btn-info"') ?></td>
-            </tr>         
-        </table>
-    </div>
-    
-    <?php echo Form::close() ?> 
-</fieldset>
-FIN ANTIGUO
--->
