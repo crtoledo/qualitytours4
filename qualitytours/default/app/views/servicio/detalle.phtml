@@ -1,10 +1,54 @@
+<!--PARA GOOGLE MAPS COMIENZO-->
+<style type="text/css">
+  html { height: 100% }
+  body { height: 100%; margin: 0px; padding: 0px }
+  #map_canvas { height: 100% }
+</style>
+
+<meta name="viewport" content="initial-scale=1.0, user-scalable=yes" />
+
+<script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=false">
+//Esto carga el api de Google Maps
+</script>
+
+<script type="text/javascript">
+//Este código carga el mapa en santiago cuando el html se ha terminado
+//de ejecutar completamente
+//FUNCTION INITIALIZE
+var map;
+var latlng = new google.maps.LatLng(<?php echo $latitud; ?>,<?php echo $longitud; ?>)
+$(document).ready(function(){
+
+    //Setup del mapa
+    var myOptions = {
+          zoom: 14,
+          center: latlng,
+          mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+    map = new google.maps.Map(document.getElementById('map_canvas'),
+            myOptions);
+      
+   marker = new google.maps.Marker({
+            position: latlng,
+            map: map,
+            title:"<?php echo $nombre ?>"
+        });
+});
+</script>
+
+
+
 <?php
 
 
 echo "<br>";
 echo "Nombre: ".$nombre;
 echo "<br>";
+echo "Detalle: ".$detalle;
+echo "<br>";
 echo "Latitud: ".$latitud;
+echo "<br>";
+echo "Longitud: ".$longitud;
 echo "<br>";
 echo "Precio: ".$precio;
 echo "<br>";
@@ -13,3 +57,5 @@ echo "<br>";
 
 
 ?>
+
+<div id="map_canvas" style="width:400px; height:400px"></div>
