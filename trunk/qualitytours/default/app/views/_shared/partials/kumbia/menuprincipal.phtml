@@ -38,11 +38,9 @@
                         </li>
                         
                         <!--LINK al Config-->
-                        <li><?php echo Html::link('pages/show/kumbia/status/', 'Config', 'title="Ver configuración de la aplicación"') ?></li>
+<!--                    <li><?php //echo Html::link('pages/show/kumbia/status/', 'Config', 'title="Ver configuración de la aplicación"') ?></li>-->
                         
-<!--                        BUSCAR-->
-                        <li><?php echo Html::link('busqueda/buscar','buscar');?></li>
-                        
+
 <!--                    Menu del usuario-->
                         <?php
                         if(Auth::is_valid())
@@ -128,7 +126,7 @@
                        
                             
                             <?php  echo Form::open("busqueda/buscando/",'post','class=navbar-search');?>
-                             <?php echo Form::text("ciudad","class='search-query span2' placeholder='Buscar destinos' data-provide='typeahead'"); ?>
+                             <?php echo Form::text("ciudad","class='search-query span2' placeholder='Buscar destinos' data-provide='typeahead' "); ?>
 
 <!--                            <input type="text" id="ciudad" class="search-query span2" placeholder="Buscar destinos" data-provide="typeahead" class="search-query">-->
                             <?php echo Form::close()?>
