@@ -10,7 +10,7 @@ $encontrar=0;
             <td><div align="center"><b>Servicio</b></div></td>
         </tr>   
     
-    </table>
+  
           
 
 
@@ -39,19 +39,22 @@ $encontrar=0;
             
         ?>    
             <!--             Mostrar los datos encontrados:-->
-        <table class="table" align="center">
+<!--       <table class="table" align="center">-->
                <tr>
                    <td><?php echo"<div align='center'>".$nombre."</div>"; ?></td>
                    <td><?php echo"<div align='center'>".$giro."</div>"; ?></td>
                    <td><?php echo"<div align='center'>".$telefono."</div>"; ?></td>
-                   <td><?php echo Html::link('servicio/detalle/'.$ver."","Visitar");?></td>
+                   <td><?php echo"<div align='center'> ".Html::link('servicio/detalle/'.$ver."","Visitar")."</div>";?></td>
                        
                </tr>    
-        </table>   
+        
              
                 
                 
  <?php } ?>
+       </table>
+        <table class="table">
+      
 
 <!--BUSCANDO POR CIUDAD-->
 
@@ -77,20 +80,21 @@ $encontrar=0;
        ?>    
             
 <!--             Mostrar los datos encontrados:-->
-           <table class="table">
+          
                <tr>
                    <td> <?php echo"<div align='center'>".$nombre."</div>"; ?></td>
                    <td><?php echo"<div align='center'>".$giro."</div>"; ?></td>
                    <td><?php echo"<div align='center'>".$telefono."</div>"; ?></td>
-                   <td><?php echo Html::link('servicio/detalle/'.$ver."","Visitar");?></td>
+                   <td><?php echo"<div align='center'> ".Html::link('servicio/detalle/'.$ver."","Visitar")."</div>";?></td>
                        
                </tr>    
-          </table>    
+            
                
                 
                 
              
     <?php   } ?>
+        </table>         
 
 
         <?php  
