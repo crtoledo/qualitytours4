@@ -7,7 +7,7 @@
        
         
         <div align="center">
-        <table class='well'>
+        <table class='well' width="600px">
         <?php foreach ($arr as $publicacion ) {?>
         
             <tr>
@@ -22,7 +22,9 @@
                       $imagen= Load::model('contenido')->find("conditions: id_pub=".$publicacion->id);
                        foreach($imagen as $buscar)
                        {
-                           echo  Html::img("../default/public/img/upload/".$buscar->ruta_con,"imagen","width=300 heiht=200");
+                           echo "<center>";
+                           echo  Html::img("../default/public/img/upload/".$buscar->ruta_con,"imagen","width=300 height=200");
+                           echo "</center>";
                        }    
                              
                   ?>
