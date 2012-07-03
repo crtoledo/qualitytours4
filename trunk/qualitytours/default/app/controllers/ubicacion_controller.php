@@ -29,6 +29,9 @@ class UbicacionController extends AppController
                         $ubicacion = new Ubicacion(Input::post('ubicacion'));
                         if ($ubicacion->save())
                         {
+                            //Actualizamos el id_ubi en cliente
+                            $cliente->sql("update Cliente set id_ubi=(select id from Ubicacion where id_usu=".$this->id_usu.") where id_usu=".$this->id_usu);
+                            
                             Flash::success('Su ubicación fue registrada');
                             Input::delete();
                             Router::redirect("/");
