@@ -63,18 +63,23 @@ class UsuarioController extends AppController
         else
         {
             $clienteamodificar = new cliente;
-            if(Input::hasPost('usuario'))
+            if(Input::hasPost('cliente'))
             {
-                if($clienteactualizado->update(Input::post('usuario')))
+                $clienteactualizado = new Cliente;
+                if($clienteactualizado->update(Input::post('cliente')))
                 {
                     Flash::info("Usuario ".$verificarrol->username_usu." modificado con exito");
                     Router::redirect("usuario/buscar");
+                }
+                else
+                {
+                    Flash::error("No se modifico");
                 }
             }
             else
             {             
                 $this->diferenciador='2';
-                $this->cliente = $clienteamodificar->find("id_usu='$id'"); 
+                $this->cliente = $clienteamodificar->find($id); 
             }
         }
     }
