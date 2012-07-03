@@ -10,9 +10,9 @@
         jQuery(document).ready(function() {
             var alCities = [
 //             ARRAY DE CIUDADES y region   
-             <?php    foreach ($arr as $ubicaciones)
+             <?php    foreach ($arr as $buscar)
             {
-                echo "'".$ubicaciones->region_ubi."','".$ubicaciones->ciudad_ubi."', ";  
+                echo "'".$buscar->region_ubi."','".$buscar->ciudad_ubi."', ";  
             }
             ?>  
               
