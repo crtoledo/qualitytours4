@@ -1,3 +1,4 @@
+<div><?php View::content() ?></div> 
 <!--PARA GOOGLE MAPS COMIENZO-->
 <style type="text/css">
   html { height: 100% }
@@ -31,7 +32,7 @@ $(document).ready(function(){
    marker = new google.maps.Marker({
             position: latlng,
             map: map,
-            title:"<?php echo $nombre ?>"
+            title:"<?php echo $nombre_cliente ?>"
         });
 });
 </script>
@@ -40,18 +41,17 @@ $(document).ready(function(){
     <tr>  
         <thead>
             <td width="400px"><div id="map_canvas" style="width:400px; height:400px"></div></td>
-            <td
-                width="600px">
-                <h2><?php echo $nombre_cliente?></h2>
-                <br>
-                <h2><?php echo $nombre?></h2>
-                <br>
-                <h3><?php echo $precio?></h3>
-                <br>
-                <h4><?php echo $direccion."<br>".$ciudad."<br>".$region?></h4>
-                <br>
-                <h5><?php echo $detalle?></h5>
+            <td width="600px">
+                <h3><?php echo $nombre_cliente?></h3><br>
+                <?php
+                foreach ($array_servicios as $servicio) {
+                    echo Html::link("servicio/detalle/" . $servicio->id, "Servicio: " . $servicio->nombre_ser . "<br>");
+                }
+                ?>
             </td>
+                
         </thead>
     </tr>
 </table>
+
+
