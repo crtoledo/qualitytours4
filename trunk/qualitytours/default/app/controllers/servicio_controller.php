@@ -16,13 +16,7 @@ class ServicioController extends AppController
     
     public function detalle($id_servicio)
     {
-        if(!Auth::is_valid())
-        {
-                Flash::info('Debe iniciar sesión');
-                Router::redirect("/");
-        }
-        else
-        {
+        
             //Creamos objetos que necesitaremos
             $servicio = new Servicio();
             $ubicacion = new Ubicacion();
@@ -56,7 +50,7 @@ class ServicioController extends AppController
                 Flash::info('No se puede encontrar el servicio indicado');
                 Router::redirect("/");
             }
-        }
+        
     }
     
     public function ingresar()
