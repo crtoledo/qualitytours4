@@ -1,4 +1,11 @@
-<div><?php View::content() ?></div> 
+<div>
+<?php 
+    View::content() ;
+
+    Load::model('cliente');
+    $cliente = new Cliente();
+?>
+</div> 
 <?php echo  "<h6>Resultado de busqueda de: <b>".$busqueda."</b></h6><br>" ;  
 $encontrar=0;
 ?>
@@ -15,23 +22,19 @@ $encontrar=0;
  
      
      
-     <?php foreach ($arr as $buscar ) 
+     <?php foreach ($arr as $ubicaciones ) 
        {
          
          //consultar por el cliente
             $encontrar=1;
-            Load::model('cliente');
-            $cliente = new Cliente();
-            $cliente->find($buscar->id_usu,"conditions: estado_usu='t'");
+            //echo $ubicaciones->id_usu; //Bien
+           
+            
+            $cliente->find($ubicaciones->id_usu,"conditions: estado_usu='t' and id_usu=".$ubicaciones->id_usu);
             $nombre = $cliente->nombre_cli;
             $giro = $cliente->giro_cli;
             $telefono = $cliente->telefono_cli;
-            //capturar servicio
-            Load::model('servicio');
-            $servicio = new Servicio();
-            $servicio->find($buscar->id_usu,"conditions: estado_ser='t'");
-            
-            $ver = $servicio->id;
+
          
             
         ?>    
@@ -41,7 +44,7 @@ $encontrar=0;
                    <td><?php echo"<div align='center'>".$nombre."</div>"; ?></td>
                    <td><?php echo"<div align='center'>".$giro."</div>"; ?></td>
                    <td><?php echo"<div align='center'>".$telefono."</div>"; ?></td>
-                   <td><?php echo"<div align='center'> ".Html::link('servicio/detalle/'.$ver."","Visitar")."</div>";?></td>
+                   <td><?php echo"<div align='center'> ".Html::link('LINK',"Visitar")."</div>";?></td> 
                        
                </tr>    
         
@@ -59,21 +62,14 @@ $encontrar=0;
  
      
      
-     <?php foreach ($arr as $buscar ) 
+     <?php foreach ($arr as $ubicaciones ) 
        {
             $encontrar=1;
-            Load::model('cliente');
-            $cliente = new Cliente();
-            $cliente->find($buscar->id_usu,"conditions: estado_usu='t'");
+            $cliente->find($ubicaciones->id_usu,"conditions: estado_usu='t' and id_usu=".$ubicaciones->id_usu);
             $nombre = $cliente->nombre_cli;
             $giro = $cliente->giro_cli;
             $telefono = $cliente->telefono_cli;
-             //capturar servicio
-            Load::model('servicio');
-            $servicio = new Servicio();
-            $servicio->find($buscar->id_usu,"conditions: estado_ser='t'");
-            
-            $ver = $servicio->id;
+
             
             
        ?>    
@@ -84,7 +80,7 @@ $encontrar=0;
                    <td><?php echo"<div align='center'>".$nombre."</div>"; ?></td>
                    <td><?php echo"<div align='center'>".$giro."</div>"; ?></td>
                    <td><?php echo"<div align='center'>".$telefono."</div>"; ?></td>
-                   <td><?php echo"<div align='center'> ".Html::link('servicio/detalle/'.$ver."","Visitar")."</div>";?></td>
+                   <td><?php echo"<div align='center'> ".Html::link('LINK',"Visitar")."</div>";?></td>
                        
                </tr>    
             
