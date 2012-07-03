@@ -3,6 +3,7 @@ load::model('usuario');
 load::model('cliente');
 load::model('servicio');
 load::model('ubicacion');
+load::model('contenido');
 
 class ClienteController extends AppController 
 {
@@ -104,6 +105,11 @@ class ClienteController extends AppController
         $client = new Cliente();
         $client = $client->find($id);
         $this->nombre_cliente = $client->nombre_cli;
+        
+        $contenido = new Contenido();
+        $contenido = $contenido->find("conditions: id_usu=".$id);
+        $this->contenido = $contenido;
+     
         
         $services = new Servicio();
         $services = $services->find_all_by('id_usu', $id);

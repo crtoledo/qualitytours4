@@ -52,6 +52,19 @@ $(document).ready(function(){
                 
         </thead>
     </tr>
+    
+    <?php
+        //Trozo PHP para verificar si hay imagenes
+        if (count($contenido) > 0)
+        {
+            echo "<tr><td colspan='2'><center>";
+            foreach($contenido as $buscar)
+            {
+                echo  Html::img("../default/public/img/upload/".$buscar->ruta_con,"imagen","width=200 height=150");
+            }   
+            echo "</center></td></tr>";
+        }
+    ?>
 </table>
 
 
