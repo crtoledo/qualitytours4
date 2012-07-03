@@ -9,12 +9,7 @@ $encontrar=0;
             <td><div align='center'><b>Telefono</b></div> </td>
             <td><div align="center"><b>Servicio</b></div></td>
         </tr>   
-    
-  
-          
 
-
-    
 <!--    BUSCANDO  POR REGION -->
  <?php $arr= Load::model('ubicacion')->find("columns: id_usu","conditions:  region_ubi='".$busqueda."'","order: id ASC"); ?>
  
@@ -35,7 +30,9 @@ $encontrar=0;
             Load::model('servicio');
             $servicio = new Servicio();
             $servicio->find($buscar->id_usu,"condictions: estado_usu='t'");
+            
             $ver = $servicio->id_usu;
+         
             
         ?>    
             <!--             Mostrar los datos encontrados:-->
@@ -75,14 +72,16 @@ $encontrar=0;
             Load::model('servicio');
             $servicio = new Servicio();
             $servicio->find($buscar->id_usu,"condictions: estado_usu='t'");
+            
             $ver = $servicio->id_usu;
+            
             
        ?>    
             
 <!--             Mostrar los datos encontrados:-->
           
                <tr>
-                   <td> <?php echo"<div align='center'>".$nombre."</div>"; ?></td>
+                   <td><?php echo"<div align='center'>".$nombre."</div>"; ?></td>
                    <td><?php echo"<div align='center'>".$giro."</div>"; ?></td>
                    <td><?php echo"<div align='center'>".$telefono."</div>"; ?></td>
                    <td><?php echo"<div align='center'> ".Html::link('servicio/detalle/'.$ver."","Visitar")."</div>";?></td>
