@@ -1,0 +1,141 @@
+<div><?php View::content() ?></div> 
+<script type="text/javascript">
+    //Validación con jquery
+    //El siguiente script valida que los campos no estén vacios y el formato del RUT
+$(document).ready(function () {
+
+    $(".boton").click(function (){
+        $(".errorVal").remove();
+        
+        
+         if( $(".archivo").val() == "" ){
+            $(".archivo").focus().after("<span class='errorVal'>Seleccione un archivo</span>");
+            return false;
+        }else if( $(".fecha").val() == ""){
+            $(".fecha").focus().after("<span class='errorVal'>Ingrese  fecha</span>");
+            return false;
+        }else if( $(".nombre").val() == ""){
+            $(".nombre").focus().after("<span class='errorVal'>Ingrese  nombre</span>");
+            return false;
+        }
+    });
+    
+   
+     $(".archivo").blur(function()
+    {
+        if( $(this).val() != "")
+        {
+            $(".errorVal").fadeOut();
+            return false;
+        }
+    });
+   
+     
+    //borrar el mensaje de fecha
+    $(".fecha").blur(function()
+    {
+        if( $(this).val() != "")
+        {
+            $(".errorVal").fadeOut();
+            return false;
+        }
+    });
+    
+   
+   //Borrar mensaje de error si el usuario a llenado el campo
+    $(".nombre, ").keyup(function()
+    {
+        if( $(this).val() != "" )
+        {
+            $(".errorVal").fadeOut();
+            return false;
+        }
+    });
+    
+    
+    
+    
+    
+   
+  
+    
+
+    
+});
+</script>
+
+<!--
+El CSS a continuación da estilo a los mensaje de error en la validación
+, no se usó "error" ya que kumbia ya tiene un estilo para esa clase, en su
+reemplazo se uso 'errorVal'.
+-->
+
+<style>
+    .errorVal{
+    background-color: #BC1010;
+    padding: 6px 12px;
+    border-radius: 4px;
+    color: white;
+    font-weight: bold;
+    margin-left: 16px;
+    margin-top: 6px;
+    position: absolute;
+}
+.errorVal:before{ /* Este es un truco para crear una flechita */
+    content: '';
+    border-top: 8px solid transparent;
+    border-bottom: 8px solid transparent;
+    border-right: 8px solid #BC1010;
+    border-left: 8px solid transparent;
+    left: -16px;
+    position: absolute;
+    top: 5px;
+}
+</style>
+<!-- captura de id  del usuario para enviarlo al controlador       -->
+<?php 
+    $id =  Auth::get('id'); 
+    
+  ?>
+
+
+<div align="center">
+    <h1>Ingresar Contenido</h1>
+    <table>
+        <tr>
+            <td>  <?php echo Form::openMultipart('contenido/ingresarcli') ?>
+                  Ingrese una imagen .jpg , .gif ó .png :
+                  <?php echo Form::file("imagen","class='archivo'") ?>
+                  <?php //echo Form::hidden('oculto') //para saber si se envió el form ?>
+                  
+                
+                  <?php echo Form::hidden('contenido.id_usu',null , $id); ?>
+                  <?php echo Form::hidden('contenido.tipo_con',null ,"imagen"); ?>
+                  
+              
+            </td>      
+            
+        </tr>
+      </table>
+       <table>    
+        <tr>
+            <td>fecha:</td>
+            <td><?php echo Calendar::text('contenido.fecha_con','class="fecha"') ?></td>
+        </tr>
+        <tr>
+            <td>Nombre:</td>
+            <td><?php  echo Form::text('contenido.nombre_con','class="nombre"') ?></td>
+        </tr>
+        <tr>
+            <td>  
+                <div align="center"> <?php echo  Form::submit('Ingresar','class="btn btn-submit boton" ')  ?></div>
+                  <?php echo Form::close() ?>
+            </td>
+        </tr>
+         
+        
+    </table>
+</div>
+<br>
+
+
