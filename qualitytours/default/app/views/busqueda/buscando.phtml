@@ -35,7 +35,7 @@ $encontrar=0;
             Load::model('servicio');
             $servicio = new Servicio();
             $servicio->find($buscar->id_usu,"condictions: estado_usu='t'");
-            $ver = $servicio->id;
+            $ver = $servicio->id_usu;
             
         ?>    
             <!--             Mostrar los datos encontrados:-->
@@ -75,7 +75,7 @@ $encontrar=0;
             Load::model('servicio');
             $servicio = new Servicio();
             $servicio->find($buscar->id_usu,"condictions: estado_usu='t'");
-            $ver = $servicio->id;
+            $ver = $servicio->id_usu;
             
        ?>    
             
