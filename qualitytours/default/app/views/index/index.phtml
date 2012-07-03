@@ -20,9 +20,9 @@
                 <td>
                   <?php   //BUCAR IMAGENES ASOCIADAS AL ID DE LA PUBLICACION 
                       $imagen= Load::model('contenido')->find("conditions: id_pub=".$publicacion->id);
-                       foreach($imagen as $ubicaciones)
+                       foreach($imagen as $buscar)
                        {
-                           echo  Html::img("../default/public/img/upload/".$ubicaciones->ruta_con,"imagen","width=300 heiht=200");
+                           echo  Html::img("../default/public/img/upload/".$buscar->ruta_con,"imagen","width=300 heiht=200");
                        }    
                              
                   ?>
@@ -58,13 +58,13 @@
 <!--                         SECCION DE LISTAR COMENTARIOS-->       
                            <?php  
                            $comentario= Load::model('comentario')->find("conditions: estado_com='t' and id_pub=".$publicacion->id);
-                           foreach($comentario as $ubicaciones) 
+                           foreach($comentario as $buscar) 
                            {?>    
                            <?php 
 //                             CAPTURAR EL NOMBRE DE USUARIO
                                     Load::model('usuario');
                                     $usuario = new Usuario();
-                                    $usuario->find($ubicaciones->id_usu);
+                                    $usuario->find($buscar->id_usu);
                                     $username = $usuario->username_usu;
                                     
                                     //cambia la variables locales a español para fecha en español
@@ -73,10 +73,10 @@
                                     
                             ?>   
                               
-<div align="left">  <?php echo"<font color='#777777' size=1>".$username."&nbsp; dice:</font><br>".$ubicaciones->detalle_com."<br>  <div align='right'><font size=1 color='#777777'el >".strftime('el %A %#d de %B del %Y  ',strtotime($ubicaciones->fecha_com))."a las ".date('h:i. A',strtotime($ubicaciones->fecha_com))."</font></div>"; ?> </div>  
-                            <?php if(Auth::get("id")== $ubicaciones->id_usu) 
+<div align="left">  <?php echo"<font color='#777777' size=1>".$username."&nbsp; dice:</font><br>".$buscar->detalle_com."<br>  <div align='right'><font size=1 color='#777777'el >".strftime('el %A %#d de %B del %Y  ',strtotime($buscar->fecha_com))."a las ".date('h:i. A',strtotime($buscar->fecha_com))."</font></div>"; ?> </div>  
+                            <?php if(Auth::get("id")== $buscar->id_usu) 
                                   {?>
-                                     <?php echo  Html::link('comentario/eliminar/'.$ubicaciones->id,'eliminar')?>
+                                     <?php echo  Html::link('comentario/eliminar/'.$buscar->id,'eliminar')?>
                                    
 
                             
@@ -88,6 +88,7 @@
                            <center>   
                                  <?php
                                
+                                 
                                  $tiempo=date("d-m-Y   H:i");
                                  ?>
                                
