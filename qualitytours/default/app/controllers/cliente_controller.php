@@ -1,6 +1,8 @@
 <?php
 load::model('usuario');
 load::model('cliente');
+load::model('servicio');
+load::model('ubicacion');
 
 class ClienteController extends AppController 
 {
@@ -95,6 +97,24 @@ class ClienteController extends AppController
             
         }
 
+    }
+    
+    public function detalle($id)
+    {
+        $client = new Cliente();
+        $client = $client->find($id);
+        $this->nombre_cliente = $client->nombre_cli;
+        
+        $services = new Servicio();
+        $services = $services->find_all_by('id_usu', $id);
+        $this->array_servicios = $services;
+        
+        //2- Necesario para cargar el mapa
+        $ubicacion = new Ubicacion();
+        $ubicacion = $ubicacion->find_all_by('id_usu', $id);
+        
+        $this->latitud = $ubicacion[0]->latitud_ubi; //El [0] debido a que nos entrega un array
+        $this->longitud = $ubicacion[0]->longitud_ubi;
     }
 }
 
