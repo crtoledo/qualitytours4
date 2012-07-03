@@ -87,8 +87,8 @@ $(document).ready(function(){
     if ( $(".direccion").val() == "" ) $(".json-direccion, .advertencia_json").show();
     
     //Modificamos los campos de latitud y longitud
-    document.getElementById("ubicacion_latitud_ubi").value = event.latLng.lat();
-    document.getElementById("ubicacion_longitud_ubi").value = event.latLng.lng();
+    document.getElementById("latitud-temp").value = event.latLng.lat();
+    document.getElementById("longitud-temp").value = event.latLng.lng();
     
     }); //Fin al hacer click en el mapa
   
@@ -104,8 +104,15 @@ $(document).ready(function(){
         $(".json-direccion").click(function (){
             
             //Obtenemos las coordenadas del marcador
-            var lat =  document.getElementById("ubicacion_latitud_ubi").value;
-            var lng =  document.getElementById("ubicacion_longitud_ubi").value;
+            var lat =  document.getElementById("latitud-temp").value;
+            var lng =  document.getElementById("longitud-temp").value;
+            
+            //las asignamos a las variables que iran a la BD
+            $(".longitud").val(lng);
+            $(".latitud").val(lat);
+            
+            //Uso de variables temporales se justifica por si el usuario cambia el marcador
+            //Despues de hacer click en el boton OBTENER DIRECCION
             
             //Dandole formato a nuestras coordenadas
             var latlng = new google.maps.LatLng(lat,lng);
@@ -239,4 +246,6 @@ function addMarker(location) {
     </div>
 </fieldset>
 <?php echo Form::close() ?>     
-    
+
+<?php echo Form::hidden('latitud-temp','class="latitud-temp" placeholder=" l a t i t u d "','')?>
+<?php echo Form::hidden('longitud-temp','class="longitud-temp" placeholder=" l o n g i t u d "','')?>
