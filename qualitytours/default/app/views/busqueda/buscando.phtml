@@ -1,5 +1,5 @@
 <div><?php View::content() ?></div> 
-<?php echo  "<h6>Resultado de busqueda de :<b>".$busqueda."</b></h6><br>" ;  
+<?php echo  "<h6>Resultado de busqueda de: <b>".$busqueda."</b></h6><br>" ;  
 $encontrar=0;
 ?>
     <table class="table">
@@ -64,16 +64,16 @@ $encontrar=0;
             $encontrar=1;
             Load::model('cliente');
             $cliente = new Cliente();
-            $cliente->find($buscar->id_usu,"condictions: estado_usu='t'");
+            $cliente->find($buscar->id_usu,"conditions: estado_usu='t'");
             $nombre = $cliente->nombre_cli;
             $giro = $cliente->giro_cli;
             $telefono = $cliente->telefono_cli;
              //capturar servicio
             Load::model('servicio');
             $servicio = new Servicio();
-            $servicio->find($buscar->id_usu,"condictions: estado_usu='t'");
+            $servicio->find($buscar->id_usu,"conditions: estado_ser='t'");
             
-            $ver = $servicio->id_usu;
+            $ver = $servicio->id;
             
             
        ?>    
