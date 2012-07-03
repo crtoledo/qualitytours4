@@ -117,24 +117,41 @@ $(document).ready(function(){
             { 
                 //0 - Lineas de ayuda para la codificacion (luego comentarlas)
                 //console.log(data); //Linea para analizar el objeto que devuelve
-                //$(".tablaform").after("<br>"+data[0].formatted_address); 
+                //$(".tablaform").after("<br>"+data[0].formatted_address);
                 
-                //1 - Actualizar value de direccion
-                if (data[0].address_components.length > 6 )
-                    $(".direccion").val(data[0].address_components[1].long_name+' '+data[0].address_components[0].long_name);
-                else
-                    $(".direccion").val(data[0].address_components[0].long_name);
+                //Obtener la direccion y cortarla
+                var full_address = data[0].formatted_address;
+                var sliced_address=full_address.split(",");
                 
-                //2 - Actualizar value de ciudad
-                $(".ciudad").val(data[1].address_components[0].long_name);
-                    
-                //3 - Actualizar value de la región
-                $(".region").val(data[4].address_components[0].long_name);
+                //1 - Obtención de datos y validacion dirección Chilena
+                if(sliced_address.length == 4) //Obtuvimos una direccion con todos los datos
+                {
+                    if($.trim(sliced_address[3]) != "Chile"){alert("Seleccione una ubicación dentro de Chile") ;return false;}
+                    $(".direccion").val($.trim(sliced_address[0]));
+                    $(".ciudad").val($.trim(sliced_address[1]));
+                    $(".region").val($.trim(sliced_address[2]));
+                }
+                else if(sliced_address.length == 3) //el 2 es el pais
+                {
+                    if($.trim(sliced_address[2]) != "Chile"){alert("Seleccione una ubicación dentro de Chile") ;return false;}
+                    $(".direccion").val("No disponible");
+                    $(".ciudad").val($.trim(sliced_address[0]));
+                    $(".region").val($.trim(sliced_address[1]));
+                }
+                else if(sliced_address.length == 2)//SOLO REGION Y PAIS
+                {
+                    //sliced_address[sliced_address.length-1] ES EL PAIS
+                    if($.trim(sliced_address[sliced_address.length-1]) != "Chile"){alert("Seleccione una ubicación dentro de Chile") ;return false;}
+                    $(".direccion").val("No disponible");
+                    $(".ciudad").val("No disponible");
+                    $(".region").val($.trim(sliced_address[sliced_address.length-2]));
+                }
                 
-                //4 - Limitamos el uso del boton a una vez escondiéndolo
+ 
+                //2 - Limitamos el uso del boton a una vez escondiéndolo
                 $(".json-direccion, .advertencia_json").hide();
 
-                //5 - Mostramos el botón submit y su advertencia
+                //3 - Mostramos el botón submit y su advertencia
                 $(".submit, .advertencia, .tr_direccion, .tr_ciudad, .tr_region").show();
             });
 
