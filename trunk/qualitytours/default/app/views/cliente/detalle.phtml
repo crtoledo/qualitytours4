@@ -29,10 +29,11 @@ $(document).ready(function(){
     map = new google.maps.Map(document.getElementById('map_canvas'),
             myOptions);
       
-   marker = new google.maps.Marker({
+  
+  marker = new google.maps.Marker({
             position: latlng,
             map: map,
-            title:"<?php echo $nombre_cliente ?>"
+            title:"<?php echo  $nombre_cliente ?>"
         });
 });
 </script>
