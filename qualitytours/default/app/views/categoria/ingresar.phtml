@@ -1,21 +1,21 @@
 <div><?php View::content() ?></div> 
 
 <div align="center">
-    <h1>Clasificar centros turisticos</h1>
+    <h1>Clasificar centros turísticos</h1>
      <?php echo Form::open('categoria/ingresar') ?>
     <table>
         <tr>
-            <td>Seleccione centro turistico:</td>
+            <td>Seleccione centro turístico:&nbsp;</td>
             <td><?php echo  Form::dbSelect('categoria.id_usu','nombre_cli',array('cliente','find',"rol_usu='cliente'"),'-Seleccione-','class=seleccion_usuario')?></td>
         </tr>
         <tr>
-            <td>Nombre Categoria:</td>
+            <td>Nombre Categoría:&nbsp;</td>
             <td><?php echo Form::text("categoria.nombre_cat"); ?></td>
         </tr>
     </table>
     <table>
         <tr>
-            <td><?php echo Form::submit('Ingresar Categoria', 'class="btn btn-primary submit"') ?></td>
+            <td><?php echo Form::submit('Ingresar Categor&iacute;a', 'class="btn btn-primary submit"') ?></td>
         </tr>
     </table>
     
