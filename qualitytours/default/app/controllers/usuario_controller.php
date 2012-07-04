@@ -40,7 +40,10 @@ class UsuarioController extends AppController
         
         
     public function modificar($id){
-        
+     if(Auth::is_valid())
+        {
+      if(Auth::get('rol_usu')== 'administrador')
+           {  
         $usuarioamodificar = new Usuario;
         $verificarrol = $usuarioamodificar->find($id);
         if($verificarrol->rol_usu=='turista')
@@ -82,7 +85,19 @@ class UsuarioController extends AppController
                 $this->cliente = $clienteamodificar->find($id); 
             }
         }
+      }
+      else
+        {
+          Flash::info('No posee los privilegios necesarios');
+          Router::redirect("/");
+        } 
     }
+     else
+    {
+        Flash::info('No posee los privilegios necesarios');
+        Router::redirect("/");
+    } 
+}
     
     
     public function buscar($page=1, $paginador_activado=1,$datoguardado=1,$opcion='nada'){
@@ -156,11 +171,13 @@ class UsuarioController extends AppController
             }
             else
             {
+                Flash::info('No posee los privilegios necesarios');
                 Router::redirect("/");
             } 
         }
         else
         {
+            Flash::info('No posee los privilegios necesarios');
             Router::redirect("/");
         }
     }
