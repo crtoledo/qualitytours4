@@ -242,7 +242,7 @@ class UsuarioController extends AppController
                if(Session::get('rol_usu')=='administrador')
                {
                    Flash::Success("Usuario logueado");
-                Router::redirect("/usuario/admin");
+                Router::redirect("/");
                }
                 else{
                     
