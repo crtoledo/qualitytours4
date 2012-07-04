@@ -76,7 +76,7 @@
                                  
                             ?>   
                               
-<div align="left">  <?php echo"<font color='#777777' size=1>".$username."&nbsp; dice:</font><br>".$buscar->detalle_com."<br>  <div align='right'><font size=1 color='#777777'el >".strftime('el %A %#d de %B del %Y  ',strtotime($buscar->fecha_com))."a las ".date('h:i. A',strtotime($buscar->fecha_com))."</font></div>"; ?> </div>  
+<div align="left">  <?php echo"<font color='#777777' size=1>".$username."&nbsp; dice:</font><br>".$buscar->detalle_com."<br>  <div align='right'><font size=1 color='#777777'el >".strftime('el  %#d/%m/%Y  ',strtotime($buscar->fecha_com))."a las ".date('h:i. A',strtotime($buscar->fecha_com))."</font></div>"; ?> </div>  
                             <?php if(Auth::get("id")== $buscar->id_usu) 
                                   {?>
                                      <?php echo  Html::link('comentario/eliminar/'.$buscar->id,'eliminar')?>

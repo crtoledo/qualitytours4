@@ -72,6 +72,7 @@ class ServicioController extends AppController
             //POSEE LOS PRIVILEGIOS
             else
             {
+                
                 //Obtenemos el nombre del centro turístico
                 $cliente = new Cliente();
                 $cliente->find(Auth::get('id'));
