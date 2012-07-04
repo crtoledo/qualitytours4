@@ -34,7 +34,7 @@
                         
 <!--                        HOME-->
                         <li class="active">
-                            <?php echo Html::link('index/','Home');?>
+                            <?php echo Html::link('index/','<i class="icon-home icon-white"></i> Home');?>
                         </li>
                         
                         <!--LINK al Config-->
@@ -80,9 +80,9 @@
                                     </a>
                                     
                                     <ul class="dropdown-menu">
-                                        <li><?php echo Html::link('servicio/ingresar/','Publicar servicio');?></li>
-                                        <li><?php echo Html::link('ubicacion/ingresar/','Indique su ubicación');?></li>
-                                        <li><?php echo Html::link('contenido/ingresarcli/','Subir fotos');?></li>
+                                        <li><?php echo Html::link('servicio/ingresar/','<i class="icon-plus"></i> Publicar servicio');?></li>
+                                        <li><?php echo Html::link('ubicacion/ingresar/','<i class="icon-screenshot"></i> Indique su ubicación');?></li>
+                                        <li><?php echo Html::link('contenido/ingresarcli/','<i class="icon-camera"></i> Subir fotos');?></li>
                                     </ul>
                                 </li>
                             <?php
@@ -126,7 +126,11 @@
                        
                             
                             <?php  echo Form::open("busqueda/buscando/",'post','class=navbar-search');?>
-                             <?php echo Form::text("ciudad","class='search-query span2' placeholder='Buscar destinos' data-provide='typeahead' "); ?>
+                            
+                             <?php // echo Form::text("ciudad","class='search-query span2' placeholder='Buscar destinos' data-provide='typeahead' "); ?>
+<i class="icon-search icon-white"></i>
+<input id="ciudad" name="ciudad" type="text" value="" class='search-query span2' placeholder="Buscar destinos" data-provide='typeahead' >  
+
 
 <!--                            <input type="text" id="ciudad" class="search-query span2" placeholder="Buscar destinos" data-provide="typeahead" class="search-query">-->
                             <?php echo Form::close()?>
@@ -158,7 +162,7 @@
                                         if(Auth::is_valid())
                                         {
                                             echo "<li>";
-                                            echo Html::link('usuario/cerrarsesion','Cerrar Sesión');
+                                            echo Html::link('usuario/cerrarsesion','Cerrar Sesión <i class="icon-off"></i>');
                                             echo "</li>";
                                         }
                                         else
@@ -171,8 +175,8 @@
                                                 Contraseña 
                                                 <?php echo Form::pass("password_usu","class='span2'");?>
                                                 <?php echo Form::submit('Ingresar',"class='btn btn-primary'"); ?>
-                                                
-                                                <li>  <?php echo Html::link('usuario/ingresar/','Regístrate');?></li>
+                                                <br><br>
+                                                <li>  <?php echo Html::link('usuario/ingresar/','Regístrate  <i class="icon-plus-sign"></i>');?></li>
                                             </center>
                                         </form>
                                         <?php } ?>
