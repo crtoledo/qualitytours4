@@ -1,8 +1,15 @@
 <!--CODIGO PARA BUSQUEDA -->
 <?php 
 
- $arr= Load::model('ubicacion')->find(); 
+ //$arr= Load::model('ubicacion','categoria')->find() ; 
 
+//captura los campos necesarios de busqueda
+$arr = Load::Model('ubicacion','cliente')->find_all_by_sql("select  distinct region_ubi from  ubicacion  union select distinct  ciudad_ubi from ubicacion union  select distinct  nombre_cat from categoria");
+
+
+
+
+   
 ?>
 
 
@@ -10,15 +17,18 @@
         jQuery(document).ready(function() {
             var alCities = [
 //             ARRAY DE CIUDADES y region   
+       
+                     
              <?php    foreach ($arr as $buscar)
             {
-                echo "'".$buscar->region_ubi."','".$buscar->ciudad_ubi."', ";  
+                echo "'".$buscar->region_ubi."','".$buscar->ciudad_ubi."','".$buscar->nombre_cat."', ";  
             }
+            
             ?>  
               
                 
             ].sort();
-            $('#ciudad').typeahead({source: alCities, items:1});
+            $('#ciudad').typeahead({source: alCities, items:5});
         });
  </script>
 
@@ -105,11 +115,11 @@
                                     </a>
                                     
                                     <ul class="dropdown-menu">
-                                        <li><?php echo Html::link('cliente/ingresar/','Ingresar cliente');?></li>
-                                        <li><?php echo Html::link('usuario/buscar/','Buscar usuarios');?></li>
-                                        <li><?php echo Html::link('publicacion/ingresar/','Ingresar publicacion');?></li>
-                                        <li><?php echo Html::link('administrador/ingresar/','Ingresar administrador');?></li>
-                                        <li><?php echo Html::link('categoria/ingresar','Ingresar Categorias'); ?></li>
+                                        <li><?php echo Html::link('cliente/ingresar/','<i class="icon-plus"></i> Ingresar cliente');?></li>
+                                        <li><?php echo Html::link('usuario/buscar/','<i class="icon-search"></i> Buscar usuarios');?></li>
+                                        <li><?php echo Html::link('publicacion/ingresar/','<i class="icon-upload"></i> Ingresar publicacion');?></li>
+                                        <li><?php echo Html::link('administrador/ingresar/','<i class="icon-plus"></i> Ingresar administrador');?></li>
+                                        <li><?php echo Html::link('categoria/ingresar','<i class="icon-plus"></i> Ingresar Categorias'); ?></li>
                                     </ul>
                                 </li>
                             <?php

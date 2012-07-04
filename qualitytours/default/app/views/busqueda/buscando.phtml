@@ -53,7 +53,7 @@ $encontrar=0;
                 
  <?php } ?>
        </table>
-        <table class="table">
+    <table class="table">
       
 
 <!--BUSCANDO POR CIUDAD-->
@@ -89,7 +89,45 @@ $encontrar=0;
                 
              
     <?php   } ?>
-        </table>         
+        </table>
+
+ <table class="table">
+
+<!--BUSCANDO POR CATEGORIA-->
+
+<?php $arr= Load::model('categoria')->find("columns: id_usu","conditions:  nombre_cat='".$busqueda."' and estado_cat='t'","order: id ASC"); ?>
+ 
+     
+     
+     <?php foreach ($arr as $ubicaciones ) 
+       {
+            $encontrar=1;
+            $cliente->find($ubicaciones->id_usu,"conditions: estado_usu='t' and id_usu=".$ubicaciones->id_usu);
+            $nombre = $cliente->nombre_cli;
+            $giro = $cliente->giro_cli;
+            $telefono = $cliente->telefono_cli;
+
+            
+            
+       ?>    
+            
+<!--             Mostrar los datos encontrados:-->
+          
+               <tr>
+                   <td><?php echo"<div align='center'>".$nombre."</div>"; ?></td>
+                   <td><?php echo"<div align='center'>".$giro."</div>"; ?></td>
+                   <td><?php echo"<div align='center'>".$telefono."</div>"; ?></td>
+                   <td><?php echo"<div align='center'> ".Html::link('cliente/detalle/'.$cliente->id_usu,"Visitar","target='_blank'")."</div>";?></td>
+                       
+               </tr>    
+            
+               
+                
+                
+             
+    <?php   } ?>
+        </table>
+
 
 
         <?php  
