@@ -94,7 +94,7 @@
                                                        <!--FORMULARIO DE COMENTARIO-->
                                                        <?php
                                                        echo "<center>";
-                                                       echo Form::open('comentario/ingresar');
+                                                       echo Form::open('comentario/ingresar','post',"class='navbar-form'");
                                                        $tiempo = date("d-m-Y   H:i");
                                                        echo Form::hidden('comentario.id_pub', null, $publicacion->id);
                                                        echo Form::hidden('comentario.id_usu', null, Auth::get('id'));
