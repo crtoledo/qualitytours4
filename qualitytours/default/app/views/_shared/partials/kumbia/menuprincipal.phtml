@@ -1,206 +1,189 @@
 <!--CODIGO PARA BUSQUEDA -->
-<?php 
-
- //$arr= Load::model('ubicacion','categoria')->find() ; 
-
+<?php
+//$arr= Load::model('ubicacion','categoria')->find() ; 
 //captura los campos necesarios de busqueda
-$arr = Load::Model('ubicacion','cliente')->find_all_by_sql("select  distinct region_ubi from  ubicacion  union select distinct  ciudad_ubi from ubicacion union  select distinct  nombre_cat from categoria");
-
-
-
-
-   
+$arr = Load::Model('ubicacion', 'cliente')->find_all_by_sql("select  distinct region_ubi from  
+    ubicacion  union select distinct  ciudad_ubi from ubicacion union  select 
+    distinct  nombre_cat from categoria");
 ?>
 
 
 <script type="text/javascript">
-        jQuery(document).ready(function() {
-            var alCities = [
-//             ARRAY DE CIUDADES y region   
-       
-                     
-             <?php    foreach ($arr as $buscar)
-            {
-                echo "'".$buscar->region_ubi."','".$buscar->ciudad_ubi."','".$buscar->nombre_cat."', ";  
-            }
-            
-            ?>  
-              
-                
-            ].sort();
-            $('#ciudad').typeahead({source: alCities, items:8});
-        });
- </script>
+    jQuery(document).ready(function() 
+    {
+        var alCities = [
+            // ARRAY DE CIUDADES y region         
+<?php
+foreach ($arr as $buscar) {
+    echo "'" . $buscar->region_ubi . "','" . $buscar->ciudad_ubi . "','" . $buscar->nombre_cat . "', ";
+}
+?>  
+ 
+                    ].sort();
+                    $('#ciudad').typeahead({source: alCities, items:8});
+                });
+</script>
 
 
 
-        <div class="navbar ">
-            <div class="navbar-inner">
-                <div class="container">
+<div class="navbar ">
+    <div class="navbar-inner">
+        <div class="container">
 
-                    <a class="brand" href="#">Quality Tours</a>
-                    
-                    <ul class="nav">
-                        
-<!--                        HOME-->
-                        <li class="active">
-                            <?php echo Html::link('index/','<i class="icon-home icon-white"></i> Home');?>
+            <a class="brand" >Quality Tours</a>
+
+            <ul class="nav">
+
+                <!--                        HOME-->
+                <li class="">
+                    <?php echo Html::link('index/', '<i class="icon-home icon-white"></i> Home'); ?>
+                </li>
+
+                <!--LINK al Config-->
+<!--                    <li><?php //echo Html::link('pages/show/kumbia/status/', 'Config', 'title="Ver configuración de la aplicación"')  ?></li>-->
+
+
+                <!--Menu del usuario-->
+                <?php
+                if (Auth::is_valid()) {
+                    if (Session::get('rol_usu') == 'turista') {
+                        ?>
+                                                        <li class="dropdown">
+                                                            <a href="#"
+                                                                class="dropdown-toggle"
+                                                                data-toggle="dropdown">
+                                                                <i class="icon-wrench icon-white"></i> 
+                                                                Cuenta
+                                                                <b class="caret"></b>
+                                                            </a>
+                                                            
+                                                            <ul class="dropdown-menu">
+                                                                <li><?php echo Html::link('usuario/modificar/', '<i class="icon-file"></i> Modificar datos'); ?></li>
+                                                               
+                                                            </ul>
+                                                        </li>
+                        <?php
+                    }
+                }
+                ?>
+                                        
+                <!--Menu del cliente-->
+                <?php
+                if (Auth::is_valid()) {
+                    if (Session::get('rol_usu') == 'cliente') {
+                        ?>
+                        <li class="dropdown">
+                            <a href="#"
+                               class="dropdown-toggle"
+                               data-toggle="dropdown">
+                                <i class="icon-asterisk icon-white"></i> 
+                                Cliente
+                                <b class="caret"></b>
+                            </a>
+
+                            <ul class="dropdown-menu">
+                                <li><?php echo Html::link('servicio/ingresar/', '<i class="icon-plus"></i> Publicar servicio'); ?></li>
+                                <li><?php echo Html::link('ubicacion/ingresar/', '<i class="icon-screenshot"></i> Indique su ubicaci&oacute;n'); ?></li>
+                                <li><?php echo Html::link('contenido/ingresarcli/', '<i class="icon-camera"></i> Subir fotos'); ?></li>
+                            </ul>
                         </li>
-                        
-                        <!--LINK al Config-->
-<!--                    <li><?php //echo Html::link('pages/show/kumbia/status/', 'Config', 'title="Ver configuración de la aplicación"') ?></li>-->
-                        
+        <?php
+    }
+}
+?>
 
-<!--                    Menu del usuario
-                        <?php
-                        if(Auth::is_valid())
-                        {
-                            if (Session::get('rol_usu') == 'turista')
-                            { ?>
-                                <li class="dropdown">
-                                    <a href="#"
-                                        class="dropdown-toggle"
-                                        data-toggle="dropdown">
-                                        <i class="icon-wrench icon-white"></i> 
-                                        Cuenta
-                                        <b class="caret"></b>
-                                    </a>
-                                    
-                                    <ul class="dropdown-menu">
-                                        <li><?php echo Html::link('usuario/modificar/','<i class="icon-file"></i> Modificar datos');?></li>
-                                       
-                                    </ul>
-                                </li>
-                            <?php
-                            }
-                        }
-                        ?>
-                        
-<!--                    Menu del cliente-->
-                        <?php
-                        if(Auth::is_valid())
-                        {
-                            if (Session::get('rol_usu') == 'cliente')
-                            { ?>
-                                <li class="dropdown">
-                                    <a href="#"
-                                        class="dropdown-toggle"
-                                        data-toggle="dropdown">
-                                        <i class="icon-asterisk icon-white"></i> 
-                                        Cliente
-                                        <b class="caret"></b>
-                                    </a>
-                                    
-                                    <ul class="dropdown-menu">
-                                        <li><?php echo Html::link('servicio/ingresar/','<i class="icon-plus"></i> Publicar servicio');?></li>
-                                        <li><?php echo Html::link('ubicacion/ingresar/','<i class="icon-screenshot"></i> Indique su ubicaci&oacute;n');?></li>
-                                        <li><?php echo Html::link('contenido/ingresarcli/','<i class="icon-camera"></i> Subir fotos');?></li>
-                                    </ul>
-                                </li>
-                            <?php
-                            }
-                        }
-                        ?>
-                        
-<!--                    Panel de administración-->
-                        <?php
-                        if(Auth::is_valid())
-                        {
-                            if (Session::get('rol_usu') == 'administrador')
-                            { ?>
-                                <li class="dropdown">
-                                    <a href="#"
-                                        class="dropdown-toggle"
-                                        data-toggle="dropdown">
-                                        <i class="icon-tasks icon-white"></i> 
-                                        Administraci&oacute;n
-                                        <b class="caret"></b>
-                                    </a>
-                                    
-                                    <ul class="dropdown-menu">
-                                        <li><?php echo Html::link('cliente/ingresar/','<i class="icon-plus"></i> Ingresar cliente');?></li>
-                                        <li><?php echo Html::link('usuario/buscar/','<i class="icon-search"></i> Buscar usuarios');?></li>
-                                        <li><?php echo Html::link('publicacion/ingresar/','<i class="icon-upload"></i> Ingresar publicaci&oacute;n');?></li>
-                                        <li><?php echo Html::link('administrador/ingresar/','<i class="icon-plus"></i> Ingresar administrador');?></li>
-                                        <li><?php echo Html::link('categoria/ingresar','<i class="icon-plus"></i> Ingresar categor&iacute;as'); ?></li>
-                                    </ul>
-                                </li>
-                            <?php
-                            }
-                        }
-                        ?>
-                        
-                        
-                    </ul>
-                    
-                    <ul class="nav pull-right">
-                        
-<!--                        CAMPO DE BUSQUEDA-->
-                       
-                            
-                            <?php  echo Form::open("busqueda/buscando/",'post','class=navbar-search');?>
-                            
-                             <?php // echo Form::text("ciudad","class='search-query span2' placeholder='Buscar destinos' data-provide='typeahead' "); ?>
-<i class="icon-search icon-white"></i>
-<input id="ciudad" name="ciudad" type="text" value="" class='search-query span2' placeholder="Buscar destinos" data-provide='typeahead' >  
+                <!--Panel de administración-->
+<?php
+if (Auth::is_valid()) {
+    if (Session::get('rol_usu') == 'administrador') {
+        ?>
+                        <li class="dropdown">
+                            <a href="#"
+                               class="dropdown-toggle"
+                               data-toggle="dropdown">
+                                <i class="icon-tasks icon-white"></i> 
+                                Administraci&oacute;n
+                                <b class="caret"></b>
+                            </a>
+
+                            <ul class="dropdown-menu">
+                                <li><?php echo Html::link('cliente/ingresar/', '<i class="icon-plus"></i> Ingresar cliente'); ?></li>
+                                <li><?php echo Html::link('usuario/buscar/', '<i class="icon-search"></i> Buscar usuarios'); ?></li>
+                                <li><?php echo Html::link('publicacion/ingresar/', '<i class="icon-upload"></i> Ingresar publicaci&oacute;n'); ?></li>
+                                <li><?php echo Html::link('administrador/ingresar/', '<i class="icon-plus"></i> Ingresar administrador'); ?></li>
+                                <li><?php echo Html::link('categoria/ingresar', '<i class="icon-plus"></i> Ingresar categor&iacute;as'); ?></li>
+                            </ul>
+                        </li>
+        <?php
+    }
+}
+?>
+
+
+            </ul>
+
+            <ul class="nav pull-right">
+
+                <!--                        CAMPO DE BUSQUEDA-->
+
+
+<?php echo Form::open("busqueda/buscando/", 'post', 'class=navbar-search'); ?>
+
+                <?php // echo Form::text("ciudad","class='search-query span2' placeholder='Buscar destinos' data-provide='typeahead' ");  ?>
+                <i class="icon-search icon-white"></i>
+                <input id="ciudad" name="ciudad" type="text" value="" class='search-query span2' placeholder="Buscar destinos" data-provide='typeahead' >  
 
 
 <!--                            <input type="text" id="ciudad" class="search-query span2" placeholder="Buscar destinos" data-provide="typeahead" class="search-query">-->
-                            <?php echo Form::close()?>
-                        
-                        
+<?php echo Form::close() ?>
 
-<!--                        MENU INICIO/CIERRE DE SESION-->
-                            <li class="dropdown">
-                                <a href="#"
-                                    class="dropdown-toggle"
-                                    data-toggle="dropdown">
-                                    <?php
-                                    if(Auth::is_valid())
-                                    {
-                                        echo '<i class="icon-user icon-white"></i> ';
-                                        echo Auth::get('username_usu');
-                                    }
-                                    else
-                                    {
-                                        echo "Iniciar sesión";
-                                    }
-                                    ?>
-                                    <b class="caret"></b>
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li>
-                                        
-                                        <?php
-                                        //Si el user esta loguedao se mostrará la opción para cerrar sesión en el menu desplegable
-                                        if(Auth::is_valid())
-                                        {
-                                            echo "<li>";
-                                            echo Html::link('usuario/cerrarsesion','Cerrar Sesión <i class="icon-off"></i>');
-                                            echo "</li>";
-                                        }
-                                        else
-                                        { //Si no esta logueado se mostrará el form para iniciar sesión
-                                            ?>
-                                        <?php echo Form::open('usuario/autenticar','post','class=navbar-form'); ?>
-                                            <center>
-                                                Usuario 
-                                                <?php echo Form::text("username_usu","class='span2'");?>
-                                                Contraseña 
-                                                <?php echo Form::pass("password_usu","class='span2'");?>
-                                                <?php echo Form::submit('Ingresar',"class='btn btn-primary'"); ?>
-                                                <br><hr>
-                                                <li>  <?php echo Html::link('usuario/ingresar/','Regístrate  <i class="icon-plus-sign"></i>');?></li>
-                                            </center>
-                                        </form>
-                                        <?php } ?>
-                                        
-                                    </li>
-                                </ul>
-                            </li>
-                    </ul>
-                    
-                </div>
-            </div>
-            
+
+
+                <!-- MENU INICIO/CIERRE DE SESION-->
+                <li class="dropdown">
+                    <a href="#"
+                       class="dropdown-toggle"
+                       data-toggle="dropdown">
+<?php
+if (Auth::is_valid()) {
+    echo '<i class="icon-user icon-white"></i> ';
+    echo Auth::get('username_usu');
+} else {
+    echo "Iniciar sesión";
+}
+?>
+                        <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>
+
+                           <?php
+                           //Si el user esta loguedao se mostrará la opción para cerrar sesión en el menu desplegable
+                           if (Auth::is_valid()) {
+                               echo "<li>";
+                               echo Html::link('usuario/cerrarsesion', '<i class="icon-off"></i> Cerrar Sesión');
+                               echo "</li>";
+                           } else { //Si no esta logueado se mostrará el form para iniciar sesión
+                               ?>
+                                <?php echo Form::open('usuario/autenticar', 'post', 'class=navbar-form'); ?>
+                            <center>
+                                Usuario 
+                                <?php echo Form::text("username_usu", "class='span2'"); ?>
+                                Contraseña 
+                                <?php echo Form::pass("password_usu", "class='span2'"); ?>
+                                <?php echo Form::submit('Ingresar', "class='btn btn-primary'"); ?>
+                                <br><hr>
+                                <li>  <?php echo Html::link('usuario/ingresar/', 'Regístrate  <i class="icon-plus-sign"></i>'); ?></li>
+                            </center>
+                            </form>
+                            <?php } ?>
+
+                </li>
+            </ul>
+            </li>
+            </ul>
+
         </div>
+    </div>
+
+</div>
