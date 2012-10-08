@@ -11,10 +11,10 @@
         <?php foreach ($arr as $publicacion ) {?>
         
             <tr>
-                <td><?php echo "<div align='center'> <h6>".$publicacion->titulo_pub."</h6></div><br>"  ?></td>
+                <td><?php echo "<br><div align='center' class='titulo_pub1'><h4>".$publicacion->titulo_pub."</h4></div><br>"  ?></td>
             </tr>
             <tr>
-                <td><?php echo "<div align='center'> <p align='left'>".$publicacion->detalle_pub."</div>"  ?></td>
+                <td><?php echo "<div align='center' class='detalle_pub1'> <p align='left'>".$publicacion->detalle_pub."</div>"  ?></td>
             </tr>
             <tr>
                 <td>
@@ -31,7 +31,7 @@
                       
                 </td>
             <tr>
-                <td><?php echo "<div align='right'> <p align='right'><h5>Publicado el:&nbsp;".$publicacion->fecha_pub."</h5></div>"  ?></td>
+                <td><?php echo "<div align='right'> <p align='right'><h6>".$publicacion->fecha_pub."&nbsp;</h6></div>"  ?></td>
             </tr>
             <?php
                         if(Auth::is_valid())
@@ -43,75 +43,73 @@
             <td>
                <div align="right">
                <ul class="nav nav-pills nav-stacked">
-                  <li class="dropdown active">
-<!--                            SE CUENTAN LOS COMENTARIOS-->
-                        <?php $contador = Load::model('comentario')->count("estado_com = 't' and id_pub=".$publicacion->id);?>
-                          <a class="dropdown-toggle"data-toggle="dropdown"href="#">
-                        <?php echo $contador ?> comentarios - Comentar      
-                          <b class="caret active"></b>
-                          </a>   
-                       <ul class="dropdown-menu active">
-<!--                           FORMULARIO DE COMENTARIO!-->
-                           
-                       <li class="dropdown">
-                       <div align="right">
-                       <ul class="dropdown-menu">
-                   <li>
-<!--                         SECCION DE LISTAR COMENTARIOS--> 
- 
-                           <?php  
-                           $comentario= Load::model('comentario')->find("conditions: estado_com='t' and id_pub=".$publicacion->id);
-                           foreach($comentario as $buscar) 
-                           {?>    
-                           <?php 
-//                             CAPTURAR EL NOMBRE DE USUARIO
-                                    Load::model('usuario');
-                                    $usuario = new Usuario();
-                                    $usuario->find($buscar->id_usu);
-                                    $username = $usuario->username_usu;
-                                    
-                                    //cambia la variables locales a español para fecha en español
-                                    setlocale(LC_ALL, "esp");
-                                  
-                                 
-                            ?>   
-                              
-<div align="left">  <?php echo"<font color='#777777' size=1>".$username."&nbsp; dice:</font><br>".$buscar->detalle_com."<br>  <div align='right'><font size=1 color='#777777'el >".strftime('el  %#d/%m/%Y  ',strtotime($buscar->fecha_com))."a las ".date('h:i. A',strtotime($buscar->fecha_com))."</font></div>"; ?> </div>  
-                            <?php if(Auth::get("id")== $buscar->id_usu) 
-                                  {?>
-                                     <?php echo  Html::link('comentario/eliminar/'.$buscar->id,'eliminar')?>
-                                   
+                   <li class="dropdown active">
+                                   <!--SE CUENTAN LOS COMENTARIOS-->
+                                   <?php $contador = Load::model('comentario')->count("estado_com = 't' and id_pub=" . $publicacion->id); ?>
+                                   <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                       <?php
+                                       //IF PARA MOSTRAR CORRECTAMENTE LA CANTIDAD DE COMENTARIOS
+                                       if ($contador == 1)
+                                           echo $contador . " comentario - "; //Muestra comentario si es uno
+                                       else if ($contador > 1)
+                                           echo $contador . " comentarios - "; //Muestra comentarios si hay mas de uno
+                                       ?>Comentar      
+                                       <b class="caret active"></b>
+                                   </a>   
+                                   <ul class="dropdown-menu active">
+                                       <!--FORMULARIO DE COMENTARIO!-->
 
-                            
-                            <?php } ?>
-                            <hr>
-                     <?php } ?>
-<!--                            FORMULARIO DE COMENTARIO-->
-                           <?php echo Form::open('comentario/ingresar'); ?>
-                           <center>   
-                                 <?php
-                               
-                                 
-                                 $tiempo=date("d-m-Y   H:i");
-                                 ?>
-                               
+                                       <li class="dropdown">
+                                           <div align="left" >
+                                               <ul class="dropdown-menu">
+                                                   <li>
+                                                       <!--SECCION DE LISTAR COMENTARIOS--> 
 
-                             
-                                 <?php echo Form::textarea("comentario.detalle_com");?>
-                                 <?php echo Form::submit('Comentar',"class='btn btn-primary boton'"); ?>
-                                 <?php echo Form::hidden('comentario.id_pub',null , $publicacion->id); ?>
-                                 <?php echo Form::hidden('comentario.id_usu',null , Auth::get('id')); ?>
-                                 <?php echo Form::hidden('comentario.estado_com',null , 1); ?>
-                                 <?php echo Form::hidden('comentario.fecha_com',null , $tiempo); ?>
-                                                
-                           <?php Form::close(); ?>   
-                           </center>       
-                            </li>
-                                </ul>
-                             </div>  
-                           </li>
-                      </ul>
-                    </li>
+                                                       <?php
+                                                       $comentario = Load::model('comentario')->find("conditions: estado_com='t' and id_pub=" . $publicacion->id);
+                                                       foreach ($comentario as $buscar) {
+                                                           ?>    
+                                                           <?php
+                                                           //CAPTURAR EL NOMBRE DE USUARIO
+                                                           Load::model('usuario');
+                                                           $usuario = new Usuario();
+                                                           $usuario->find($buscar->id_usu);
+                                                           $username = $usuario->username_usu;
+
+                                                           //cambia la variables locales a español para fecha en español
+                                                           setlocale(LC_ALL, "esp");
+                                                           ?>   
+
+                                                           <div align="left">  <?php echo"<font color='#777777' size=2><b>" . $username . "</b></font><br>" . $buscar->detalle_com . "<br>  <div align='right'><font size=1 color='#777777'el >" . strftime('el  %#d/%m/%Y  ', strtotime($buscar->fecha_com)) . "a las " . date('h:i. A', strtotime($buscar->fecha_com)) . "</font></div>"; ?> </div>  
+                                                           <?php if (Auth::get("id") == $buscar->id_usu) {
+                                                               ?>
+                                                               <?php echo Html::link('comentario/eliminar/' . $buscar->id, 'eliminar') ?>
+
+
+
+                                                           <?php } ?>
+                                                           <hr>
+                                                       <?php } ?>
+                                                       <!--FORMULARIO DE COMENTARIO-->
+                                                       <?php
+                                                       echo "<center>";
+                                                       echo Form::open('comentario/ingresar');
+                                                       $tiempo = date("d-m-Y   H:i");
+                                                       echo Form::hidden('comentario.id_pub', null, $publicacion->id);
+                                                       echo Form::hidden('comentario.id_usu', null, Auth::get('id'));
+                                                       echo Form::hidden('comentario.fecha_com', null, $tiempo);
+                                                       echo Form::textarea('comentario.detalle_com', "placeholder='Escribe tu comentario...'");
+                                                       echo Form::hidden('comentario.estado_com', null, 1);
+                                                       echo Form::submit('Comentar', "class='btn btn-primary boton'");
+                                                       Form::close();
+                                                       echo "</center>";
+                                                       ?>       
+                                                   </li>
+                                               </ul>
+                                           </div>  
+                                       </li>
+                                   </ul>
+                               </li>
                   </div>
                 </td>
             </tr>
