@@ -17,21 +17,23 @@ class ComentarioController extends AppController
             if(Input::hasPost('comentario'))
             {
            
-            $comentario = new Comentario(Input::post('comentario'));
-            
-            if(!$comentario->save()){
-                Flash::error('Error al agregar Usuario');
-            }
-            else
-            {
-                Flash::success('Comentario correctamente realizado');
-                Router::redirect("/");
-            }
+                $comentario = new Comentario(Input::post('comentario'));
+
+                if(!$comentario->save())
+                {
+                    Flash::error('Error al agregar Usuario');
+                }
+                else
+                {
+                    Flash::success('Comentario ingresado');
+                    Router::redirect("/");
+                }
 
             }  
         
         
     }
+    
     public function eliminar($id)
     {
          $comentario = new Comentario;

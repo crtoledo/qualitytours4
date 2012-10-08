@@ -136,3 +136,22 @@ hr, .hrcolor {
    color: #666;
    background-color: #32d7e6;
 }
+
+/*Estilos Propios*/
+
+/*Publicacion en el index*/
+.titulo_pub1{
+    font-family: SF;
+}
+.detalle_pub1{
+    padding: 15px;
+    padding-top: 0px;
+    text-align: justify
+}
+
+
+/*FUENTES*/
+@font-face {
+	font-family: SF;
+	src: url('../fonts/SF.ttf');
+}
