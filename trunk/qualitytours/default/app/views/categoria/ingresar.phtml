@@ -1,9 +1,57 @@
-<div><?php View::content() ?></div> 
+<div><?php View::content()?></div> 
+
+<script type="text/javascript">
+    $(document).ready(function () 
+    {
+        $("#aa").keyup(function()
+        {
+            if ($("#aa").val() != "")
+                {
+                    $.ajax
+                    ({
+                        url: '<?php echo PUBLIC_PATH; ?>ajax/cliente_busqueda.php?string='+$("#aa").val(),
+                        type: "POST",
+                        dataType: "json",
+                        success: function(data)
+                        {
+                                //console.log(data);
+                                if (data != null && data.length > 0)
+                                    {
+                                        var count = data.length;
+                                        var i = 0;
+                                        $("#selectCentro").empty();
+                                        while (i < count)
+                                            {
+                                                $("#selectCentro").append('<option value="'+i+'">'+data[i]+'</option>');
+                                                i++;
+                                            }
+                                        
+                                    }
+                                    else
+                                        $("#selectCentro").empty();
+                                        $("#selectCentro").append('<option value="1">No se encontraron resultados</option>');
+                                
+                        }
+                    });
+                }
+        });
+    });
+        
+</script>
 
 <div align="center">
+    
     <h1>Clasificar centros turísticos</h1>
      <?php echo Form::open('categoria/ingresar') ?>
     <table>
+        <tr>
+            <td>Nombre a buscar:&nbsp;</td>
+            <td><?php echo Form::text('aa')?></td>
+        </tr>
+        <tr>
+            <td>Seleccione centro turístico:&nbsp;</td>
+            <td><?php echo "<select id='selectCentro'></select>"?></td>
+        </tr>
         <tr>
             <td>Seleccione centro turístico:&nbsp;</td>
             <td><?php echo  Form::dbSelect('categoria.id_usu','nombre_cli',array('cliente','find',"rol_usu='cliente'"),'-Seleccione-','class=seleccion_usuario')?></td>
