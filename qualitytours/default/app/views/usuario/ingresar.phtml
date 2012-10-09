@@ -1,4 +1,9 @@
-<div><?php View::content() ?></div> 
+<div>
+<?php
+    View::content();
+    echo Tag::js("jquery/jquery.Rut.min");
+?>
+</div> 
 
 <script type="text/javascript">
     //Validación con jquery
@@ -22,8 +27,8 @@ $(document).ready(function () {
         }else if( $(".apellido").val() == "" ){
             $(".apellido").focus().after("<span class='errorVal'>Ingrese apellido</span>");
             return false;
-        } else if( $(".rut").val() == "" || !rutreg.test($(".rut").val()) ){
-            $(".rut").focus().after("<span class='errorVal'>Ingrese rut correctamente</span>");
+        }else if( $(".rut").val() == "" || !rutreg.test($(".rut").val())){
+            $(".rut").focus().after("<span class='errorVal'>Ingrese rut v&aacute;lido</span>");
             return false;
         }else if($(".email").val() == "" || !emailreg.test($(".email").val()) ){
            $(".email").focus().after("<span class='errorVal'>Ingrese email</span>");
@@ -46,9 +51,18 @@ $(document).ready(function () {
     
     
     //Borrar el mensaje de error si el usuario ingresa un rut con formato válido
+    $(".rut").Rut({
+        on_error: function(){  $(".rut").focus().after("<span class='errorVal'>Ingrese rut v&aacute;lido</span>"); return false; },
+        format_on: 'keyup'
+        
+       
+    });
+    
+    
+    
     $(".rut").keyup(function()
     {
-        if( $(this).val() != "" && rutreg.test($(this).val()))
+        if( $(".rut").val() != "" && rutreg.test($(".rut").val()))
         {
             $(".errorVal").fadeOut();
             return false;
