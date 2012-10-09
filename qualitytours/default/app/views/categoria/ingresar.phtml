@@ -16,20 +16,23 @@
                         {
                                 //console.log(data);
                                 if (data != null && data.length > 0)
-                                    {
-                                        var count = data.length;
-                                        var i = 0;
-                                        $("#selectCentro").empty();
-                                        while (i < count)
-                                            {
-                                                $("#selectCentro").append('<option value="'+i+'">'+data[i]+'</option>');
-                                                i++;
-                                            }
+                                {
+                                    var count = data.length;
+                                    var i = 0;
+                                    $("#selectCentro").empty();
+                                    while (i < count)
+                                        {
+                                            $("#selectCentro").append('<option value="'+i+'">'+data[i]+'</option>');
+                                            i++;
+                                        }
+
+                                }
+                                else
+                                {
+                                    $("#selectCentro").empty();
+                                    $("#selectCentro").append('<option value="1">No se encontraron resultados</option>');
+                                }
                                         
-                                    }
-                                    else
-                                        $("#selectCentro").empty();
-                                        $("#selectCentro").append('<option value="1">No se encontraron resultados</option>');
                                 
                         }
                     });
