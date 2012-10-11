@@ -3,44 +3,44 @@
 <script type="text/javascript">
     $(document).ready(function () 
     {
-        $("#aa").keyup(function()
+        $("#buscaCentro").keyup(function()
         {
-            if ($("#aa").val() != "")
+            if ($("#buscaCentro").val() != "")
                 {
                     $.ajax
                     ({
-                        url: '<?php echo PUBLIC_PATH; ?>ajax/cliente_busqueda.php?string='+$("#aa").val(),
+                        url: '<?php echo PUBLIC_PATH; ?>ajax/cliente_busqueda.php?string='+$("#buscaCentro").val(),
                         type: "POST",
                         dataType: "json",
                         success: function(data)
                         {
-                                //console.log(data);
+                                //console.log(data[0]['id_usu']);
                                 if (data != null && data.length > 0)
                                 {
                                     var count = data.length;
                                     var i = 0;
-                                    $("#selectCentro").empty();
+                                    $("#categoria_id_usu").empty();
                                     while (i < count)
                                         {
-                                            $("#selectCentro").append('<option value="'+i+'">'+data[i]+'</option>');
+                                            $("#categoria_id_usu").append('<option value="'+data[i]['id_usu']+'">'+data[i]['nombre_cli']+'</option>');
                                             i++;
                                         }
-
                                 }
                                 else
                                 {
-                                    $("#selectCentro").empty();
-                                    $("#selectCentro").append('<option value="1">No se encontraron resultados</option>');
+                                    $("#categoria_id_usu").empty();
+                                    $("#categoria_id_usu").append('<option value="0" selected="selected">No se encontraron resultados</option>');
                                 }
-                                        
-                                
-                        }
-                    });
+                        } // cierre success
+                    }); //cierre ajax
+                } //Cierre If
+                else
+                {
+                    $("#categoria_id_usu").empty();
+                    $("#categoria_id_usu").append('<option value="0" selected="selected>No se encontraron resultados</option>');
                 }
-                $("#selectCentro").empty();
-                $("#selectCentro").append('<option value="1">No se encontraron resultados</option>');
-        });
-    });
+        }); //Cierre keyup
+    }); //Cierre Jquery
         
 </script>
 
@@ -51,15 +51,11 @@
     <table>
         <tr>
             <td>Nombre a buscar:&nbsp;</td>
-            <td><?php echo Form::text('aa')?></td>
+            <td><?php echo Form::text('buscaCentro')?></td>
         </tr>
         <tr>
             <td>Seleccione centro turístico:&nbsp;</td>
-            <td><?php echo "<select id='selectCentro'></select>"?></td>
-        </tr>
-        <tr>
-            <td>Seleccione centro turístico:&nbsp;</td>
-            <td><?php echo  Form::dbSelect('categoria.id_usu','nombre_cli',array('cliente','find',"rol_usu='cliente'"),'-Seleccione-','class=seleccion_usuario')?></td>
+            <td><?php echo "<select id='categoria_id_usu' size='9' name='categoria[id_usu]'><option value='0' selected='selected'></option></select>"?></td>
         </tr>
         <tr>
             <td>Nombre Categoría:&nbsp;</td>

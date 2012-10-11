@@ -10,34 +10,34 @@ class CategoriaController extends AppController {
              
         
     }
-    public function before_filter(){
+    
+    public function before_filter() 
+    {
         //verifica si se encuentra logueado
-		if(!Auth::is_valid())
-                {
-                        Flash::info('Debe iniciar sesión');
-			Router::redirect("/");
-                        
-		}
-                
-            //verifica si el rol pertenece como corresponde
-            else
+        if (!Auth::is_valid()) 
+        {
+            Flash::info('Debe iniciar sesión');
+            Router::redirect("/");
+        }
+
+        //verifica si el rol pertenece como corresponde
+        else 
+        {
+            if (Auth::get('rol_usu') != 'administrador') 
             {
-                 if(Auth::get('rol_usu') != 'administrador')
-                {
-                    Flash::info('No posee los privilegios necesarios');
-		    Router::redirect("/");
-                }
-                else
-                {
-                    
-                } 
-            }    
-                  
-	}
-      
-         public function ingresar()
+                Flash::info('No posee los privilegios necesarios');
+                Router::redirect("/");
+            } 
+            else 
+            {
+                
+            }
+        }
+    }
+
+    public function ingresar()
         { 
-             $this->id_usu = Auth::get('id');
+            $this->id_usu = Auth::get('id');
             if(Input::hasPost('categoria'))
             {
                 
