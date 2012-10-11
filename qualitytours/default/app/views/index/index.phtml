@@ -1,6 +1,5 @@
 
-<!--Capturan los valores de la publicación-->
-<?php $arr= Load::model('publicacion')->find("conditions: estado_pub='t'","order: id DESC"); ?>
+
 <div class="container-fluid">
   <div class="row-fluid">
     <div class="span10">
@@ -8,31 +7,28 @@
         
         <div align="center">
         
-        <?php foreach ($arr as $publicacion ) {?>
+        
             <table class='well' width="600px">
         
             <tr>
-                <td><?php echo "<br><div align='center' class='titulo_pub1'><h4>".$publicacion->titulo_pub."</h4></div><br>"  ?></td>
+                <td><?php echo "<br><div align='center' class='titulo_pub1'><h4>".$titulo."</h4></div><br>"  ?></td>
             </tr>
             <tr>
-                <td><?php echo "<div align='center' class='detalle_pub1'> <p align='left'>".$publicacion->detalle_pub."</div>"  ?></td>
+                <td><?php echo "<div align='center' class='detalle_pub1'> <p align='left'>".$detalle."</div>"  ?></td>
             </tr>
             <tr>
                 <td>
-                  <?php   //BUCAR IMAGENES ASOCIADAS AL ID DE LA PUBLICACION 
-                      $imagen= Load::model('contenido')->find("conditions: id_pub=".$publicacion->id);
-                       foreach($imagen as $buscar)
-                       {
+                  <?php
                            echo "<center>";
-                           echo  Html::img("../default/public/img/upload/".$buscar->ruta_con,"imagen","width=300 height=200");
+                           echo  Html::img("../default/public/img/upload/".$ruta,"imagen","width=300 height=200");
                            echo "</center>";
-                       }    
+                          
                              
                   ?>
                       
                 </td>
             <tr>
-                <td><?php echo "<div align='right'> <p align='right'><h6>".$publicacion->fecha_pub."&nbsp;</h6></div>"  ?></td>
+                <td><?php echo "<div align='right'> <p align='right'><h6>".$fecha."&nbsp;</h6></div>"  ?></td>
             </tr>
             <?php
                         if(Auth::is_valid())
@@ -52,7 +48,7 @@
                             if (Session::get('rol_usu') == 'administrador')
                             { ?>
                             <tr>
-                                <td><div align="right"> <?php  echo Html::link("publicacion/editar/".$publicacion->id,'Editar');?> - <?php echo Html::link("publicacion/eliminar/".$publicacion->id,'Eliminar'); ?></div>  </td>
+                                <td><div align="right"> <?php  echo Html::link("publicacion/editar/".$id,'Editar');?> - <?php echo Html::link("publicacion/eliminar/".$id,'Eliminar'); ?></div>  </td>
     
                             </tr>
                             
@@ -64,7 +60,7 @@
             
           
         </table>
-        <?php } ?>
+     
 
                             
                           
