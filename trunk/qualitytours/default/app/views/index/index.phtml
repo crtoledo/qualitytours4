@@ -17,12 +17,12 @@
                     <td><?php echo "<div align='center' class='detalle_pub1'> <p align='left'>".$detalle[$i]."</div>"  ?></td>
                 </tr>
                 <tr>
-                    <td><?php if($contenido != 0)
-                             {
-                               echo "<center>";
-                               echo  Html::img("../default/public/img/upload/".$ruta[$i],"imagen","width=300 height=200");
-                               echo "</center>";
-                             }          
+                    <td><?php if($contenido[$i] != 0)
+                              {
+                                echo "<center>";
+                                echo  Html::img("../default/public/img/upload/".$ruta[$i],"imagen","width=300 height=200");
+                                echo "</center>";
+                              }          
                          ?>
                     </td>
                 <tr>

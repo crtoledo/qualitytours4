@@ -33,20 +33,20 @@ class IndexController extends AppController
                 $contenido = new Contenido();
                 //BUCAR IMAGENES ASOCIADAS AL ID DE LA PUBLICACION 
                 //validar si existen contenido
-                if ($contenido->count("conditions: estado_con='t'") == 0 )
+                if ($contenido->count("conditions: id_pub=".$publicacion->id." and  estado_con='t'") == 0 )
                 {
-                    $this->contenido = 0;
+                    $this->contenido[$contador]= 0;
                 }
                 else
                 {
-                    $this->contenido = 1;
+                    $this->contenido[$contador] = 1;
                 }
-                $imagen= $contenido->find("conditions: id_pub=".$publicacion->id."and  estado_con='t'");
+                $imagen= $contenido->find("conditions: id_pub=".$publicacion->id." and  estado_con='t'");
               
                 foreach($imagen as $contenido)
                 {
-                    $this->ruta[$contador] = $imagen[$contador]->ruta_con;
-                    
+                    //$this->ruta[$contador] = $imagen[$contador]->ruta_con;
+                    $this->ruta[$contador] = $contenido->ruta_con;
                 }
                 $this->fecha[$contador] = $arr[$contador]->fecha_pub;
                 $this->id[$contador] = $arr[$contador]->id;
