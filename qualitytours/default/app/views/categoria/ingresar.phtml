@@ -40,6 +40,23 @@
                     $("#categoria_id_usu").append('<option value="0" selected="selected>No se encontraron resultados</option>');
                 }
         }); //Cierre keyup
+        
+        $(".submit").click(function()
+        {
+            //VALIDACION QUE SELECCIONE UN CENTRO TURISTICO
+            if ($("#categoria_id_usu").val() == "0")
+            {
+                alert('Seleccione centro turistico');
+                return false;
+            }
+            //VALIDACION QUE INGRESE UNA CATEGORIA
+            if ($("#categoria_nombre_cat").val() == "")
+            {
+                alert('Ingrese categoria');
+                return false;
+            }
+        });
+        
     }); //Cierre Jquery
         
 </script>
