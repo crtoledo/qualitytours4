@@ -1,5 +1,6 @@
 <?php
 load::model('publicacion');
+load::model('contenido');
 
 class PublicacionController extends AppController 
 {
@@ -72,13 +73,15 @@ class PublicacionController extends AppController
     public function eliminar($id)
     {
        $publicacion = new Publicacion();
+       $contenido = new Contenido();
+       $contenido->sql("update Contenido set estado_con='f' where id_pub=".$id);
        if($publicacion->sql("update Publicacion set estado_pub='f' where id=".$id))
        {
+           
            Flash::success('Publicación eliminada');
 	   Router::redirect("/");
        }
-               
-
+   
     }
     public function editarpub($id)
     {
