@@ -4,6 +4,8 @@
   <div class="row-fluid">
     <div class="span10">
        
+        <?php if ($cont != 0)
+        {?>
         
         <div align="center">
         
@@ -19,11 +21,13 @@
             <tr>
                 <td>
                   <?php
+                  if($contenido != 0)
+                  {
                            echo "<center>";
                            echo  Html::img("../default/public/img/upload/".$ruta,"imagen","width=300 height=200");
                            echo "</center>";
                           
-                             
+                  }          
                   ?>
                       
                 </td>
@@ -67,6 +71,7 @@
         
             
         </div>  
+        <?php } ?>
     </div>
     <div class="span2">
         <div align="right">
