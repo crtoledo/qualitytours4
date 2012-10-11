@@ -3,75 +3,58 @@
 <div class="container-fluid">
   <div class="row-fluid">
     <div class="span10">
-       
-        <?php if ($cont != 0)
-        {?>
-        
+     <?php if ($cont != 0)
+           {
+             for($i=0;$i<=$contador-1; $i++)
+             {
+     ?>
         <div align="center">
-        
-        
             <table class='well' width="600px">
-        
-            <tr>
-                <td><?php echo "<br><div align='center' class='titulo_pub1'><h4>".$titulo."</h4></div><br>"  ?></td>
-            </tr>
-            <tr>
-                <td><?php echo "<div align='center' class='detalle_pub1'> <p align='left'>".$detalle."</div>"  ?></td>
-            </tr>
-            <tr>
-                <td>
-                  <?php
-                  if($contenido != 0)
-                  {
-                           echo "<center>";
-                           echo  Html::img("../default/public/img/upload/".$ruta,"imagen","width=300 height=200");
-                           echo "</center>";
-                          
-                  }          
-                  ?>
-                      
-                </td>
-            <tr>
-                <td><?php echo "<div align='right'> <p align='right'><h6>".$fecha."&nbsp;</h6></div>"  ?></td>
-            </tr>
-            <?php
-                        if(Auth::is_valid())
-                        {
-                            if (Session::get('rol_usu') == 'administrador' || Session::get('rol_usu') == 'turista' || Session::get('rol_usu') == 'cliente')
-                        { ?>
-            
-            
-             <?php
-                        }
-                        }
+                <tr>
+                    <td><?php echo "<br><div align='center' class='titulo_pub1'><h4>".$titulo[$i]."</h4></div><br>"  ?></td>
+                </tr>
+                <tr>
+                    <td><?php echo "<div align='center' class='detalle_pub1'> <p align='left'>".$detalle[$i]."</div>"  ?></td>
+                </tr>
+                <tr>
+                    <td><?php if($contenido != 0)
+                             {
+                               echo "<center>";
+                               echo  Html::img("../default/public/img/upload/".$ruta[$i],"imagen","width=300 height=200");
+                               echo "</center>";
+                             }          
+                         ?>
+                    </td>
+                <tr>
+                    <td><?php echo "<div align='right'> <p align='right'><h6>".$fecha[$i]."&nbsp;</h6></div>"  ?></td>
+               </tr>
+               <?php
+               if(Auth::is_valid())
+                {
+                    if (Session::get('rol_usu') == 'administrador' || Session::get('rol_usu') == 'turista' || Session::get('rol_usu') == 'cliente')
+                    { 
+               ?>
+                        <?php
+                    }
+                }
                         ?>
 <!--              Opcion del administrador-->
                         <?php
                         if(Auth::is_valid())
                         {
                             if (Session::get('rol_usu') == 'administrador')
-                            { ?>
-                            <tr>
-                                <td><div align="right"> <?php  echo Html::link("publicacion/editar/".$id,'Editar');?> - <?php echo Html::link("publicacion/eliminar/".$id,'Eliminar'); ?></div>  </td>
-    
-                            </tr>
-                            
-                        <?php
-                            }
+                                { ?>
+                                    <tr>
+                                        <td><div align="right"> <?php  echo Html::link("publicacion/editar/".$id[$i],'Editar');?> - <?php echo Html::link("publicacion/eliminar/".$id[$i],'Eliminar'); ?></div>  </td>
+                                    </tr>
+                                <?php
+                                }
                         }
                         ?>
-                        
-            
-          
-        </table>
-     
-
-                            
-                          
-        
-            
+             </table>
         </div>  
-        <?php } ?>
+        <?php }
+          }?>
         
     </div>
     <div class="span2">

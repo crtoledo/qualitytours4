@@ -23,10 +23,12 @@ class IndexController extends AppController
             //Capturan los valores de la publicación
              $arr= $publicacion->find("conditions: estado_pub='t'","order: id DESC");
              //recorre el arreglo de publicacion
-             foreach ($arr as $publicacion ) 
+             $contador = 0;
+             foreach ($arr as $publicacion )
              {
-                $this->titulo = $publicacion->titulo_pub; 
-                $this->detalle = $publicacion->detalle_pub;
+                
+                $this->titulo[$contador] = $arr[$contador]->titulo_pub; 
+                $this->detalle[$contador] = $arr[$contador]->detalle_pub;
                 //crear objeto
                 $contenido = new Contenido();
                 //BUCAR IMAGENES ASOCIADAS AL ID DE LA PUBLICACION 
@@ -40,14 +42,17 @@ class IndexController extends AppController
                     $this->contenido = 1;
                 }
                 $imagen= $contenido->find("conditions: id_pub=".$publicacion->id."and  estado_con='t'");
-                foreach($imagen as $buscar)
+              
+                foreach($imagen as $contenido)
                 {
-                    $this->ruta = $buscar->ruta_con;
+                    $this->ruta[$contador] = $imagen[$contador]->ruta_con;
+                    
                 }
-                $this->fecha = $publicacion->fecha_pub;
-                $this->id = $publicacion->id;
+                $this->fecha[$contador] = $arr[$contador]->fecha_pub;
+                $this->id[$contador] = $arr[$contador]->id;
+                $contador++;
              }
-		
+                $this->contador = $contador;
 	}
 }
 ?>
