@@ -62,6 +62,11 @@ $(document).ready(function () {
                             count++;
                         }
                 }
+                else 
+                {
+                    $(".table-condensed tbody").empty();
+                    $(".table-condensed tbody").append('<td><b>NO SE ENCONTRARON RESULTADOS</b></td>');
+                }
             } // cierre success
         }); //cierre ajax
         //AJAX FIN
