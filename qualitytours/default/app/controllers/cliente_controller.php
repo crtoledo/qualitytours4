@@ -109,8 +109,11 @@ class ClienteController extends AppController
     {
         $client = new Cliente();
         $client = $client->find($id);
+        $captura = $client->visitas_cli ;
+        $actualiza = $captura+1;
+        $client->sql("update Cliente set visitas_cli=".$actualiza."where id_usu=".$id);
         $this->nombre_cliente = $client->nombre_cli;
-        
+        $this->mostrar = $client->visitas_cli;
         $contenido = new Contenido();
         $contenido = $contenido->find("conditions: id_usu=".$id);
         $this->contenido = $contenido;
@@ -126,6 +129,8 @@ class ClienteController extends AppController
         
         $this->latitud = $ubicacion[0]->latitud_ubi; //El [0] debido a que nos entrega un array
         $this->longitud = $ubicacion[0]->longitud_ubi;
+        
+       
     }
 }
 
