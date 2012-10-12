@@ -43,7 +43,7 @@ $(document).ready(function(){
         <thead>
             <td width="400px"><div id="map_canvas" style="width:400px; height:400px"></div></td>
             <td width="600px">
-                <h3><?php echo $nombre_cliente?></h3><br>
+                <h3><?php echo $nombre_cliente; ?></h3> <?php echo"<span class='label label-info'>".$mostrar.":&nbsp;visitas</span>";?><br>
                 <?php
                 foreach ($array_servicios as $servicio) {
                     echo Html::link("servicio/detalle/" . $servicio->id, "Servicio: " . $servicio->nombre_ser . "<br>");
