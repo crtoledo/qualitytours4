@@ -3,23 +3,15 @@
     //Validación con jquery
     //El siguiente script valida que los campos no estén vacios y el formato del RUT
 $(document).ready(function () {
+    //VALIDACION USERNAME
     $(".boton").click(function (){
         $(".errorVal").remove();
         
-         if( $(".palabra").val() == "" ){
+         if( $(".palabra").val() == "" )
+         {
             $(".palabra").focus().after("<span class='errorVal'>Ingrese username a buscar</span>");
             return false;
-        }
-    });
-     
-    //Borrar mensaje de error si el usuario a llenado el campo
-    $(".palabra").keyup(function()
-    {
-        if( $(this).val() != "" )
-        {
-            $(".errorVal").fadeOut();
-            return false;
-        }
+         }
     });
     
     //boton de confirmacion
@@ -33,6 +25,51 @@ $(document).ready(function () {
         separator:'  '
       }  
     });
+    
+    //Borrar mensaje de error si el usuario a llenado el campo
+    $(".palabra").keyup(function()
+    {
+    if( $(".palabra").val() != "" )
+    {
+        $(".errorVal").fadeOut();
+        //AJAX COMIENZO
+        $.ajax
+        ({
+            url: '<?php echo PUBLIC_PATH; ?>ajax/usuario_busqueda.php?string='+$(".palabra").val(),
+            type: "POST",
+            dataType: "json",
+            success: function(data)
+            {
+                //console.log(data[0]['id_usu']);
+                if (data != null && data.length > 0)
+                {
+                    var count = 0;
+                    //console.log(data);
+                    $(".table-condensed tbody").empty();
+                    while (count < data.length)
+                        {
+                            $(".table-condensed tbody").append("<tr>");
+                            $(".table-condensed tbody").append("<td>"+data[count]['id']+"</td>");
+                            $(".table-condensed tbody").append("<td>"+data[count]['username_usu']+"</td>");
+                            $(".table-condensed tbody").append("<td>"+data[count]['nombre_usu']+"</td>");
+                            $(".table-condensed tbody").append("<td>"+data[count]['apellido_usu']+"</td>");
+                            $(".table-condensed tbody").append("<td>"+data[count]['email_usu']+"</td>");
+                            $(".table-condensed tbody").append("<td>"+data[count]['rol_usu']+"</td>");
+                            $(".table-condensed tbody").append('<td><form action="/trunk/qualitytours/usuario/modificar/'+data[count]['id']+'" method="post"><input type="submit" value="Modificar" class= "btn btn-info modificar"></form></td>');
+                            $(".table-condensed tbody").append('<td><form action="/trunk/qualitytours/usuario/eliminar/'+data[count]['id']+'" method="post"><input type="submit" value="Eliminar" class= "btn btn-danger eliminar"></form></td>');
+                            
+                            $(".table-condensed tbody").prepend("</tr>");
+                            count++;
+                        }
+                }
+            } // cierre success
+        }); //cierre ajax
+        //AJAX FIN
+        return false;
+    }
+    });
+    
+    
     
 });
 </script>
