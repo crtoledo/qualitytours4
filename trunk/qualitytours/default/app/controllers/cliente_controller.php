@@ -113,7 +113,7 @@ class ClienteController extends AppController
         $actualiza = $captura+1;
         $client->sql("update Cliente set visitas_cli=".$actualiza."where id_usu=".$id);
         $this->nombre_cliente = $client->nombre_cli;
-        $this->mostrar = $client->visitas_cli;
+        $this->mostrar = $client->visitas_cli+1;
         $contenido = new Contenido();
         $contenido = $contenido->find("conditions: id_usu=".$id);
         $this->contenido = $contenido;
