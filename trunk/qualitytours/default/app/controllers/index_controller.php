@@ -1,6 +1,7 @@
 <?php
 Load::model('publicacion');
 Load::model('contenido');
+Load::model('cliente');
 /**
  * Controller por defecto si no se usa el routes
  * 
@@ -53,6 +54,19 @@ class IndexController extends AppController
                 $contador++;
              }
                 $this->contador = $contador;
+                
+                //ranking de visitas
+                $cliente =  new Cliente();
+                $client = $cliente->find("conditions: estado_usu='t'","limit: 3","order: visitas_cli desc");
+                $i = 0;
+                foreach($client as $cliente)
+                {
+                    $this->nombre_cli[$i] = $client[$i]->nombre_cli;
+                    $i++;
+                }
+                $this->indice = $i;
 	}
+        
+       
 }
 ?>
