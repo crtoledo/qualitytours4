@@ -66,7 +66,17 @@
                     <td> <?php echo Html::img("1341096209_publish.png","publicar"); ?> </td>
                 </tr>
             </table>
-        </div>    
+        </div>
+        <?php
+         for ($i=0;$i<=$indice-1;$i++)
+         {
+            echo "<table>";
+            echo "<tr>";
+            echo "<td>".$nombre_cli[$i]."</td>";
+            echo "</tr>";
+            echo "</table>";
+         }
+        ?>
     </div>
   </div>
 </div>
