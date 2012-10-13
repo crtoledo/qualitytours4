@@ -38,6 +38,12 @@ $(document).ready(function(){
 });
 </script>
 
+<script>  
+$(function ()  
+{ $("#example").popover();  
+});  
+</script>  
+
 <table class="table table-bordered">
     <tr>  
         <thead>
@@ -49,10 +55,15 @@ $(document).ready(function(){
                     echo Html::link("servicio/detalle/" . $servicio->id, "Servicio: " . $servicio->nombre_ser . "<br>");
                 }
                 ?>
+                 
             </td>
-                
+                  
+       
+ 
         </thead>
     </tr>
+   
+        
     
     <?php
         //Trozo PHP para verificar si hay imagenes
@@ -66,6 +77,23 @@ $(document).ready(function(){
             echo "</center></td></tr>";
         }
     ?>
+    
 </table>
+<div align="left"> 
+     <a  id="comentarios" class="btn btn-success" rel="popover" data-content="It's so simple to create a tooltip for my website!cdcdcdf <input type='text'>" data-original-title="Comentarios">Comentar</a>  
+ </div> 
+
+<script>
+$(function ()  
+{ 
+    
+
+  $("#comentarios").popover({placement:'right'});
+ 
+  
+});  
+</script>  
+
+
 
 
