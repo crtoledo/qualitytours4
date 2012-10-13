@@ -67,14 +67,16 @@
                 </tr>
             </table>
         </div>
+        <h6>Los más visitados</h6>
         <?php
          for ($i=0;$i<=$indice-1;$i++)
          {
-            echo "<table>";
-            echo "<tr>";
-            echo "<td>".$nombre_cli[$i]."</td>";
-            echo "</tr>";
-            echo "</table>";
+            $cont = $i+1;
+            echo "<table>
+                  <tr>
+                  <td><span class='badge badge-info'>".$cont."</span>&nbsp;".Html::link("cliente/detalle/".$id_cliente[$i],$nombre_cli[$i],"target='_blank'")."</td>
+                  </tr>
+                  </table>";
          }
         ?>
     </div>
