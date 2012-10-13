@@ -62,6 +62,7 @@ class IndexController extends AppController
                 foreach($client as $cliente)
                 {
                     $this->nombre_cli[$i] = $client[$i]->nombre_cli;
+                    $this->id_cliente[$i] = $client[$i]->id_usu;
                     $i++;
                 }
                 $this->indice = $i;
