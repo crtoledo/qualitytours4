@@ -79,19 +79,42 @@ $(function ()
     ?>
     
 </table>
-<div align="left"> 
-     <a  id="comentarios" class="btn btn-success" rel="popover" data-content="It's so simple to create a tooltip for my website!cdcdcdf <input type='text'>" data-original-title="Comentarios">Comentar</a>  
+<?php 
+ if(!Auth::is_valid())            
+ {
+     echo "<b>Para poder comentar iniciar sesión.</b>";
+ }
+ else
+ {  
+echo Form::open('comentario/ingresar','post','class="login input"')
+
+
+?>
+ <div align="center"> 
+     <a  id='comentarios' class='btn btn-success' rel='popover' data-content='<?php echo Form::text('comentario.detalle_com','placeholder="Escribe tu comentario..." class="cargar"')?>' data-original-title='<?php echo $username; ?>'>Comentar</a>  
  </div> 
+<?php  
+setlocale ( LC_TIME, 'spanish' );
+$fecha = strftime(date('Y/m/d'));
+echo Form::hidden('comentario.id_usu','null',Auth::get('id'));
+echo Form::hidden("comentario.fecha_com","null",$fecha);
+echo Form::hidden("comentario.estado_com","null",1);
+echo Form::submit('enviar','class="btn btn-submit boton"');
+echo Form::close();
+ }
+?>
 
 <script>
 $(function ()  
 { 
     
 
-  $("#comentarios").popover({placement:'right'});
+  $("#comentarios").popover({placement:'bottom'});
  
   
-});  
+}); 
+
+
 </script>  
 
 

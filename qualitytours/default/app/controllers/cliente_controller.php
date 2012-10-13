@@ -109,6 +109,7 @@ class ClienteController extends AppController
     {
         $client = new Cliente();
         $client = $client->find($id);
+        
         //Comprueba que no se actualise el contador de visita si es el mismo dueño del centro turistico
         if(Session::get("id") == $id)
         {  
@@ -147,8 +148,24 @@ class ClienteController extends AppController
         
         $this->latitud = $ubicacion[0]->latitud_ubi; //El [0] debido a que nos entrega un array
         $this->longitud = $ubicacion[0]->longitud_ubi;
+        if(Auth::is_valid())            
+        {  
+        //Captura de datos para comentario
+        $user = new Usuario();
+        $id_usuario = Session::get("id");
+        $user = $user->find($id_usuario);
+        $this->username = $user->username_usu;
+
+        }
+       
         
        
     }
+     
+    
+           
+        
+    
+    
 }
 
