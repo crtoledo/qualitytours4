@@ -21,7 +21,7 @@ class ComentarioController extends AppController
 
                 if(!$comentario->save())
                 {
-                    Flash::error('Error al agregar Usuario');
+                    Flash::error('Error');
                 }
                 else
                 {
