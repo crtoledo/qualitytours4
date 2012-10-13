@@ -109,9 +109,27 @@ class ClienteController extends AppController
     {
         $client = new Cliente();
         $client = $client->find($id);
-        $captura = $client->visitas_cli ;
-        $actualiza = $captura+1;
-        $client->sql("update Cliente set visitas_cli=".$actualiza."where id_usu=".$id);
+        //Comprueba que no se actualise el contador de visita si es el mismo dueño del centro turistico
+        if(Session::get("id") == $id)
+        {  
+             $captura = $client->visitas_cli ;
+             $actualiza = $captura+0;
+             $client->sql("update Cliente set visitas_cli=".$actualiza."where id_usu=".$id);
+        }
+        if(Session::get("id")!= $id)
+        {
+            $captura = $client->visitas_cli ;
+            $actualiza = $captura+1;
+            $client->sql("update Cliente set visitas_cli=".$actualiza."where id_usu=".$id);
+        }
+        if(Session::get("id") == null)
+        {
+            $captura = $client->visitas_cli ;
+            $actualiza = $captura+1;
+            $client->sql("update Cliente set visitas_cli=".$actualiza."where id_usu=".$id);
+        }
+
+        
         $this->nombre_cliente = $client->nombre_cli;
         $this->mostrar = $client->visitas_cli+1;
         $contenido = new Contenido();
