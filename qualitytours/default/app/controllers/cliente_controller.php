@@ -4,6 +4,7 @@ load::model('cliente');
 load::model('servicio');
 load::model('ubicacion');
 load::model('contenido');
+load::model('comentario');
 
 class ClienteController extends AppController 
 {
@@ -109,6 +110,7 @@ class ClienteController extends AppController
     {
         $client = new Cliente();
         $client = $client->find($id);
+        $this->id_cliente = $id;
         
         //Comprueba que no se actualise el contador de visita si es el mismo dueño del centro turistico
         if(Session::get("id") == $id)
@@ -150,11 +152,34 @@ class ClienteController extends AppController
         $this->longitud = $ubicacion[0]->longitud_ubi;
         if(Auth::is_valid())            
         {  
-        //Captura de datos para comentario
-        $user = new Usuario();
-        $id_usuario = Session::get("id");
-        $user = $user->find($id_usuario);
-        $this->username = $user->username_usu;
+            //Captura de datos para comentario
+            $user = new Usuario();
+            $id_usuario = Session::get("id");
+            $user = $user->find($id_usuario);
+            $this->username = $user->username_usu;
+
+            $comentario = new Comentario();
+            //validar si existen comentarios
+            if($comentario->count("conditions: estado_com='t' and cli_id_usu=".$id) == 0)
+            {
+              $this->cont = 0;
+            }
+            else
+            {
+              $this->cont = 1;
+            }
+            $arr= $comentario->find("conditions: estado_com='t' and cli_id_usu=".$id,"order: id ASC");
+            $contador = 0;
+            foreach ($arr as $comentario )
+            {
+                
+               $this->detalle[$contador] = $arr[$contador]->detalle_com;  
+               $nombre_usuario[$contador] = $user->find($arr[$contador]->id_usu);
+               $this->nombre[$contador] = $nombre_usuario[$contador]->nombre_usu;
+              
+               $contador++;
+            }
+            $this->contador= $contador;
 
         }
        
