@@ -2,6 +2,7 @@
 Load::model('comentario');
 Load::model('publicacion');
 Load::model('usuario');
+Load::model('cliente');
     
     
 
@@ -12,8 +13,10 @@ class ComentarioController extends AppController
         
     }
     
-    public function ingresar()
+    public function ingresar($id_proveniente)
     {
+        
+           
             if(Input::hasPost('comentario'))
             {
            
@@ -25,8 +28,16 @@ class ComentarioController extends AppController
                 }
                 else
                 {
-                    Flash::success('Comentario ingresado');
-                    Router::redirect("/");
+                    if($id_proveniente != null)
+                    {
+                       Router::redirect("cliente/detalle/".$id_proveniente); 
+                    }  
+                    else
+                    {
+                        Flash::success('Comentario ingresado');
+                        Router::redirect("/");   
+                    }    
+                    
                 }
 
             }  

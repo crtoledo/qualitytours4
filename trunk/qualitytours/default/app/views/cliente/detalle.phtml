@@ -80,29 +80,67 @@ $(function ()
     
 </table>
 <?php 
+    if($cont == 0)
+    {
+        echo "<b>No existen comentarios.</b>";
+    }
+    else
+    {
+         for($i=0; $i<=$contador-1 ; $i++) 
+        {
+             echo "<table>";
+             echo "<tr>";
+          echo "<td>".$nombre[$i]."dice:".$detalle[$i]."</td>";
+            
+            
+        }
+        
+    }
+
+  ?>  
+    
+    
+ <?php 
  if(!Auth::is_valid())            
  {
      echo "<b>Para poder comentar iniciar sesión.</b>";
  }
  else
  {  
-echo Form::open('comentario/ingresar','post','class="login input"')
+
+    echo Form::open('comentario/ingresar/'.$id_cliente); ?>
+
+   
 
 
-?>
- <div align="center"> 
-     <a  id='comentarios' class='btn btn-success' rel='popover' data-content='<?php echo Form::text('comentario.detalle_com','placeholder="Escribe tu comentario..." class="cargar"')?>' data-original-title='<?php echo $username; ?>'>Comentar</a>  
- </div> 
-<?php  
-setlocale ( LC_TIME, 'spanish' );
-$fecha = strftime(date('Y/m/d'));
-echo Form::hidden('comentario.id_usu','null',Auth::get('id'));
-echo Form::hidden("comentario.fecha_com","null",$fecha);
-echo Form::hidden("comentario.estado_com","null",1);
-echo Form::submit('enviar','class="btn btn-submit boton"');
-echo Form::close();
- }
-?>
+
+
+<!--Formulario de comentario-->
+<div align="center">
+        <table>
+            <tr>
+                <td><?php echo Form::text('comentario.detalle_com', "class='input-medium nombre' placeholder='Escribe un comentario...'") ?></td>
+           </tr>
+    
+            <?php  
+            setlocale ( LC_TIME, 'spanish' );
+            $fecha = strftime(date('Y/m/d'));
+            echo Form::hidden('comentario.id_usu','null',Auth::get('id'));
+            echo Form::hidden("comentario.fecha_com","null",$fecha);
+            echo Form::hidden("comentario.estado_com","null",1);
+            echo Form::hidden("comentario.cli_id_usu","null",$id_cliente);
+             }
+            ?>
+           <tr>
+               <td><?php echo Form::submit('Comentar','class="btn btn-primary"'); ?> </td> 
+              <?php echo Form::close(); ?>
+           </tr>
+        </table>
+
+   </div>            
+
+
+
 
 <script>
 $(function ()  
