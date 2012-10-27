@@ -150,8 +150,7 @@ class ClienteController extends AppController
         
         $this->latitud = $ubicacion[0]->latitud_ubi; //El [0] debido a que nos entrega un array
         $this->longitud = $ubicacion[0]->longitud_ubi;
-        if(Auth::is_valid())            
-        {  
+        
             //Captura de datos para comentario
             $user = new Usuario();
             $id_usuario = Session::get("id");
@@ -164,8 +163,9 @@ class ClienteController extends AppController
             {
               $this->cont = 0;
             }
-            else
+            if($comentario->count("conditions: estado_com='t' and cli_id_usu=".$id) > 0)
             {
+              $this->numComentarios = $comentario->count("conditions: estado_com='t' and cli_id_usu=".$id);  
               $this->cont = 1;
             }
             $arr= $comentario->find("conditions: estado_com='t' and cli_id_usu=".$id,"order: id ASC");
@@ -173,7 +173,8 @@ class ClienteController extends AppController
             foreach ($arr as $comentario )
             {
                 
-               $this->detalle[$contador] = $arr[$contador]->detalle_com;  
+               $this->detalle[$contador] = $arr[$contador]->detalle_com;
+               $this->fecha[$contador] = $arr[$contador]->fecha_com;  
                $nombre_usuario[$contador] = $user->find($arr[$contador]->id_usu);
                $this->nombre[$contador] = $nombre_usuario[$contador]->nombre_usu;
               
@@ -181,7 +182,7 @@ class ClienteController extends AppController
             }
             $this->contador= $contador;
 
-        }
+        
        
         
        

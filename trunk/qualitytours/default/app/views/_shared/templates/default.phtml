@@ -31,8 +31,8 @@
    <div class="container">
     <div id='content'>
         <div align="center">
-     <?php echo Html::img('logo.png','logo','width = 400 heigt = 200') ?> 
- </div> <br>
+     <?php echo Html::img('logo.png','logo','width = "400px" heigt = "200px"') ?> 
+ </div> 
  
 <!-- Partial del menu-->
 <div> <?php View::partial('kumbia/menuprincipal') ?></div>
@@ -41,9 +41,14 @@
         <!--Muestra la pagina correspondiente (vista)-->
        
         <?php View::content(); ?>
-        <!--Muestra el footer-->
-        <?php View::partial('kumbia/footer') ?>
+        
+          <!--Muestra el footer-->
+     
+    
+        
     </div>
    </div>
+    <div> <?php View::partial('kumbia/footer') ?> </div>
+     
 </body>
 </html>

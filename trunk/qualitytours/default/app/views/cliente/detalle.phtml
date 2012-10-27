@@ -5,6 +5,60 @@
   body { height: 100%; margin: 0px; padding: 0px }
   #map_canvas { height: 100% }
 </style>
+<!--
+El CSS a continuación da estilo a los mensaje de error en la validación
+, no se usó "error" ya que kumbia ya tiene un estilo para esa clase, en su
+reemplazo se uso 'errorVal'.
+-->
+<script type="text/javascript">
+    $(document).ready(function () {
+        
+        $(".boton").click(function (){
+        $(".errorVal").remove();
+        
+        
+         if( $(".detalle").val() == "" ){
+             $(".detalle").focus().after("<span class='errorVal'>Ingrese un comentario</span>");
+             return false;
+             }
+         });
+    
+    
+    //Borrar mensaje de error si el usuario a llenado el campo
+    $(".detalle").keyup(function()
+    {
+        if( $(this).val() != "" )
+        {
+            $(".errorVal").fadeOut();
+            return false;
+        }
+    });
+    
+});
+    
+</script>
+<style>
+    .errorVal{
+    background-color: #BC1010;
+    padding: 6px 12px;
+    border-radius: 4px;
+    color: white;
+    font-weight: bold;
+    margin-left: 16px;
+    margin-top: 6px;
+    position: absolute;
+}
+.errorVal:before{ /* Este es un truco para crear una flechita */
+    content: '';
+    border-top: 8px solid transparent;
+    border-bottom: 8px solid transparent;
+    border-right: 8px solid #BC1010;
+    border-left: 8px solid transparent;
+    left: -16px;
+    position: absolute;
+    top: 5px;
+}
+</style>
 
 <meta name="viewport" content="initial-scale=1.0, user-scalable=yes" />
 
@@ -80,24 +134,41 @@ $(function ()
     
 </table>
 <?php 
+  
     if($cont == 0)
     {
-        echo "<b>No existen comentarios.</b>";
+        echo "<div class='span12'><b>No existen comentarios.</b></div>";
     }
-    else
-    {
-         for($i=0; $i<=$contador-1 ; $i++) 
-        {
-             echo "<table>";
-             echo "<tr>";
-          echo "<td>".$nombre[$i]."dice:".$detalle[$i]."</td>";
-            
-            
-        }
-        
-    }
+    if($cont == 1)
+    {?>
+    <div class="span12">
+             <ul class="nav nav-list inverse">
+             <li class="active"><a href="#"><i class="icon-pencil"></i><?php echo "<b>".$numComentarios."</b>:&nbsp;"; ?>Comentarios</a></li>
 
-  ?>  
+             </ul>   
+
+          <?php  for($i=0; $i<=$contador-1 ; $i++) 
+                {?>
+
+                    <table class="table table-hover">
+                        <tr>
+                            <td><?php echo "<b>".$nombre[$i]."</b>"; ?></td>
+                            <td><div align="right"><?php echo "<b>".$fecha[$i]."</b>";?></div></td>
+                        </tr>
+                    </table>
+                    <table>
+                        <tr>
+                            <td> <div align="left"><?php echo $detalle[$i];?> </div</td>
+                        </tr>
+                    </table>
+
+
+
+        <?php   }?>
+   </div>    
+  <?php  }?>
+
+  
     
     
  <?php 
@@ -107,54 +178,32 @@ $(function ()
  }
  else
  {  
-
-    echo Form::open('comentario/ingresar/'.$id_cliente); ?>
-
-   
-
-
-
-
+?>
+    
 <!--Formulario de comentario-->
-<div align="center">
+<div align="center" class="span12">
+    <?php echo Form::open('comentario/ingresar/'.$id_cliente); ?>
         <table>
-            <tr>
-                <td><?php echo Form::text('comentario.detalle_com', "class='input-medium nombre' placeholder='Escribe un comentario...'") ?></td>
-           </tr>
-    
-            <?php  
-            setlocale ( LC_TIME, 'spanish' );
-            $fecha = strftime(date('Y/m/d'));
-            echo Form::hidden('comentario.id_usu','null',Auth::get('id'));
-            echo Form::hidden("comentario.fecha_com","null",$fecha);
-            echo Form::hidden("comentario.estado_com","null",1);
-            echo Form::hidden("comentario.cli_id_usu","null",$id_cliente);
-             }
-            ?>
            <tr>
-               <td><?php echo Form::submit('Comentar','class="btn btn-primary"'); ?> </td> 
-              <?php echo Form::close(); ?>
+               <td><?php echo Form::text('comentario.detalle_com', "class='span3 detalle' placeholder='Escribe un comentario...'") ?></td>
+           </tr>    
+           <tr>
+               <td><?php echo Form::submit('Comentar','class="btn btn-primary boton"'); ?> </td> 
            </tr>
+   
         </table>
-
-   </div>            
-
-
-
-
-<script>
-$(function ()  
-{ 
-    
-
-  $("#comentarios").popover({placement:'bottom'});
+</div>
+             
+  <?php  
+    setlocale ( LC_TIME, 'spanish' );
+    $fecha = strftime(date('Y/m/d'));
+    echo Form::hidden('comentario.id_usu','null',Auth::get('id'));
+    echo Form::hidden("comentario.fecha_com","null",$fecha);
+    echo Form::hidden("comentario.estado_com","null",1);
+    echo Form::hidden("comentario.cli_id_usu","null",$id_cliente);
+    echo Form::close();    
  
-  
-}); 
-
-
-</script>  
-
+  }?>
 
 
 
