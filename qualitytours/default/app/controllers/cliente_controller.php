@@ -151,11 +151,8 @@ class ClienteController extends AppController
         $this->latitud = $ubicacion[0]->latitud_ubi; //El [0] debido a que nos entrega un array
         $this->longitud = $ubicacion[0]->longitud_ubi;
         
-            //Captura de datos para comentario
-            $user = new Usuario();
-            $id_usuario = Session::get("id");
-            $user = $user->find($id_usuario);
-            $this->username = $user->username_usu;
+            
+            
 
             $comentario = new Comentario();
             //validar si existen comentarios
@@ -170,6 +167,7 @@ class ClienteController extends AppController
             }
             $arr= $comentario->find("conditions: estado_com='t' and cli_id_usu=".$id,"order: id ASC");
             $contador = 0;
+            $user = new Usuario();
             foreach ($arr as $comentario )
             {
                 
