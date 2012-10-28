@@ -45,16 +45,23 @@ class ComentarioController extends AppController
         
     }
     
-    public function eliminar($id)
+    public function eliminar($id,$id_proveniente)
     {
          $comentario = new Comentario;
          
          $delete = $comentario->find($id);
          if($delete->sql("update Comentario set estado_com='f' where id=".$id))
          {
-             
+             if($id_proveniente != null)
+                    {
+                       Router::redirect("cliente/detalle/".$id_proveniente); 
+                    }
+                    else
+                    {
+                         Router::redirect("/");  
+                    }
              Flash::success("comentario eliminado");
-             Router::redirect("/");
+          
          }
          
              
