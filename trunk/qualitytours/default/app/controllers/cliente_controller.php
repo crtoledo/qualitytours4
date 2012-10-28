@@ -175,11 +175,16 @@ class ClienteController extends AppController
                $this->fecha[$contador] = $arr[$contador]->fecha_com;  
                $nombre_usuario[$contador] = $user->find($arr[$contador]->id_usu);
                $this->nombre[$contador] = $nombre_usuario[$contador]->nombre_usu;
+               $this->id[$contador] = $arr[$contador]->id_usu;
+               $this->idComentario[$contador] = $arr[$contador]->id;
               
                $contador++;
             }
             $this->contador= $contador;
-
+if(Auth::get("id")!= null)
+{
+    
+}
         
        
         

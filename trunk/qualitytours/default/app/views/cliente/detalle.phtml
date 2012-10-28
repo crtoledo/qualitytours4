@@ -158,9 +158,17 @@ $(function ()
                     </table>
                     <table>
                         <tr>
-                            <td> <div align="left"><?php echo $detalle[$i];?> </div</td>
-                        </tr>
-                    </table>
+                            <td> <div align="left"> <?php echo $detalle[$i];?> </div></td>
+                         </tr>  
+                        <?php if(Auth::is_valid() && Auth::get("id")== $id[$i] || Auth::get("rol_usu")== "administrador")
+                         { ?>
+                         <tr>
+                             <td><?php echo Html::link("comentario/eliminar/".$idComentario[$i]."/".$id_cliente, "Eliminar");?></td>
+                         </tr>                             
+                   <?php } ?>  
+                         
+                     </table> 
+                    
 
 
 
