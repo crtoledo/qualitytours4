@@ -10,7 +10,7 @@ class IndexController extends AppController
 {
 	public function index()
 	{
-            $this->captura = 1;
+            $this->captura = "es";
             //Creamos objetos que necesitaremos
             $publicacion = new Publicacion();
             //validar si existen publicaciones

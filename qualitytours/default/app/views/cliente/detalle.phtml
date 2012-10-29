@@ -103,24 +103,15 @@ $(function ()
                     <thead>
                         <td width="400px"><div id="map_canvas" style="width:400px; height:400px"></div></td>
                         <td width="600px">
-                            <h3><?php echo $nombre_cliente; ?></h3> <?php echo"<span class='label label-info'>".$mostrar.":&nbsp;visitas</span>";?><br>
+                            <h3><?php echo $nombre_cliente; ?></h3> <?php echo"<span class='label label-info'>".$mostrar.":&nbsp;Views</span>";?><br>
                             <?php
 
 
                                 foreach ($array_servicios as $servicio) {
-                                        echo Html::link("servicio/detalle/" . $servicio->id, "Servicio: " . $servicio->nombre_ser_eng . "<br>");
-                                    }                    
-
-
-
-
-
-
-                            ?>
-
+                                        echo Html::link("servicio/detalle/" . $servicio->id, "Services: " . $servicio->nombre_ser_eng . "<br>");
+                                    }  
+                                    ?>
                         </td>
-
-
 
                     </thead>
                 </tr>
@@ -151,7 +142,7 @@ $(function ()
                 {?>
                 <div class="span12">
                          <ul class="nav nav-list inverse">
-                         <li class="active"><a href="#"><i class="icon-pencil"></i><?php echo "<b>".$numComentarios."</b>:&nbsp;"; ?>Comentarios</a></li>
+                         <li class="active"><a href="#"><i class="icon-pencil"></i><?php echo "<b>".$numComentarios."</b>:&nbsp; "; ?>Comments</a></li>
 
                          </ul>   
 
@@ -178,7 +169,7 @@ $(function ()
                                      if(Auth::get("id") ==  $id[$i])
                                              { ?>
                                              <tr>
-                                                 <td><?php echo Html::link("comentario/eliminar/".$idComentario[$i]."/".$id_cliente, "Eliminar");?></td>
+                                                 <td><?php echo Html::link("comentario/eliminar/".$idComentario[$i]."/".$id_cliente, "Remove");?></td>
                                              </tr>                             
                                        <?php }  
 
@@ -200,7 +191,7 @@ $(function ()
              <?php 
              if(!Auth::is_valid())            
              {
-                 echo "<b>Para poder comentar iniciar sesión.</b>";
+                 echo "<b>Login to post comments.</b>";
              }
              else
              {  
@@ -211,10 +202,10 @@ $(function ()
                 <?php echo Form::open('comentario/ingresar/'.$id_cliente); ?>
                     <table>
                        <tr>
-                           <td><?php echo Form::text('comentario.detalle_com', "class='span3 detalle' placeholder='Escribe un comentario...'") ?></td>
+                           <td><?php echo Form::text('comentario.detalle_com', "class='span3 detalle' placeholder='Write a comment...'") ?></td>
                        </tr>    
                        <tr>
-                           <td><?php echo Form::submit('Comentar','class="btn btn-primary boton"'); ?> </td> 
+                           <td><?php echo Form::submit('Comment','class="btn btn-primary boton"'); ?> </td> 
                        </tr>
 
                     </table>
@@ -246,24 +237,12 @@ $(function ()
 
                                 foreach ($array_servicios as $servicio) {
                                         echo Html::link("servicio/detalle/" . $servicio->id, "Servicio: " . $servicio->nombre_ser . "<br>");
-                                    }                    
-
-
-
-
-
-
+                                    }  
                             ?>
 
                         </td>
-
-
-
                     </thead>
                 </tr>
-
-
-
                 <?php
                     //Trozo PHP para verificar si hay imagenes
                     if (count($contenido) > 0)
