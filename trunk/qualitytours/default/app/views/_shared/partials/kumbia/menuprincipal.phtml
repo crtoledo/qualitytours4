@@ -23,7 +23,9 @@ foreach ($arr as $buscar) {
                     $('#ciudad').typeahead({source: alCities, items:8});
                 });
 </script>
-
+    <?php
+    $home = "inicio";
+    ?>
 
 
 <div class="navbar navbar-inverse ">
@@ -36,7 +38,7 @@ foreach ($arr as $buscar) {
 
                 <!--                        HOME-->
                 <li class="">
-                    <?php echo Html::link('', '<i class="icon-home icon-white"></i> Home'); ?>
+                    <?php echo Html::link('', '<i class="icon-home icon-white"></i>'.$home.''); ?>
                 </li>
 
                 <!--LINK al Config-->
@@ -121,9 +123,24 @@ if (Auth::is_valid()) {
 
 
             </ul>
-
+            
             <ul class="nav pull-right">
+<!--                Banderas-->
+<?php $url =  $_SERVER['REQUEST_URI'];
+if($url == "/trunk/qualitytours/" || $url == "/trunk/qualitytours/en/index/1")
+{?>
 
+                <li> <?php echo Html::link('', "<img src='/trunk/qualitytours/img/1351461465_es.png'>"); ?></li>
+                <li> <?php echo Html::link('en/index/1', "<img src='/trunk/qualitytours/img/1351461500_gb.png'>"); ?></li>
+ <?php } 
+ else
+       {?>
+               <?php  $url = substr($url, 0, -1);?>
+                <li> <?php  echo "<a href='".$url."2'><img src='/trunk/qualitytours/img/1351461465_es.png'></a>"; ?> </li>
+                <li> <?php  echo "<a href='".$url."1'><img src='/trunk/qualitytours/img/1351461500_gb.png'></a>"; ?></li>
+                
+ <?php }?>
+             
                 <!--                        CAMPO DE BUSQUEDA-->
 
 
@@ -161,11 +178,11 @@ if (Auth::is_valid()) {
                            //Si el user esta loguedao se mostrará la opción para cerrar sesión en el menu desplegable
                            if (Auth::is_valid()) {
                                echo "<li>";
-                               echo Html::link('usuario/cerrarsesion', '<i class="icon-off"></i> Cerrar Sesión');
+                               echo Html::link('usuario/cerrarsesion/2', '<i class="icon-off"></i> Cerrar Sesión');
                                echo "</li>";
                            } else { //Si no esta logueado se mostrará el form para iniciar sesión
                                ?>
-                                <?php echo Form::open('usuario/autenticar', 'post', 'class=navbar-form'); ?>
+                                <?php echo Form::open('usuario/autenticar/2', 'post', 'class=navbar-form'); ?>
                             <center>
                                 Usuario 
                                 <?php echo Form::text("username_usu", "class='span2'"); ?>
