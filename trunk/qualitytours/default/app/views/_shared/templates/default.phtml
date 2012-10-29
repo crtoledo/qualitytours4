@@ -30,22 +30,21 @@
    <div class="container">
     <div id='content'>
         <div align="center">
-     <?php // echo Html::img('logo.png','logo','width="400px" height="200px"'); ?> 
-      <img src="/trunk/qualitytours/img/logo.png" alt="logo" width="400" height="200" >    
- </div> 
+     <?php  echo Html::img('logo.png','logo','width="400px" height="200px"'); ?> 
+      </div> 
 
         
 <!-- Partial del menu-->
 <?php
 
 
-if($captura == 1)
+if($captura == "es")
 {?>
    <div> <?php View::partial('kumbia/menuprincipal') ?></div> 
   
 <?php
 }
-if($captura == 2)
+if($captura == "en")
 {?>
  <div> <?php View::partial('kumbia/menuprincipalen') ?></div>
  

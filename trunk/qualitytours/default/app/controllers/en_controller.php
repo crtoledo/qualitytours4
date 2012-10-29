@@ -11,13 +11,13 @@ class EnController extends AppController
     public function index($cap)
     {
       
-        if($cap == 1)
+        if($cap == "es")
         {
-           $this->captura = 2; 
+           $this->captura = "es"; 
         }
         else 
         {
-           $this->captura = 1;  
+           $this->captura = "en";  
         }
         
             //Creamos objetos que necesitaremos

@@ -265,15 +265,15 @@ class UsuarioController extends AppController
                }
                 else{
                     
-                    if($len == 2)
+                    if($len == "es")
                     {
                         Flash::Success("Usuario logueado");
                         Router::redirect("/");
                     }
-                   if($len == 1)
+                   if($len == "en")
                     {
                         Flash::Success("Users logged in");
-                        Router::redirect("en/index/1");
+                        Router::redirect("en/index/en");
                     }
                     
                     
@@ -282,14 +282,14 @@ class UsuarioController extends AppController
             } 
             else 
             {
-                if($len == 2)
+                if($len == "es")
                     {
-                     $this->captura = 1; 
+                     $this->captura = "es"; 
                       Flash::error("Fallo en la autenticación: Nombre de usuario o contraseña incorrecto");
                     }
-                   if($len == 1)
+                   if($len == "en")
                     {
-                       $this->captura = 2; 
+                       $this->captura = "en"; 
                       Flash::error("Authentication failed: Username or password incorrect");
                     }
                 
@@ -304,7 +304,7 @@ class UsuarioController extends AppController
      public function cerrarsesion($leng)
     {
         
-        if($leng == 2)
+        if($leng == "es")
         {
           Auth::destroy_identity();
           Flash::info("Sesión cerrada");
@@ -314,7 +314,7 @@ class UsuarioController extends AppController
         {
           Auth::destroy_identity();
           Flash::info("Closed Session");
-          Router::redirect("en/index/1");   
+          Router::redirect("en/index/en");   
         }
         
         

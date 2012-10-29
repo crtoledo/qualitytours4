@@ -110,17 +110,17 @@ class ClienteController extends AppController
     {
         
         //seleccion de menu
-        if($leng==1)
+        if($leng=="es")
         {
-           $this->captura = 2;  
+           $this->captura = "es";  
         }
-        if($leng==2)
+        if($leng=="en")
         {
-           $this->captura = 1;
+           $this->captura = "en";
      
         }
         
-        if($leng == 1)
+        if($leng == "en")
         {
             
             $this->idiom = "en";
@@ -199,7 +199,7 @@ class ClienteController extends AppController
                 $this->contador= $contador;
             
         }
-        if($leng == 2)
+        if($leng == "es")
         {
             
             $this->idiom = "es";
