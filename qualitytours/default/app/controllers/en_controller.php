@@ -1,16 +1,25 @@
 <?php
-Load::model('publicacion');
-Load::model('contenido');
-Load::model('cliente');
-/**
- * Controller por defecto si no se usa el routes
- * 
- */
-class IndexController extends AppController 
+    Load::model('publicacion');
+    Load::model('contenido');
+    Load::model('cliente');
+     
+
+class EnController extends AppController 
 {
-	public function index()
-	{
-            $this->captura = 1;
+
+    
+    public function index($cap)
+    {
+      
+        if($cap == 1)
+        {
+           $this->captura = 2; 
+        }
+        else 
+        {
+           $this->captura = 1;  
+        }
+        
             //Creamos objetos que necesitaremos
             $publicacion = new Publicacion();
             //validar si existen publicaciones
@@ -29,8 +38,8 @@ class IndexController extends AppController
              foreach ($arr as $publicacion )
              {
                 
-                $this->titulo[$contador] = $arr[$contador]->titulo_pub; 
-                $this->detalle[$contador] = $arr[$contador]->detalle_pub;
+                $this->titulo[$contador] = $arr[$contador]->titulo_pub_en; 
+                $this->detalle[$contador] = $arr[$contador]->detalle_pub_en;
                 //crear objeto
                 $contenido = new Contenido();
                 //BUCAR IMAGENES ASOCIADAS AL ID DE LA PUBLICACION 
@@ -67,8 +76,12 @@ class IndexController extends AppController
                     $i++;
                 }
                 $this->indice = $i;
-	}
+      
         
-       
+        
+    }
+    
+    
+
+            
 }
-?>

@@ -17,6 +17,7 @@ class ServicioController extends AppController
     public function detalle($id_servicio)
     {
         
+             $this->captura = 1; 
             //Creamos objetos que necesitaremos
             $servicio = new Servicio();
             $ubicacion = new Ubicacion();

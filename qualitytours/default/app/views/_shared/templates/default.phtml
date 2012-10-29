@@ -19,7 +19,6 @@
     Tag::css('style');
     Tag::css('bootstrap.min');
     echo Html::includeCss();
-    
   ?>
     
     <script>
@@ -34,9 +33,25 @@
      <?php // echo Html::img('logo.png','logo','width="400px" height="200px"'); ?> 
       <img src="/trunk/qualitytours/img/logo.png" alt="logo" width="400" height="200" >    
  </div> 
- 
+
+        
 <!-- Partial del menu-->
-<div> <?php View::partial('kumbia/menuprincipal') ?></div>
+<?php
+
+
+if($captura == 1)
+{?>
+   <div> <?php View::partial('kumbia/menuprincipal') ?></div> 
+  
+<?php
+}
+if($captura == 2)
+{?>
+ <div> <?php View::partial('kumbia/menuprincipalen') ?></div>
+ 
+<?php } ?>
+   
+
         
 
         <!--Muestra la pagina correspondiente (vista)-->

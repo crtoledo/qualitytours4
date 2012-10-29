@@ -61,20 +61,20 @@
         <div align="right">
             <table>
                 <tr>
-                    <td><h6>Publica tus centros turísticos en quality tours</h6></td>
+                    <td><h6>Post your resorts in quality tours</h6></td>
                 <tr>
                     <td> <?php echo Html::img("1341096209_publish.png","publicar"); ?> </td>
                 </tr>
             </table>
         </div>
-        <h6>Los más visitados</h6>
+        <h6>The most visited</h6>
         <?php
          for ($i=0;$i<=$indice-1;$i++)
          {
             $cont = $i+1;
             echo "<table>
                   <tr>
-                  <td><span class='badge badge-info'>".$cont."</span>&nbsp;<font size='1'>".Html::link("cliente/detalle/".$id_cliente[$i]."/2",$nombre_cli[$i],"target='_blank'")."</font></td>
+                  <td><span class='badge badge-info'>".$cont."</span>&nbsp;<font size='1'>".Html::link("cliente/detalle/".$id_cliente[$i]."/1",$nombre_cli[$i],"target='_blank'")."</font></td>
                   </tr>
                   </table>
                    ";

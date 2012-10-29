@@ -239,12 +239,14 @@ class UsuarioController extends AppController
             
     
     //Función para autenticar al usuario
-    public function autenticar() 
+    public function autenticar($len) 
     {
          
          if(Input::hasPost("username_usu","password_usu"))
          {
             //Flash::info("Datos recibidos.. se procede a autenticar");
+             
+          
 
             $user = Input::post('username_usu');
             $pass = Input::post('password_usu');
@@ -259,19 +261,38 @@ class UsuarioController extends AppController
                if(Session::get('rol_usu')=='administrador')
                {
                    Flash::Success("Usuario logueado");
-                Router::redirect("/");
+                   Router::redirect("/");
                }
                 else{
                     
-                
-                Flash::Success("Usuario logueado");
-                Router::redirect("/");
+                    if($len == 2)
+                    {
+                        Flash::Success("Usuario logueado");
+                        Router::redirect("/");
+                    }
+                   if($len == 1)
+                    {
+                        Flash::Success("Users logged in");
+                        Router::redirect("en/index/1");
+                    }
+                    
+                    
                 }
                 
             } 
             else 
             {
-                Flash::error("Fallo en la autenticación: Nombre de usuario o contraseña incorrecto");
+                if($len == 2)
+                    {
+                     $this->captura = 1; 
+                      Flash::error("Fallo en la autenticación: Nombre de usuario o contraseña incorrecto");
+                    }
+                   if($len == 1)
+                    {
+                       $this->captura = 2; 
+                      Flash::error("Authentication failed: Username or password incorrect");
+                    }
+                
             }        
          }
          else
@@ -280,11 +301,22 @@ class UsuarioController extends AppController
          }     
      }
      
-     public function cerrarsesion()
+     public function cerrarsesion($leng)
     {
-        Auth::destroy_identity();
-        Flash::info("Sesión cerrada");
-        Router::redirect("/");
+        
+        if($leng == 2)
+        {
+          Auth::destroy_identity();
+          Flash::info("Sesión cerrada");
+          Router::redirect("/");  
+        }
+        else
+        {
+          Auth::destroy_identity();
+          Flash::info("Closed Session");
+          Router::redirect("en/index/1");   
+        }
+        
         
     }
     

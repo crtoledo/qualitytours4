@@ -106,85 +106,181 @@ class ClienteController extends AppController
 
     }
     
-    public function detalle($id)
+    public function detalle($id,$leng)
     {
-        $client = new Cliente();
-        $client = $client->find($id);
-        $this->id_cliente = $id;
         
-        //Comprueba que no se actualise el contador de visita si es el mismo dueño del centro turistico
-        if(Session::get("id") == $id)
-        {  
-             $captura = $client->visitas_cli ;
-             $actualiza = $captura+0;
-             $client->sql("update Cliente set visitas_cli=".$actualiza."where id_usu=".$id);
-        }
-        if(Session::get("id")!= $id)
+        //seleccion de menu
+        if($leng==1)
         {
-            $captura = $client->visitas_cli ;
-            $actualiza = $captura+1;
-            $client->sql("update Cliente set visitas_cli=".$actualiza."where id_usu=".$id);
+           $this->captura = 2;  
         }
-        if(Session::get("id") == null)
+        if($leng==2)
         {
-            $captura = $client->visitas_cli ;
-            $actualiza = $captura+1;
-            $client->sql("update Cliente set visitas_cli=".$actualiza."where id_usu=".$id);
-        }
-
-        
-        $this->nombre_cliente = $client->nombre_cli;
-        $this->mostrar = $client->visitas_cli+1;
-        $contenido = new Contenido();
-        $contenido = $contenido->find("conditions: id_usu=".$id);
-        $this->contenido = $contenido;
+           $this->captura = 1;
      
+        }
         
-        $services = new Servicio();
-        $services = $services->find_all_by('id_usu', $id);
-        $this->array_servicios = $services;
-        
-        //2- Necesario para cargar el mapa
-        $ubicacion = new Ubicacion();
-        $ubicacion = $ubicacion->find_all_by('id_usu', $id);
-        
-        $this->latitud = $ubicacion[0]->latitud_ubi; //El [0] debido a que nos entrega un array
-        $this->longitud = $ubicacion[0]->longitud_ubi;
-        
+        if($leng == 1)
+        {
             
-            
+            $this->idiom = "en";
+            $client = new Cliente();
+            $client = $client->find($id);
+            $this->id_cliente = $id;
 
-            $comentario = new Comentario();
-            //validar si existen comentarios
-            if($comentario->count("conditions: estado_com='t' and cli_id_usu=".$id) == 0)
-            {
-              $this->cont = 0;
+            //Comprueba que no se actualise el contador de visita si es el mismo dueño del centro turistico
+            if(Session::get("id") == $id)
+            {  
+                 $captura = $client->visitas_cli ;
+                 $actualiza = $captura+0;
+                 $client->sql("update Cliente set visitas_cli=".$actualiza."where id_usu=".$id);
             }
-            if($comentario->count("conditions: estado_com='t' and cli_id_usu=".$id) > 0)
+            if(Session::get("id")!= $id)
             {
-              $this->numComentarios = $comentario->count("conditions: estado_com='t' and cli_id_usu=".$id);  
-              $this->cont = 1;
+                $captura = $client->visitas_cli ;
+                $actualiza = $captura+1;
+                $client->sql("update Cliente set visitas_cli=".$actualiza."where id_usu=".$id);
             }
-            $arr= $comentario->find("conditions: estado_com='t' and cli_id_usu=".$id,"order: id ASC");
-            $contador = 0;
-            $user = new Usuario();
-            foreach ($arr as $comentario )
+            if(Session::get("id") == null)
             {
-                
-               $this->detalle[$contador] = $arr[$contador]->detalle_com;
-               $this->fecha[$contador] = $arr[$contador]->fecha_com;  
-               $nombre_usuario[$contador] = $user->find($arr[$contador]->id_usu);
-               $this->nombre[$contador] = $nombre_usuario[$contador]->nombre_usu;
-               $this->id[$contador] = $arr[$contador]->id_usu;
-               $this->idComentario[$contador] = $arr[$contador]->id;
-              
-               $contador++;
+                $captura = $client->visitas_cli ;
+                $actualiza = $captura+1;
+                $client->sql("update Cliente set visitas_cli=".$actualiza."where id_usu=".$id);
             }
-            $this->contador= $contador;
-if(Auth::get("id")!= null)
-{
-    
-}
+
+
+            $this->nombre_cliente = $client->nombre_cli;
+            $this->mostrar = $client->visitas_cli+1;
+            $contenido = new Contenido();
+            $contenido = $contenido->find("conditions: id_usu=".$id);
+            $this->contenido = $contenido;
+
+
+            $services = new Servicio();
+            $services = $services->find_all_by('id_usu', $id);
+            $this->array_servicios = $services;
+
+            //2- Necesario para cargar el mapa
+            $ubicacion = new Ubicacion();
+            $ubicacion = $ubicacion->find_all_by('id_usu', $id);
+
+            $this->latitud = $ubicacion[0]->latitud_ubi; //El [0] debido a que nos entrega un array
+            $this->longitud = $ubicacion[0]->longitud_ubi;
+
+
+
+
+                $comentario = new Comentario();
+                //validar si existen comentarios
+                if($comentario->count("conditions: estado_com='t' and cli_id_usu=".$id) == 0)
+                {
+                  $this->cont = 0;
+                }
+                if($comentario->count("conditions: estado_com='t' and cli_id_usu=".$id) > 0)
+                {
+                  $this->numComentarios = $comentario->count("conditions: estado_com='t' and cli_id_usu=".$id);  
+                  $this->cont = 1;
+                }
+                $arr= $comentario->find("conditions: estado_com='t' and cli_id_usu=".$id,"order: id ASC");
+                $contador = 0;
+                $user = new Usuario();
+                foreach ($arr as $comentario )
+                {
+
+                   $this->detalle[$contador] = $arr[$contador]->detalle_com;
+                   $this->fecha[$contador] = $arr[$contador]->fecha_com;  
+                   $nombre_usuario[$contador] = $user->find($arr[$contador]->id_usu);
+                   $this->nombre[$contador] = $nombre_usuario[$contador]->nombre_usu;
+                   $this->id[$contador] = $arr[$contador]->id_usu;
+                   $this->idComentario[$contador] = $arr[$contador]->id;
+
+                   $contador++;
+                }
+                $this->contador= $contador;
+            
+        }
+        if($leng == 2)
+        {
+            
+            $this->idiom = "es";
+            $client = new Cliente();
+            $client = $client->find($id);
+            $this->id_cliente = $id;
+
+            //Comprueba que no se actualise el contador de visita si es el mismo dueño del centro turistico
+            if(Session::get("id") == $id)
+            {  
+                 $captura = $client->visitas_cli ;
+                 $actualiza = $captura+0;
+                 $client->sql("update Cliente set visitas_cli=".$actualiza."where id_usu=".$id);
+            }
+            if(Session::get("id")!= $id)
+            {
+                $captura = $client->visitas_cli ;
+                $actualiza = $captura+1;
+                $client->sql("update Cliente set visitas_cli=".$actualiza."where id_usu=".$id);
+            }
+            if(Session::get("id") == null)
+            {
+                $captura = $client->visitas_cli ;
+                $actualiza = $captura+1;
+                $client->sql("update Cliente set visitas_cli=".$actualiza."where id_usu=".$id);
+            }
+
+
+            $this->nombre_cliente = $client->nombre_cli;
+            $this->mostrar = $client->visitas_cli+1;
+            $contenido = new Contenido();
+            $contenido = $contenido->find("conditions: id_usu=".$id);
+            $this->contenido = $contenido;
+
+
+            $services = new Servicio();
+            $services = $services->find_all_by('id_usu', $id);
+            $this->array_servicios = $services;
+
+            //2- Necesario para cargar el mapa
+            $ubicacion = new Ubicacion();
+            $ubicacion = $ubicacion->find_all_by('id_usu', $id);
+
+            $this->latitud = $ubicacion[0]->latitud_ubi; //El [0] debido a que nos entrega un array
+            $this->longitud = $ubicacion[0]->longitud_ubi;
+
+
+
+
+                $comentario = new Comentario();
+                //validar si existen comentarios
+                if($comentario->count("conditions: estado_com='t' and cli_id_usu=".$id) == 0)
+                {
+                  $this->cont = 0;
+                }
+                if($comentario->count("conditions: estado_com='t' and cli_id_usu=".$id) > 0)
+                {
+                  $this->numComentarios = $comentario->count("conditions: estado_com='t' and cli_id_usu=".$id);  
+                  $this->cont = 1;
+                }
+                $arr= $comentario->find("conditions: estado_com='t' and cli_id_usu=".$id,"order: id ASC");
+                $contador = 0;
+                $user = new Usuario();
+                foreach ($arr as $comentario )
+                {
+
+                   $this->detalle[$contador] = $arr[$contador]->detalle_com;
+                   $this->fecha[$contador] = $arr[$contador]->fecha_com;  
+                   $nombre_usuario[$contador] = $user->find($arr[$contador]->id_usu);
+                   $this->nombre[$contador] = $nombre_usuario[$contador]->nombre_usu;
+                   $this->id[$contador] = $arr[$contador]->id_usu;
+                   $this->idComentario[$contador] = $arr[$contador]->id;
+
+                   $contador++;
+                }
+                $this->contador= $contador;
+            
+        }
+        
+        
+
         
        
         
