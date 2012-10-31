@@ -1,4 +1,14 @@
-
+<?php
+//Código para el idioma
+    if($leng == "en")
+    {
+        include_once APP_PATH.'libs/en.php';
+    }
+    else
+    {
+        include_once APP_PATH.'libs/es.php';
+    }
+?>    
 
 
 <div align="center">
@@ -8,8 +18,8 @@
             <td><div align="center"><?php echo Html::img("1341166104_edit-notes.png","editar ","width=150 height=150");?></div></td>
         </tr>
         <tr>
-            <td> <div align="center"><?php  echo Html::link("contenido/ingresar/".$id_pub,'ingresar contenido'); ?></div></td>
-            <td><div align="center"><?php echo Html::link("publicacion/editarpub/".$id_pub,"editar publicación");?></div></td>
+            <td> <div align="center"><?php  echo Html::link("contenido/ingresar/".$id_pub.'/'.$con_ingresar_string,''.$i_contenido_string.''); ?></div></td>
+            <td><div align="center"><?php echo Html::link("publicacion/editarpub/".$id_pub.'/'.$pub_editar_string,''.$e_publicacion_string.'');?></div></td>
         </tr>
     </table>
 </div>

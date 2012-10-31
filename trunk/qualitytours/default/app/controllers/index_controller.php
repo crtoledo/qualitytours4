@@ -10,7 +10,15 @@ class IndexController extends AppController
 {
 	public function index()
 	{
-            $this->captura = "es";
+            //se captura por metodo get debido a que el index no se pueden pasar parametros de la forma normal 
+            if($_GET["l"] == null)
+            {
+                $this->leng = "es";
+            }
+            else
+            {
+                $this->leng = "en";
+            }
             //Creamos objetos que necesitaremos
             $publicacion = new Publicacion();
             //validar si existen publicaciones
@@ -28,9 +36,17 @@ class IndexController extends AppController
              $contador = 0;
              foreach ($arr as $publicacion )
              {
-                
-                $this->titulo[$contador] = $arr[$contador]->titulo_pub; 
-                $this->detalle[$contador] = $arr[$contador]->detalle_pub;
+               if($_GET["l"] == null)
+               {
+                    $this->titulo[$contador] = $arr[$contador]->titulo_pub; 
+                    $this->detalle[$contador] = $arr[$contador]->detalle_pub;
+               }
+               else
+               {    
+                    //variables en inglés
+                    $this->titulo[$contador] = $arr[$contador]->titulo_pub_eng;
+                    $this->detalle[$contador] = $arr[$contador]->detalle_pub_eng;
+               }     
                 //crear objeto
                 $contenido = new Contenido();
                 //BUCAR IMAGENES ASOCIADAS AL ID DE LA PUBLICACION 
@@ -68,6 +84,11 @@ class IndexController extends AppController
                 }
                 $this->indice = $i;
 	}
+        public function en()
+        {
+            Router::redirect("index/?l=en");
+        }
+       
         
        
 }

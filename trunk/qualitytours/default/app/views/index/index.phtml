@@ -1,4 +1,14 @@
-
+<?php
+//Código para el idioma
+    if($leng == "en")
+    {
+        include_once APP_PATH.'libs/en.php';
+    }
+    else
+    {
+        include_once APP_PATH.'libs/es.php';
+    }
+?>    
 
 <div class="container-fluid">
   <div class="row-fluid">
@@ -45,7 +55,7 @@
                             if (Session::get('rol_usu') == 'administrador')
                                 { ?>
                                     <tr>
-                                        <td><div align="right"> <?php  echo Html::link("publicacion/editar/".$id[$i],'Editar');?> - <?php echo Html::link("publicacion/eliminar/".$id[$i],'Eliminar'); ?></div>  </td>
+                                        <td><div align="right"> <?php  echo Html::link("publicacion/editar/".$id[$i].'/'.$e_editar_string,''.$editar_string.'');?> - <?php echo Html::link("publicacion/eliminar/".$id[$i],''.$eliminar_string.''); ?></div>  </td>
                                     </tr>
                                 <?php
                                 }

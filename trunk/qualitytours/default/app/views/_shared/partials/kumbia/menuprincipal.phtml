@@ -1,3 +1,69 @@
+<!--Codigo para el idioma-->
+<?php 
+$url =  $_SERVER['REQUEST_URI'];
+//devuelve los 2 ultimos caracteres de la url si es igual a en se utiliza las variables en inglés
+$url = substr( $url,-2);
+if($url == "en")
+{
+    //inglés
+    //variables de menu Principal
+    $modificardatos_string = "Modify data";
+    $inicio_string="Home";
+    $cuenta_string = "Account";
+    $cliente_string="Customer";
+    $publicarservicio_string="Publish service";
+    $indiqueubicacion_string = "Give your location";
+    $subirfotos_string="Upload photo";
+    $administracion_string = "Administration";
+    $ingresarcliente_string = "Add customers";
+    $buscarusuarios_string ="Search users";
+    $enlace_home ="index/en";
+    $ingresarpublicacion_string="Add publish";
+    $ingresaradministrador_string="Add administrations";
+    $ingresarcategorias_string ="Add Category";
+    $buscardestinos_string= "Search Destination";
+    $iniciarsesion_string= "Sign in";
+    $enlace_cerrarsesion= "usuario/cerrarsesion/en";
+    $cerrarsesion_string = "Logout";
+    $enlace_form_login = "usuario/autenticar/en";
+    $enlace_registrate = "usuario/ingresar/en";
+    $registrate_string = "Create an account";
+    $usuario_string = "Username";
+    $contraseña_string = "Password";
+    $ingresar_string = "Sign in";
+}
+else
+{
+     //español
+    //variables de menu Principal
+    $modificardatos_string = "Modificar datos";
+    $inicio_string="Inicio";
+    $cuenta_string="cuenta";
+    $cliente_string="Cliente";
+    $publicarservicio_string="Publicar servicio";
+    $indiqueubicacion_string="Indique su ubicaci&oacute;n";
+    $subirfotos_string="Subir fotos";
+    $administracion_string = "Administraci&oacute;n";
+    $ingresarcliente_string = "Ingresar Cliente";
+    $buscarusuarios_string = "Buscar Usuarios";
+    $enlace_home ="index";
+    $ingresarpublicacion_string="Ingresar Publicaci&oacute;n";
+    $ingresaradministrador_string="Ingresar Admnistrador";
+    $ingresarcategorias_string ="Ingresar Categor&iacute;a";
+    $buscardestinos_string= "Buscar Destinos";
+    $iniciarsesion_string= "Iniciar Sesi&oacute;n";
+    $enlace_cerrarsesion= "usuario/cerrarsesion/es";
+    $cerrarsesion_string = "Cerrar Sesi&oacute;n";
+    $enlace_form_login= "usuario/autenticar/es";
+    $enlace_registrate = "usuario/ingresar/es";
+    $registrate_string = "Reg&iacute;strate";
+    $usuario_string = "usuario";
+    $contraseña_string = "contraseña";
+    $ingresar_string = "Ingresar";
+}
+    
+?>
+
 <!--CODIGO PARA BUSQUEDA -->
 <?php
 //$arr= Load::model('ubicacion','categoria')->find() ; 
@@ -23,11 +89,6 @@ foreach ($arr as $buscar) {
                     $('#ciudad').typeahead({source: alCities, items:8});
                 });
 </script>
-    <?php
-    $home = "inicio";
-    ?>
-
-
 <div class="navbar navbar-inverse ">
     <div class="navbar-inner">
         <div class="container">
@@ -38,7 +99,7 @@ foreach ($arr as $buscar) {
 
                 <!--                        HOME-->
                 <li class="">
-                    <?php echo Html::link('', '<i class="icon-home icon-white"></i>'.$home.''); ?>
+                    <?php echo Html::link(''.$enlace_home.'', '<i class="icon-home icon-white"></i>'.$inicio_string.''); ?>
                 </li>
 
                 <!--LINK al Config-->
@@ -55,12 +116,12 @@ foreach ($arr as $buscar) {
                                                                 class="dropdown-toggle"
                                                                 data-toggle="dropdown">
                                                                 <i class="icon-wrench icon-white"></i> 
-                                                                Cuenta
+                                                                <?php echo $cuenta_string; ?>
                                                                 <b class="caret"></b>
                                                             </a>
                                                             
                                                             <ul class="dropdown-menu">
-                                                                <li><?php echo Html::link('usuario/modificar/', '<i class="icon-file"></i> Modificar datos'); ?></li>
+                                                                <li><?php echo Html::link('usuario/modificar/', '<i class="icon-file"></i>'.$modificardatos_string.''); ?></li>
                                                                
                                                             </ul>
                                                         </li>
@@ -79,14 +140,14 @@ foreach ($arr as $buscar) {
                                class="dropdown-toggle"
                                data-toggle="dropdown">
                                 <i class="icon-asterisk icon-white"></i> 
-                                Cliente
+                                <?php  echo $cliente_string; ?>
                                 <b class="caret"></b>
                             </a>
 
                             <ul class="dropdown-menu">
-                                <li><?php echo Html::link('servicio/ingresar/', '<i class="icon-plus"></i> Publicar servicio'); ?></li>
-                                <li><?php echo Html::link('ubicacion/ingresar/', '<i class="icon-screenshot"></i> Indique su ubicaci&oacute;n'); ?></li>
-                                <li><?php echo Html::link('contenido/ingresarcli/', '<i class="icon-camera"></i> Subir fotos'); ?></li>
+                                <li><?php echo Html::link('servicio/ingresar/', '<i class="icon-plus"></i>'.$publicarservicio_string.''); ?></li>
+                                <li><?php echo Html::link('ubicacion/ingresar/', '<i class="icon-screenshot"></i>'.$indiqueubicacion_string.''); ?></li>
+                                <li><?php echo Html::link('contenido/ingresarcli/', '<i class="icon-camera"></i>'.$subirfotos_string.''); ?></li>
                             </ul>
                         </li>
         <?php
@@ -104,16 +165,16 @@ if (Auth::is_valid()) {
                                class="dropdown-toggle"
                                data-toggle="dropdown">
                                 <i class="icon-tasks icon-white"></i> 
-                                Administraci&oacute;n
+                                <?php echo  $administracion_string; ?>
                                 <b class="caret"></b>
                             </a>
 
                             <ul class="dropdown-menu">
-                                <li><?php echo Html::link('cliente/ingresar/', '<i class="icon-plus"></i> Ingresar cliente'); ?></li>
-                                <li><?php echo Html::link('usuario/buscar/', '<i class="icon-search"></i> Buscar usuarios'); ?></li>
-                                <li><?php echo Html::link('publicacion/ingresar/', '<i class="icon-upload"></i> Ingresar publicaci&oacute;n'); ?></li>
-                                <li><?php echo Html::link('administrador/ingresar/', '<i class="icon-plus"></i> Ingresar administrador'); ?></li>
-                                <li><?php echo Html::link('categoria/ingresar', '<i class="icon-plus"></i> Ingresar categor&iacute;as'); ?></li>
+                                <li><?php echo Html::link('cliente/ingresar/', '<i class="icon-plus"></i> '.$ingresarcliente_string.''); ?></li>
+                                <li><?php echo Html::link('usuario/buscar/', '<i class="icon-search"></i> '.$buscarusuarios_string.''); ?></li>
+                                <li><?php echo Html::link('publicacion/ingresar/', '<i class="icon-upload"></i> '.$ingresarpublicacion_string.''); ?></li>
+                                <li><?php echo Html::link('administrador/ingresar/', '<i class="icon-plus"></i> '.$ingresaradministrador_string.''); ?></li>
+                                <li><?php echo Html::link('categoria/ingresar', '<i class="icon-plus"></i> '.$ingresarcategorias_string.''); ?></li>
                             </ul>
                         </li>
         <?php
@@ -127,11 +188,11 @@ if (Auth::is_valid()) {
             <ul class="nav pull-right">
 <!--                Banderas-->
 <?php $url =  $_SERVER['REQUEST_URI'];
-if($url == "/trunk/qualitytours/" || $url == "/trunk/qualitytours/en/index/en")
+if($url == "/trunk/qualitytours/" || $url == "/trunk/qualitytours/en/index/en" || $url == "/trunk/qualitytours/index/")
 {?>
 
-                <li> <?php echo Html::link('', "<img src='/trunk/qualitytours/img/1351461465_es.png'>"); ?></li>
-                <li> <?php echo Html::link('en/index/en', "<img src='/trunk/qualitytours/img/1351461500_gb.png'>"); ?></li>
+                <li> <?php echo Html::link('index', "<img src='/trunk/qualitytours/img/1351461465_es.png'>"); ?></li>
+                <li> <?php echo Html::link('index/en', "<img src='/trunk/qualitytours/img/1351461500_gb.png'>"); ?></li>
  <?php } 
  else
        {?>
@@ -141,14 +202,13 @@ if($url == "/trunk/qualitytours/" || $url == "/trunk/qualitytours/en/index/en")
                 
  <?php }?>
              
+
                 <!--                        CAMPO DE BUSQUEDA-->
-
-
 <?php echo Form::open("busqueda/buscando/", 'post', 'class=navbar-search'); ?>
 
                 <?php // echo Form::text("ciudad","class='search-query span2' placeholder='Buscar destinos' data-provide='typeahead' ");  ?>
                 <i class="icon-search icon-white"></i>
-                <input id="ciudad" name="ciudad" type="text" value="" class='search-query span2' placeholder="Buscar destinos" data-provide='typeahead' >  
+                <input id="ciudad" name="ciudad" type="text" value="" class='search-query span2' placeholder='<?php echo $buscardestinos_string; ?>' data-provide='typeahead' >  
 
 
 <!--                            <input type="text" id="ciudad" class="search-query span2" placeholder="Buscar destinos" data-provide="typeahead" class="search-query">-->
@@ -166,7 +226,7 @@ if (Auth::is_valid()) {
     echo '<i class="icon-user icon-white"></i> ';
     echo Auth::get('username_usu');
 } else {
-    echo "Iniciar sesión";
+    echo $iniciarsesion_string;
 }
 ?>
                         <b class="caret"></b>
@@ -178,19 +238,19 @@ if (Auth::is_valid()) {
                            //Si el user esta loguedao se mostrará la opción para cerrar sesión en el menu desplegable
                            if (Auth::is_valid()) {
                                echo "<li>";
-                               echo Html::link('usuario/cerrarsesion/es', '<i class="icon-off"></i> Cerrar Sesión');
+                               echo Html::link(''.$enlace_cerrarsesion.'', '<i class="icon-off"></i> '.$cerrarsesion_string);
                                echo "</li>";
                            } else { //Si no esta logueado se mostrará el form para iniciar sesión
                                ?>
-                                <?php echo Form::open('usuario/autenticar/es', 'post', 'class=navbar-form'); ?>
+                                <?php echo Form::open(''.$enlace_form_login.'', 'post', 'class=navbar-form'); ?>
                             <center>
-                                Usuario 
+                                <?php echo $usuario_string; ?>
                                 <?php echo Form::text("username_usu", "class='span2'"); ?>
-                                Contraseña 
+                                <?php echo $contraseña_string; ?>
                                 <?php echo Form::pass("password_usu", "class='span2'"); ?>
-                                <?php echo Form::submit('Ingresar', "class='btn btn-primary'"); ?>
+                                <?php echo Form::submit(''.$ingresar_string.'', "class='btn btn-primary'"); ?>
                                 <br><hr>
-                                <li>  <?php echo Html::link('usuario/ingresar/', 'Regístrate  <i class="icon-plus-sign"></i>'); ?></li>
+                                <li>  <?php echo Html::link(''.$enlace_registrate.'', $registrate_string.' <i class="icon-plus-sign"></i>'); ?></li>
                             </center>
                             </form>
                             <?php } ?>

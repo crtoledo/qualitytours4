@@ -260,8 +260,16 @@ class UsuarioController extends AppController
                 Session::set("id",Auth::get('id'));
                if(Session::get('rol_usu')=='administrador')
                {
-                   Flash::Success("Usuario logueado");
-                   Router::redirect("/");
+                    if($len == "es")
+                    {
+                        Flash::Success("Usuario logueado");
+                        Router::redirect("/");
+                    }
+                   if($len == "en")
+                    {
+                        Flash::Success("Users logged in");
+                        Router::redirect("index/en");
+                    }
                }
                 else{
                     
@@ -273,7 +281,7 @@ class UsuarioController extends AppController
                    if($len == "en")
                     {
                         Flash::Success("Users logged in");
-                        Router::redirect("en/index/en");
+                        Router::redirect("index/en");
                     }
                     
                     
