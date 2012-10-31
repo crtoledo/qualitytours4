@@ -35,24 +35,8 @@
 
         
 <!-- Partial del menu-->
-<?php
-
-
-if($captura == "es")
-{?>
    <div> <?php View::partial('kumbia/menuprincipal') ?></div> 
-  
-<?php
-}
-if($captura == "en")
-{?>
- <div> <?php View::partial('kumbia/menuprincipalen') ?></div>
- 
-<?php } ?>
-   
-
-        
-
+          
         <!--Muestra la pagina correspondiente (vista)-->
        
         <?php View::content(); ?>

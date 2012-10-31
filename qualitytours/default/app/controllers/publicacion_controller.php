@@ -36,10 +36,11 @@ class PublicacionController extends AppController
                   
 	}
         
-    public function editar($id)
+    public function editar($id,$leng)
     {
         //se captura el id para futuros usos
         $this->id_pub=$id;
+        $this->leng= $leng;
     }
 
     public function ingresar()
@@ -83,11 +84,12 @@ class PublicacionController extends AppController
        }
    
     }
-    public function editarpub($id)
+    public function editarpub($id,$leng)
     {
     
        //se captura el id para futuros usos
         $this->id_pub=$id;
+        $this->leng= $leng;
         
     }
     public function actualizar()

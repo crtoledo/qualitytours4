@@ -38,10 +38,12 @@ class ContenidoController extends AppController
         
     
         
-         public function ingresar($id) 
+         public function ingresar($id,$leng) 
       {
              //CAPTURA EL ID DELA PUBLICACION PARA ENVIARLA A LA VISTA
              $this->id_pub = $id;
+             $this->leng = $leng;
+             
          
       }
       
