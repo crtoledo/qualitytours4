@@ -188,7 +188,7 @@ if (Auth::is_valid()) {
             <ul class="nav pull-right">
 <!--                Banderas-->
 <?php $url =  $_SERVER['REQUEST_URI'];
-if($url == "/trunk/qualitytours/" || $url == "/trunk/qualitytours/en/index/en" || $url == "/trunk/qualitytours/index/")
+if($url == "/trunk/qualitytours/" || $url == "/trunk/qualitytours/index/?l=en" || $url == "/trunk/qualitytours/index/" || $url == "/trunk/qualitytours/index" || $url == "trunk/qualitytours")
 {?>
 
                 <li> <?php echo Html::link('index', "<img src='/trunk/qualitytours/img/1351461465_es.png'>"); ?></li>

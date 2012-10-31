@@ -316,13 +316,13 @@ class UsuarioController extends AppController
         {
           Auth::destroy_identity();
           Flash::info("Sesión cerrada");
-          Router::redirect("/");  
+          Router::redirect("index");  
         }
         else
         {
           Auth::destroy_identity();
           Flash::info("Closed Session");
-          Router::redirect("en/index/en");   
+          Router::redirect("index/?l=en");   
         }
         
         
