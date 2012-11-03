@@ -1,3 +1,15 @@
+<?php
+//Código para el idioma
+    if($leng == "en")
+    {
+        include_once APP_PATH.'libs/en.php';
+    }
+    else
+    {
+        include_once APP_PATH.'libs/es.php';
+    }
+?>   
+
 <div>
 <?php
     View::content();
@@ -115,10 +127,9 @@ reemplazo se uso 'errorVal'.
 </style>
 
 
-
 <br>
 <fieldset>
-<?php echo Form::open('usuario/ingresar') ?>
+<?php echo Form::open('usuario/ingresar/'.$leng) ?>
     <div align="center">
         <h1 style="font-family: SF"> Regístrate </h1><br>
         <table>

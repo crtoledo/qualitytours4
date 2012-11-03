@@ -8,4 +8,7 @@ $i_contenido_string="Add contents";
 $e_publicacion_string="Edit publication";
 $con_ingresar_string="en";
 $pub_editar_string="en";
+
+//variables para vista /usuario/ingresar
+
 ?>

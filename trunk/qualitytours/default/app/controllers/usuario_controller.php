@@ -19,8 +19,9 @@ class UsuarioController extends AppController
         
     }
 
-    public function ingresar()
+    public function ingresar($leng)
         { 
+        $this->leng= $leng;
         if(Input::hasPost('usuario'))
             {
            
