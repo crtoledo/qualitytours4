@@ -55,8 +55,18 @@ $(document).ready(function () {
                             $(".table-condensed tbody").append("<td>"+data[count]['apellido_usu']+"</td>");
                             $(".table-condensed tbody").append("<td>"+data[count]['email_usu']+"</td>");
                             $(".table-condensed tbody").append("<td>"+data[count]['rol_usu']+"</td>");
-                            $(".table-condensed tbody").append('<td><form action="/trunk/qualitytours/usuario/modificar/'+data[count]['id']+'" method="post"><input type="submit" value="Modificar" class= "btn btn-info modificar"></form></td>');
-                            $(".table-condensed tbody").append('<td><form action="/trunk/qualitytours/usuario/eliminar/'+data[count]['id']+'" method="post"><input type="submit" value="Eliminar" class= "btn btn-danger eliminar"></form></td>');
+                            $(".table-condensed tbody").append("<td>"+
+                               "<div class='btn-group'>"+
+                                    "<a class='btn btn-primary' href='#'><i class='icon-user icon-white'></i> Opciones</a>"+
+                                    "<a class='btn btn-primary dropdown-toggle' data-toggle='dropdown' href='#'><span class='caret'></span></a>"+
+                                        "<ul class='dropdown-menu'>"+
+                                            "<li><a href='/trunk/qualitytours/usuario/modificar/"+data[count]['id']+"'><i class='icon-pencil'></i> Editar</a></li>"+
+                                            "<li><a href='#'><i class='icon-arrow-up'></i>Convertir a cliente</a></li>"+
+                                            "<li><a href='/trunk/qualitytours/usuario/eliminar/"+data[count]['id']+"'><i class='icon-trash'></i>Eliminar</a></li>"+
+                                        "</ul>"+
+                                "</div>");
+//                            $(".table-condensed tbody").append('<td><form action="/trunk/qualitytours/usuario/modificar/'+data[count]['id']+'" method="post"><input type="submit" value="Modificar" class= "btn btn-info modificar"></form></td>');
+//                            $(".table-condensed tbody").append('<td><form action="/trunk/qualitytours/usuario/eliminar/'+data[count]['id']+'" method="post"><input type="submit" value="Eliminar" class= "btn btn-danger eliminar"></form></td>');
                             
                             $(".table-condensed tbody").prepend("</tr>");
                             count++;
@@ -108,25 +118,40 @@ reemplazo se uso 'errorVal'.
 }
 </style>
 <!--formulario de busqueda-->
-<?php echo Form::open('usuario/buscar'); ?>
-    <div align="center">
+ <div align="center">
         <h1 style="font-family: SF"> Buscar usuarios </h1>
-        <table>
-            <tr>
-                <td>Seleccione el tipo de usuario:&nbsp;&nbsp;</td>
-                <td><?php echo Form::radio('eleccion', 'turista', null, true);?> Turista&nbsp;&nbsp; 
-                    <?php echo Form::radio('eleccion', 'cliente');?> Centro turistico&nbsp;&nbsp; 
-                    <?php echo Form::radio('eleccion', 'ambos');?> Ambos</td><br>
-            </tr>
-            <tr>
-                <td>Palabra clave </td>
-                <td><?php echo Form::text('usuario',"class='span3 palabra' placeholder='Ingrese username'") ?></td>
-            </tr>
-        </table>
-        <?php echo Form::submit('Buscar','class="btn btn-primary boton"') ;?>
-<?php echo Form::close(); ?>
-        
-        
+            <table>
+                <tr> 
+                    <td>Palabra clave&nbsp;&nbsp;</td>
+                    <td><?php echo Form::text('usuario',"class='span3 palabra' placeholder='Ingrese username'") ?></td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <div class="accordion" id="accordion2">
+                            <div class="accordion-group">
+                                <div class="accordion-heading">
+                                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
+                                        Más opciones de busqueda
+                                    </a>
+                                </div>
+                            <div id="collapseOne" class="accordion-body collapse">
+                                <div class="accordion-inner">
+                                     <label class="radio">
+                                        <input type="radio" name="optionsRadios" id="optionsRadios1" value="turista" checked>
+                                            Turista
+                                     </label>
+                                     <label class="radio">
+                                        <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
+                                            Centro turistico
+                                     </label>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+       
 <!--Resultado de la busqueda-->
         <br>
         <br>
@@ -147,31 +172,6 @@ reemplazo se uso 'errorVal'.
                 </tr>
             </thead>
             <tbody>
-                <?php if($tabla_activada == '1') {?>
-                <?php //la tabla, seccion resultados
-                    foreach($listaobtenida->items as $item) :
-                        $id_usu = $item->id;
-                        $username = $item->username_usu;
-                        $nombre = $item->nombre_usu;
-                        $apellido = $item->apellido_usu;
-                        $email = $item->email_usu;
-                        $tipo_usuario = $item->rol_usu;
-                        echo '<tr>';
-                        echo '<td>'.$id_usu.'</td>';
-                        echo '<td>'.$username.'</td>';
-                        echo '<td>'.$nombre.'</td>';
-                        echo '<td>'.$apellido.'</td>';
-                        echo '<td>'.$email.'</td>';
-                        echo '<td>'.$tipo_usuario.'</td>';
-                        echo Form::open('usuario/modificar/'.$id_usu); 
-                        echo '<td>'. Form::submit('Modificar','class= "btn btn-info modificar"').'</td>';
-                        echo Form::close(); 
-                        echo Form::open('usuario/eliminar/'.$id_usu); 
-                        echo '<td>'. Form::submit('Eliminar','class= "btn btn-danger eliminar"').'</td>';
-                        echo Form::close(); 
-                        echo '</tr>';
-                    endforeach; ?>
-                <?php } ?>
             </tbody>
         </table>
         <?php //if($tabla_activada == '1') {
