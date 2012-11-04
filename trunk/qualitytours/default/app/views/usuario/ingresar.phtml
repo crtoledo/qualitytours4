@@ -28,22 +28,22 @@ $(document).ready(function () {
         
         
          if( $(".username").val() == "" ){
-            $(".username").focus().after("<span class='errorVal'>Ingrese username</span>");
+            $(".username").focus().after("<span class='errorVal'><?php echo $val_username_string;?></span>");
             return false;
         }else if( $(".password").val() == ""){
-            $(".password").focus().after("<span class='errorVal'>Ingrese  password</span>");
+            $(".password").focus().after("<span class='errorVal'><?php echo $val_password_string; ?></span>");
             return false;
         }else if( $(".nombre").val() == ""){
-            $(".nombre").focus().after("<span class='errorVal'>Ingrese  nombre</span>");
+            $(".nombre").focus().after("<span class='errorVal'><?php echo $val_nombre_string; ?></span>");
             return false;
         }else if( $(".apellido").val() == "" ){
-            $(".apellido").focus().after("<span class='errorVal'>Ingrese apellido</span>");
+            $(".apellido").focus().after("<span class='errorVal'><?php echo $val_apellido_string; ?></span>");
             return false;
         }else if( $(".rut").val() == "" || !rutreg.test($(".rut").val())){
-            $(".rut").focus().after("<span class='errorVal'>Ingrese rut v&aacute;lido</span>");
+            $(".rut").focus().after("<span class='errorVal'><?php echo $val_rut_string; ?></span>");
             return false;
         }else if($(".email").val() == "" || !emailreg.test($(".email").val()) ){
-           $(".email").focus().after("<span class='errorVal'>Ingrese email</span>");
+           $(".email").focus().after("<span class='errorVal'><?php echo $val_email_string; ?></span>");
            return false;
         }
     });
@@ -64,7 +64,7 @@ $(document).ready(function () {
     
     //Borrar el mensaje de error si el usuario ingresa un rut con formato válido
     $(".rut").Rut({
-        on_error: function(){  $(".rut").focus().after("<span class='errorVal'>Ingrese rut v&aacute;lido</span>"); return false; },
+        on_error: function(){  $(".rut").focus().after("<span class='errorVal'><?php echo $val_rut_string; ?></span>"); return false; },
         format_on: 'keyup'
         
        
@@ -131,7 +131,7 @@ reemplazo se uso 'errorVal'.
 <fieldset>
 <?php echo Form::open('usuario/ingresar/'.$leng) ?>
     <div align="center">
-        <h1 style="font-family: SF"> Regístrate </h1><br>
+        <h1 style="font-family: SF"> <?php echo $titulo_ingresar_string; ?> </h1><br>
         <table>
     <tr>
         <td align="right">Username:&nbsp;</td>
@@ -143,11 +143,11 @@ reemplazo se uso 'errorVal'.
     </tr>
 
     <tr>
-        <td align="right">Nombre:&nbsp;</td>
+        <td align="right"><?php echo $nombre_ingresar_string;?>:&nbsp;</td>
         <td><?php echo Form::text('usuario.nombre_usu',"class='input-medium nombre'") ?></td>
     </tr>
     <tr>
-        <td align="right">Apellido:&nbsp;</td>
+        <td align="right"><?php echo $apellido_ingresar_string;?>:&nbsp;</td>
         <td><?php echo Form::text('usuario.apellido_usu',"class='input-medium apellido'") ?></td>
     </tr>
     <tr>
@@ -164,14 +164,15 @@ reemplazo se uso 'errorVal'.
     <div align="center">
     <table>
         <tr>
-            <td><?php echo Form::submit('Ingresar Usuario','class="btn btn-submit boton"') ?>&nbsp;</td>
-            <td><?php echo Form::reset('Reiniciar','class="btn btn-info"')?></td>
+            <td><?php echo Form::submit(''.$ingresar_usuario_string.'','class="btn btn-submit boton"') ?>&nbsp;</td>
+           
         </tr>         
     </table>
    </div>
 
  
 <?php echo Form::hidden('usuario.estado_usu',null , 1); ?>
+<?php echo Form::hidden('usuario.lenguaje_usu',null , 0); ?>
 <?php echo Form::hidden('usuario.rol_usu',null,'turista'); ?>
 
 <?php echo Form::close() ?> 
