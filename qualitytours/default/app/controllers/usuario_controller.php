@@ -22,18 +22,38 @@ class UsuarioController extends AppController
     public function ingresar($leng)
         { 
         $this->leng= $leng;
+        
+        
         if(Input::hasPost('usuario'))
             {
            
             $usuario = new Usuario(Input::post('usuario'));
             
             if(!$usuario->save()){
-                Flash::error('Error al agregar Usuario');
+                
+                if($leng == "es")
+                {
+                    Flash::error('Error al agregar Usuario');
+                }
+                else
+                {
+                    Flash::error('user add error');
+                }
+                
             }
             else
             {
-                Flash::success('Usuario ingresado satisfactoriamente');
-                Router::redirect("/");
+                if($leng == "es")
+                {
+                    Flash::success('Usuario ingresado satisfactoriamente');
+                    Router::redirect("index");
+                }
+                else
+                {
+                    Flash::success('Add user successful');
+                    Router::redirect("index/?l=en");
+                }
+                
             }
 
             }
