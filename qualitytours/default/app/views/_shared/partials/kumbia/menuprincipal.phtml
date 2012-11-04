@@ -25,7 +25,7 @@ if($url == "en")
     $iniciarsesion_string= "Sign in";
     $enlace_cerrarsesion= "usuario/cerrarsesion/en";
     $cerrarsesion_string = "Logout";
-    $enlace_form_login = "usuario/autenticar/en";
+    $enlace_form_login = "usuario/autenticar/";
     $enlace_registrate = "usuario/ingresar/en";
     $registrate_string = "Create an account";
     $usuario_string = "Username";
@@ -54,7 +54,7 @@ else
     $iniciarsesion_string= "Iniciar Sesi&oacute;n";
     $enlace_cerrarsesion= "usuario/cerrarsesion/es";
     $cerrarsesion_string = "Cerrar Sesi&oacute;n";
-    $enlace_form_login= "usuario/autenticar/es";
+    $enlace_form_login= "usuario/autenticar/";
     $enlace_registrate = "usuario/ingresar/es";
     $registrate_string = "Reg&iacute;strate";
     $usuario_string = "usuario";
@@ -190,9 +190,19 @@ if (Auth::is_valid()) {
 <?php $url =  $_SERVER['REQUEST_URI'];
 if($url == "/trunk/qualitytours/" || $url == "/trunk/qualitytours/index/?l=en" || $url == "/trunk/qualitytours/index/" || $url == "/trunk/qualitytours/index" || $url == "trunk/qualitytours")
 {?>
-
+        <?php if (!Auth::is_valid())
+        {?>
                 <li> <?php echo Html::link('index', "<img src='/trunk/qualitytours/img/1351461465_es.png'>"); ?></li>
                 <li> <?php echo Html::link('index/en', "<img src='/trunk/qualitytours/img/1351461500_gb.png'>"); ?></li>
+                
+  <?php }
+        else
+        {?>
+                <li> <?php echo Html::link('usuario/leng/es', "<img src='/trunk/qualitytours/img/1351461465_es.png'>"); ?></li>
+                <li> <?php echo Html::link('usuario/leng/en', "<img src='/trunk/qualitytours/img/1351461500_gb.png'>"); ?></li>
+            
+<?php   }?>
+        
  <?php } 
  else
        {?>

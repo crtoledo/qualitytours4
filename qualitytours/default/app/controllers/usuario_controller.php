@@ -260,7 +260,7 @@ class UsuarioController extends AppController
             
     
     //Función para autenticar al usuario
-    public function autenticar($len) 
+    public function autenticar() 
     {
          
          if(Input::hasPost("username_usu","password_usu"))
@@ -281,31 +281,32 @@ class UsuarioController extends AppController
                 Session::set("id",Auth::get('id'));
                if(Session::get('rol_usu')=='administrador')
                {
-                    if($len == "es")
-                    {
+                    
                         Flash::Success("Usuario logueado");
                         Router::redirect("/");
-                    }
-                   if($len == "en")
-                    {
-                        Flash::Success("Users logged in");
-                        Router::redirect("index/en");
-                    }
+                    
+                  
                }
                 else{
+                        $usuario = new Usuario();
+                        $buscar = $usuario->find(Session::get("id"));
+                        $idiom = $buscar->lenguaje_usu;
+                    if($idiom == "f")
+                    {   
+                        
+                            
+                            Flash::Success("Usuario logueado");
+                            Router::redirect("/");
+                       
                     
-                    if($len == "es")
-                    {
-                        Flash::Success("Usuario logueado");
-                        Router::redirect("/");
                     }
-                   if($len == "en")
+                    else
                     {
-                        Flash::Success("Users logged in");
-                        Router::redirect("index/en");
+                        
+                            Flash::Success("Users logged in");
+                            Router::redirect("index/en");
+                       
                     }
-                    
-                    
                 }
                 
             } 
@@ -356,5 +357,47 @@ class UsuarioController extends AppController
             
         }
 
+    }
+    public function leng($leng)
+    {
+       
+        
+        $usuario = new Usuario();
+        $buscar = $usuario->find(Session::get("id"));
+        $idiom = $buscar->lenguaje_usu;
+        
+        if($idiom == "t")
+        {
+            $this->lenguaje_usu = "en";
+            
+        }
+        else
+        {
+            $this->lenguaje_usu = "es"; 
+        }
+        
+        $this->lengselect =  $leng;
+        
+        
+    }
+    public function leng2($leng)
+    {
+        $id = Session::get("id");
+        if($leng == "es")
+        {
+          $usuario = new Usuario();
+          $usuario->sql("UPDATE usuario set lenguaje_usu='f' WHERE id=".$id);
+         flash::info("A cambiado su idioma predeterminado a español");
+          router::redirect("/");
+          
+        }
+        else
+        {
+          $usuario = new Usuario();
+          $usuario->sql("UPDATE usuario set lenguaje_usu='t' WHERE id=".$id);
+          flash::info("changed the default language to English");
+          router::redirect("index/?l=en");
+          
+        }
     }
 }

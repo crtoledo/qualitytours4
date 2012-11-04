@@ -1,0 +1,27 @@
+<?php
+View::content();
+    if($lengselect == $lenguaje_usu)
+    {
+        if($lengselect == "en")
+        {
+            router::redirect("index/?l=en");
+        }
+        else
+        {
+            router::redirect("/");
+        }
+    }
+ else
+   {
+      if($lenguaje_usu == "en")
+      {
+          router::redirect("usuario/leng2/es");
+      }
+      else
+      {
+          router::redirect("usuario/leng2/en");
+      }
+
+     
+    }
+?>
