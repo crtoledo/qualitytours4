@@ -172,7 +172,18 @@ reemplazo se uso 'errorVal'.
 
  
 <?php echo Form::hidden('usuario.estado_usu',null , 1); ?>
-<?php echo Form::hidden('usuario.lenguaje_usu',null , 0); ?>
+
+<?php 
+   if($leng == "es")
+   {
+    echo Form::hidden('usuario.lenguaje_usu',null , 0); 
+   }
+   else
+   {
+      echo Form::hidden('usuario.lenguaje_usu',null , 1);  
+   }
+
+?>
 <?php echo Form::hidden('usuario.rol_usu',null,'turista'); ?>
 
 <?php echo Form::close() ?> 
