@@ -77,9 +77,7 @@ $(document).ready(function () {
                                             "<li><a href='/trunk/qualitytours/usuario/eliminar/"+data[count]['id']+"'><i class='icon-trash'></i>Eliminar</a></li>"+
                                         "</ul>"+
                                 "</div>");
-//                            $(".table-condensed tbody").append('<td><form action="/trunk/qualitytours/usuario/modificar/'+data[count]['id']+'" method="post"><input type="submit" value="Modificar" class= "btn btn-info modificar"></form></td>');
-//                            $(".table-condensed tbody").append('<td><form action="/trunk/qualitytours/usuario/eliminar/'+data[count]['id']+'" method="post"><input type="submit" value="Eliminar" class= "btn btn-danger eliminar"></form></td>');
-                            
+                           
                             $(".table-condensed tbody").prepend("</tr>");
                             count++;
                         }
@@ -149,7 +147,7 @@ reemplazo se uso 'errorVal'.
                             <div id="collapseOne" class="accordion-body collapse">
                                 <div class="accordion-inner">
                                      <label class="radio">
-                                        <input type="radio" name="optionsRadios" id="optionsRadios1" value="turista" checked>
+                                        <input type="radio" name="optionsRadios" id="optionsRadios1" value="turista">
                                             Turista
                                      </label>
                                      <label class="radio">
