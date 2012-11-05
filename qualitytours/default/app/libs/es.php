@@ -24,5 +24,12 @@ $val_email_string = "Ingrese su email";
 //variables para usuario/buscar
 $usuario_buscar_titulo = "Buscar usuarios";
 $usuario_buscar_ingrese_usuario = "Ingrese Usuario";
-
+$usuario_buscar_mas_opciones = "Más opciones de busqueda";
+$usuario_buscar_turista ="Turista";
+$usuario_buscar_centro ="Centro turistico";
+$usuario_buscar_resultado = "Resultado de la busqueda";
+$usuario_buscar_nombre = "Nombre";
+$usuario_buscar_apellido = "Apellido";
+$usuario_buscar_email = "Email";
+$usuario_buscar_rol = "Rol";
 ?>
