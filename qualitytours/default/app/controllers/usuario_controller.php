@@ -200,9 +200,25 @@ class UsuarioController extends AppController
                if(Session::get('rol_usu')=='administrador')
                {
                     
-                        Flash::Success("Usuario logueado");
-                        Router::redirect("/");
+                       $usuario = new Usuario();
+                        $buscar = $usuario->find(Session::get("id"));
+                        $idiom = $buscar->lenguaje_usu;
+                    if($idiom == "f")
+                    {   
+                        
+                            
+                            Flash::Success("Usuario logueado");
+                            Router::redirect("/");
+                       
                     
+                    }
+                    else
+                    {
+                        
+                            Flash::Success("Users logged in");
+                            Router::redirect("index/en");
+                       
+                    }
                   
                }
                 else{
