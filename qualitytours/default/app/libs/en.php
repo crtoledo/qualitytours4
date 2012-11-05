@@ -21,3 +21,7 @@ $val_apellido_string = "Please enter your last name";
 $val_rut_string = "Please enter your ID";
 $val_email_string = "Please enter your email";
 
+//variables para usuario/buscar
+$usuario_buscar_titulo = "Search users";
+$usuario_buscar_ingrese_usuario = "Find user";
+

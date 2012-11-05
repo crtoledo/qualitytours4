@@ -1,3 +1,14 @@
+<?php
+//Código para el idioma
+    if($leng == "en")
+    {
+        include_once APP_PATH.'libs/en.php';
+    }
+    else
+    {
+        include_once APP_PATH.'libs/es.php';
+    }
+?>  
 <div><?php View::content() ?></div> 
 <script type="text/javascript">
     //Validación con jquery
@@ -120,11 +131,11 @@ reemplazo se uso 'errorVal'.
 </style>
 <!--formulario de busqueda-->
  <div align="center">
-        <h1 style="font-family: SF"> Buscar usuarios </h1>
+        <h1 style="font-family: SF"> <?php echo $usuario_buscar_titulo;?> </h1>
             <table>
                 <tr> 
-                    <td>Palabra clave&nbsp;&nbsp;</td>
-                    <td><?php echo Form::text('usuario',"class='span3 palabra' placeholder='Ingrese username'") ?></td>
+                    <td><?php echo $usuario_buscar_ingrese_usuario;?>&nbsp;&nbsp;</td>
+                    <td><?php echo Form::text('usuario',"class='span3 palabra' placeholder='$usuario_buscar_ingrese_usuario'") ?></td>
                 </tr>
                 <tr>
                     <td colspan="2">

@@ -6,11 +6,7 @@ class UsuarioController extends AppController
 {
     
    public function before_filter() {
-       //ayuda a que no salga error cuando se ingresa al formulario de busqueda por primera vez
-       //con esto no sale error de variable no definida
-       $this->tabla_activada='0'; 
-       //0= nadie, 1= turista, 2= cliente
-       $this->diferenciador= '0';
+
    }
 
 
@@ -121,86 +117,8 @@ class UsuarioController extends AppController
 }
     
     
-    public function buscar($page=1, $paginador_activado=1,$datoguardado=1,$opcion='nada'){
-        if(Auth::is_valid())
-        {
-          if(Auth::get('rol_usu')== 'administrador')
-           {
-            if(input::hasPost('usuario'))
-            {
-                //se activa la tabla seccion resultados
-                $this->tabla_activada='1';
-                //se obtiene el tipo de eleccion
-                $opciondebusqueda = input::post('eleccion');
-                //se obtiene lo que se quiere buscar
-                $palabraclave =input::post('usuario');
-                
-                //si la opcion es turista
-                if($opciondebusqueda=='turista')
-                {
-                    $obtenerdatos = new Usuario();
-                    $this->listaobtenida = $obtenerdatos->getdatosusuarios($page,$palabraclave);
-                    //campos para paginar
-                    $this->datoabuscarr = $palabraclave;
-                    $this->opcionn = $opciondebusqueda;
-                }
-                //si la opcion es cliente
-                else if ($opciondebusqueda=='cliente')
-                {
-                    $obtenerdatos = new Usuario();
-                    $this->listaobtenida = $obtenerdatos->getdatosclientes($page,$palabraclave);
-                    //campos para paginar
-                    $this->datoabuscarr = $palabraclave;
-                    $this->opcionn = $opciondebusqueda;                    
-                }
-                //si la opcion es turistas y clientes
-                else if ($opciondebusqueda=='ambos')
-                {
-                    $obtenerdatos = new Usuario();
-                    $this->listaobtenida = $obtenerdatos->getdatosambos($page,$palabraclave);
-                    //campos para paginar
-                    $this->datoabuscarr = $palabraclave;
-                    $this->opcionn = $opciondebusqueda;                      
-                }
-                // funcionara cuando se active la paginacion
-                   else if($paginador_activado == 2 )
-                    {
-                       $this->opcionn = $opcion;
-                       if ($opcion == 'turista')
-                       {
-                            $obtenerdatos = new Usuario;
-                            $this->listaobtenida = $obtenerdatos->getdatosusuarios($page,$datoguardado);
-                            $this->datoabuscarr = $datoguardado;
-                            $this->opcionn = $opcion;   
-                       }
-                       else if ($opcion=='cliente')
-                       {
-                            $obtenerdatos = new Usuario;
-                            $this->listaobtenida = $obtenerdatos->getdatosclientes($page,$datoguardado);
-                            $this->datoabuscarr = $datoguardado;
-                            $this->opcionn = $opcion;                      
-                       }
-                       else if ($opcion =='ambos')
-                       {
-                            $obtenerdatos = new Usuario;
-                            $this->listaobtenida = $obtenerdatos->getdatosambos($page,$datoguardado); 
-                            $this->datoabuscarr = $datoguardado;
-                            $this->opcionn = $opcion;
-                       }    
-                    }                
-                }   
-            }
-            else
-            {
-                Flash::info('No posee los privilegios necesarios');
-                Router::redirect("/");
-            } 
-        }
-        else
-        {
-            Flash::info('No posee los privilegios necesarios');
-            Router::redirect("/");
-        }
+    public function buscar($leng){
+        $this->leng= $leng;
     }
     
     
