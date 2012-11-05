@@ -156,14 +156,17 @@ reemplazo se uso 'errorVal'.
     </tr>
     <tr>
         <td align="right">E-mail:&nbsp;</td>
-        <td><?php echo Form::textarea('usuario.email_usu',"class='input-medium email'") ?></td>
+        <td><?php echo Form::text('usuario.email_usu',"class='input-medium email'") ?></td>
+    </tr>
+    <tr>
+        <td align="right" colspan="2">Acepta t&eacute;rminos de uso?&nbsp;<?php echo Form::check('acepta', 'checkValue')?></td>
     </tr>
 
 </table>
     </div>
     <div align="center">
     <table>
-        <tr>
+        <tr><br>
             <td><?php echo Form::submit(''.$ingresar_usuario_string.'','class="btn btn-submit boton"') ?>&nbsp;</td>
            
         </tr>         
