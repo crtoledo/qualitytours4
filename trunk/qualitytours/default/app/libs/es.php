@@ -21,4 +21,8 @@ $val_apellido_string = "Ingrese apellido";
 $val_rut_string = "Ingrese un rut valido";
 $val_email_string = "Ingrese su email";
 
+//variables para usuario/buscar
+$usuario_buscar_titulo = "Buscar usuarios";
+$usuario_buscar_ingrese_usuario = "Ingrese Usuario";
+
 ?>

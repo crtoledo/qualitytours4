@@ -31,6 +31,7 @@ if($url == "en")
     $usuario_string = "Username";
     $contraseña_string = "Password";
     $ingresar_string = "Sign in";
+    $enlace_usuario_buscar = "usuario/buscar/en";
 }
 else
 {
@@ -60,6 +61,7 @@ else
     $usuario_string = "usuario";
     $contraseña_string = "contraseña";
     $ingresar_string = "Ingresar";
+    $enlace_usuario_buscar = "usuario/buscar/es";
 }
     
 ?>
@@ -171,7 +173,7 @@ if (Auth::is_valid()) {
 
                             <ul class="dropdown-menu">
                                 <li><?php echo Html::link('cliente/ingresar/', '<i class="icon-plus"></i> '.$ingresarcliente_string.''); ?></li>
-                                <li><?php echo Html::link('usuario/buscar/', '<i class="icon-search"></i> '.$buscarusuarios_string.''); ?></li>
+                                <li><?php echo Html::link(''.$enlace_usuario_buscar.'', '<i class="icon-search"></i> '.$buscarusuarios_string.''); ?></li>
                                 <li><?php echo Html::link('publicacion/ingresar/', '<i class="icon-upload"></i> '.$ingresarpublicacion_string.''); ?></li>
 <!--                                <li><?php //echo Html::link('administrador/ingresar/', '<i class="icon-plus"></i> '.$ingresaradministrador_string.''); ?></li>-->
                                 <li><?php echo Html::link('categoria/ingresar', '<i class="icon-plus"></i> '.$ingresarcategorias_string.''); ?></li>
