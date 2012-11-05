@@ -39,28 +39,36 @@ class AdministradorController extends AppController {
                 
         //Obtenemos los datos del usuario mediante su id
         $datos_user = $user->find($id_usuario);
+        if($datos_user->rol_usu != "administrador")
+        {
+            //Paso de datos desde usuario encontrado a administrador a ingresar
+            $id= $datos_user->id;        
+            $username_usu = $datos_user->username_usu;
+            $password_usu = $datos_user->password_usu;
+            $rol_usu = "administrador";
+            $nombre_usu = $datos_user->nombre_usu;
+            $apellido_usu = $datos_user->apellido_usu;
+            $rut_usu = $datos_user->rut_usu;
+            $email_usu = $datos_user->email_usu;
+            $estado_usu = $datos_user->estado_usu;
 
-        //Paso de datos desde usuario encontrado a administrador a ingresar
-        $id= $datos_user->id;        
-        $username_usu = $datos_user->username_usu;
-        $password_usu = $datos_user->password_usu;
-        $rol_usu = "administrador";
-        $nombre_usu = $datos_user->nombre_usu;
-        $apellido_usu = $datos_user->apellido_usu;
-        $rut_usu = $datos_user->rut_usu;
-        $email_usu = $datos_user->email_usu;
-        $estado_usu = $datos_user->estado_usu;
-
-        if(($administrador->sql("insert into Administrador  values(".$id.",'".$username_usu."','".$password_usu."','".$rol_usu."','".$nombre_usu."','".$apellido_usu."','".$rut_usu."','".$email_usu."','".$estado_usu."');"))&& ( $user->sql("update Usuario set rol_usu='administrador' where id=".$id)))
-        {   
-           Flash::success($username_usu." ahora es administrador");
-            Router::redirect("usuario/buscar");
+            if(($administrador->sql("insert into Administrador  values(".$id.",'".$username_usu."','".$password_usu."','".$rol_usu."','".$nombre_usu."','".$apellido_usu."','".$rut_usu."','".$email_usu."','".$estado_usu."');"))&& ( $user->sql("update Usuario set rol_usu='administrador' where id=".$id)))
+            {   
+                Flash::success($username_usu." ahora es administrador");
+                Router::redirect("usuario/buscar");
+            }
+            else
+            {
+                Flash::error("Error en el ingreso del administrador");
+                Router::redirect("usuario/buscar");
+            }
         }
         else
         {
-            Flash::error("Error en el ingreso del administrador");
+            Flash::error($datos_user->username_usu." ya es administrador");
             Router::redirect("usuario/buscar");
         }
+            
       } 
     
         
