@@ -260,7 +260,7 @@ class UsuarioController extends AppController
             
     
     //Función para autenticar al usuario
-    public function autenticar() 
+    public function autenticar($len) 
     {
          
          if(Input::hasPost("username_usu","password_usu"))
