@@ -1,4 +1,4 @@
-
+<!--
 <div><?php View::content() ?></div> 
 
 <script type="text/javascript">
@@ -31,11 +31,11 @@ $(document).ready(function () {
 });
 </script>
 
-<!--
+
 El CSS a continuación da estilo a los mensaje de error en la validación
 , no se usó "error" ya que kumbia ya tiene un estilo para esa clase, en su
 reemplazo se uso 'errorVal'.
--->
+
 
 <style>
     .errorVal{
@@ -63,13 +63,13 @@ reemplazo se uso 'errorVal'.
 
 <br>
 <fieldset>
-<?php echo Form::open('administrador/ingresar') ?>
+<?php //echo Form::open('administrador/ingresar') ?>
     <div align="center">
         <h1> Convertir Usuario-Administrador </h1>
         <table>
      <tr>
         <td>Usuario</td>
-        <td><?php echo  Form::dbSelect('administrador.id','username_usu',array('usuario','find',"rol_usu='turista'"),'-Seleccione-','class=seleccion_usuario') ?></td>
+        <td><?php //echo  Form::dbSelect('administrador.id','username_usu',array('usuario','find',"rol_usu='turista'"),'-Seleccione-','class=seleccion_usuario') ?></td>
     </tr>
     
 
@@ -78,14 +78,14 @@ reemplazo se uso 'errorVal'.
     <div align="center">
     <table>
         <tr>
-            <td><?php echo Form::submit('Ingresar Administrador','class="btn btn-submit boton"') ?>&nbsp;</td>
-            <td><?php echo Form::reset('Reiniciar','class="btn btn-info"')?></td>
+            <td><?php //echo Form::submit('Ingresar Administrador','class="btn btn-submit boton"') ?>&nbsp;</td>
+            <td><?php //echo Form::reset('Reiniciar','class="btn btn-info"')?></td>
         </tr>         
     </table>
    </div>
 
-<?php echo Form::hidden('administrador.estado_usu',null , 1); ?>
+<?php //echo Form::hidden('administrador.estado_usu',null , 1); ?>
 
-<?php echo Form::close() ?> 
-    </fieldset>
+<?php //echo Form::close() ?> 
+    </fieldset>-->
 
