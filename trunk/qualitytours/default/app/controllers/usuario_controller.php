@@ -5,28 +5,26 @@ load::model('cliente');
 class UsuarioController extends AppController 
 {
     
-   public function before_filter() {
-
+   public function before_filter() 
+   {
+       
    }
-
 
    public function index()
     {
         
     }
 
-    public function ingresar($leng)
-        { 
+   public function ingresar($leng)
+    { 
         $this->leng= $leng;
         
-        
         if(Input::hasPost('usuario'))
-            {
-           
+        {
             $usuario = new Usuario(Input::post('usuario'));
             
-            if(!$usuario->save()){
-                
+            if(!$usuario->save())
+            {
                 if($leng == "es")
                 {
                     Flash::error('Error al agregar Usuario');
@@ -35,7 +33,6 @@ class UsuarioController extends AppController
                 {
                     Flash::error('user add error');
                 }
-                
             }
             else
             {
@@ -49,90 +46,92 @@ class UsuarioController extends AppController
                     Flash::success('Add user successful');
                     Router::redirect("index/?l=en");
                 }
-                
-            }
-
-            }
-        } 
-        
-        
-    public function modificar($id){
-     if(Auth::is_valid())
-        {
-      if(Auth::get('rol_usu')== 'administrador')
-           {  
-        $usuarioamodificar = new Usuario;
-        $verificarrol = $usuarioamodificar->find($id);
-        if($verificarrol->rol_usu=='turista')
-        {
-            if(Input::hasPost('usuario'))
-            {
-                $usuarioactualizado = new usuario;
-                if($usuarioactualizado->update(Input::post('usuario')))
-                {
-                    Flash::info("Usuario ".$verificarrol->username_usu." modificado con exito");
-                    Router::redirect("usuario/buscar");
-                }
-            }
-            else
-            {
-                $this->diferenciador='1';
-                $this->usuario = $verificarrol;
             }
         }
-        else
+    } 
+        
+        
+    public function modificar($id)
+    {
+        if(Auth::is_valid())
         {
-            $clienteamodificar = new cliente;
-            if(Input::hasPost('cliente'))
-            {
-                $clienteactualizado = new Cliente;
-                if($clienteactualizado->update(Input::post('cliente')))
+            if(Auth::get('rol_usu')== 'administrador')
+            {  
+                $usuarioamodificar = new Usuario;
+                $verificarrol = $usuarioamodificar->find($id);
+                
+                if($verificarrol->rol_usu=='turista')
                 {
-                    Flash::info("Usuario ".$verificarrol->username_usu." modificado con exito");
-                    Router::redirect("usuario/buscar");
+                    if(Input::hasPost('usuario'))
+                    {
+                        $usuarioactualizado = new usuario;
+                        
+                        if($usuarioactualizado->update(Input::post('usuario')))
+                        {
+                            Flash::info("Usuario ".$verificarrol->username_usu." modificado con exito");
+                            Router::redirect("usuario/buscar");
+                        }
+                    }
+                    else
+                    {
+                        $this->diferenciador='1';
+                        $this->usuario = $verificarrol;
+                    }
                 }
                 else
                 {
-                    Flash::error("No se modifico");
+                    $clienteamodificar = new cliente;
+                
+                    if(Input::hasPost('cliente'))
+                    {
+                        $clienteactualizado = new Cliente;
+                
+                        if($clienteactualizado->update(Input::post('cliente')))
+                        {
+                            Flash::info("Usuario ".$verificarrol->username_usu." modificado con exito");
+                            Router::redirect("usuario/buscar");
+                        }
+                        else
+                        {
+                            Flash::error("No se modifico");
+                        }
+                    }
+                    else
+                    {             
+                        $this->diferenciador='2';
+                        $this->cliente = $clienteamodificar->find($id); 
+                    }
                 }
             }
             else
-            {             
-                $this->diferenciador='2';
-                $this->cliente = $clienteamodificar->find($id); 
-            }
+            {
+                Flash::info('No posee los privilegios necesarios');
+                Router::redirect("/");
+            } 
         }
-      }
-      else
+        else
         {
-          Flash::info('No posee los privilegios necesarios');
-          Router::redirect("/");
+            Flash::info('No posee los privilegios necesarios');
+            Router::redirect("/");
         } 
     }
-     else
+    
+    public function buscar($leng)
     {
-        Flash::info('No posee los privilegios necesarios');
-        Router::redirect("/");
-    } 
-}
-    
-    
-    public function buscar($leng){
         $this->leng= $leng;
     }
-    
-    
-    
-    public function admin(){
+
+    public function admin()
+    {
         
     }
 
-    
-    public function eliminar($id){
-       if(Auth::is_valid())
+    public function eliminar($id)
+    {
+        if(Auth::is_valid())
         {
-           if(Auth::get('rol_usu')== 'administrador')
-           {
+            if(Auth::get('rol_usu')== 'administrador')
+            {
                 //problemas tabla cliente y usuario
                 $usuarioaeliminar = new Usuario;
                 $usuario = $usuarioaeliminar->find($id);
@@ -145,7 +144,7 @@ class UsuarioController extends AppController
                     $cliente = $clienteaeliminar->find($id);
                     $cliente->estado_usu = 'False';
                     // si es cliente se actualiza la tabla usuario y la tabla cliente
-                   if ($usuario->update()&& $cliente->update())
+                    if ($usuario->update()&& $cliente->update())
                     {
 
                     }
@@ -156,107 +155,88 @@ class UsuarioController extends AppController
                 }
                 //en caso de que solo es turista, se actualiza solamente la tabla usuario
                 else if ($usuario->update())
-                 {
+                {
 
-                 }
+                }
                 else
-                 {
+                {
                     Flash::error('No se puede eliminar');
-                 }
-         }
-           else
-           {
+                }
+            }
+            else
+            {
                 Flash::info('No posee los privilegios necesarios');
                 Router::redirect("/");
-           }
+            }
         }
-       else
+        else
         {
             Router::redirect("/");
         }
     }
             
-    
     //Función para autenticar al usuario
     public function autenticar($len) 
     {
-         
-         if(Input::hasPost("username_usu","password_usu"))
-         {
-            //Flash::info("Datos recibidos.. se procede a autenticar");
-             
-          
-
+        if(Input::hasPost("username_usu","password_usu"))
+        {
             $user = Input::post('username_usu');
             $pass = Input::post('password_usu');
-
             $auth = new Auth("model", "class: usuario", "username_usu: $user", "password_usu: $pass");
 
             if ($auth->authenticate()) 
             {
-               //captura el rol del usuario para futuros usos
+                //captura el rol del usuario para futuros usos
                 Session::set("rol_usu",Auth::get('rol_usu'));
                 Session::set("id",Auth::get('id'));
-               if(Session::get('rol_usu')=='administrador')
-               {
+               
+                if(Session::get('rol_usu')=='administrador')
+                {
+                    $usuario = new Usuario();
+                    $buscar = $usuario->find(Session::get("id"));
+                    $idiom = $buscar->lenguaje_usu;
                     
-                       $usuario = new Usuario();
-                        $buscar = $usuario->find(Session::get("id"));
-                        $idiom = $buscar->lenguaje_usu;
                     if($idiom == "f")
                     {   
-                        
-                            
-                            Flash::Success("Usuario logueado");
-                            Router::redirect("/");
-                       
-                    
+                        Flash::Success("Usuario logueado");
+                        Router::redirect("/");
                     }
                     else
                     {
-                        
-                            Flash::Success("Users logged in");
-                            Router::redirect("index/en");
-                       
+                        Flash::Success("Users logged in");
+                        Router::redirect("index/en");
                     }
                   
-               }
-                else{
-                        $usuario = new Usuario();
-                        $buscar = $usuario->find(Session::get("id"));
-                        $idiom = $buscar->lenguaje_usu;
+                }
+                else
+                {
+                    $usuario = new Usuario();
+                    $buscar = $usuario->find(Session::get("id"));
+                    $idiom = $buscar->lenguaje_usu;
                     if($idiom == "f")
                     {   
-                        
-                            
-                            Flash::Success("Usuario logueado");
-                            Router::redirect("/");
-                       
-                    
+                        Flash::Success("Usuario logueado");
+                        Router::redirect("/");
                     }
                     else
                     {
-                        
-                            Flash::Success("Users logged in");
-                            Router::redirect("index/en");
-                       
+                        Flash::Success("Users logged in");
+                        Router::redirect("index/en");
                     }
-                }
-                
+                 }
             } 
             else 
             {
                 if($len == "es")
-                    {
-                     $this->captura = "es"; 
-                      Flash::error("Fallo en la autenticación: Nombre de usuario o contraseña incorrecto");
-                    }
-                   if($len == "en")
-                    {
-                       $this->captura = "en"; 
-                      Flash::error("Authentication failed: Username or password incorrect");
-                    }
-                
+                {
+                    $this->captura = "es"; 
+                    Flash::error("Fallo en la autenticación: Nombre de usuario o contraseña incorrecto");
+                }
+                if($len == "en")
+                {
+                    $this->captura = "en"; 
+                    Flash::error("Authentication failed: Username or password incorrect");
+                }
             }        
          }
          else
@@ -265,23 +245,20 @@ class UsuarioController extends AppController
          }     
      }
      
-     public function cerrarsesion($leng)
+    public function cerrarsesion($leng)
     {
-        
         if($leng == "es")
         {
-          Auth::destroy_identity();
-          Flash::info("Sesión cerrada");
-          Router::redirect("index");  
+            Auth::destroy_identity();
+            Flash::info("Sesión cerrada");
+            Router::redirect("index");  
         }
         else
         {
-          Auth::destroy_identity();
-          Flash::info("Closed Session");
-          Router::redirect("index/?l=en");   
+            Auth::destroy_identity();
+            Flash::info("Closed Session");
+            Router::redirect("index/?l=en");   
         }
-        
-        
     }
     
     public function borrar()
@@ -290,12 +267,10 @@ class UsuarioController extends AppController
         {
             
         }
-
     }
+    
     public function leng($leng)
     {
-       
-        
         $usuario = new Usuario();
         $buscar = $usuario->find(Session::get("id"));
         $idiom = $buscar->lenguaje_usu;
@@ -303,7 +278,6 @@ class UsuarioController extends AppController
         if($idiom == "t")
         {
             $this->lenguaje_usu = "en";
-            
         }
         else
         {
@@ -311,27 +285,25 @@ class UsuarioController extends AppController
         }
         
         $this->lengselect =  $leng;
-        
-        
     }
+    
     public function leng2($leng)
     {
         $id = Session::get("id");
+        
         if($leng == "es")
         {
-          $usuario = new Usuario();
-          $usuario->sql("UPDATE usuario set lenguaje_usu='f' WHERE id=".$id);
-         flash::info("A cambiado su idioma predeterminado a español");
-          router::redirect("/");
-          
+            $usuario = new Usuario();
+            $usuario->sql("UPDATE usuario set lenguaje_usu='f' WHERE id=".$id);
+            flash::info("A cambiado su idioma predeterminado a español");
+            router::redirect("/");
         }
         else
         {
-          $usuario = new Usuario();
-          $usuario->sql("UPDATE usuario set lenguaje_usu='t' WHERE id=".$id);
-          flash::info("changed the default language to English");
-          router::redirect("index/?l=en");
-          
+            $usuario = new Usuario();
+            $usuario->sql("UPDATE usuario set lenguaje_usu='t' WHERE id=".$id);
+            flash::info("changed the default language to English");
+            router::redirect("index/?l=en");
         }
     }
 }

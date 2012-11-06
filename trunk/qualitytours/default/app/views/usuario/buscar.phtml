@@ -1,5 +1,5 @@
 <?php
-//Código para el idioma
+    //Código para el idioma
     if($leng == "en")
     {
         include_once APP_PATH.'libs/en.php';
@@ -9,21 +9,11 @@
         include_once APP_PATH.'libs/es.php';
     }
 ?>  
+
 <div><?php View::content() ?></div> 
 <script type="text/javascript">
     //Validación con jquery
-    //El siguiente script valida que los campos no estén vacios y el formato del RUT
 $(document).ready(function () {
-    //VALIDACION USERNAME
-    $(".boton").click(function (){
-        $(".errorVal").remove();
-        
-         if( $(".palabra").val() == "" )
-         {
-            $(".palabra").focus().after("<span class='errorVal'>Ingrese username a buscar</span>");
-            return false;
-         }
-    });
     
     //boton de confirmacion
     $('.eliminar').confirm({
@@ -103,9 +93,6 @@ $(document).ready(function () {
         return false;
     }
     });
-    
-    
-    
 });
 </script>
 
@@ -194,8 +181,4 @@ reemplazo se uso 'errorVal'.
             <tbody>
             </tbody>
         </table>
-        <?php //if($tabla_activada == '1') {
-        //if($listaobtenida->prev) echo Html::linkAction("buscar/$listaobtenida->prev/2/$datoabuscarr/$opcionn", '<< Anterior |');
-        //if($listaobtenida->next) echo Html::linkAction("buscar/$listaobtenida->next/2/$datoabuscarr/$opcionn", 'Próximo >>'); 
-        //}?>
-     </div>
+    </div>
