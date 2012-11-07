@@ -59,8 +59,7 @@ echo Tag::js('jquery.geocomplete.min');
                return false;
            }
            
-           alert ('Si ves esto, los datos se ingresarian');
-           return false;
+//           alert ('Si ves esto, los datos se ingresarian');
         });
         
     });
@@ -88,7 +87,7 @@ echo Tag::js('jquery.geocomplete.min');
     </table>
     <br><h6>Indique la ubicación de su destino turístico</h6>
         
-    <form>
+    <?php echo Form::open('ubicacion/ingresar') ?>
         <table>
             <tr>
                 <td>
@@ -114,6 +113,7 @@ echo Tag::js('jquery.geocomplete.min');
         echo Form::hidden('ubicacion.direccion_ubi','class="direccion" data-geo="route"');
         echo Form::hidden('ubicacion.ciudad_ubi','class="ciudad" data-geo="locality"');
         echo Form::hidden('ubicacion.region_ubi','class="region" data-geo="administrative_area_level_1"');
+        echo Form::hidden('ubicacion.id_usu','',$id_usu);
     ?>
             
         
