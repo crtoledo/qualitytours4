@@ -87,9 +87,13 @@ class PublicacionController extends AppController
     public function editarpub($id,$leng)
     {
     
-       //se captura el id para futuros usos
-        $this->id_pub=$id;
+        $this->id_pub = $id; 
         $this->leng= $leng;
+        $publicacion = new Publicacion();
+        $publicacion->find($id);
+        $this->fecha = $publicacion->fecha_pub;
+        $this->titulo = $publicacion->titulo_pub;
+        $this->detalle = $publicacion->detalle_pub;
         
     }
     public function actualizar()
@@ -113,6 +117,40 @@ class PublicacionController extends AppController
 
             }
     }
+    
+    public function traducir($id,$leng)
+    {
+       $this->leng = $leng ;
+       $this->id_pub = $id;
+       
+    }
+
+    
+    public function updatepubeng($id,$leng)
+    {
+        $publicacion = new Publicacion(Input::post('publicacion'));
+
+     
+        $titulo = $publicacion->titulo_pub_eng;
+        $detalle = $publicacion->detalle_pub_eng;
+     
+
+        if($publicacion->sql("update Publicacion set  titulo_pub_eng='".$titulo."', detalle_pub_eng='".$detalle."' where id=".$id))
+        {
+            if($leng == "es")
+            {
+                Flash::success('Traducida con exito');
+                Router::redirect("/"); 
+            }
+            else
+            {
+                Flash::success('successful translate');
+                Router::redirect("index/?l=en"); 
+            }
+                   
+        }
+    }
+    
             
 }
 

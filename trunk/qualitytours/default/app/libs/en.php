@@ -8,6 +8,8 @@ $i_contenido_string="Add contents";
 $e_publicacion_string="Edit publication";
 $con_ingresar_string="en";
 $pub_editar_string="en";
+$publicacion_index_traducir="translate";
+$publicacion_index_idiom="/en";
 
 //variables para vista /usuario/ingresar
 $titulo_ingresar_string = "Register";
@@ -32,4 +34,11 @@ $usuario_buscar_nombre = "First name";
 $usuario_buscar_apellido = "Last name";
 $usuario_buscar_email = "Email";
 $usuario_buscar_rol = "Role";
+
+//variables para publicacion/traducir
+$publicacion_traducir_titulo = "Translate publish";
+$publicacion_traducir_titulopub="Title";
+$publicacion_traducir_detalle = "Details";
+$publicacion_traducir_submit = "Publish";
+$publicacion_traducir_val_titulo = "Please enter title";
 
