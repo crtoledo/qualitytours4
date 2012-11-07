@@ -9,18 +9,64 @@ echo Tag::js('jquery.geocomplete.min');
 
 <script type="text/javascript">
     $(document).ready(function(){
+        
+        // Activar la autocompletacion de direcciones
         $("#geocomplete").geocomplete({
         map: ".map_canvas",
-        details: "ul",
+        //details: "ul",
+        details: "form",
         detailsAttribute: "data-geo"
         });
+        
+        $(".btn-ingresar").hide();
+        
+        $("#geocomplete").change(function()
+        {
+            $(".btn-ingresar").show();
+        });
+        
+        $("#geocomplete").focusout(function()
+        {
+            $(".btn-ingresar").show();
+        });
+        
+       $(".btn-ingresar").click(function(){
+           //Juntamos nombre de la calle mas el numero si existe
+           if ($(".numerocalle").val() != '')
+               var direccion_completa = $(".direccion").val() + ' '+ $(".numerocalle").val();
+           else
+               var direccion_completa = $(".direccion").val();
+           
+           //Separamos las coordenadas y las guardamos en variables
+           var coordenadas_juntas = $(".coordenadas").val();
+           var coordenadas_separadas = coordenadas_juntas.split(",");
+           var latitud = coordenadas_separadas[0];
+           var longitud = coordenadas_separadas[1];
+           
+           //Datos preparados son asignados a las variables del form a enviar
+           $(".direccion").val(direccion_completa);
+           $(".latitud").val(latitud);
+           $(".longitud").val(longitud);
+           
+           if ($(".ciudad").val() == '')
+           {
+               alert('Ingrese una ciudad')
+               return false;
+           }
+           if ($(".direccion").val() == '')
+           {
+               alert('Ingrese una calle')
+               return false;
+           }
+           
+           alert ('Si ves esto, los datos se ingresarian');
+           return false;
+        });
+        
     });
 </script>
 
 <style type="text/css">
-  html { height: 100% }
-  body { height: 100%; margin: 0px; padding: 0px }
-  #map_canvas { height: 100% }
   
   .map_canvas:after{
   content: "Ingrese una dirección para verla en el mapa";
@@ -49,26 +95,27 @@ echo Tag::js('jquery.geocomplete.min');
                     
                 </td>
                 <td>
-                    <input id="geocomplete" type="text" placeholder="Ingrese una ubicación..." value="" class="span6"/><br>
-                    <input id="find" type="button" value="Buscar" class="btn btn-primary"/>
-                    <hr>
-                    <ul>
-                        <li>Coordenadas: <span data-geo="location"></span></li>
-                        <li>Calle: <span data-geo="route"></span></li>
-                        <li>Número: <span data-geo="street_number"></span></li>
-                        <li>Código Postal: <span data-geo="postal_code"></span></li>
-                        <li>Ciudad: <span data-geo="locality"></span></li>
-                        <li>Codigo País: <span data-geo="country_short"></span></li>
-                        <li>Región: <span data-geo="administrative_area_level_1"></span></li>
-                    </ul>
-                    <hr>
+                   <input id="geocomplete" type="text" placeholder="Ingrese una ubicación..." value="" class="span6"/><br>
+                   <?php echo Form::submit('Ingresar ubicación', 'class="btn-ingresar btn btn-warning"')?><hr>
                 </td>
             </tr>
-        </table>    
-    </form>
+        </table>
         
         
         
     <div class="map_canvas" style="width:400px; height:400px"></div>
         
+    
+    <?php 
+        echo Form::hidden('ubicacion.latitud_ubi','class="latitud"');
+        echo Form::hidden('ubicacion.longitud_ubi','class="longitud"');
+        echo Form::hidden('coordenadas','class="coordenadas" data-geo="location"');
+        echo Form::hidden('numerocalle','class="numerocalle" data-geo="street_number"');
+        echo Form::hidden('ubicacion.direccion_ubi','class="direccion" data-geo="route"');
+        echo Form::hidden('ubicacion.ciudad_ubi','class="ciudad" data-geo="locality"');
+        echo Form::hidden('ubicacion.region_ubi','class="region" data-geo="administrative_area_level_1"');
+    ?>
+            
+        
+    </form>
 </div>
