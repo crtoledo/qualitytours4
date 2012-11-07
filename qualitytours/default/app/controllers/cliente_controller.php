@@ -109,16 +109,8 @@ class ClienteController extends AppController
     public function detalle($id,$leng)
     {
         
-        //seleccion de menu
-        if($leng=="es")
-        {
-           $this->captura = "es";  
-        }
-        if($leng=="en")
-        {
-           $this->captura = "en";
-     
-        }
+        $this->leng = $leng;
+       
         
         if($leng == "en")
         {
@@ -163,9 +155,13 @@ class ClienteController extends AppController
             //2- Necesario para cargar el mapa
             $ubicacion = new Ubicacion();
             $ubicacion = $ubicacion->find_all_by('id_usu', $id);
+            if($ubicacion != null)
+            {
+                $this->latitud = $ubicacion[0]->latitud_ubi; //El [0] debido a que nos entrega un array
+                $this->longitud = $ubicacion[0]->longitud_ubi;
+            }
 
-            $this->latitud = $ubicacion[0]->latitud_ubi; //El [0] debido a que nos entrega un array
-            $this->longitud = $ubicacion[0]->longitud_ubi;
+            
 
 
 
@@ -237,14 +233,30 @@ class ClienteController extends AppController
 
             $services = new Servicio();
             $services = $services->find_all_by('id_usu', $id);
-            $this->array_servicios = $services;
+            if($services != null)
+            {
+              $this->array_servicios = $services;
+            }
+            else
+            {
+              $this->array_servicios = null;
+            }
+       
 
             //2- Necesario para cargar el mapa
             $ubicacion = new Ubicacion();
             $ubicacion = $ubicacion->find_all_by('id_usu', $id);
+            if($ubicacion != null)
+            {
+                $this->latitud = $ubicacion[0]->latitud_ubi; //El [0] debido a que nos entrega un array
+                $this->longitud = $ubicacion[0]->longitud_ubi;
+            }
+            else
+            {
+                $this->latitud = null;
+                $this->longitud = null;
+            }
 
-            $this->latitud = $ubicacion[0]->latitud_ubi; //El [0] debido a que nos entrega un array
-            $this->longitud = $ubicacion[0]->longitud_ubi;
 
 
 

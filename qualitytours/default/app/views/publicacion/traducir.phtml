@@ -1,0 +1,118 @@
+<?php
+//Código para el idioma
+    if($leng == "en")
+    {
+        include_once APP_PATH.'libs/en.php';
+    }
+    else
+    {
+        include_once APP_PATH.'libs/es.php';
+    }
+?>    
+
+
+<div><?php View::content() ?></div> <br>
+<script type="text/javascript">
+    //Validación con jquery
+    //El siguiente script valida que los campos no estén vacios y el formato del RUT
+$(document).ready(function () {
+    
+    $(".boton").click(function (){
+        $(".errorVal").remove();
+        
+        if( $(".calendario").val() == "" )
+        {
+            $(".calendario").focus().after("<span class='errorVal'>Seleccione una fecha de publicación</span>");
+            return false;
+        }
+         
+        if( $(".titulo").val() == "" )
+        {
+            $(".titulo").focus().after("<span class='errorVal'><?php echo $publicacion_traducir_val_titulo;?></span>");
+            return false;
+        }
+    });
+    
+    
+    //Para el caso del listbox, no se puede borrar el error de validación con keyup
+    //Ya que no es un textbox, usamos el metodo blur
+    $(".calendario").change(function()
+    {
+        if( $(this).val() != "" )
+        {
+            $(".errorVal").fadeOut();
+            return false;
+        }
+    });
+    
+    $(".titulo").keyup(function()
+    {
+        if( $(this).val() != "" )
+        {
+            $(".errorVal").fadeOut();
+            return false;
+        }
+    });
+    
+});
+</script>
+
+<!--
+El CSS a continuación da estilo a los mensaje de error en la validación
+, no se usó "error" ya que kumbia ya tiene un estilo para esa clase, en su
+reemplazo se uso 'errorVal'.
+-->
+
+<style>
+    .errorVal{
+    background-color: #BC1010;
+    padding: 6px 12px;
+    border-radius: 4px;
+    color: white;
+    font-weight: bold;
+    margin-left: 16px;
+    margin-top: 6px;
+    position: absolute;
+}
+.errorVal:before{ /* Este es un truco para crear una flechita */
+    content: '';
+    border-top: 8px solid transparent;
+    border-bottom: 8px solid transparent;
+    border-right: 8px solid #BC1010;
+    border-left: 8px solid transparent;
+    left: -16px;
+    position: absolute;
+    top: 5px;
+}
+</style>
+<div align="center"><h1><?php  echo $publicacion_traducir_titulo; ?></h1></div>
+
+<!-- captura de id para enviarlo al controlador       -->
+<?php $id =  Auth::get('id');   ?>
+<?php echo Form::open('publicacion/updatepubeng/'.$id_pub.'/'.$leng) ?>
+<div align="center">
+    <table>
+        
+        <tr>
+            <td><?php echo $publicacion_traducir_titulopub;?>:</td>
+            <td><?php echo Form::text('publicacion.titulo_pub_eng','class="titulo"')?></td> 
+        </tr>
+        <tr>
+            <td><?php echo $publicacion_traducir_detalle;?>:</td>
+            <td><?php echo Form::textarea('publicacion.detalle_pub_eng','rows=10')?>
+            <?php View::partial('nicedit/nicedit'); ?>
+            </td>
+        </tr>     
+    </table>
+</div>
+<br>
+<div align="center">
+    <table>
+        <tr>
+             <td><?php echo Form::submit(''.$publicacion_traducir_submit.'','class="btn btn-submit boton" ') ?>&nbsp;</td>
+        </tr>   
+    </table>
+</div>
+
+
+<?php echo Form::close() ?> 

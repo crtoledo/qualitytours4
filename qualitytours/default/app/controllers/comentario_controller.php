@@ -13,7 +13,7 @@ class ComentarioController extends AppController
         
     }
     
-    public function ingresar($id_proveniente)
+    public function ingresar($id_proveniente,$leng)
     {
         
            
@@ -30,7 +30,15 @@ class ComentarioController extends AppController
                 {
                     if($id_proveniente != null)
                     {
-                       Router::redirect("cliente/detalle/".$id_proveniente); 
+                       if($leng == "es")
+                       {
+                           Router::redirect("cliente/detalle/".$id_proveniente.'/'.$leng);
+                       }
+                       else
+                       {
+                           Router::redirect("cliente/detalle/".$id_proveniente.'/'.$leng);
+                       }
+                        
                     }  
                     else
                     {
@@ -45,7 +53,7 @@ class ComentarioController extends AppController
         
     }
     
-    public function eliminar($id,$id_proveniente)
+    public function eliminar($id,$id_proveniente,$leng)
     {
          $comentario = new Comentario;
          
@@ -54,7 +62,15 @@ class ComentarioController extends AppController
          {
              if($id_proveniente != null)
                     {
-                       Router::redirect("cliente/detalle/".$id_proveniente); 
+                        if($leng == "es")
+                        {
+                           Router::redirect("cliente/detalle/".$id_proveniente.'/'.$leng);  
+                        }
+                        else
+                        {
+                           Router::redirect("cliente/detalle/".$id_proveniente.'/'.$leng);  
+                        }
+                       
                     }
                     else
                     {

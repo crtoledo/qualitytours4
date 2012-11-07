@@ -76,16 +76,6 @@ reemplazo se uso 'errorVal'.
 
 
 <?php echo Form::open('publicacion/actualizar') ?>
-<?php  Load::model('publicacion'); ?>
-<?php 
-        $publicacion = new Publicacion();
-        $publicacion->find($id_pub);
-        $fecha = $publicacion->fecha_pub;
-        $titulo = $publicacion->titulo_pub;
-        $detalle = $publicacion->detalle_pub;
-  
-  
-  ?>
 <div align="center">
     <table>
         <tr>

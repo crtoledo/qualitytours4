@@ -1,3 +1,14 @@
+<?php
+//Código para el idioma
+    if($leng == "en")
+    {
+        include_once APP_PATH.'libs/en.php';
+    }
+    else
+    {
+        include_once APP_PATH.'libs/es.php';
+    }
+?>    
 <div><?php View::content() ?></div> 
 <!--PARA GOOGLE MAPS COMIENZO-->
 <style type="text/css">
@@ -59,8 +70,14 @@ reemplazo se uso 'errorVal'.
     top: 5px;
 }
 </style>
-
-<meta name="viewport" content="initial-scale=1.0, user-scalable=yes" />
+<?php 
+if($latitud == null || $longitud == null)
+{
+    echo flash::info("Ubicación del centro turistico en proceso");
+}
+ else 
+ {?>
+     <meta name="viewport" content="initial-scale=1.0, user-scalable=yes" />
 
 <script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=false">
 //Esto carga el api de Google Maps
@@ -97,8 +114,17 @@ $(function ()
 { $("#example").popover();  
 });  
 </script>  
-<?php if($idiom == "en") {?>
-            <table class="table table-bordered">
+<?php 
+}
+?>
+
+     <?php if ($array_servicios == null)
+     {
+         echo flash::info("Servicios estan en proceso");
+     }
+     else
+     {?>
+         <table class="table table-bordered">
                 <tr>  
                     <thead>
                         <td width="400px"><div id="map_canvas" style="width:400px; height:400px"></div></td>
@@ -131,7 +157,11 @@ $(function ()
                     }
                 ?>
 
-            </table>
+            </table>   
+         
+ <?php }
+?>
+            
             <?php 
 
                 if($cont == 0)
@@ -169,7 +199,7 @@ $(function ()
                                      if(Auth::get("id") ==  $id[$i])
                                              { ?>
                                              <tr>
-                                                 <td><?php echo Html::link("comentario/eliminar/".$idComentario[$i]."/".$id_cliente, "Remove");?></td>
+                                                 <td><?php echo Html::link("comentario/eliminar/".$idComentario[$i]."/".$id_cliente.'/'.$leng, "Remove");?></td>
                                              </tr>                             
                                        <?php }  
 
@@ -199,7 +229,7 @@ $(function ()
 
             <!--Formulario de comentario-->
             <div align="center" class="span12">
-                <?php echo Form::open('comentario/ingresar/'.$id_cliente); ?>
+                <?php echo Form::open('comentario/ingresar/'.$id_cliente.'/'.$leng); ?>
                     <table>
                        <tr>
                            <td><?php echo Form::text('comentario.detalle_com', "class='span3 detalle' placeholder='Write a comment...'") ?></td>
@@ -222,129 +252,5 @@ $(function ()
 
               }?>
 
-<?php } ?>
 
             
-<?php if($idiom == "es") {?>
-            <table class="table table-bordered">
-                <tr>  
-                    <thead>
-                        <td width="400px"><div id="map_canvas" style="width:400px; height:400px"></div></td>
-                        <td width="600px">
-                            <h3><?php echo $nombre_cliente; ?></h3> <?php echo"<span class='label label-info'>".$mostrar.":&nbsp;visitas</span>";?><br>
-                            <?php
-
-
-                                foreach ($array_servicios as $servicio) {
-                                        echo Html::link("servicio/detalle/" . $servicio->id, "Servicio: " . $servicio->nombre_ser . "<br>");
-                                    }  
-                            ?>
-
-                        </td>
-                    </thead>
-                </tr>
-                <?php
-                    //Trozo PHP para verificar si hay imagenes
-                    if (count($contenido) > 0)
-                    {
-                        echo "<tr><td colspan='2'><center>";
-                        foreach($contenido as $buscar)
-                        {
-                            echo  Html::img("../default/public/img/upload/".$buscar->ruta_con,"imagen","width=200 height=150");
-                        }   
-                        echo "</center></td></tr>";
-                    }
-                ?>
-
-            </table>
-            <?php 
-
-                if($cont == 0)
-                {
-
-                }
-                if($cont == 1)
-                {?>
-                <div class="span12">
-                         <ul class="nav nav-list inverse">
-                         <li class="active"><a href="#"><i class="icon-pencil"></i><?php echo "<b>".$numComentarios."</b>:&nbsp;"; ?>Comentarios</a></li>
-
-                         </ul>   
-
-                      <?php  for($i=0; $i<=$contador-1 ; $i++) 
-                            {?>
-
-                                <table class="table table-hover">
-                                    <tr>
-                                        <td><?php echo "<b>".$nombre[$i]."</b>"; ?></td>
-                                        <td><div align="right"><?php echo "<b>".$fecha[$i]."</b>";?></div></td>
-                                    </tr>
-                                </table>
-                                <table>
-                                    <tr>
-                                        <td> <div align="left"> <?php echo $detalle[$i];?> </div></td>
-                                     </tr>  
-                                    <?php 
-                                   if(!Auth::is_valid())
-                                    {
-                                        $variable = Auth::is_valid();
-                                    }
-                                    else
-                                    {
-                                     if(Auth::get("id") ==  $id[$i])
-                                             { ?>
-                                             <tr>
-                                                 <td><?php echo Html::link("comentario/eliminar/".$idComentario[$i]."/".$id_cliente, "Eliminar");?></td>
-                                             </tr>                             
-                                       <?php }  
-
-                                    }?>
-
-
-                                 </table> 
-
-
-
-
-                    <?php   }?>
-               </div>    
-              <?php  }?>
-
-
-
-
-             <?php 
-             if(!Auth::is_valid())            
-             {
-                 echo "<b>Para poder comentar iniciar sesión.</b>";
-             }
-             else
-             {  
-            ?>
-
-            <!--Formulario de comentario-->
-            <div align="center" class="span12">
-                <?php echo Form::open('comentario/ingresar/'.$id_cliente); ?>
-                    <table>
-                       <tr>
-                           <td><?php echo Form::text('comentario.detalle_com', "class='span3 detalle' placeholder='Escribe un comentario...'") ?></td>
-                       </tr>    
-                       <tr>
-                           <td><?php echo Form::submit('Comentar','class="btn btn-primary boton"'); ?> </td> 
-                       </tr>
-
-                    </table>
-            </div>
-
-              <?php  
-                setlocale ( LC_TIME, 'spanish' );
-                $fecha = strftime(date('Y/m/d'));
-                echo Form::hidden('comentario.id_usu','null',Auth::get('id'));
-                echo Form::hidden("comentario.fecha_com","null",$fecha);
-                echo Form::hidden("comentario.estado_com","null",1);
-                echo Form::hidden("comentario.cli_id_usu","null",$id_cliente);
-                echo Form::close();    
-
-              }?>
-
-<?php } ?>            
