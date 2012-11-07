@@ -21,6 +21,16 @@ echo Tag::js('jquery.geocomplete.min');
   html { height: 100% }
   body { height: 100%; margin: 0px; padding: 0px }
   #map_canvas { height: 100% }
+  
+  .map_canvas:after{
+  content: "Ingrese una dirección para verla en el mapa";
+  padding-top: 170px;
+  display: block;
+  text-align: center;
+  font-size: 2em;
+  color: #999;
+}
+
 </style>
     
 <div align="center">
@@ -39,7 +49,7 @@ echo Tag::js('jquery.geocomplete.min');
                     
                 </td>
                 <td>
-                    <input id="geocomplete" type="text" placeholder="Ingrese una ubicación..." value="" /><br>
+                    <input id="geocomplete" type="text" placeholder="Ingrese una ubicación..." value="" class="span6"/><br>
                     <input id="find" type="button" value="Buscar" class="btn btn-primary"/>
                     <hr>
                     <ul>
