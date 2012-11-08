@@ -58,3 +58,23 @@ div.autocomplete ul li {
       cursor: pointer;
       font-size: 10px;
 }
+  .stars{
+              clear:both;
+              float:left;
+              width:160px;
+            }
+          .star{
+                width: 30px;
+                height:30px;
+                background: url('../img/stars.gif') top left no-repeat;
+                float:left;
+                margin-right: 2px;
+            }
+
+          .hover{
+                background: url('../img/stars.gif')  center left no-repeat !important;
+          }
+          .point{
+                background: url('../img/stars.gif')  bottom left no-repeat;
+          }
+           

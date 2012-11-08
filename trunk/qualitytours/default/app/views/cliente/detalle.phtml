@@ -70,6 +70,8 @@ reemplazo se uso 'errorVal'.
     top: 5px;
 }
 </style>
+
+
 <?php 
 if($latitud == null || $longitud == null)
 {
@@ -108,12 +110,13 @@ $(document).ready(function(){
         });
 });
 </script>
+ <script>
+        $(document).ready(function(){
+            LKS.start();
+    
+        });
+ </script>
 
-<script>  
-$(function ()  
-{ $("#example").popover();  
-});  
-</script>  
 <?php 
 }
 ?>
@@ -134,12 +137,38 @@ $(function ()
 
 
                                 foreach ($array_servicios as $servicio) {
-                                        echo Html::link("servicio/detalle/" . $servicio->id, "Services: " . $servicio->nombre_ser_eng . "<br>");
+                                        echo Html::link("servicio/detalle/" . $servicio->id, "Services: " . $servicio->nombre_ser . "<br>");
                                     }  
                                     ?>
                         </td>
 
                     </thead>
+                </tr>
+                <tr>
+                    <?php echo Form::open('calificacion/captura/'.$leng); 
+                          setlocale ( LC_TIME, 'spanish' );
+                          $fecha = strftime(date('Y/m/d'));
+                          echo Form::hidden('calificacion.id_usu','null',Auth::get('id'));
+                          echo Form::hidden('calificacion.cli_id_usu','null',$id_cliente);
+                          echo Form::hidden('calificacion.valor_cal','null',$valor);
+                          echo Form::hidden('calificacion.fecha_cal','null',$fecha);
+                         
+                              
+                          
+                          ?>
+                    <td> 
+                      <?php
+                      if($valor != null)
+                      {
+                       echo "A seleccionado&nbsp;<b>".$valor."</b>&nbsp;Estrellas&nbsp;";   
+                       echo Form::submit('Calificar','class="btn btn-info"'); 
+                       echo Form::close();
+                          
+                      }
+                      
+                       ?>
+                        <div class="stars "  value="1.5"> </div>
+                  </td>
                 </tr>
 
 

@@ -112,8 +112,6 @@ class ClienteController extends AppController
         $this->leng = $leng;
        
         
-        if($leng == "en")
-        {
             
             $this->idiom = "en";
             $client = new Cliente();
@@ -139,6 +137,24 @@ class ClienteController extends AppController
                 $actualiza = $captura+1;
                 $client->sql("update Cliente set visitas_cli=".$actualiza."where id_usu=".$id);
             }
+             
+            
+            
+            if($_GET["c"] != "a")
+            {
+                $valor = $_GET["c"];
+                $captura = $client->visitas_cli ;
+                $actualiza = $captura+0;
+                $client->sql("update Cliente set visitas_cli=".$actualiza."where id_usu=".$id);
+                $this->valor = $valor+1;
+                flash::info("Porfavor confirme la clasificación");
+            }
+            else
+            {
+                $this->valor = null;
+            }
+           
+          
 
 
             $this->nombre_cliente = $client->nombre_cli;
@@ -193,109 +209,7 @@ class ClienteController extends AppController
                    $contador++;
                 }
                 $this->contador= $contador;
-            
-        }
-        if($leng == "es")
-        {
-            
-            $this->idiom = "es";
-            $client = new Cliente();
-            $client = $client->find($id);
-            $this->id_cliente = $id;
-
-            //Comprueba que no se actualise el contador de visita si es el mismo dueño del centro turistico
-            if(Session::get("id") == $id)
-            {  
-                 $captura = $client->visitas_cli ;
-                 $actualiza = $captura+0;
-                 $client->sql("update Cliente set visitas_cli=".$actualiza."where id_usu=".$id);
-            }
-            if(Session::get("id")!= $id)
-            {
-                $captura = $client->visitas_cli ;
-                $actualiza = $captura+1;
-                $client->sql("update Cliente set visitas_cli=".$actualiza."where id_usu=".$id);
-            }
-            if(Session::get("id") == null)
-            {
-                $captura = $client->visitas_cli ;
-                $actualiza = $captura+1;
-                $client->sql("update Cliente set visitas_cli=".$actualiza."where id_usu=".$id);
-            }
-
-
-            $this->nombre_cliente = $client->nombre_cli;
-            $this->mostrar = $client->visitas_cli+1;
-            $contenido = new Contenido();
-            $contenido = $contenido->find("conditions: id_usu=".$id);
-            $this->contenido = $contenido;
-
-
-            $services = new Servicio();
-            $services = $services->find_all_by('id_usu', $id);
-            if($services != null)
-            {
-              $this->array_servicios = $services;
-            }
-            else
-            {
-              $this->array_servicios = null;
-            }
-       
-
-            //2- Necesario para cargar el mapa
-            $ubicacion = new Ubicacion();
-            $ubicacion = $ubicacion->find_all_by('id_usu', $id);
-            if($ubicacion != null)
-            {
-                $this->latitud = $ubicacion[0]->latitud_ubi; //El [0] debido a que nos entrega un array
-                $this->longitud = $ubicacion[0]->longitud_ubi;
-            }
-            else
-            {
-                $this->latitud = null;
-                $this->longitud = null;
-            }
-
-
-
-
-
-                $comentario = new Comentario();
-                //validar si existen comentarios
-                if($comentario->count("conditions: estado_com='t' and cli_id_usu=".$id) == 0)
-                {
-                  $this->cont = 0;
-                }
-                if($comentario->count("conditions: estado_com='t' and cli_id_usu=".$id) > 0)
-                {
-                  $this->numComentarios = $comentario->count("conditions: estado_com='t' and cli_id_usu=".$id);  
-                  $this->cont = 1;
-                }
-                $arr= $comentario->find("conditions: estado_com='t' and cli_id_usu=".$id,"order: id ASC");
-                $contador = 0;
-                $user = new Usuario();
-                foreach ($arr as $comentario )
-                {
-
-                   $this->detalle[$contador] = $arr[$contador]->detalle_com;
-                   $this->fecha[$contador] = $arr[$contador]->fecha_com;  
-                   $nombre_usuario[$contador] = $user->find($arr[$contador]->id_usu);
-                   $this->nombre[$contador] = $nombre_usuario[$contador]->nombre_usu;
-                   $this->id[$contador] = $arr[$contador]->id_usu;
-                   $this->idComentario[$contador] = $arr[$contador]->id;
-
-                   $contador++;
-                }
-                $this->contador= $contador;
-            
-        }
-        
-        
-
-        
-       
-        
+   
        
     }
      
