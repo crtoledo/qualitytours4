@@ -34,6 +34,12 @@ $usuario_buscar_nombre = "First name";
 $usuario_buscar_apellido = "Last name";
 $usuario_buscar_email = "Email";
 $usuario_buscar_rol = "Role";
+$usuario_buscar_opciones = "Options";
+$usuario_buscar_editar = "Edit";
+$usuario_buscar_convertir = "Convert an administrator";
+$usuario_buscar_suscripcion = "Unsubscribe";
+$usuario_buscar_administrador = "Delete administrator";
+$usuario_buscar_eliminar = "Delete";
 
 //variables para publicacion/traducir
 $publicacion_traducir_titulo = "Translate publish";

@@ -34,10 +34,15 @@ $usuario_buscar_nombre = "Nombre";
 $usuario_buscar_apellido = "Apellido";
 $usuario_buscar_email = "Email";
 $usuario_buscar_rol = "Rol";
+$usuario_buscar_opciones = "Opciones";
+$usuario_buscar_editar = "Editar";
+$usuario_buscar_convertir = "Convertir en administrador";
+$usuario_buscar_suscripcion = "Cancelar suscripción";
+$usuario_buscar_administrador= "Eliminar administrador";
+$usuario_buscar_eliminar = "Eliminar";
 
 
 //variables para publicacion/traducir
-
 $publicacion_traducir_titulo="Traducir Publicaci&oacute;n";
 $publicacion_traducir_titulopub="T&iacutetulo";
 $publicacion_traducir_detalle = "Detalle";
