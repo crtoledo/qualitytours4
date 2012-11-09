@@ -58,23 +58,23 @@ $(document).ready(function () {
                             $(".table-condensed tbody").append("<td>"+data[count]['rol_usu']+"</td>");
                             $(".table-condensed tbody").append("<td>"+
                                "<div class='btn-group'>"+
-                                    "<a class='btn btn-primary' href='#'><i class='icon-user icon-white'></i> Opciones</a>"+
+                                    "<a class='btn btn-primary' href='#'><i class='icon-user icon-white'></i><?php echo $usuario_buscar_opciones; ?></a>"+
                                     "<a class='btn btn-primary dropdown-toggle' data-toggle='dropdown' href='#'><span class='caret'></span></a>"+
                                         "<ul class='dropdown-menu'>"+
-                                            "<li><a href='/trunk/qualitytours/usuario/modificar/"+data[count]['id']+"'><i class='icon-pencil'></i>Editar</a></li>"+
+                                            "<li><a href='/trunk/qualitytours/usuario/modificar/"+data[count]['id']+"'><i class='icon-pencil'></i><?php echo $usuario_buscar_editar; ?></a></li>"+
                                             "<li><a href='/trunk/qualitytours/cliente/ingresar/"+data[count]['id'] +"'><i class='icon-arrow-up'></i>Convertir a cliente</a></li>"+
-                                            "<li><a href='/trunk/qualitytours/administrador/ingresar/"+data[count]['id'] +"'><i class='icon-user'></i>Convertir en administrador</a></li>"+
+                                            "<li><a href='/trunk/qualitytours/administrador/ingresar/"+data[count]['id'] +"/<?php echo $leng; ?>'><i class='icon-user'></i> <?php echo $usuario_buscar_convertir?></a></li>"+
                                         "</ul>"+
                                 "</div>");
 
                             $(".table-condensed tbody").append("<td>"+
                                "<div class='btn-group'>"+
-                                    "<a class='btn btn-danger' href='#'><i class='icon-user icon-white'></i> Opciones</a>"+
+                                    "<a class='btn btn-danger' href='#'><i class='icon-user icon-white'></i><?php echo $usuario_buscar_opciones; ?></a>"+
                                     "<a class='btn btn-danger dropdown-toggle' data-toggle='dropdown' href='#'><span class='caret'></span></a>"+
                                         "<ul class='dropdown-menu'>"+
-                                            "<li><a href='/trunk/qualitytours/usuario/modificar/"+data[count]['id']+"'><i class='icon-remove-circle'></i>Cancelar suscripción</a></li>"+
-                                            "<li><a href='/trunk/qualitytours/cliente/ingresar/"+data[count]['id'] +"'><i class='icon-arrow-down'></i>Eliminar administrador</a></li>"+
-                                            "<li><a href='/trunk/qualitytours/usuario/eliminar/"+data[count]['id']+"'><i class='icon-trash'></i>Eliminar</a></li>"+
+                                            "<li><a href='/trunk/qualitytours/usuario/modificar/"+data[count]['id']+"'><i class='icon-remove-circle'></i><?php echo $usuario_buscar_suscripcion ?></a></li>"+
+                                            "<li><a href='/trunk/qualitytours/cliente/ingresar/"+data[count]['id'] +"'><i class='icon-arrow-down'></i><?php echo $usuario_buscar_administrador ?></a></li>"+
+                                            "<li><a href='/trunk/qualitytours/usuario/eliminar/"+data[count]['id']+"'><i class='icon-trash'></i><?php echo $usuario_buscar_eliminar ?></a></li>"+
                                         "</ul>"+
                                 "</div>");
                             

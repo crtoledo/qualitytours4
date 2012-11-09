@@ -27,8 +27,10 @@ class AdministradorController extends AppController {
 	}
 
     
-    public function ingresar($id)
+    public function ingresar($id,$leng)
     {
+        $this->leng= $leng;
+        
         $administrador = new Administrador();
  
         //Obtenemos el id del usuario que queremos convertir a administrador
@@ -55,18 +57,18 @@ class AdministradorController extends AppController {
             if(($administrador->sql("insert into Administrador  values(".$id.",'".$username_usu."','".$password_usu."','".$rol_usu."','".$nombre_usu."','".$apellido_usu."','".$rut_usu."','".$email_usu."','".$estado_usu."');"))&& ( $user->sql("update Usuario set rol_usu='administrador' where id=".$id)))
             {   
                 Flash::success($username_usu." ahora es administrador");
-                Router::redirect("usuario/buscar");
+                Router::redirect("usuario/buscar/".$leng);
             }
             else
             {
                 Flash::error("Error en el ingreso del administrador");
-                Router::redirect("usuario/buscar");
+                Router::redirect("usuario/buscar/".$leng);
             }
         }
         else
         {
             Flash::error($datos_user->username_usu." ya es administrador");
-            Router::redirect("usuario/buscar");
+            Router::redirect("usuario/buscar/".$leng);
         }
             
       } 
