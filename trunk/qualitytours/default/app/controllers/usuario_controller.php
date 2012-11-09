@@ -135,6 +135,40 @@ class UsuarioController extends AppController
     //funcion para que el usuario turista pueda modificar sus datos
     public function automodificar()
     {
+        if(Auth::is_valid())
+        {
+            if(Auth::get('rol_usu')== 'turista')
+            { 
+                $usuarioaeditar = new Usuario();
+        
+                if(Input::hasPost('usuario'))
+                {
+                    if($usuarioaeditar->update(Input::post('usuario')))
+                    {
+                        Flash::valid('Tus datos fueron actualizados');
+                        Router::redirect('/');
+                    } 
+                    else 
+                    {
+                        Flash::error('Error al actualizar tus datos');
+                    }
+                } 
+                else 
+                {
+                $this->usuario = $usuarioaeditar->find((int)Auth::get('id'));
+                }
+            }
+            else
+            {
+            Flash::info('Ud no es turista');
+            Router::redirect("/");                
+            }
+        }
+        else
+        {
+            Flash::info('No posee los privilegios necesarios');
+            Router::redirect("/");
+        } 
         
     }
     
