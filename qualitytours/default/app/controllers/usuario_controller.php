@@ -132,6 +132,12 @@ class UsuarioController extends AppController
         } 
     }
     
+    //funcion para que el usuario turista pueda modificar sus datos
+    public function automodificar()
+    {
+        
+    }
+    
     public function buscar($leng)
     {
         $this->leng= $leng;
