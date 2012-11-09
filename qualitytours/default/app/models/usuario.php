@@ -32,11 +32,11 @@ class Usuario extends ActiveRecord
        public function before_create()
    {
        //valida que solo exista un rut
-       if($this->exists("rut_usu='".$this->rut_usu."'"))
-       { 
-           Flash::error('El rut ingresado ya se encuentra en nuestros registros.'); 
-           return 'cancel'; 
-       }
+//       if($this->exists("rut_usu='".$this->rut_usu."'"))
+//       { 
+//           Flash::error('El rut ingresado ya se encuentra en nuestros registros.'); 
+//           return 'cancel'; 
+//       }
        //valida que solo exista un username
        if($this->exists("username_usu='".$this->username_usu."'"))
        { 
