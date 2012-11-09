@@ -61,7 +61,7 @@ $(document).ready(function () {
                                     "<a class='btn btn-primary' href='#'><i class='icon-user icon-white'></i><?php echo $usuario_buscar_opciones; ?></a>"+
                                     "<a class='btn btn-primary dropdown-toggle' data-toggle='dropdown' href='#'><span class='caret'></span></a>"+
                                         "<ul class='dropdown-menu'>"+
-                                            "<li><a href='/trunk/qualitytours/usuario/modificar/"+data[count]['id']+"'><i class='icon-pencil'></i><?php echo $usuario_buscar_editar; ?></a></li>"+
+                                            "<li><a href='/trunk/qualitytours/usuario/modificar/"+data[count]['id'] +"/<?php echo $leng; ?>'><i class='icon-pencil'></i><?php echo $usuario_buscar_editar; ?></a></li>"+
                                             "<li><a href='/trunk/qualitytours/cliente/ingresar/"+data[count]['id'] +"'><i class='icon-arrow-up'></i>Convertir a cliente</a></li>"+
                                             "<li><a href='/trunk/qualitytours/administrador/ingresar/"+data[count]['id'] +"/<?php echo $leng; ?>'><i class='icon-user'></i> <?php echo $usuario_buscar_convertir?></a></li>"+
                                         "</ul>"+

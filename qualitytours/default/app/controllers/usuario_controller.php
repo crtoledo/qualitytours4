@@ -51,8 +51,9 @@ class UsuarioController extends AppController
     } 
         
         
-    public function modificar($id)
+    public function modificar($id,$leng)
     {
+        $this->leng= $leng;
         if(Auth::is_valid())
         {
             if(Auth::get('rol_usu')== 'administrador')
@@ -69,7 +70,7 @@ class UsuarioController extends AppController
                         if($usuarioactualizado->update(Input::post('usuario')))
                         {
                             Flash::info("Usuario ".$verificarrol->username_usu." modificado con exito");
-                            Router::redirect("usuario/buscar");
+                            Router::redirect("usuario/buscar/".$leng);
                         }
                     }
                     else
@@ -84,16 +85,31 @@ class UsuarioController extends AppController
                 
                     if(Input::hasPost('cliente'))
                     {
-                        $clienteactualizado = new Cliente;
+                        //datos para modificar el usuario en la tabla cliente
+                        $clienteactualizado = new Cliente(Input::post('cliente'));
+                        
+                        //datos para actualizar al usaurio en la tabla usuario
+                        $usuariotabla = new Usuario;
+                        $modificaciontablausuario = $usuariotabla->find($id);
+                        
+                        //se transpasan los nuevos datos del cliete para su actualizacion en la tabla usuario.
+                        $usuariotabla->id= $clienteactualizado->id_usu;        
+                        $usuariotabla->username_usu = $clienteactualizado->username_usu;
+                        $usuariotabla->password_usu = $clienteactualizado->password_usu;
+                        $usuariotabla->nombre_usu = $clienteactualizado->nombre_usu;
+                        $usuariotabla->apellido_usu = $clienteactualizado->apellido_usu;
+                        $usuariotabla->rut_usu = $clienteactualizado->rut_usu;
+                        $usuariotabla->email_usu = $clienteactualizado->email_usu;
+                        $usuariotabla->estado_usu = $clienteactualizado->estado_usu;
                 
-                        if($clienteactualizado->update(Input::post('cliente')))
+                        if($clienteactualizado->update() && $usuariotabla->update() )
                         {
-                            Flash::info("Usuario ".$verificarrol->username_usu." modificado con exito");
-                            Router::redirect("usuario/buscar");
+                            Flash::info("Cliente ".$verificarrol->username_usu." modificado con exito");
+                            Router::redirect("usuario/buscar/".$leng);
                         }
                         else
                         {
-                            Flash::error("No se modifico");
+                            Flash::error("Error en la modificación");
                         }
                     }
                     else
