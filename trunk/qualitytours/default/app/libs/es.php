@@ -16,12 +16,18 @@ $titulo_ingresar_string = "Reg&iacute;strate";
 $ingresar_usuario_string= "Crear cuenta";
 $nombre_ingresar_string  ="Nombre";
 $apellido_ingresar_string = "Apellido";
+$usuario_ingresar_usuario = "Nombre de usuario";
+$usuario_ingresar_confirmar = "Confirma tu contraseña";
+$usuario_ingresar_contraseña = "Ingresa tu contraseña";
+$usuario_ingresar_condiciones = "Acepto las condiciones de uso";
+$usuario_ingreso_minimo = "Ingresa una contraseña de al menos 6 caracteres";
 $val_username_string = "Ingrese username";
 $val_password_string = "Ingrese password";
 $val_nombre_string = "Ingrese nombre";
 $val_apellido_string = "Ingrese apellido";
 $val_rut_string = "Ingrese un rut valido";
 $val_email_string = "Ingrese su email";
+$val_passwords_string = "Las contraseñas no coinciden"; 
 
 //variables para usuario/buscar
 $usuario_buscar_titulo = "Buscar usuarios";

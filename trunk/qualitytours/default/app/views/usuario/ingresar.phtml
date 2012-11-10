@@ -29,11 +29,11 @@ $(document).ready(function () {
          if( $(".username").val() == "" ){
             $(".username").focus().after("<span class='errorVal'><?php echo $val_username_string;?></span>");
             return false;
-        }else if( $(".password").val() == ""){
+        }else if( $(".password").val() == "" || $(".password").val() == " "){
             $(".password").focus().after("<span class='errorVal'><?php echo $val_password_string; ?></span>");
             return false;
         }else if( $(".passworddos").val() == "" ){
-            $(".passworddos").focus().after("<span class='errorVal'><?php echo "oli"; ?></span>");
+            $(".passworddos").focus().after("<span class='errorVal'><?php echo $val_password_string; ?></span>");
             return false;
         }else if( $(".nombre").val() == ""){
             $(".nombre").focus().after("<span class='errorVal'><?php echo $val_nombre_string; ?></span>");
@@ -73,15 +73,15 @@ $(document).ready(function () {
         var valor2 = $(".passworddos").val();
 
         if(valor1.length<6){
-            $(".password").focus().after("<span class='errorVal'><?php echo "La contraseña debe tener 6 caracteres"; ?></span>");
+            $(".password").focus().after("<span class='errorVal'><?php echo $usuario_ingreso_minimo; ?></span>");
             return false;
         }
         if(valor1 != valor2){
-            $(".passworddos").focus().after("<span class='errorVal'><?php echo "Contraseñas no cohinciden"; ?></span>");
+            $(".passworddos").focus().after("<span class='errorVal'><?php echo $val_passwords_string; ?></span>");
             return false;
         }
         if(valor1.length==0 || valor1==""){
-            $(".passworddos").focus().after("<span class='errorVal'><?php echo "Contraseñas no cohinciden"; ?></span>");
+            $(".passworddos").focus().after("<span class='errorVal'><?php echo $val_passwords_string; ?></span>");
             return false;
         }
        }   
@@ -147,15 +147,15 @@ reemplazo se uso 'errorVal'.
         <h1 style="font-family: SF"> <?php echo $titulo_ingresar_string; ?> </h1><br>
         <table>
     <tr>
-        <td align="right">Username:&nbsp;</td>
+        <td align="right"><?php echo $usuario_ingresar_usuario ?>:&nbsp;</td>
         <td><?php echo Form::text('usuario.username_usu', "class='input-medium username' placeholder='Username'") ?></td>
     </tr>
     <tr>
-        <td align="right">Password:&nbsp;</td>
+        <td align="right"><?php echo $usuario_ingresar_contraseña ?>:&nbsp;</td>
         <td><?php echo Form::pass('usuario.password_usu', "class='input-medium password' placeholder='Password'") ?></td>
     </tr>
         <tr>
-        <td align="right">Confirme password:&nbsp;</td>
+        <td align="right"><?php echo $usuario_ingresar_confirmar ?>:&nbsp;</td>
         <td><?php echo Form::pass('',"class='input-medium passworddos' placeholder='Confirmar password'") ?></td>
     </tr>
 
@@ -173,7 +173,7 @@ reemplazo se uso 'errorVal'.
         <td><?php echo Form::text('usuario.email_usu',"class='input-medium email'") ?></td>
     </tr>
     <tr>
-        <td align="right" colspan="2">Acepta t&eacute;rminos de uso?&nbsp;<?php echo Form::check('acepta', 'checkValue')?></td>
+        <td align="right" colspan="2"><?php echo $usuario_ingresar_condiciones; ?>&nbsp;<?php echo Form::check('acepta', 'checkValue')?></td>
     </tr>
 
 </table>
