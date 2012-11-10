@@ -72,13 +72,7 @@ reemplazo se uso 'errorVal'.
 </style>
 
 
-<?php 
-if($latitud == null || $longitud == null)
-{
-    echo flash::info("Ubicación del centro turistico en proceso");
-}
- else 
- {?>
+
      <meta name="viewport" content="initial-scale=1.0, user-scalable=yes" />
 
 <script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=false">
@@ -113,20 +107,12 @@ $(document).ready(function(){
  <script>
         $(document).ready(function(){
             LKS.start();
+            
+            
     
         });
  </script>
 
-<?php 
-}
-?>
-
-     <?php if ($array_servicios == null)
-     {
-         echo flash::info("Servicios estan en proceso");
-     }
-     else
-     {?>
          <table class="table table-bordered">
                 <tr>  
                     <thead>
@@ -145,28 +131,13 @@ $(document).ready(function(){
                     </thead>
                 </tr>
                 <tr>
-                    <?php echo Form::open('calificacion/captura/'.$leng); 
-                          setlocale ( LC_TIME, 'spanish' );
-                          $fecha = strftime(date('Y/m/d'));
-                          echo Form::hidden('calificacion.id_usu','null',Auth::get('id'));
-                          echo Form::hidden('calificacion.cli_id_usu','null',$id_cliente);
-                          echo Form::hidden('calificacion.valor_cal','null',$valor);
-                          echo Form::hidden('calificacion.fecha_cal','null',$fecha);
-                         
-                              
-                          
-                          ?>
+                    
                     <td> 
-                      <?php
-                      if($valor != null)
-                      {
-                       echo "A seleccionado&nbsp;<b>".$valor."</b>&nbsp;Estrellas&nbsp;";   
-                       echo Form::submit('Calificar','class="btn btn-info"'); 
-                       echo Form::close();
-                          
-                      }
+            <a id='accion'>accion</a>
+       <div id='c'>hola</div>
+       <div id='response'></div>  
+
                       
-                       ?>
                         <div class="stars "  value="1.5"> </div>
                   </td>
                 </tr>
@@ -187,9 +158,7 @@ $(document).ready(function(){
                 ?>
 
             </table>   
-         
- <?php }
-?>
+       
             
             <?php 
 

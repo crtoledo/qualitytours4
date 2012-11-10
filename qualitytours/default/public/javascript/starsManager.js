@@ -14,6 +14,7 @@
     }
     LKS.sendVote = function (id,vote){
        // change this line in order to send your vote to your server.
+      
     }
     LKS.draw = function(data){
         $('.stars').each(function(index,item){
@@ -26,11 +27,13 @@
             for (n=0;n<LKS.params.stars;n++){
                 var star=$('<a>');
                 star.addClass('star');
-                star.attr('href',"?c="+n);
+                star.attr('href','javascript:void(0)');
                 star.attr('vote',n+1);
                 if (n<=value)
                 {star.addClass('point');}
                 $(item).append(star);
+                
+                
             }
         });
         $('.stars a').bind('mouseover',function(data){

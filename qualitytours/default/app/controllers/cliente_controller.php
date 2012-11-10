@@ -139,20 +139,7 @@ class ClienteController extends AppController
             }
              
             
-            
-            if($_GET["c"] != "a")
-            {
-                $valor = $_GET["c"];
-                $captura = $client->visitas_cli ;
-                $actualiza = $captura+0;
-                $client->sql("update Cliente set visitas_cli=".$actualiza."where id_usu=".$id);
-                $this->valor = $valor+1;
-                flash::info("Porfavor confirme la clasificación");
-            }
-            else
-            {
-                $this->valor = null;
-            }
+           
            
           
 
