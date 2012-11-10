@@ -14,14 +14,20 @@ $publicacion_index_idiom="/en";
 //variables para vista /usuario/ingresar
 $titulo_ingresar_string = "Register";
 $ingresar_usuario_string= "Create Account";
-$nombre_ingresar_string ="Name";
+$nombre_ingresar_string ="First name";
 $apellido_ingresar_string = "Last name";
+$usuario_ingresar_usuario = "Username";
+$usuario_ingresar_confirmar = "Confirm your password";
+$usuario_ingresar_contraseña = "Create your password";
+$usuario_ingresar_condiciones = "I accept the terms of use";
+$usuario_ingreso_minimo = "Enter a password of at least 6 characters";
 $val_username_string = "Please enter username";
 $val_password_string = "Please enter password";
 $val_nombre_string = "Please enter your name";
 $val_apellido_string = "Please enter your last name";
 $val_rut_string = "Please enter your ID";
 $val_email_string = "Please enter your email";
+$val_passwords_string = "These passwords don't match"; // sacada del registro de google 
 
 //variables para usuario/buscar
 $usuario_buscar_titulo = "Search users";
