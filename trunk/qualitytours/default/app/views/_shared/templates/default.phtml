@@ -3,6 +3,7 @@
  <head>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv='Content-type' content='text/html; charset=<?php echo APP_CHARSET ?>' />
+
   <title>Quality tours</title>
   <?php
   
@@ -51,10 +52,23 @@
    <div class="container">
     <div id='content'>
         <div align="center">
-     <?php  echo Html::img('logo.png','logo','width="400px" height="200px"'); ?> 
-      </div> 
+    <?php 
+    $url =  $_SERVER['REQUEST_URI'];
+    //devuelve los 2 ultimos caracteres de la url si es igual a en se utiliza las variables en inglés
+    $url = substr( $url,-2);
+        if($url == "es" || $url == "s/" || $url =="ex" )
+        {?>
+ <?php   echo Html::img('logoes.png','logo','width="500px" height="300px"'); ?>
+        </div> 
+ <?php  }
+ else
+        {
+            echo Html::img('logoen.png','logo2','width="500px" height="300px"');
+            echo "</div>";
+        }
+ ?>
+    
 
-        
 <!-- Partial del menu-->
    <div> <?php View::partial('kumbia/menuprincipal') ?></div> 
           
