@@ -252,7 +252,7 @@ class UsuarioController extends AppController
                     $buscar = $usuario->find(Session::get("id"));
                     $idiom = $buscar->lenguaje_usu;
                     
-                    if($idiom == "f")
+                    if($idiom == "es")
                     {   
                         Flash::Success("Usuario logueado");
                         Router::redirect("/");
@@ -269,7 +269,7 @@ class UsuarioController extends AppController
                     $usuario = new Usuario();
                     $buscar = $usuario->find(Session::get("id"));
                     $idiom = $buscar->lenguaje_usu;
-                    if($idiom == "f")
+                    if($idiom == "es")
                     {   
                         Flash::Success("Usuario logueado");
                         Router::redirect("/");
@@ -331,7 +331,7 @@ class UsuarioController extends AppController
         $buscar = $usuario->find(Session::get("id"));
         $idiom = $buscar->lenguaje_usu;
         
-        if($idiom == "t")
+        if($idiom == "en")
         {
             $this->lenguaje_usu = "en";
         }
@@ -350,14 +350,14 @@ class UsuarioController extends AppController
         if($leng == "es")
         {
             $usuario = new Usuario();
-            $usuario->sql("UPDATE usuario set lenguaje_usu='f' WHERE id=".$id);
+            $usuario->sql("UPDATE usuario set lenguaje_usu='es' WHERE id=".$id);
             flash::info("A cambiado su idioma predeterminado a español");
             router::redirect("/");
         }
         else
         {
             $usuario = new Usuario();
-            $usuario->sql("UPDATE usuario set lenguaje_usu='t' WHERE id=".$id);
+            $usuario->sql("UPDATE usuario set lenguaje_usu='en' WHERE id=".$id);
             flash::info("changed the default language to English");
             router::redirect("index/?l=en");
         }
