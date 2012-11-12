@@ -23,11 +23,11 @@ $usuario_ingresar_condiciones = "I accept the terms of use";
 $usuario_ingreso_minimo = "Enter a password of at least 6 characters";
 $val_username_string = "Please enter username";
 $val_password_string = "Please enter password";
-$val_nombre_string = "Please enter your name";
+$val_nombre_string = "Please enter your first name";
 $val_apellido_string = "Please enter your last name";
 $val_rut_string = "Please enter your ID";
 $val_email_string = "Please enter your email";
-$val_passwords_string = "These passwords don't match"; // sacada del registro de google 
+$val_passwords_string = "Passwords don't match"; // sacada del registro de google 
 
 //variables para usuario/buscar
 $usuario_buscar_titulo = "Search users";
@@ -48,9 +48,9 @@ $usuario_buscar_administrador = "Delete administrator";
 $usuario_buscar_eliminar = "Delete";
 
 //variables para publicacion/traducir
-$publicacion_traducir_titulo = "Translate publish";
+$publicacion_traducir_titulo = "Translate publication";
 $publicacion_traducir_titulopub="Title";
 $publicacion_traducir_detalle = "Details";
 $publicacion_traducir_submit = "Publish";
-$publicacion_traducir_val_titulo = "Please enter title";
+$publicacion_traducir_val_titulo = "Please enter a title";
 
