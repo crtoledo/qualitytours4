@@ -1,3 +1,4 @@
+
 <?php
 //Código para el idioma
     if($leng == "en")
@@ -29,11 +30,17 @@ $(document).ready(function () {
          if( $(".username").val() == "" ){
             $(".username").focus().after("<span class='errorVal'><?php echo $val_username_string;?></span>");
             return false;
-        }else if( $(".password").val() == "" || $(".password").val() == " "){
+        }else if( $(".username").val().length<3){
+            $(".username").focus().after("<span class='errorVal'><?php echo $usuario_username_minimo; ?></span>");
+            return false;
+        }else if( $(".password").val() == ""){
             $(".password").focus().after("<span class='errorVal'><?php echo $val_password_string; ?></span>");
             return false;
-        }else if( $(".passworddos").val() == "" ){
-            $(".passworddos").focus().after("<span class='errorVal'><?php echo $val_password_string; ?></span>");
+        }else if( $(".password").val().length<5){
+            $(".password").focus().after("<span class='errorVal'><?php echo $usuario_ingreso_minimo; ?></span>");
+            return false;
+        }else if( $(".password").val() != $(".passworddos").val()){
+            $(".passworddos").focus().after("<span class='errorVal'><?php echo $val_passwords_string; ?></span>");
             return false;
         }else if( $(".nombre").val() == ""){
             $(".nombre").focus().after("<span class='errorVal'><?php echo $val_nombre_string; ?></span>");
@@ -44,9 +51,8 @@ $(document).ready(function () {
         }else if($(".email").val() == "" || !emailreg.test($(".email").val()) ){
            $(".email").focus().after("<span class='errorVal'><?php echo $val_email_string; ?></span>");
            return false;
-        }
-        else if(!$("#acepta").is(':checked')){
-           alert('Para registrarse debe aceptar los términos de uso');
+       }else if($('#acepta').is(':checked') == false){
+           $("#acepta").focus().after("<span class='errorVal'><?php echo "Debe aceptar los terminos de uso"; ?></span>");
            return false;
         }
     });
@@ -75,8 +81,9 @@ $(document).ready(function () {
        function coincidePassword(){
         var valor1 = $(".password").val();
         var valor2 = $(".passworddos").val();
-
-        if(valor1.length<6){
+        $(".errorVal").remove();
+        
+        if(valor1.length<5){
             $(".password").focus().after("<span class='errorVal'><?php echo $usuario_ingreso_minimo; ?></span>");
             return false;
         }
@@ -148,7 +155,8 @@ reemplazo se uso 'errorVal'.
 <fieldset>
 <?php echo Form::open('usuario/ingresar/'.$leng) ?>
     <div align="center">
-        <h1 style="font-family: SF"> <?php echo $titulo_ingresar_string; ?> </h1><br>
+        <h1 style="font-family: SF"> <?php echo $titulo_ingresar_string; ?> </h1>
+        <h6 style="font-family: SF"> <?php echo $usuario_ingresar_obligatorios; ?> </h6>
         <table>
     <tr>
         <td align="right"><?php echo $usuario_ingresar_usuario ?>:&nbsp;</td>
@@ -210,4 +218,5 @@ reemplazo se uso 'errorVal'.
 
 <?php echo Form::close() ?> 
     </fieldset>
+
 
