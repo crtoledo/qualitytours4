@@ -102,6 +102,20 @@ $(document).ready(function(){
             map: map 
             //,title:
         });
+    
+    var calificacion;
+    
+    LKS.sendVote = function (id,vote)
+    { // Obtenemos el valor de la calificacion
+      calificacion = id;
+    }
+    
+    
+    $(".stars").click(function()
+    {   //CUANDO SE HACE CLICK EN LAS ESTRELLAS
+        alert(calificacion);
+        //CODIGO AJAX
+    });
 });
 </script>
  <script>
@@ -134,11 +148,10 @@ $(document).ready(function(){
                     
                     <td> 
             <a id='accion'>accion</a>
-       <div id='c'>hola</div>
        <div id='response'></div>  
 
                       
-                        <div class="stars "  value="1.5"> </div>
+                        <div class="stars"  value="1.5"> </div>
                   </td>
                 </tr>
 

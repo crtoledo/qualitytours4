@@ -14,7 +14,7 @@
     }
     LKS.sendVote = function (id,vote){
        // change this line in order to send your vote to your server.
-      
+       // alert(id);
     }
     LKS.draw = function(data){
         $('.stars').each(function(index,item){
