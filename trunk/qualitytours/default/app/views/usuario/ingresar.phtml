@@ -45,6 +45,10 @@ $(document).ready(function () {
            $(".email").focus().after("<span class='errorVal'><?php echo $val_email_string; ?></span>");
            return false;
         }
+        else if(!$("#acepta").is(':checked')){
+           alert('Para registrarse debe aceptar los términos de uso');
+           return false;
+        }
     });
     
     //Borrar mensaje de error si el usuario a llenado el campo
