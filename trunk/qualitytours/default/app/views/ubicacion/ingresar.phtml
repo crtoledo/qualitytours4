@@ -104,8 +104,9 @@ echo Tag::js('jquery.geocomplete.min');
         
     <div class="map_canvas" style="width:400px; height:400px"></div>
         
-    
-    <?php 
+    <?php
+        echo Html::link("ubicacion/ingresar_mapa", 'Ingrese su ubicación indicando un punto geográfico');
+  
         echo Form::hidden('ubicacion.latitud_ubi','class="latitud"');
         echo Form::hidden('ubicacion.longitud_ubi','class="longitud"');
         echo Form::hidden('coordenadas','class="coordenadas" data-geo="location"');
