@@ -7,33 +7,44 @@
 
 <meta name="viewport" content="initial-scale=1.0, user-scalable=yes" />
 
-<script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=false">
+<script type="text/javascript" src="https://maps.google.com/maps/api/js?libraries=weather&sensor=false">
 //Esto carga el api de Google Maps
 </script>
 
 <script type="text/javascript">
-//Este código carga el mapa con un marcador en la ubicacion
-//del centro turístico
-//FUNCTION INITIALIZE
-var map;
-var latlng = new google.maps.LatLng(<?php echo $latitud; ?>,<?php echo $longitud; ?>)
-$(document).ready(function(){
-
-    //Setup del mapa
-    var myOptions = {
-          zoom: 14,
-          center: latlng,
-          mapTypeId: google.maps.MapTypeId.ROADMAP
+    //Este código carga el mapa con un marcador en la ubicacion
+    //del centro turístico
+    //FUNCTION INITIALIZE
+    var map;
+    var latlng = new google.maps.LatLng(<?php echo $latitud; ?>,<?php echo $longitud; ?>)
+    $(document).ready(function(){
+        
+        //Setup del mapa
+        var myOptions = {
+            zoom: 14,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
         };
-    map = new google.maps.Map(document.getElementById('map_canvas'),
-            myOptions);
-      
-   marker = new google.maps.Marker({
+        map = new google.maps.Map(document.getElementById('map_canvas'),
+        myOptions);
+        
+        marker = new google.maps.Marker({
             position: latlng,
             map: map,
             title:"<?php echo $nombre ?>"
         });
-});
+        
+        //AGREGAMOS CAPA DE CLIMA
+        var weatherLayer = new google.maps.weather.WeatherLayer({
+            temperatureUnits: google.maps.weather.TemperatureUnit.CELSIUS
+        });
+        weatherLayer.setMap(map);
+        
+        //NUBES
+        var cloudLayer = new google.maps.weather.CloudLayer();
+        cloudLayer.setMap(map)     
+        
+    });
 </script>
 
 <table class="table table-bordered">
