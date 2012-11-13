@@ -29,15 +29,21 @@ $(document).ready(function () {
     
     //Borrar mensaje de error si el usuario a llenado el campo
     $(".palabra").keyup(function()
-    {
+    { 
+        //alert ($("input[name='optionsRadios']:checked").val());
+     
     if( $(".palabra").val() != "" )
     {
         $(".errorVal").fadeOut();
         //AJAX COMIENZO
         $.ajax
         ({
-            url: '<?php echo PUBLIC_PATH; ?>ajax/usuario_busqueda.php?string='+$(".palabra").val(),
             type: "POST",
+            data : {
+                opcion: $("input[name='optionsRadios']:checked").val(),
+                string: $(".palabra").val()
+            },            
+            url: '<?php echo PUBLIC_PATH; ?>ajax/usuario_busqueda.php',
             dataType: "json",
             success: function(data)
             {
@@ -148,7 +154,7 @@ reemplazo se uso 'errorVal'.
                                             <?php echo $usuario_buscar_turista; ?>
                                      </label>
                                      <label class="radio">
-                                        <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
+                                        <input type="radio" name="optionsRadios" id="optionsRadios2" value="cliente">
                                             <?php echo $usuario_buscar_centro; ?>
                                      </label>
                                 </div>
