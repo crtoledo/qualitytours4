@@ -7,7 +7,7 @@ class CalificacionController extends AppController
         
     }
     
-    public function captura($leng)
+    public function captura()
     {
          
         
@@ -17,14 +17,7 @@ class CalificacionController extends AppController
             
             if($calificacion->save())
             {
-                if($leng == "es")
-                {
-                    Flash::error('Error al agregar');
-                }
-                else
-                {
-                    Flash::error('user add error');
-                }
+                
             }
           
         }

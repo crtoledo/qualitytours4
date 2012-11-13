@@ -102,22 +102,110 @@ $(document).ready(function(){
             map: map 
             //,title:
         });
-    
-    var calificacion;
-    
-    LKS.sendVote = function (id,vote)
-    { // Obtenemos el valor de la calificacion
-      calificacion = id;
-    }
-    
-    
-    $(".stars").click(function()
-    {   //CUANDO SE HACE CLICK EN LAS ESTRELLAS
-        alert(calificacion);
-        //CODIGO AJAX
-    });
+        var calificacion;
+  
+ 
+
+
+
 });
 </script>
+<script>
+  /* @version 1.0 starsManager
+ * @author Lucas Forchino
+ * @webSite: http://www.jqueryload.com
+ * jpsonp rating Example.
+ * This example show you how to create a rating using jsonp and jquery.
+ */
+(function(){
+    LKS={};
+    LKS.params={};
+    LKS.params.stars=5;
+    LKS.params.url='http://www.jqueryload.com/examples/stars/test.php?callback=LKS.draw';
+    LKS.start= function(){
+        $.jsonp( {'url':LKS.params.url});
+    }
+    var calificacion;
+    LKS.sendVote = function (id,vote){
+      
+      calificacion = id;
+        $(".stars").click(function()
+        {   //CUANDO SE HACE CLICK EN LAS ESTRELLAS
+            
+            //CODIGO AJAX
+            $.ajax
+            ({
+                
+                cache: false,
+                async: false,
+                type: 'POST',
+                data: {
+                id_cli: $('#id_cli').val(),
+                id_usu: $('#id_usu').val(),
+                cal   : calificacion
+                },
+                url: 'ajax/ingresar_calificacion.php',
+                dataType: 'json',
+                success: function(data)
+                {
+                    if(date == null)
+                    {
+                        alert("i");
+                    }
+                    else
+                    {
+                        alert("E");
+                    }
+                }
+                
+             
+            });
+        });
+    }
+    LKS.draw = function(data){
+        $('.stars').each(function(index,item){
+            var id=$(item).attr('itemid');
+            $(item).attr('value',data[id]);
+        });
+        $('.stars').each(function(index,item){
+            var n;
+            var value= $(item).attr('value');
+            for (n=0;n<LKS.params.stars;n++){
+                var star=$('<a>');
+                star.addClass('star');
+                star.attr('href','javascript:void(0)');
+                star.attr('vote',n+1);
+                if (n<=value)
+                {star.addClass('point');}
+                $(item).append(star);
+                
+                
+            }
+        });
+        $('.stars a').bind('mouseover',function(data){
+            var childs=$(data.target).parent().children();
+            childs.each(function(index,item){
+                if ($(this).index() <= $(data.target).index())
+                    {$(item).addClass('hover');}
+                else
+                    {$(item).removeClass('hover');}
+
+            })
+        })
+        $('.stars a').bind('mouseout',function(data){
+            var childs=$(data.target).parent().children();
+            $(childs).removeClass('hover');
+        });
+       $('.stars a').bind('click',function(){
+              var item=$(this).parent().attr('itemid');
+              var vote=$(this).attr('vote');
+              LKS.sendVote(vote);
+              
+       });
+
+    }
+}());  
+</script>    
  <script>
         $(document).ready(function(){
             LKS.start();
@@ -127,6 +215,10 @@ $(document).ready(function(){
         });
  </script>
 
+<?php echo Form::text('id_usu','null',Auth::get('id'));?>
+ <?php echo Form::text('id_cli','null',$id_cliente) ;?>
+
+ 
          <table class="table table-bordered">
                 <tr>  
                     <thead>
@@ -151,7 +243,7 @@ $(document).ready(function(){
        <div id='response'></div>  
 
                       
-                        <div class="stars"  value="1.5"> </div>
+                        <div class="stars"  value="1.5" > </div>
                   </td>
                 </tr>
 

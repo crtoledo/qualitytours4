@@ -12,9 +12,15 @@
     LKS.start= function(){
         $.jsonp( {'url':LKS.params.url});
     }
+    var calificacion;
     LKS.sendVote = function (id,vote){
-       // change this line in order to send your vote to your server.
-       // alert(id);
+      
+      calificacion = id;
+        $(".stars").click(function()
+        {   //CUANDO SE HACE CLICK EN LAS ESTRELLAS
+            alert(calificacion);
+            //CODIGO AJAX
+        });
     }
     LKS.draw = function(data){
         $('.stars').each(function(index,item){
@@ -54,7 +60,7 @@
               var item=$(this).parent().attr('itemid');
               var vote=$(this).attr('vote');
               LKS.sendVote(vote);
-        
+              
        });
 
     }
