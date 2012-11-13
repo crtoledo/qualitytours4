@@ -1,0 +1,70 @@
+<?php
+    View::content();
+    include(APP_PATH.'libs/PHPMailer_5.2.2-rc2/class.phpmailer.php');
+    include(APP_PATH.'libs/PHPMailer_5.2.2-rc2/class.smtp.php');
+    $mail = new PHPMailer();
+    $mail->IsSMTP();
+    $mail->SMTPAuth = true;
+    $mail->SMTPSecure = "ssl";
+    $mail->Host = "smtp.gmail.com";
+    $mail->Port = 465;
+    $mail->Username = "qtourscontacto@gmail.com";
+    $mail->Password = "qt123123";
+    
+    
+    
+    
+?>
+
+<?php
+
+///////Configuración/////
+$mail_destinatario = 'qtourscontacto@gmail.com';
+//ini_set ( "SMTP", "smtp.gmail.com" ); 
+ini_set("SMTP","ssl://smtp.gmail.com");
+ini_set("smtp_port","465");
+///////Fin configuración// 
+
+if (isset($_POST['enviar'])) 
+{
+    //Preparar el mail
+    $mail->From = $_POST['email'];
+    $mail->FromName = "User Name";
+    $mail->Subject = $_POST['asunto'];
+    $mail->AltBody = "Hola, te doy mi nuevo numero\nxxxx.";
+    $mail->MsgHTML("Hola, te doy mi nuevo numero<br><b>xxxx</b>.");
+    $mail->AddAddress("qtourscontacto@gmail.com", "Destinatario");
+    $mail->IsHTML(true);
+    
+    if(!$mail->Send()){
+    echo "Error: " . $mail->ErrorInfo;
+    } else {
+    echo "Mensaje enviado correctamente";
+    }
+    
+    $headers = "From: " . $_POST['email'] . "rn";
+    if (mail($mail_destinatario, $_POST['asunto'], "Username : " . $_POST['username'] . " Asunto: " . stripcslashes($_POST['asunto']) . "n Mensaje :n " . stripcslashes($_POST['mensaje']), $headers))
+        echo 'Su mensaje a sido enviado correctamente. Gracias por contactar con nosostros';
+
+    else
+        echo 'Error al enviar el formulario. Por favor, inténtelo de nuevo mas tarde.';
+}
+?> 
+<style>
+    .div_contacto
+    {
+        text-align: center;
+    }
+</style>    
+<?php
+
+echo '<div class="div_contacto">
+<h1 style="font-family: SF"> Contacto administrador </h1>    
+<form action="" method="post">  
+<input type="hidden" value="'.$username_usu.'" name="username" size="50" maxlength="80">
+<input type="hidden" value="'.$email_usu.'"  name="email" size="50" maxlength="60"> <label for="asunto">Asunto : </label>
+<input type="text" name="asunto" size="50" maxlength="60"><br> <label for="mensaje">Mensaje : </label>  <textarea name="mensaje" cols="31" rows="5"></textarea> <br>
+<label for="enviar">
+<input type="submit" name="enviar" value="Enviar consulta"></label>
+ </form></div>';
+?>

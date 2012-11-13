@@ -135,26 +135,23 @@ $(document).ready(function(){
             //CODIGO AJAX
             $.ajax
             ({
-                
-                cache: false,
-                async: false,
                 type: 'POST',
                 data: {
                 id_cli: $('#id_cli').val(),
                 id_usu: $('#id_usu').val(),
                 cal   : calificacion
                 },
-                url: 'ajax/ingresar_calificacion.php',
-                dataType: 'json',
+                url: '<?php echo PUBLIC_PATH;?>ajax/ingresar_calificacion.php',
+                dataType: 'text',
                 success: function(data)
                 {
-                    if(date == null)
+                    if(data == 'exito')
                     {
-                        alert("i");
+                        //alert("Calificación ingresada");
                     }
                     else
                     {
-                        alert("E");
+                        alert("Error en el ingreso de la calificación, inténtelo mas tarde.");
                     }
                 }
                 
