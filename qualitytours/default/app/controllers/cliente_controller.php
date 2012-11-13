@@ -19,7 +19,7 @@ class ClienteController extends AppController
         
 	}
 
-    public function ingresar()
+    public function ingresarsolicitud()
         { 
         
         //verifica si se encuentra logueado
@@ -29,15 +29,6 @@ class ClienteController extends AppController
 			Router::redirect("/");
                         
 		}
-                
-            //verifica si el rol pertenece como corresponde
-            else
-            {
-                 if(Auth::get('rol_usu') != 'administrador' )
-                {
-                    Flash::info('No posee los privilegios necesarios');
-		    Router::redirect("/");
-                }
                 else
                 {
                     if(Input::hasPost('cliente'))
@@ -89,13 +80,7 @@ class ClienteController extends AppController
    
                 } 
             }    
-                  
-        
-        
-        
-      } 
-    
-  
+
     
     public function borrar()
     {
