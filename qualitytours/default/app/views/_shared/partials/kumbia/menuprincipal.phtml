@@ -7,7 +7,9 @@ if($url == "en")
 {
     //inglés
     //variables de menu Principal
-    $modificardatos_string = "Modify data";
+    $modificardatos_string = "My data";
+    $suscripcion_string = "Order subscription";
+    $buscar_solicitud_string ="Administrar solicitudes(traducir)";
     $inicio_string="Home";
     $cuenta_string = "Account";
     $cliente_string="Customer";
@@ -37,9 +39,11 @@ else
 {
      //español
     //variables de menu Principal
-    $modificardatos_string = "Modificar datos";
+    $modificardatos_string = "Mis datos";
+    $buscar_solicitud_string ="Administrar solicitudes";
+    $suscripcion_string = "Solicitar suscripción";
     $inicio_string="Inicio";
-    $cuenta_string="cuenta";
+    $cuenta_string="Cuenta";
     $cliente_string="Cliente";
     $publicarservicio_string="Publicar servicio";
     $indiqueubicacion_string="Indique su ubicaci&oacute;n";
@@ -124,6 +128,7 @@ foreach ($arr as $buscar) {
                                                             
                                                             <ul class="dropdown-menu">
                                                                 <li><?php echo Html::link('usuario/automodificar/', '<i class="icon-file"></i>'.$modificardatos_string.''); ?></li>
+                                                                <li><?php echo Html::link('cliente/ingresar/', '<i class="icon-file"></i>'.$suscripcion_string.''); ?></li>
                                                                
                                                             </ul>
                                                         </li>
@@ -175,7 +180,7 @@ if (Auth::is_valid()) {
                                 <li><?php echo Html::link('cliente/ingresar/', '<i class="icon-plus"></i> '.$ingresarcliente_string.''); ?></li>
                                 <li><?php echo Html::link(''.$enlace_usuario_buscar.'', '<i class="icon-search"></i> '.$buscarusuarios_string.''); ?></li>
                                 <li><?php echo Html::link('publicacion/ingresar/', '<i class="icon-upload"></i> '.$ingresarpublicacion_string.''); ?></li>
-<!--                                <li><?php //echo Html::link('administrador/ingresar/', '<i class="icon-plus"></i> '.$ingresaradministrador_string.''); ?></li>-->
+                                <li><?php echo Html::link('solicitud/buscar/', '<i class="icon-briefcase"></i> '.$buscar_solicitud_string.''); ?></li>
                                 <li><?php echo Html::link('categoria/ingresar', '<i class="icon-plus"></i> '.$ingresarcategorias_string.''); ?></li>
                             </ul>
                         </li>
