@@ -27,6 +27,12 @@ class UbicacionController extends AppController
                     if (Input::hasPost('ubicacion'))
                     {
                         $ubicacion = new Ubicacion(Input::post('ubicacion'));
+                        
+                        //ELIMINACION DE APOSTROFES
+                        $ubicacion->region_ubi = str_replace("'", '', $ubicacion->region_ubi);
+                        $ubicacion->ciudad_ubi = str_replace("'", '', $ubicacion->ciudad_ubi);
+                        $ubicacion->direccion_ubi = str_replace("'", '', $ubicacion->direccion_ubi);
+                        
                         if ($ubicacion->save())
                         {
                             //Actualizamos el id_ubi en cliente
@@ -81,6 +87,12 @@ class UbicacionController extends AppController
                     if (Input::hasPost('ubicacion'))
                     {
                         $ubicacion = new Ubicacion(Input::post('ubicacion'));
+                        
+                        //ELIMINACION DE APOSTROFES
+                        $ubicacion->region_ubi = str_replace("'", '', $ubicacion->region_ubi);
+                        $ubicacion->ciudad_ubi = str_replace("'", '', $ubicacion->ciudad_ubi);
+                        $ubicacion->direccion_ubi = str_replace("'", '', $ubicacion->direccion_ubi);
+                        
                         if ($ubicacion->save())
                         {
                             //Actualizamos el id_ubi en cliente
