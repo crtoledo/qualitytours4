@@ -75,7 +75,7 @@ reemplazo se uso 'errorVal'.
 
      <meta name="viewport" content="initial-scale=1.0, user-scalable=yes" />
 
-<script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=false">
+<script type="text/javascript" src="https://maps.google.com/maps/api/js?libraries=weather&sensor=false">
 //Esto carga el api de Google Maps
 </script>
 
@@ -89,7 +89,7 @@ $(document).ready(function(){
 
     //Setup del mapa
     var myOptions = {
-          zoom: 14,
+          zoom: 12,
           center: latlng,
           mapTypeId: google.maps.MapTypeId.ROADMAP
         };
@@ -103,8 +103,16 @@ $(document).ready(function(){
             //,title:
         });
         var calificacion;
-  
  
+ //AGREGAMOS CAPA DE CLIMA
+ var weatherLayer = new google.maps.weather.WeatherLayer({
+  temperatureUnits: google.maps.weather.TemperatureUnit.CELSIUS
+});
+weatherLayer.setMap(map);
+
+//NUBES
+var cloudLayer = new google.maps.weather.CloudLayer();
+cloudLayer.setMap(map)
 
 
 
@@ -137,8 +145,9 @@ $(document).ready(function(){
             ({
                 type: 'POST',
                 data: {
-                id_cli: $('#id_cli').val(),
-                id_usu: $('#id_usu').val(),
+                //id_cli: $('#id_cli').val(),
+                id_cli : <?php echo Auth::get('id'); ?>,
+                id_usu: <?php echo $id_cliente ?>,
                 cal   : calificacion
                 },
                 url: '<?php echo PUBLIC_PATH;?>ajax/ingresar_calificacion.php',
@@ -211,10 +220,6 @@ $(document).ready(function(){
     
         });
  </script>
-
-<?php echo Form::text('id_usu','null',Auth::get('id'));?>
- <?php echo Form::text('id_cli','null',$id_cliente) ;?>
-
  
          <table class="table table-bordered">
                 <tr>  
