@@ -163,9 +163,11 @@ cloudLayer.setMap(map)
                         alert("Error en el ingreso de la calificación, inténtelo mas tarde.");
                     }
                 }
-                
-             
-            });
+            }); //FIN AJAX
+            
+            //ACTUALIZAMOS ESTRELLAS
+            $(".stars").attr('value',calificacion);
+            //falta cargar las estrellas
         });
     }
     LKS.draw = function(data){
@@ -245,7 +247,7 @@ cloudLayer.setMap(map)
        <div id='response'></div>  
 
                       
-                        <div class="stars"  value="1.5" > </div>
+                        <div class="stars"  value="" > </div>
                   </td>
                 </tr>
 
