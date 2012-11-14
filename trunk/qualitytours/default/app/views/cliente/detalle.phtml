@@ -228,7 +228,13 @@ cloudLayer.setMap(map)
                     <thead>
                         <td width="400px"><div id="map_canvas" style="width:400px; height:400px"></div></td>
                         <td width="600px">
-                            <h3><?php echo $nombre_cliente; ?></h3> <?php echo"<span class='label label-info'>".$mostrar.":&nbsp;Views</span>";?><br>
+                            <h3 style="font-family:SF"><?php echo $nombre_cliente; ?></h3>
+                            <h6>
+                                <?php echo $region_ubi; ?><br>
+                                <?php echo $ciudad_ubi; ?><br>
+                                <?php echo $direccion_ubi; ?>
+                            </h6>
+                            <?php echo"<span class='label label-info'>".$mostrar.":&nbsp;Views</span>";?><br>
                             <?php
 
 
