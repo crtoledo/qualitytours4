@@ -245,6 +245,7 @@ class UsuarioController extends AppController
                 //captura el rol del usuario para futuros usos
                 Session::set("rol_usu",Auth::get('rol_usu'));
                 Session::set("id",Auth::get('id'));
+                Session::set("username_usu",Auth::get('username_usu'));
                
                 if(Session::get('rol_usu')=='administrador')
                 {

@@ -51,7 +51,7 @@ class ClienteController extends AppController
                         $id= $datos_user->id;        
                         $username_usu = $datos_user->username_usu;
                         $password_usu = $datos_user->password_usu;
-                        $rol_usu = 'cliente';
+                        $rol_usu = 'turista';
                         $nombre_usu = $datos_user->nombre_usu;
                         $apellido_usu = $datos_user->apellido_usu;
                         $rut_usu = $datos_user->rut_usu;
@@ -62,9 +62,9 @@ class ClienteController extends AppController
                         $giro = $cliente->giro_cli;
                         $telefono = $cliente->telefono_cli;
                         $visitas = 0;  
-                        if($cliente->sql("insert into Cliente (id_usu,username_usu,password_usu,rol_usu,nombre_usu,apellido_usu,rut_usu,email_usu,estado_usu,nombre_cli,rut_cli,giro_cli,telefono_cli,visitas_cli) values(".$id.",'".$username_usu."','".$password_usu."','".$rol_usu."','".$nombre_usu."','".$apellido_usu."','".$rut_usu."','".$email_usu."','".$estado_usu."','".$nombre_cli."','".$rut_cli."','".$giro."','".$telefono."',".$visitas.");")&&($user->sql("update Usuario set rol_usu='cliente' where id=".$id)))
+                        if($cliente->sql("insert into Cliente (id_usu,username_usu,password_usu,rol_usu,nombre_usu,apellido_usu,rut_usu,email_usu,estado_usu,nombre_cli,rut_cli,giro_cli,telefono_cli,visitas_cli) values(".$id.",'".$username_usu."','".$password_usu."','".$rol_usu."','".$nombre_usu."','".$apellido_usu."','".$rut_usu."','".$email_usu."','".$estado_usu."','".$nombre_cli."','".$rut_cli."','".$giro."','".$telefono."',".$visitas.");"))//&&($user->sql("update Usuario set rol_usu='cliente' where id=".$id)))
                         {
-                            Flash::success("Cliente ingresado correctamente");
+                            Flash::success("Solicitud enviada correctamente");
                             Input::delete();
                         }
                         else
