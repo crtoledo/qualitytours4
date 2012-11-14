@@ -62,6 +62,10 @@ class SolicitudController extends AppController {
                 {
                     $this->colortabla="error";
                 }
+                else if ($solicitud->estado_sol== "mail")
+                {
+                    $this->colortabla="info";
+                }
             } 
             else 
             {
@@ -72,6 +76,11 @@ class SolicitudController extends AppController {
         {
             Router::redirect("/");
         }
+    }
+    
+    public function cancela($id)
+    {
+        
     }
 
 }

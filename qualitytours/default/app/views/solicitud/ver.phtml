@@ -12,7 +12,11 @@
                 <th>Estado solicitud</th>
                 <th>Fecha solicitud</th>
                 <th>Tipo de solicitud</th>
-                <th>Datos de la solicitud</th>
+                
+                <?php if($colortabla== "info") {?>
+                <th><center>Confirme envio mail</center></th>
+                <?php } ?>
+    
             </tr>
         </thead>        
 
@@ -20,9 +24,13 @@
             <td><?php echo $estado ?></td>
             <td><?php echo $fecha ?></td>
             <td><?php echo $tipo ?></td>
-            <td><?php echo $observaciones ?></td>
-            <td><a href=""><button class="btn btn-info" type="button">Ver datos registro</button></a></td>
-            <td><button class="btn btn-danger" type="button">Cancelar solicitud</button></td>
+            
+            <?php if($colortabla== "info") {?>
+            <td><center><button class="btn btn-small btn-success" type="button">Mail enviado</button></center></td>
+            <?php } ?>
+    
+            <td><a href="/trunk/qualitytours/cliente/ver/<?php echo Auth::get("id") ?>"><button class="btn btn-small btn-info" type="button">Ver datos registro</button></a></td>
+            <td><a href="/trunk/qualitytours/solicitud/cancela/<?php echo Auth::get("id") ?>"><button class="btn btn-small btn-danger" type="button">Cancelar solicitud</button></a></td>
         </tr>
     </table>
     <br></br>

@@ -14,13 +14,6 @@ class ClienteController extends AppController {
         
     }
 
-    public function before_filter() {
-        if (!Auth::is_valid()) {
-            Flash::info('Debe iniciar sesión');
-            Router::redirect("/");
-        }
-    }
-
     public function ingresarsolicitud() {
         $id = Auth::get('id');
         $solicitud = new Solicitud ();
@@ -56,7 +49,7 @@ class ClienteController extends AppController {
                 $visitas = 0;
                 $plan = $cliente->tipo_plan;
 
-                if ($cliente->sql("insert into Cliente (id_usu,username_usu,password_usu,rol_usu,nombre_usu,apellido_usu,rut_usu,email_usu,estado_usu,nombre_cli,rut_cli,giro_cli,telefono_cli,visitas_cli,tipo_plan) values(" . $id . ",'" . $username_usu . "','" . $password_usu . "','" . $rol_usu . "','" . $nombre_usu . "','" . $apellido_usu . "','" . $rut_usu . "','" . $email_usu . "','" . $estado_usu . "','" . $nombre_cli . "','" . $rut_cli . "','" . $giro . "','" . $telefono . "'," . $visitas . ",'". $plan ."');")) {//&&($user->sql("update Usuario set rol_usu='cliente' where id=".$id)))
+                if ($cliente->sql("insert into Cliente (id_usu,username_usu,password_usu,rol_usu,nombre_usu,apellido_usu,rut_usu,email_usu,estado_usu,nombre_cli,rut_cli,giro_cli,telefono_cli,visitas_cli,tipo_plan) values(" . $id . ",'" . $username_usu . "','" . $password_usu . "','" . $rol_usu . "','" . $nombre_usu . "','" . $apellido_usu . "','" . $rut_usu . "','" . $email_usu . "','" . $estado_usu . "','" . $nombre_cli . "','" . $rut_cli . "','" . $giro . "','" . $telefono . "'," . $visitas . ",'" . $plan . "');")) {//&&($user->sql("update Usuario set rol_usu='cliente' where id=".$id)))
                     Flash::success("Solicitud enviada correctamente");
                     Input::delete();
                     Router::redirect("solicitud/ingresar/" . $id);
@@ -85,10 +78,10 @@ class ClienteController extends AppController {
         $client = new Cliente();
         $client = $client->find($id);
         $this->id_cliente = $id;
-        
+
         //Obtenemos la ubicacion del centro
         $ubicacion = new Ubicacion();
-        $ubicacion = $ubicacion->find_by_sql("select *  from ubicacion where   id_usu = ".$id);
+        $ubicacion = $ubicacion->find_by_sql("select *  from ubicacion where   id_usu = " . $id);
         $this->region_ubi = $ubicacion->region_ubi;
         $this->ciudad_ubi = $ubicacion->ciudad_ubi;
         $this->direccion_ubi = $ubicacion->direccion_ubi;
@@ -155,6 +148,48 @@ class ClienteController extends AppController {
         }
         $this->contador = $contador;
     }
+
+    public function ver($id) {
+        $vercliente = new cliente();
+
+        if (Input::hasPost('cliente')) 
+        {
+
+            $cliente = new Cliente(Input::post('cliente'));
+
+            //Paso de datos desde usuario encontrado a cliente a ingresar
+            $username_usu = $cliente->username_usu;
+            $password_usu = $cliente->password_usu;
+            $nombre_usu = $cliente->nombre_usu;
+            $apellido_usu = $cliente->apellido_usu;
+            $rut_usu = $cliente->rut_usu;
+            $email_usu = $cliente->email_usu;
+            $nombre_cli = $cliente->nombre_cli;
+            $rut_cli = $cliente->rut_cli;
+            $giro = $cliente->giro_cli;
+            $telefono = $cliente->telefono_cli;
+            $plan = $cliente->tipo_plan;
+
+
+
+            if ($cliente->sql("UPDATE cliente SET nombre_cli='". $nombre_cli ."', rut_cli='". $rut_cli. "', giro_cli='". $giro ."', telefono_cli='". $telefono ."', tipo_plan='". $plan ."' WHERE id_usu =". $id.";"))
+                {
+                Flash::success("Solicitud modificada correctamente");
+                Input::delete();
+                Router::redirect("solicitud/ver/" . $id);
+            } 
+            else 
+            {
+                Flash::error("Error en el ingreso del cliente");
+            }
+        } 
+        else 
+        {
+            $this->cliente = $vercliente->find($id);
+            $this->qq = $vercliente->tipo_plan;
+        }
+    }
+    
 
 }
 
