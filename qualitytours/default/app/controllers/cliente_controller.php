@@ -54,8 +54,9 @@ class ClienteController extends AppController {
                 $giro = $cliente->giro_cli;
                 $telefono = $cliente->telefono_cli;
                 $visitas = 0;
+                $plan = $cliente->tipo_plan;
 
-                if ($cliente->sql("insert into Cliente (id_usu,username_usu,password_usu,rol_usu,nombre_usu,apellido_usu,rut_usu,email_usu,estado_usu,nombre_cli,rut_cli,giro_cli,telefono_cli,visitas_cli) values(" . $id . ",'" . $username_usu . "','" . $password_usu . "','" . $rol_usu . "','" . $nombre_usu . "','" . $apellido_usu . "','" . $rut_usu . "','" . $email_usu . "','" . $estado_usu . "','" . $nombre_cli . "','" . $rut_cli . "','" . $giro . "','" . $telefono . "'," . $visitas . ");")) {//&&($user->sql("update Usuario set rol_usu='cliente' where id=".$id)))
+                if ($cliente->sql("insert into Cliente (id_usu,username_usu,password_usu,rol_usu,nombre_usu,apellido_usu,rut_usu,email_usu,estado_usu,nombre_cli,rut_cli,giro_cli,telefono_cli,visitas_cli,tipo_plan) values(" . $id . ",'" . $username_usu . "','" . $password_usu . "','" . $rol_usu . "','" . $nombre_usu . "','" . $apellido_usu . "','" . $rut_usu . "','" . $email_usu . "','" . $estado_usu . "','" . $nombre_cli . "','" . $rut_cli . "','" . $giro . "','" . $telefono . "'," . $visitas . ",'". $plan ."');")) {//&&($user->sql("update Usuario set rol_usu='cliente' where id=".$id)))
                     Flash::success("Solicitud enviada correctamente");
                     Input::delete();
                     Router::redirect("solicitud/ingresar/" . $id);
