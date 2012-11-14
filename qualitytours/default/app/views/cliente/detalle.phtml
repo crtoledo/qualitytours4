@@ -16,12 +16,19 @@
   body { height: 100%; margin: 0px; padding: 0px }
   #map_canvas { height: 100% }
 </style>
-<!--
-El CSS a continuación da estilo a los mensaje de error en la validación
-, no se usó "error" ya que kumbia ya tiene un estilo para esa clase, en su
-reemplazo se uso 'errorVal'.
--->
+
 <script type="text/javascript">
+    var id_cli = <?php echo $id_cliente?>;
+    var id_usu = <?php echo Auth::get('id')?>;
+</script>
+ <?php echo Tag::js('rating'); ?>
+
+<script type="text/javascript">
+    
+    
+   
+    
+    
     $(document).ready(function () {
         
         $(".boton").click(function (){
@@ -48,6 +55,12 @@ reemplazo se uso 'errorVal'.
 });
     
 </script>
+
+<!--
+El CSS a continuación da estilo a los mensaje de error en la validación
+, no se usó "error" ya que kumbia ya tiene un estilo para esa clase, en su
+reemplazo se uso 'errorVal'.
+-->
 <style>
     .errorVal{
     background-color: #BC1010;
@@ -128,7 +141,13 @@ cloudLayer.setMap(map)
 
 <script type="text/javascript">
 $(document).ready(function() {
-    $('#star1').rating("<?php echo PUBLIC_PATH;?>ajax/ingresar_calificacion.php", {maxvalue: 5, curvalue:1, id:0 });
+    
+    $('#star1').rating("<?php echo PUBLIC_PATH;?>ajax/ingresar_calificacion.php", 
+    {
+        maxvalue: 5,
+        curvalue:0, 
+        id:0
+    });
    
 });
  
