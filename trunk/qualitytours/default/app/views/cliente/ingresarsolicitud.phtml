@@ -112,6 +112,9 @@ reemplazo se uso 'errorVal'.
       
 <br>
 <fieldset>
+    
+    <?php $data = array('free'=>'Free', 'normal'=>'Normal','plus'=>'Plus' ); ?>
+    
 <?php echo Form::open('cliente/ingresarsolicitud') ?>
     <div align="center">
         <h1> Enviar solicitud de suscripción</h1><br>
@@ -135,6 +138,10 @@ reemplazo se uso 'errorVal'.
     <tr>
         <td>Telefono comercial:&nbsp;</td>
         <td><?php echo Form::text('cliente.telefono_cli',"class='input-medium telefono'") ?></td>
+    </tr>
+    <tr>
+        <td>Seleccione el plan:&nbsp;</td>
+        <td><?php echo Form::select('cliente.tipo_plan', $data, null, 'class=seleccion_usuario') ?></td>
     </tr>
     <tr>
         <td align="right" colspan="2">He leido las condiciones del servicio y las acepto&nbsp;<?php echo Form::check('acepta', 'checkValue')?></td>
