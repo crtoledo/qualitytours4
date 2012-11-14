@@ -7,20 +7,11 @@ class CalificacionController extends AppController
         
     }
     
-    public function captura()
+    public function captura($votacion)
     {
-         
+
+      echo  flash::info($votacion);     
         
-        if(Input::hasPost('calificacion'))
-        {
-            $calificacion = new Calificacion(Input::post('calificacion'));
-            
-            if($calificacion->save())
-            {
-                
-            }
-          
-        }
     }
 }
 ?>
