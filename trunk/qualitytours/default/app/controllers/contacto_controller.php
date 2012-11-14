@@ -1,5 +1,6 @@
 <?php
 load::model('usuario');
+load::model('cliente');
 
 class ContactoController extends AppController {
 
@@ -18,6 +19,18 @@ class ContactoController extends AppController {
         $usuario->find(Auth::get('id'));
         $this->username_usu = $usuario->username_usu;
         $this->email_usu = $usuario->email_usu;
+    }
+    
+    public function contacto_cli($id_cli)
+    {
+        $usuario = new Usuario();
+        $usuario->find(Auth::get('id'));
+        $this->username_usu = $usuario->username_usu;
+        $this->email_usu = $usuario->email_usu;
+        
+        $cliente = new Cliente();
+        $cliente->find($id_cli);
+        $this->email_cli = $cliente->email_usu;
     }
 
 }

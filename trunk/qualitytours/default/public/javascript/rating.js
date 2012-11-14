@@ -20,6 +20,9 @@ options
 
 ************************************************/
 
+//MODIFICACION QUALITY TOURS
+
+
 jQuery.fn.rating = function(url, options) {
 	
 	if(url == null) return;
@@ -88,7 +91,9 @@ jQuery.fn.rating = function(url, options) {
             settings.curvalue = stars.index(this) + 1;
             $.post(container.url, 
 				{ rating: jQuery(this).children('a')[0].href.split('#')[1],
-					id: container.id
+                                    id: container.id,
+                                    id_cli: id_cli,
+                                    id_usu: id_usu
 				},
 				function(data){
     				//$(".starRpta").html(data);
@@ -102,7 +107,9 @@ jQuery.fn.rating = function(url, options) {
 			$(this).toggleClass('on');
 			$.post(container.url, 
 				{ rating: jQuery(this).children('a')[0].href.split('#')[1],
-				  id: container.id
+				  id: container.id,
+                                  id_cli: id_cli,
+                                  id_usu: id_usu
 				},
 				function(data){
     				//$(".starRpta").html(data);
