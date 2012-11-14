@@ -1,7 +1,157 @@
+<div>
 <?php
-
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+    View::content();
+    echo Tag::js("jquery/jquery.Rut.min");
 ?>
+</div> 
+
+<script type="text/javascript">
+//Validación con jquery
+//El siguiente script valida que los campos no estén vacios y el formato del RUT
+    $(document).ready(function () {
+        var rutreg = /^\d{1,2}\.\d{3}\.\d{3}[-][0-9kK]{1}$/;
+        $(".boton").click(function (){
+            $(".errorVal").remove();
+            if( $(".nombre").val() == "" ){
+                $(".nombre").focus().after("<span class='errorVal'>Ingrese su nombre</span>");
+                return false;
+            }else if( $(".rut").val() == ""){
+                $(".rut").focus().after("<span class='errorVal'>Ingrese un rut con puntos y guión</span>");
+                return false;
+            }else if(!$.Rut.validar($(".rut").val()) ){
+                $(".rut").focus().after("<span class='errorVal'>Ingrese un rut valido</span>");
+                return false;
+            }else if( $(".giro").val() == ""){
+                $(".giro").focus().after("<span class='errorVal'>Ingrese un giro</span>");
+                return false;
+            }else if( $(".telefono").val() == "" ){
+                $(".telefono").focus().after("<span class='errorVal'>Ingrese un teléfono</span>");
+                return false;
+            }
+        });
+
+        //Borrar mensaje de error si el usuario a llenado el campo
+        $(".nombre, .giro, .telefono").keyup(function()
+        {
+            if( $(this).val() != "" )
+            {
+                $(".errorVal").fadeOut();
+                return false;
+            }
+        });
+
+//Para el caso del listbox, no se puede borrar el error de validación con keyup
+//Ya que no es un textbox, usamos el metodo blur
+// $(".seleccion_usuario").blur(function()
+// {
+// if( $(this).val() != "" )
+//  {
+//     $(".errorVal").fadeOut();
+//     return false;
+//  }
+//});
+
+        //Borrar el mensaje de error si el usuario ingresa un rut con formato válido
+        $(".rut").keyup(function()
+        {   
+            if( $(this).val() != "" && rutreg.test($(this).val()))
+            {
+                $(".errorVal").fadeOut();
+                return false;
+            }
+        });
+        
+      //Borrar el mensaje de error si el usuario ingresa un rut con formato válido 
+    $(".rut").Rut({
+       on_error: function(){  $(".rut").focus().after("<span class='errorVal'>Rut invalido</span>"); return false; },
+        format_on: 'keyup'
+    });
+
+    $(".rut").keyup(function()
+    {
+        if( $(".rut").val() != "" && rutreg.test($(".rut").val()))
+        {
+            $(".errorVal").fadeOut();
+            return false;
+        }
+    });
+});
+</script>
+
+<!--
+El CSS a continuación da estilo a los mensaje de error en la validación
+, no se usó "error" ya que kumbia ya tiene un estilo para esa clase, en su
+reemplazo se uso 'errorVal'.
+-->
+
+<style>
+    .errorVal{
+    background-color: #BC1010;
+    padding: 6px 12px;
+    border-radius: 4px;
+    color: white;
+    font-weight: bold;
+    margin-left: 16px;
+    margin-top: 6px;
+    position: absolute;
+}
+.errorVal:before{ /* Este es un truco para crear una flechita */
+    content: '';
+    border-top: 8px solid transparent;
+    border-bottom: 8px solid transparent;
+    border-right: 8px solid #BC1010;
+    border-left: 8px solid transparent;
+    left: -16px;
+    position: absolute;
+    top: 5px;
+}
+</style>
+      
+<br>
+<fieldset>
+    
+    <?php $data = array('free'=>'Free', 'normal'=>'Normal','plus'=>'Plus' ); ?>
+    
+<?php echo Form::open('cliente/ver/'.Auth::get("id")) ?>
+    <div align="center">
+        <h1> Datos de tu suscripción</h1><br>
+        <table>
+    <tr>
+        <td>Nombre de usuario:&nbsp;</td>
+        <td><?php echo Auth::get('username_usu') ?></td>
+    </tr>        
+    <tr>
+        <td>Nombre centro turistico:&nbsp;</td>
+        <td><?php echo Form::text('cliente.nombre_cli', "class='input-medium nombre' placeholder='Nombre cliente'") ?></td>
+    </tr>
+    <tr>
+        <td>Rut comercial:&nbsp;</td>
+        <td><?php echo Form::text('cliente.rut_cli',"class='input-medium rut' placeholder='ej: 6.765.223-1' rut") ?></td>
+    </tr>
+    <tr>
+        <td>Giro:&nbsp;</td>
+        <td><?php echo Form::text('cliente.giro_cli',"class='input-medium giro' ") ?></td>
+    </tr>
+    <tr>
+        <td>Telefono comercial:&nbsp;</td>
+        <td><?php echo Form::text('cliente.telefono_cli',"class='input-medium telefono'") ?></td>
+    </tr>
+    <tr>
+        <td>Seleccione el plan:&nbsp;</td>
+        <td><?php echo Form::select('cliente.tipo_plan', $data, null, $qq ) ?></td>
+    </tr>
+   
+</table>
+    </div>
+    <div align="center">
+    <table>
+        <tr>
+            <td><?php echo Form::submit('Modificar solicitud','class="btn btn-submit boton"') ?>&nbsp;</td>
+            <td><?php echo Form::button('Cancelar','class="btn btn-info"')?></td>
+        </tr>         
+    </table>
+   </div>
+<?php echo Form::hidden('cliente.id',null , Auth::get('id')); ?>
+<?php echo Form::close() ?> 
+    </fieldset>
+
