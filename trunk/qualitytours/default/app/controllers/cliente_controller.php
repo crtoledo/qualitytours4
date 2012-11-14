@@ -26,14 +26,12 @@ class ClienteController extends AppController
 		if(!Auth::is_valid())
                 {
                         Flash::info('Debe iniciar sesión');
-			Router::redirect("/");
-                        
+			Router::redirect("/");     
 		}
                 else
                 {
                     if(Input::hasPost('cliente'))
                     {
-
                         $cliente = new Cliente(Input::post('cliente'));
               
                         //Obtenemos el id del usuario que queremos convertir a cliente
@@ -45,9 +43,7 @@ class ClienteController extends AppController
                         //Obtenemos los datos del usuario mediante su id
                         $datos_user = $user->find($id_usuario);
                 
-
                         //Paso de datos desde usuario encontrado a cliente a ingresar
-                
                         $id= $datos_user->id;        
                         $username_usu = $datos_user->username_usu;
                         $password_usu = $datos_user->password_usu;
@@ -56,16 +52,18 @@ class ClienteController extends AppController
                         $apellido_usu = $datos_user->apellido_usu;
                         $rut_usu = $datos_user->rut_usu;
                         $email_usu = $datos_user->email_usu;
-                        $estado_usu = $datos_user->estado_usu;
+                        $estado_usu = "false";
                         $nombre_cli = $cliente->nombre_cli;
                         $rut_cli = $cliente->rut_cli;
                         $giro = $cliente->giro_cli;
                         $telefono = $cliente->telefono_cli;
                         $visitas = 0;  
+                        
                         if($cliente->sql("insert into Cliente (id_usu,username_usu,password_usu,rol_usu,nombre_usu,apellido_usu,rut_usu,email_usu,estado_usu,nombre_cli,rut_cli,giro_cli,telefono_cli,visitas_cli) values(".$id.",'".$username_usu."','".$password_usu."','".$rol_usu."','".$nombre_usu."','".$apellido_usu."','".$rut_usu."','".$email_usu."','".$estado_usu."','".$nombre_cli."','".$rut_cli."','".$giro."','".$telefono."',".$visitas.");"))//&&($user->sql("update Usuario set rol_usu='cliente' where id=".$id)))
                         {
                             Flash::success("Solicitud enviada correctamente");
                             Input::delete();
+                            Router::redirect("solicitud/ingresar/".$id);
                         }
                         else
                         {
@@ -73,11 +71,7 @@ class ClienteController extends AppController
                         }
                         //                Sentencia original
                         //                $cliente->sql("insert into Cliente (id_usu,username_usu,password_usu,rol_usu,nombre_usu,apellido_usu,rut_usu,email_usu,estado_usu,nombre_cli,rut_cli,giro_cli,telefono_cli,visitas_cli) values(".$id.",'".$username_usu."','".$password_usu."','".$rol_usu."','".$nombre_usu."','".$apellido_usu."','".$rut_usu."','".$email_usu."','".$estado_usu."','".$nombre_cli."','".$rut_cli."','".$giro."','".$telefono."',".$visitas.");");
-                
-                
-                
-                   }
-   
+                    }
                 } 
             }    
 
@@ -96,8 +90,6 @@ class ClienteController extends AppController
         
         $this->leng = $leng;
        
-        
-            
             $this->idiom = "en";
             $client = new Cliente();
             $client = $client->find($id);
@@ -122,11 +114,6 @@ class ClienteController extends AppController
                 $actualiza = $captura+1;
                 $client->sql("update Cliente set visitas_cli=".$actualiza."where id_usu=".$id);
             }
-             
-            
-           
-           
-          
 
 
             $this->nombre_cliente = $client->nombre_cli;
@@ -148,11 +135,6 @@ class ClienteController extends AppController
                 $this->latitud = $ubicacion[0]->latitud_ubi; //El [0] debido a que nos entrega un array
                 $this->longitud = $ubicacion[0]->longitud_ubi;
             }
-
-            
-
-
-
 
                 $comentario = new Comentario();
                 //validar si existen comentarios
@@ -181,14 +163,8 @@ class ClienteController extends AppController
                    $contador++;
                 }
                 $this->contador= $contador;
-   
-       
+      
     }
      
-    
-           
-        
-    
-    
 }
 

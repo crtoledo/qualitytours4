@@ -1,4 +1,9 @@
-<div><?php View::content() ?></div>
+<div>
+<?php
+    View::content();
+    echo Tag::js("jquery/jquery.Rut.min");
+?>
+</div> 
 
 <script type="text/javascript">
 //Validación con jquery
@@ -7,12 +12,14 @@
         var rutreg = /^\d{1,2}\.\d{3}\.\d{3}[-][0-9kK]{1}$/;
         $(".boton").click(function (){
             $(".errorVal").remove();
-
             if( $(".nombre").val() == "" ){
                 $(".nombre").focus().after("<span class='errorVal'>Ingrese su nombre</span>");
                 return false;
-            }else if( $(".rut").val() == "" || !rutreg.test($(".rut").val()) ){
+            }else if( $(".rut").val() == ""){
                 $(".rut").focus().after("<span class='errorVal'>Ingrese un rut con puntos y guión</span>");
+                return false;
+            }else if(!$.Rut.validar($(".rut").val()) ){
+                $(".rut").focus().after("<span class='errorVal'>Ingrese un rut valido</span>");
                 return false;
             }else if( $(".giro").val() == ""){
                 $(".giro").focus().after("<span class='errorVal'>Ingrese un giro</span>");
@@ -20,7 +27,10 @@
             }else if( $(".telefono").val() == "" ){
                 $(".telefono").focus().after("<span class='errorVal'>Ingrese un teléfono</span>");
                 return false;
-            }
+            }else if($('#acepta').is(':checked') == false){
+           $("#acepta").focus().after("<span class='errorVal'><?php echo "Debe aceptar los terminos del servicio"; ?></span>");
+           return false;
+        }
         });
 
         //Borrar mensaje de error si el usuario a llenado el campo
@@ -53,6 +63,21 @@
                 return false;
             }
         });
+        
+      //Borrar el mensaje de error si el usuario ingresa un rut con formato válido 
+    $(".rut").Rut({
+       on_error: function(){  $(".rut").focus().after("<span class='errorVal'>Rut invalido</span>"); return false; },
+        format_on: 'keyup'
+    });
+
+    $(".rut").keyup(function()
+    {
+        if( $(".rut").val() != "" && rutreg.test($(".rut").val()))
+        {
+            $(".errorVal").fadeOut();
+            return false;
+        }
+    });
 });
 </script>
 
