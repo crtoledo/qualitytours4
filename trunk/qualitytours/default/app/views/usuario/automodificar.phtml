@@ -1,17 +1,122 @@
 <div><?php View::content() ?></div> 
 
+<script type="text/javascript">
+    //Validación con jquery
+    //El siguiente script valida que los campos no estén vacios
+$(document).ready(function () {
+    var emailreg = /^[_a-z0-9-]+(.[_a-z0-9-]+)*@[a-z0-9-]+(.[a-z0-9-]+)*(.[a-z]{2,3})$/;
+    $(".boton").click(function (){
+        $(".errorVal").remove();
+        
+        if( $(".password").val() == ""){
+            $(".password").focus().after("<span class='errorVal'><?php echo $val_password_string; ?></span>");
+            return false;
+        }else if( $(".password").val().length<5){
+            $(".password").focus().after("<span class='errorVal'><?php echo $usuario_ingreso_minimo; ?></span>");
+            return false;
+        }else if( $(".password").val() != $(".passworddos").val()){
+            $(".passworddos").focus().after("<span class='errorVal'><?php echo $val_passwords_string; ?></span>");
+            return false;
+        }else if( $(".nombre").val() == ""){
+            $(".nombre").focus().after("<span class='errorVal'><?php echo $val_nombre_string; ?></span>");
+            return false;
+        }else if( $(".apellido").val() == "" ){
+            $(".apellido").focus().after("<span class='errorVal'><?php echo $val_apellido_string; ?></span>");
+            return false;
+        }else if($(".email").val() == "" || !emailreg.test($(".email").val()) ){
+           $(".email").focus().after("<span class='errorVal'><?php echo $val_email_string; ?></span>");
+           return false;
+       }else if($('#acepta').is(':checked') == false){
+           $("#acepta").focus().after("<span class='errorVal'><?php echo "Debe aceptar los terminos de uso"; ?></span>");
+           return false;
+        }
+    });
+    
+    //Borrar mensaje de error si el usuario a llenado el campo
+    $(".nombre, .password, .apellido, .email, .passworddos").keyup(function()
+    {
+        if( $(this).val() != "" )
+        {
+            $(".errorVal").fadeOut();
+            return false;
+        }
+    });
+    
+    //borrar el mensaje de error si se ingresa un email valido
+    $(".email").keyup(function()
+    {
+        if( $(this).val() != "" && emailreg.test($(this).val()))
+        {
+            $(".errorVal").fadeOut();
+            return false;
+        }
+    });    
+   
+//funcion que valida que las dos contraseñas esten ingresadas correctamente
+       function coincidePassword(){
+        var valor1 = $(".password").val();
+        var valor2 = $(".passworddos").val();
+        $(".errorVal").remove();
+        
+        if(valor1.length<5){
+            $(".password").focus().after("<span class='errorVal'><?php echo $usuario_ingreso_minimo; ?></span>");
+            return false;
+        }
+        if(valor1 != valor2){
+            $(".passworddos").focus().after("<span class='errorVal'><?php echo $val_passwords_string; ?></span>");
+            return false;
+        }
+        if(valor1.length==0 || valor1==""){
+            $(".passworddos").focus().after("<span class='errorVal'><?php echo $val_passwords_string; ?></span>");
+            return false;
+        }
+       }   
+    $(".passworddos").keyup(function()
+    {
+        coincidePassword();
+    });  
+});
+</script>
+
+<style>
+    .errorVal{
+    background-color: #BC1010;
+    padding: 6px 12px;
+    border-radius: 4px;
+    color: white;
+    font-weight: bold;
+    margin-left: 16px;
+    margin-top: 6px;
+    position: absolute;
+}
+.errorVal:before{ /* Este es un truco para crear una flechita */
+    content: '';
+    border-top: 8px solid transparent;
+    border-bottom: 8px solid transparent;
+    border-right: 8px solid #BC1010;
+    border-left: 8px solid transparent;
+    left: -16px;
+    position: absolute;
+    top: 5px;
+}
+</style>
+
 <fieldset>
-<?php echo Form::open() ?>
+<?php echo Form::open('usuario/automodificar/') ?>
     <div align="center">
         <h1 style="font-family: SF"> Modificaci&oacute;n de datos </h1>
         <table>
     <tr>
-        <td>Username:&nbsp;</td>
+        <td>Nombre de usuario:&nbsp;</td>
         <td><?php echo Form::text('usuario.username_usu', "class='input-medium disabled username' disabled=''") ?></td>
     </tr>
     <tr>
-        <td>Password:&nbsp;</td>
+        <td>Modifica tu contraseña:&nbsp;</td>
         <td><?php echo Form::pass('usuario.password_usu', "class='input-medium password' placeholder='Password'") ?></td>
+    </tr>
+    <tr>
+        <td>Confirma tu contraseña:&nbsp;</td>
+        <td><?php echo Form::pass('',"class='input-medium passworddos' placeholder='Password'") ?></td>
     </tr>
 
     <tr>
@@ -23,10 +128,6 @@
         <td><?php echo Form::text('usuario.apellido_usu',"class='input-medium apellido'") ?></td>
     </tr>
     <tr>
-        <td>Rut:&nbsp;</td>
-        <td><?php echo Form::text('usuario.rut_usu',"class='input-medium disabled rut' disabled=''") ?></td>
-    </tr>
-    <tr>
         <td>E-mail:&nbsp;</td>
         <td><?php echo Form::text('usuario.email_usu',"class='input-medium email'") ?></td>
     </tr>
@@ -36,12 +137,12 @@
     <div align="center">
     <table>
         <tr>
-            <td><?php echo Form::submit('Modificar datos','class="btn btn-submit boton"') ?>&nbsp;</td>
+            <td><?php echo Form::submit('h','class="btn btn-submit boton"') ?>&nbsp;</td>
             <td><?php echo Form::reset('Reiniciar','class="btn btn-info"')?></td>
         </tr>         
     </table>
    </div>
-
+    <?php echo Form::hidden('usuario.rut_usu',null , "1.111.111-1"); ?>
     <?php echo Form::hidden('usuario.id'); ?>
     <?php echo Form::close() ?> 
 </fieldset>
