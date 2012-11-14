@@ -1,68 +1,58 @@
-
-
-<div><?php View::content() ?></div> 
+<div><?php View::content() ?></div>
 
 <script type="text/javascript">
-    //Validación con jquery
-    //El siguiente script valida que los campos no estén vacios y el formato del RUT
-$(document).ready(function () {
-    var rutreg = /^\d{1,2}\.\d{3}\.\d{3}[-][0-9kK]{1}$/;
-    $(".boton").click(function (){
-        $(".errorVal").remove();
-        
-        if( $(".seleccion_usuario").val() == "" )
+//Validación con jquery
+//El siguiente script valida que los campos no estén vacios y el formato del RUT
+    $(document).ready(function () {
+        var rutreg = /^\d{1,2}\.\d{3}\.\d{3}[-][0-9kK]{1}$/;
+        $(".boton").click(function (){
+            $(".errorVal").remove();
+
+            if( $(".nombre").val() == "" ){
+                $(".nombre").focus().after("<span class='errorVal'>Ingrese su nombre</span>");
+                return false;
+            }else if( $(".rut").val() == "" || !rutreg.test($(".rut").val()) ){
+                $(".rut").focus().after("<span class='errorVal'>Ingrese un rut con puntos y guión</span>");
+                return false;
+            }else if( $(".giro").val() == ""){
+                $(".giro").focus().after("<span class='errorVal'>Ingrese un giro</span>");
+                return false;
+            }else if( $(".telefono").val() == "" ){
+                $(".telefono").focus().after("<span class='errorVal'>Ingrese un teléfono</span>");
+                return false;
+            }
+        });
+
+        //Borrar mensaje de error si el usuario a llenado el campo
+        $(".nombre, .giro, .telefono").keyup(function()
         {
-            $(".seleccion_usuario").focus().after("<span class='errorVal'>Seleccione un usuario</span>");
-            return false;
-        }
-        else if( $(".nombre").val() == "" ){
-            $(".nombre").focus().after("<span class='errorVal'>Ingrese su nombre</span>");
-            return false;
-        }else if( $(".rut").val() == "" || !rutreg.test($(".rut").val()) ){
-            $(".rut").focus().after("<span class='errorVal'>Ingrese un rut con puntos y guión</span>");
-            return false;
-        }else if( $(".giro").val() == ""){
-            $(".giro").focus().after("<span class='errorVal'>Ingrese un giro</span>");
-            return false;
-        }else if( $(".telefono").val() == "" ){
-            $(".telefono").focus().after("<span class='errorVal'>Ingrese un teléfono</span>");
-            return false;
-        }
-    });
-    
-    //Borrar mensaje de error si el usuario a llenado el campo
-    $(".nombre, .giro, .telefono").keyup(function()
-    {
-        if( $(this).val() != "" )
-        {
-            $(".errorVal").fadeOut();
-            return false;
-        }
-    });
-    
-    //Para el caso del listbox, no se puede borrar el error de validación con keyup
-    //Ya que no es un textbox, usamos el metodo blur
-    $(".seleccion_usuario").blur(function()
-    {
-        if( $(this).val() != "" )
-        {
-            $(".errorVal").fadeOut();
-            return false;
-        }
-    });
-    
-    //Borrar el mensaje de error si el usuario ingresa un rut con formato válido
-    $(".rut").keyup(function()
-    {
-        if( $(this).val() != "" && rutreg.test($(this).val()))
-        {
-            $(".errorVal").fadeOut();
-            return false;
-        }
-    });
-    
-    
-    
+            if( $(this).val() != "" )
+            {
+                $(".errorVal").fadeOut();
+                return false;
+            }
+        });
+
+//Para el caso del listbox, no se puede borrar el error de validación con keyup
+//Ya que no es un textbox, usamos el metodo blur
+// $(".seleccion_usuario").blur(function()
+// {
+// if( $(this).val() != "" )
+//  {
+//     $(".errorVal").fadeOut();
+//     return false;
+//  }
+//});
+
+        //Borrar el mensaje de error si el usuario ingresa un rut con formato válido
+        $(".rut").keyup(function()
+        {   
+            if( $(this).val() != "" && rutreg.test($(this).val()))
+            {
+                $(".errorVal").fadeOut();
+                return false;
+            }
+        });
 });
 </script>
 
@@ -99,27 +89,30 @@ reemplazo se uso 'errorVal'.
 <fieldset>
 <?php echo Form::open('cliente/ingresarsolicitud') ?>
     <div align="center">
-        <h1> Convertir usuario a cliente </h1>
+        <h1> Enviar solicitud de suscripción</h1><br>
         <table>
     <tr>
-        <td>Seleccione usuario:&nbsp;</td>
-        <td><?php echo Form::dbSelect('cliente.id','username_usu',array('usuario','find',"rol_usu='turista'"),'-Seleccione-','class=seleccion_usuario') ?></td>
+        <td>Nombre de usuario:&nbsp;</td>
+        <td><?php echo Auth::get('username_usu') ?></td>
     </tr>        
     <tr>
-        <td>Nombre:&nbsp;</td>
+        <td>Nombre centro turistico:&nbsp;</td>
         <td><?php echo Form::text('cliente.nombre_cli', "class='input-medium nombre' placeholder='Nombre cliente'") ?></td>
     </tr>
     <tr>
-        <td>Rut:&nbsp;</td>
-        <td><?php echo Form::text('cliente.rut_cli', "class='input-medium rut' placeholder='ej: 6.765.223-1'") ?></td>
+        <td>Rut comercial:&nbsp;</td>
+        <td><?php echo Form::text('cliente.rut_cli',"class='input-medium rut' placeholder='ej: 6.765.223-1' rut") ?></td>
     </tr>
     <tr>
         <td>Giro:&nbsp;</td>
         <td><?php echo Form::text('cliente.giro_cli',"class='input-medium giro' ") ?></td>
     </tr>
     <tr>
-        <td>Telefono:&nbsp;</td>
+        <td>Telefono comercial:&nbsp;</td>
         <td><?php echo Form::text('cliente.telefono_cli',"class='input-medium telefono'") ?></td>
+    </tr>
+    <tr>
+        <td align="right" colspan="2">He leido las condiciones del servicio y las acepto&nbsp;<?php echo Form::check('acepta', 'checkValue')?></td>
     </tr>
     
 </table>
@@ -127,12 +120,13 @@ reemplazo se uso 'errorVal'.
     <div align="center">
     <table>
         <tr>
-            <td><?php echo Form::submit('Ingresar Usuario','class="btn btn-submit boton"') ?>&nbsp;</td>
+            <td><?php echo Form::submit('Enviar solicitud','class="btn btn-submit boton"') ?>&nbsp;</td>
             <td><?php echo Form::reset('Reiniciar','class="btn btn-info"')?></td>
         </tr>         
     </table>
    </div>
-
+<?php echo Form::hidden('cliente.id',null , Auth::get('id')); ?>
+<?php echo Form::hidden('cliente.username_usu',null , Auth::get('username_usu')); ?>
 <?php echo Form::hidden('cliente.visitas_cli',null , 0); ?>
 
 <?php echo Form::close() ?> 
