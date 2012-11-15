@@ -7,7 +7,7 @@ if ($url == "en") {
     //inglés
     //variables de menu Principal
     $modificardatos_string = "My data";
-    $suscripcion_string = "Order subscription";
+    $suscripcion_string = "Solicitud de suscripción(T)";
     $buscar_solicitud_string = "Administrar solicitudes(traducir)";
     $inicio_string = "Home";
     $cuenta_string = "Account";
@@ -38,7 +38,7 @@ if ($url == "en") {
     //variables de menu Principal
     $modificardatos_string = "Mis datos";
     $buscar_solicitud_string = "Administrar solicitudes";
-    $suscripcion_string = "Solicitar suscripción";
+    $suscripcion_string = "Solicitud de suscripción";
     $inicio_string = "Inicio";
     $cuenta_string = "Cuenta";
     $cliente_string = "Cliente";
@@ -113,8 +113,8 @@ foreach ($arr as $buscar) {
                     </a>
                     <ul class="dropdown-menu">
                         <li><?php echo Html::link('usuario/automodificar/', '<i class="icon-file"></i>' . $modificardatos_string . ''); ?></li>
-                        <li><?php echo Html::link('cliente/ingresarsolicitud/', '<i class="icon-file"></i>' . $suscripcion_string . ''); ?></li>
-                        <li><?php echo Html::link('solicitud/ver/'.Auth::get("id"), '<i class="icon-file"></i> Solicitudes (T)'); ?></li>
+                        <li><?php echo Html::link('cliente/ingresarsolicitud/', '<i class="icon-thumbs-up"></i>' . $suscripcion_string . ''); ?></li>
+                        <li><?php echo Html::link('solicitud/ver/'.Auth::get("id"), '<i class="icon-eye-open"></i>Solicitudes anteriores(t)'); ?></li>
                     </ul>
                 </li>
                 <?php
