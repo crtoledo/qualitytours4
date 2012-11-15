@@ -20,7 +20,6 @@ class ClienteController extends AppController {
         $solicitud = new Solicitud ();
 
         //se verifica si el usuario tiene solicitudes pendientes
-        if (!$solicitud->find("conditions: id_usu=" . Auth::get('id') . " and estado_sol='pendiente'")) {
             if (Input::hasPost('cliente')) {
                 $cliente = new Cliente(Input::post('cliente'));
 
@@ -60,9 +59,7 @@ class ClienteController extends AppController {
                 //                Sentencia original
                 //                $cliente->sql("insert into Cliente (id_usu,username_usu,password_usu,rol_usu,nombre_usu,apellido_usu,rut_usu,email_usu,estado_usu,nombre_cli,rut_cli,giro_cli,telefono_cli,visitas_cli) values(".$id.",'".$username_usu."','".$password_usu."','".$rol_usu."','".$nombre_usu."','".$apellido_usu."','".$rut_usu."','".$email_usu."','".$estado_usu."','".$nombre_cli."','".$rut_cli."','".$giro."','".$telefono."',".$visitas.");");
             }
-        } else { // en caso de tener solicitudes pendientes se redirecciona a ver la solicitud
-            Router::redirect("solicitud/ver/" . $id);
-        }
+
     }
 
     public function borrar() {
