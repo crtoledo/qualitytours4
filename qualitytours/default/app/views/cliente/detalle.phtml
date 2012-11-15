@@ -275,7 +275,7 @@ $(document).ready(function() {
                     <thead>
                         <td width="400px"><div id="map_canvas" style="width:400px; height:400px"></div></td>
                         <td width="600px">
-                            <h3 style="font-family:SF"><?php echo $nombre_cliente; ?></h3>
+                            <h3 style="font-family:SF"><?php echo $nombre_cliente." "; ?><?php echo Html::link('contacto/contacto_cli/'.$id_cliente, Html::img('icon_mail_phone.gif'));?></h3>
                             <h6>
                                 <?php echo $region_ubi; ?><br>
                                 <?php echo $ciudad_ubi; ?><br>

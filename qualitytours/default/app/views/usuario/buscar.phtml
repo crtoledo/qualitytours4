@@ -95,11 +95,11 @@ $(document).ready(function () {
                     $(".table-condensed tbody").empty();
                     $(".table-condensed tbody").append('<td><b>NO SE ENCONTRARON RESULTADOS</b></td>');
                 }
-            }, // cierre success
-            error: function (xhr, ajaxOptions, thrownError){
-                alert(xhr.status);
-                alert(thrownError);
-            }
+            } // cierre success
+            
+            //DESCOMENTAR LA SIGUIENTE LINEA SI QUEREEMOS VER ALERTS SI HAY ERROR EN LA SOLICITUD AJAX
+            //,error: function (xhr, ajaxOptions, thrownError){alert(xhr.status);alert(thrownError);}
+        
         }); //cierre ajax
         //AJAX FIN
         return false;
