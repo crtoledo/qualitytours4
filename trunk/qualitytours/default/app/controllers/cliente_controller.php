@@ -181,12 +181,12 @@ class ClienteController extends AppController {
         $this->contador = $contador;
         //CALIFICACION
         $calificacion = new Calificacion();
-        $result = $calificacion->count();
+        $result = $calificacion->count("conditions: cli_id_usu=".$id);
 
 
         if ($result != 0) {
 
-            $promedio = $calificacion->average("valor_cal");
+            $promedio = $calificacion->average("valor_cal","conditions: cli_id_usu=".$id);
             $this->calificacion = $promedio;
             $this->cantidad = $result;
         } else {
