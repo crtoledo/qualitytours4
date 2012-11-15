@@ -1,51 +1,75 @@
 
 <div><?php View::content() ?></div> 
 
+<script type="text/javascript">
+//activacion del modal de la cancelacion solicitud
+    function activar_modal () {
+        $('#myModal').modal('toggle');
+    }
+
+</script>
 <div align="center">
     <h1 style="font-family: SF"> Estado de tu solicitud </h1>
     <br></br>
 
+<!-- Tabla informacion general solicitud-->    
     <table class="table table-condensed">
         <thead>
             <tr>
-                <!-- cabecera de la tabla-->
-                <th>Estado solicitud</th>
-                <th>Fecha solicitud</th>
-                <th>Tipo de solicitud</th>
-                
-                <?php if($colortabla== "info") {?>
-                <th><center>Confirme envio mail</center></th>
-                <?php } ?>
-    
+                <th><center>Estado solicitud</center></th>
+                <th><center>Fecha solicitud</center</th>
+                <th><center>Tipo de solicitud</center</th>
+
+                <?php if ($colortabla == "info") { ?>
+                    <th><center>Confirme envio mail</center></th><?php } ?>
             </tr>
         </thead>        
+        <tbody>
+            <tr class="<?php echo $colortabla ?>">
+                <td><center><?php echo $estado ?></center</td>
+                <td><center><?php echo $fecha ?></center</td>
+                <td><center><?php echo $tipo ?></center</td>
 
-        <tr class="<?php echo $colortabla ?>">
-            <td><?php echo $estado ?></td>
-            <td><?php echo $fecha ?></td>
-            <td><?php echo $tipo ?></td>
-            
-            <?php if($colortabla== "info") {?>
-            <td><center><button class="btn btn-small btn-success" type="button">Mail enviado</button></center></td>
-            <?php } ?>
-    
-            <td><a href="/trunk/qualitytours/cliente/ver/<?php echo Auth::get("id") ?>"><button class="btn btn-small btn-info" type="button">Ver datos registro</button></a></td>
-            <td><a href="/trunk/qualitytours/solicitud/cancela/<?php echo Auth::get("id") ?>"><button class="btn btn-small btn-danger" type="button">Cancelar solicitud</button></a></td>
-        </tr>
+                <?php if ($colortabla == "info") { ?>
+                <td><center><button class="btn btn-small btn-success" type="button">Mail enviado</button></center></td><?php } ?>
+        
+                <td><a href="/trunk/qualitytours/cliente/ver/<?php echo Auth::get("id") ?>"><button class="btn btn-small btn-info" type="button">Ver datos registro</button></a></td>
+                <td><td><button class="btn btn-small btn-danger" type="button" onclick="activar_modal()" >Cancelar solicitud</button></td></td>
+            </tr>
+        </tbody>
     </table>
     <br></br>
-    
+
+<!--    Tabla de observaciones-->
     <table class="table table-bordered">
         <thead>
             <tr>
-               <th><center> Observaciones </center></th>
+                <th><center> Observaciones </center></th>
             </tr>
         </thead>        
         <tbody>
             <tr>
                 <td><center><?php echo $observaciones ?></center></td>
-            </tr>
+            </tr>         
         </tbody>
-        </table>
-    <br></br>
+    </table>
+<!--   Fin tabla de observaciones-->  
+
+<!--   boton otras solicitudes-->   
+    <center><a href="/trunk/qualitytours/solicitud/vertodas/<?php echo Auth::get("id") ?>"><button class="btn btn-small btn-success" type="button">Ver otras solicitudes</button></a></center>
+     <br></br>
 </div>
+
+<!--   Modal de confirmacion de cancelacion de la solicitud-->   
+<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="myModalLabel">¿ Esta seguro de cancelar ?</h3>
+    </div>
+    <div class="modal-body">
+        <p>La cancelación de esta solicitud no se podra deshacer</p>
+    </div>
+    <div class="modal-footer">
+        <button class="btn" data-dismiss="modal" aria-hidden="true">Cerrar</button>
+        <a href="/trunk/qualitytours/solicitud/cancela/<?php echo Auth::get("id") ?>"><button class="btn btn-primary">Cancelar solicitud</button></a>
+    </div>

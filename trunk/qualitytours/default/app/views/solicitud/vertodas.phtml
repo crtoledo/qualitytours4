@@ -1,0 +1,85 @@
+<div><?php View::content() ?></div> 
+
+<script type="text/javascript">
+
+$.ajax
+        ({ 
+            type: "POST",
+            data : {
+                string: <?php echo $id_usuario_solicitud; ?> 
+            },            
+            url: '<?php echo PUBLIC_PATH; ?>ajax/solicitudes_propias.php',
+            dataType: "json",
+            success: function(data)
+            {
+                if (data != null && data.length > 0)
+                {
+                    var count = 0;
+                    var numero = 0;
+                    $(".table-striped tbody").empty();
+                    while (count < data.length)
+                        {
+                            numero = count + 1
+                            $(".table-striped tbody").append("<tr>");
+                            $(".table-striped tbody").append("<td><center>"+numero+"</td></center>");
+                            $(".table-striped tbody").append("<td><center>"+data[count]['fecha_sol']+"</td></center>");
+                            $(".table-striped tbody").append("<td><center>"+data[count]['estado_sol']+"</td></center>");
+                            $(".table-striped tbody").append("<td><center>"+data[count]['tipo_sol']+"</td></center>");                        
+                            $(".table-striped tbody").prepend("</tr>");
+                            count++;
+                        }
+                        <?php  ?>
+                }
+                else 
+                {
+                    $(".table-striped tbody").empty();
+                    $(".table-striped tbody").append('<td><center><b>NO</b></center></td>');
+                    $(".table-striped tbody").append('<td><center><b>PRESENTA</b></center></td>');
+                    $(".table-striped tbody").append('<td><center><b>SOLICITUDES</b></center></td>');
+                    $(".table-striped tbody").append('<td><center><b>ANTERIORES</b></center></td>');
+                }
+            } // cierre success
+            
+            //DESCOMENTAR LA SIGUIENTE LINEA SI QUEREEMOS VER ALERTS SI HAY ERROR EN LA SOLICITUD AJAX
+            //,error: function (xhr, ajaxOptions, thrownError){alert(xhr.status);alert(thrownError);}
+        });
+</script>
+<div align="center">
+    <h1 style="font-family: SF"> Solicitudes anteriores </h1>
+    <br></br>
+    
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th><center>Numero solicitud</center></th>
+                <th><center>Fecha solicitud</center></th>
+                <th><center>Situacion final</center></th>
+                <th><center>Tipo solicitud</center></th>
+            </tr>
+        </thead>
+
+        <tbody>
+<!--            <tr>
+                <td><center>1</center></td>
+                <td><center>a</center></td>
+                <td><center>a</center></td>
+                <td><center>a</center></td>            
+            </tr> 
+            <tr>
+                <td><center>2</center></td>
+                <td><center>a</center></td>
+                <td><center>a</center></td>
+                <td><center>a</center></td>              
+            </tr>            -->
+        </tbody>
+    </table>
+    
+<!--    Tabla botones opciones-->
+    <table>
+        <tr>
+            <td><center><a href="/trunk/qualitytours/cliente/ingresarsolicitud/"><button class="btn btn-success" type="button">Ingresar solicitud</button>&nbsp;</a></center></td>
+            <td><center><a href="/trunk/qualitytours/solicitud/ver/<?php //echo Auth::get("id") ?>"><button class="btn btn-info" type="button">Volver</button></a></center></td>
+        </tr>
+    </table>
+</div>
+<br></br>
