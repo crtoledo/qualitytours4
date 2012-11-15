@@ -7,6 +7,7 @@ load::model('ubicacion');
 load::model('contenido');
 load::model('comentario');
 load::model('solicitud');
+load::model('calificacion');
 
 class ClienteController extends AppController {
 
@@ -147,6 +148,26 @@ class ClienteController extends AppController {
             $contador++;
         }
         $this->contador = $contador;
+        //CALIFICACION
+        $calificacion = new Calificacion();
+        $result = $calificacion->count();
+      
+        
+        if($result != 0)
+        {
+             
+          $promedio = $calificacion->average("valor_cal");
+          $this->calificacion = $promedio;
+          $this->cantidad = $result;
+            
+        }
+        else
+        {
+         
+          $this->calificacion = 0;
+          $this->cantidad = $result;
+        }
+        
     }
 
     public function ver($id) {

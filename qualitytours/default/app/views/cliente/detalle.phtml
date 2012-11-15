@@ -20,6 +20,7 @@
 <script type="text/javascript">
     var id_cli = <?php echo $id_cliente?>;
     var id_usu = <?php echo Auth::get('id')?>;
+    var promedio = <?php echo $calificacion;?>
 </script>
  <?php echo Tag::js('rating'); ?>
 
@@ -144,8 +145,8 @@ $(document).ready(function() {
     
     $('#star1').rating("<?php echo PUBLIC_PATH;?>ajax/ingresar_calificacion.php", 
     {
-        maxvalue: 5,
-        curvalue:0, 
+        maxvalue: 6,
+        curvalue: <?php echo $calificacion;?>, 
         id:0
     });
    
@@ -178,11 +179,16 @@ $(document).ready(function() {
                     </thead>
                 </tr>
                 <tr>
+                    <td>
+                        <?php 
+                           $calificacion = number_format($calificacion, $decimals = 1);
+                           echo "<b>Califica tu experencia de viaje:<br></b>
+                                 <b><font size='1'>Promedio:</font><font size='4'>".$calificacion."</font></b><br>
+                                 <b><font size='1'>Cantidad:</font><font size='4'>".$cantidad."</font></b><br>";
+                        ?>
+                         <div id="star1" class="rating">&nbsp;</div> 
+                     </td>
                     
-                    <td> 
-    
-                       <div id="star1" class="rating">&nbsp;</div>
-                  </td>
                 </tr>
 
 
