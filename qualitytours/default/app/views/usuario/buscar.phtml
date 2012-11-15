@@ -35,9 +35,11 @@ $(document).ready(function () {
     if( $(".palabra").val() != "" )
     {
         $(".errorVal").fadeOut();
+        
         //AJAX COMIENZO
         $.ajax
         ({
+            
             type: "POST",
             data : {
                 opcion: $("input[name='optionsRadios']:checked").val(),
@@ -93,7 +95,11 @@ $(document).ready(function () {
                     $(".table-condensed tbody").empty();
                     $(".table-condensed tbody").append('<td><b>NO SE ENCONTRARON RESULTADOS</b></td>');
                 }
-            } // cierre success
+            }, // cierre success
+            error: function (xhr, ajaxOptions, thrownError){
+                alert(xhr.status);
+                alert(thrownError);
+            }
         }); //cierre ajax
         //AJAX FIN
         return false;
