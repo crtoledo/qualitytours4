@@ -10,95 +10,7 @@
     }
 ?>    
 <div><?php View::content() ?></div> 
-<!--CODIGO PARA ESTILO DE COMENTARIO-->
-<style>
-#stylized{
-border:solid 2px #b7ddf2;
-background:#ebf4fb;
-margin:70px 200px 80px 0px;
-}
-.myform{
-margin:0 auto;
-width:500px;
-padding:14px;
-}
 
-#stylized h1 {
-font-size:14px;
-font-weight:bold;
-margin-bottom:8px;
-}
-#stylized p{
-font-size:11px;
-color:#666666;
-margin-bottom:20px;
-border-bottom:solid 1px #b7ddf2;
-padding-bottom:10px;
-}
-#stylized label{
-display:block;
-font-weight:bold;
-text-align:right;
-width:140px;
-float:left;
-}
-#stylized .small{
-color:#666666;
-display:block;
-font-size:11px;
-font-weight:normal;
-text-align:right;
-width:140px;
-}
-#stylized input{
-float:left;
-font-size:12px;
-padding:4px 2px;
-border:solid 1px #aacfe4;
-width:200px;
-margin:2px 0px 0px 10px;}
-#stylized select{
-float:left;
-font-size:12px;
-padding:4px 2px;
-border:solid 1px #aacfe4;
-width:130px;
-margin:2px 100px 20px 10px;
-}
-
-#stylized textarea{
-float:left;
-font-size:12px;
-padding:4px 2px;
-border:solid 1px #aacfe4;
-
-margin:2px 0px 20px 10px;
-}
-#stylized  .bt_plus{
-float:none;
-font-size:12px;
-padding:0px;
-
-width:20px;
-margin:5px 0 5px 3px ;
-
-}
-
-#stylized .boton{
-clear:both;
-margin-left:150px;
-width:125px;
-height:31px;
-background:#666666 url(../img/button.png) no-repeat;
-text-align:center;
-line-height:31px;
-color:#FFFFFF;
-font-size:11px;
-font-weight:bold;
-}
-    
-</style>
-    
 <!--PARA GOOGLE MAPS COMIENZO-->
 <style type="text/css">
   html { height: 100% }
@@ -261,13 +173,13 @@ $(document).ready(function() {
                       $("#loader_gif").fadeIn("slow");
              };
              function mostrarRespuesta (responseText){
-				           alert("Mensaje enviado: "+responseText);
+				           alert(responseText);
                           $("#loader_gif").fadeOut("slow");
-                          $("#ajax_loader").append("<br>Mensaje: "+responseText);
+                          $("#ajax_loader").append(responseText);
              };
    
         }); 
- </script> 
+    </script> 
 
  
          <table class="table table-bordered">
@@ -386,9 +298,10 @@ $(document).ready(function() {
         ?>
 
             <!--Formulario de comentario-->
-            <div id="ajax_loader">
-                
-            </div>
+            
+            
+            <button type='button' name='getdata' id='getdata'>Get Data.</button>
+            <div id='result_table'></div> 
             <br>
             <div align="center" class="span12">
 
@@ -396,10 +309,12 @@ $(document).ready(function() {
                
             <form id="myForm" action="<?php echo PUBLIC_PATH;?>ajax/ingresar_comentario.php" method="post" style="height:200px;"> 
                 
-               <?php echo Form::text("mensaje");?> <br>
+               <?php echo Form::textarea("mensaje");?> <br>
+            <?php    echo Form::hidden('id_usu','null',Auth::get('id'));
+                     echo Form::hidden("id_cli","null",$id_cliente);?>
             
-                <?php echo Html::img("loader.gif","loader_gif","style=' display:none;' id='loader_gif'")?>
-                <?php  echo Form::submit('Comentar','class="btn btn-primary boton"'); ?>
+               <?php echo Html::img("loader.gif","loader_gif","style=' display:none;' id='loader_gif'")?>
+               <?php  echo Form::submit('Comment','class="btn btn-primary boton"'); ?>
             </form> 
               
 
