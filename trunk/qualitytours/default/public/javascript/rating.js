@@ -94,6 +94,7 @@ jQuery.fn.rating = function(url, options) {
                                     id: container.id,
                                     id_cli: id_cli,
                                     id_usu: id_usu
+                                  
 				},
 				function(data){
     				//$(".starRpta").html(data);
