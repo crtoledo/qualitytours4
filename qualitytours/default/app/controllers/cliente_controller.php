@@ -16,50 +16,84 @@ class ClienteController extends AppController {
     }
 
     public function ingresarsolicitud() {
-        $id = Auth::get('id');
-        $solicitud = new Solicitud ();
+        // se valida que este logeado el usuario
+        if (!Auth::is_valid() || Auth::get("rol_usu")== "administrador") {
+            Flash::info('No posee los privilegios necesarios');
+            Router::redirect("/");
+        } else {
 
-        //se verifica si el usuario tiene solicitudes pendientes
-            if (Input::hasPost('cliente')) {
-                $cliente = new Cliente(Input::post('cliente'));
+            $id = Auth::get('id');
+            $solicitud = new Solicitud ();
 
-                //Obtenemos el id del usuario que queremos convertir a cliente
-                $id_usuario = $cliente->id;
+            //se verifica si el usuario tiene solicitudes
+            if (!$solicitud->find("conditions: id_usu=" . Auth::get('id'))) {
 
-                //Creamos la instancia
-                $user = new usuario();
+                if (Input::hasPost('cliente')) {
+                    $cliente = new Cliente(Input::post('cliente'));
 
-                //Obtenemos los datos del usuario mediante su id
-                $datos_user = $user->find($id_usuario);
+                    //Obtenemos el id del usuario que queremos convertir a cliente
+                    $id_usuario = $cliente->id;
 
-                //Paso de datos desde usuario encontrado a cliente a ingresar
-                $id = $datos_user->id;
-                $username_usu = $datos_user->username_usu;
-                $password_usu = $datos_user->password_usu;
-                $rol_usu = 'turista';
-                $nombre_usu = $datos_user->nombre_usu;
-                $apellido_usu = $datos_user->apellido_usu;
-                $rut_usu = $datos_user->rut_usu;
-                $email_usu = $datos_user->email_usu;
-                $estado_usu = "false";
-                $nombre_cli = $cliente->nombre_cli;
-                $rut_cli = $cliente->rut_cli;
-                $giro = $cliente->giro_cli;
-                $telefono = $cliente->telefono_cli;
-                $visitas = 0;
-                $plan = $cliente->tipo_plan;
+                    //Creamos la instancia
+                    $user = new usuario();
 
-                if ($cliente->sql("insert into Cliente (id_usu,username_usu,password_usu,rol_usu,nombre_usu,apellido_usu,rut_usu,email_usu,estado_usu,nombre_cli,rut_cli,giro_cli,telefono_cli,visitas_cli,tipo_plan) values(" . $id . ",'" . $username_usu . "','" . $password_usu . "','" . $rol_usu . "','" . $nombre_usu . "','" . $apellido_usu . "','" . $rut_usu . "','" . $email_usu . "','" . $estado_usu . "','" . $nombre_cli . "','" . $rut_cli . "','" . $giro . "','" . $telefono . "'," . $visitas . ",'" . $plan . "');")) {//&&($user->sql("update Usuario set rol_usu='cliente' where id=".$id)))
-                    Flash::success("Solicitud enviada correctamente");
-                    Input::delete();
-                    Router::redirect("solicitud/ingresar/" . $id);
-                } else {
-                    Flash::error("Error en el ingreso del cliente");
+                    //Obtenemos los datos del usuario mediante su id
+                    $datos_user = $user->find($id_usuario);
+
+                    //Paso de datos desde usuario encontrado a cliente a ingresar
+                    $id = $datos_user->id;
+                    $username_usu = $datos_user->username_usu;
+                    $password_usu = $datos_user->password_usu;
+                    $rol_usu = 'turista';
+                    $nombre_usu = $datos_user->nombre_usu;
+                    $apellido_usu = $datos_user->apellido_usu;
+                    $rut_usu = $datos_user->rut_usu;
+                    $email_usu = $datos_user->email_usu;
+                    $lenguaje_usu = $datos_user->lenguaje_usu;
+                    ;
+                    $estado_usu = "false";
+                    $nombre_cli = $cliente->nombre_cli;
+                    $rut_cli = $cliente->rut_cli;
+                    $giro = $cliente->giro_cli;
+                    $telefono = $cliente->telefono_cli;
+                    $visitas = 0;
+                    $plan = $cliente->tipo_plan;
+
+                    if ($cliente->sql("insert into Cliente (id_usu,username_usu,password_usu,rol_usu,nombre_usu,apellido_usu,rut_usu,email_usu,estado_usu,lenguaje_usu,nombre_cli,rut_cli,giro_cli,telefono_cli,visitas_cli,tipo_plan) values(" . $id . ",'" . $username_usu . "','" . $password_usu . "','" . $rol_usu . "','" . $nombre_usu . "','" . $apellido_usu . "','" . $rut_usu . "','" . $email_usu . "','" . $estado_usu . "','" . $lenguaje_usu . "','" . $nombre_cli . "','" . $rut_cli . "','" . $giro . "','" . $telefono . "'," . $visitas . ",'" . $plan . "');")) {//&&($user->sql("update Usuario set rol_usu='cliente' where id=".$id)))
+                        Flash::success("Solicitud enviada correctamente");
+                        Input::delete();
+                        Router::redirect("solicitud/ingresar/" . $id);
+                    } else {
+                        Flash::error("Error en el ingreso del cliente");
+                    }
                 }
-                //                Sentencia original
-                //                $cliente->sql("insert into Cliente (id_usu,username_usu,password_usu,rol_usu,nombre_usu,apellido_usu,rut_usu,email_usu,estado_usu,nombre_cli,rut_cli,giro_cli,telefono_cli,visitas_cli) values(".$id.",'".$username_usu."','".$password_usu."','".$rol_usu."','".$nombre_usu."','".$apellido_usu."','".$rut_usu."','".$email_usu."','".$estado_usu."','".$nombre_cli."','".$rut_cli."','".$giro."','".$telefono."',".$visitas.");");
-            }
+            } else {
+                // en caso de tener solicitudes, se revisa si estas estan activas
+                if (!$solicitud->find("conditions: id_usu=" . Auth::get('id') . " and activo_sol = 'true' ")) {
+                    // en caso de que no tenga solicitudes activas se actualiza el cliente en la tabla cliente
+                    if (Input::hasPost('cliente')) {
+                        $cliente = new Cliente(Input::post('cliente'));
 
+                        $estado_usu = "false";
+                        $nombre_cli = $cliente->nombre_cli;
+                        $rut_cli = $cliente->rut_cli;
+                        $giro = $cliente->giro_cli;
+                        $telefono = $cliente->telefono_cli;
+                        $visitas = 0;
+                        $plan = $cliente->tipo_plan;
+
+                        if ($cliente->sql("UPDATE cliente SET estado_usu='" . $estado_usu . "' , nombre_cli='" . $nombre_cli . "', rut_cli='" . $rut_cli . "', giro_cli='" . $giro . "', telefono_cli='" . $telefono . "', visitas_cli=" . $visitas . " , tipo_plan='" . $plan . "' WHERE id_usu =" . $id . ";")) {
+                            Flash::success("Solicitud modificada correctamente");
+                            Input::delete();
+                            Router::redirect("solicitud/ingresar/" . $id);
+                        }
+                    }
+                } else {
+                    // en caso de que tenga una solicitud activa se pasa al controlador solicitud
+                    Router::redirect("solicitud/ver/" . $id);
+                }
+            }
+        }
     }
 
     public function borrar() {
@@ -148,30 +182,24 @@ class ClienteController extends AppController {
         //CALIFICACION
         $calificacion = new Calificacion();
         $result = $calificacion->count();
-      
-        
-        if($result != 0)
-        {
-             
-          $promedio = $calificacion->average("valor_cal");
-          $this->calificacion = $promedio;
-          $this->cantidad = $result;
-            
+
+
+        if ($result != 0) {
+
+            $promedio = $calificacion->average("valor_cal");
+            $this->calificacion = $promedio;
+            $this->cantidad = $result;
+        } else {
+
+            $this->calificacion = 0;
+            $this->cantidad = $result;
         }
-        else
-        {
-         
-          $this->calificacion = 0;
-          $this->cantidad = $result;
-        }
-        
     }
 
     public function ver($id) {
         $vercliente = new cliente();
 
-        if (Input::hasPost('cliente')) 
-        {
+        if (Input::hasPost('cliente')) {
 
             $cliente = new Cliente(Input::post('cliente'));
 
@@ -190,24 +218,18 @@ class ClienteController extends AppController {
 
 
 
-            if ($cliente->sql("UPDATE cliente SET nombre_cli='". $nombre_cli ."', rut_cli='". $rut_cli. "', giro_cli='". $giro ."', telefono_cli='". $telefono ."', tipo_plan='". $plan ."' WHERE id_usu =". $id.";"))
-                {
+            if ($cliente->sql("UPDATE cliente SET nombre_cli='" . $nombre_cli . "', rut_cli='" . $rut_cli . "', giro_cli='" . $giro . "', telefono_cli='" . $telefono . "', tipo_plan='" . $plan . "' WHERE id_usu =" . $id . ";")) {
                 Flash::success("Solicitud modificada correctamente");
                 Input::delete();
                 Router::redirect("solicitud/ver/" . $id);
-            } 
-            else 
-            {
+            } else {
                 Flash::error("Error en el ingreso del cliente");
             }
-        } 
-        else 
-        {
+        } else {
             $this->cliente = $vercliente->find($id);
             $this->qq = $vercliente->tipo_plan;
         }
     }
-    
 
 }
 
