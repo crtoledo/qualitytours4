@@ -106,7 +106,7 @@ class ClienteController extends AppController {
 
         $this->leng = $leng;
 
-        $this->idiom = "en";
+       
         $client = new Cliente();
         $client = $client->find($id);
         $this->id_cliente = $id;
@@ -194,6 +194,15 @@ class ClienteController extends AppController {
             $this->calificacion = 0;
             $this->cantidad = $result;
         }
+        
+        //mandar nombre de usuario para el ajax.
+        if(Auth::is_valid())
+        {
+           $id_usuario = Auth::get("id");
+           $nombre = $user->find($id_usuario);
+           $this->nombre_usuario = $nombre->username_usu;
+        }
+        
     }
 
     public function ver($id) {

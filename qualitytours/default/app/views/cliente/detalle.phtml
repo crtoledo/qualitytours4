@@ -10,7 +10,6 @@
     }
 ?>    
 <div><?php View::content() ?></div> 
-
 <!--PARA GOOGLE MAPS COMIENZO-->
 <style type="text/css">
   html { height: 100% }
@@ -24,13 +23,8 @@
     var promedio = <?php echo $calificacion;?>
 </script>
  <?php echo Tag::js('rating'); ?>
-<?php  echo Tag::js('jquery.form');?>
-
+ 
 <script type="text/javascript">
-    
-    
-   
-    
     
     $(document).ready(function () {
         
@@ -38,15 +32,15 @@
         $(".errorVal").remove();
         
         
-         if( $(".detalle").val() == "" ){
-             $(".detalle").focus().after("<span class='errorVal'>Ingrese un comentario</span>");
+         if( $(".comentario").val() == "" ){
+             $(".comentario").focus().after("<span class='errorVal'>Ingrese un comentario</span>");
              return false;
              }
          });
     
     
     //Borrar mensaje de error si el usuario a llenado el campo
-    $(".detalle").keyup(function()
+    $(".comentario").keyup(function()
     {
         if( $(this).val() != "" )
         {
@@ -89,7 +83,7 @@ reemplazo se uso 'errorVal'.
 
 
 
-     <meta name="viewport" content="initial-scale=1.0, user-scalable=yes" />
+<meta name="viewport" content="initial-scale=1.0, user-scalable=yes" />
 
 <script type="text/javascript" src="https://maps.google.com/maps/api/js?libraries=weather&sensor=false">
 //Esto carga el api de Google Maps
@@ -134,13 +128,7 @@ cloudLayer.setMap(map)
 
 });
 </script>
-<!--ESTILO CSS PARA LAS ESTRELITAS-->
-<style>
-  
 
-
-
-</style>
 
 <script type="text/javascript">
 $(document).ready(function() {
@@ -156,84 +144,75 @@ $(document).ready(function() {
  
 </script>
 <!--FORMULARIO DE COMENTARIO-->
- <script type="text/javascript"> 
-        // esperamos que el DOM cargue
-        $(document).ready(function() { 
-            // definimos las opciones del plugin AJAX FORM
-            var opciones= {
-                               beforeSubmit: mostrarLoader, //funcion que se ejecuta antes de enviar el form
-                               success: mostrarRespuesta, //funcion que se ejecuta una vez enviado el formulario
-							   
-            };
-             //asignamos el plugin ajaxForm al formulario myForm y le pasamos las opciones
-            $('#myForm').ajaxForm(opciones) ; 
-            
-             //lugar donde defino las funciones que utilizo dentro de "opciones"
-             function mostrarLoader(){
-                      $("#loader_gif").fadeIn("slow");
-             };
-             function mostrarRespuesta (responseText){
-				           alert(responseText);
-                          $("#loader_gif").fadeOut("slow");
-                          $("#ajax_loader").append(responseText);
-             };
-   
-        }); 
-    </script> 
-
- 
-         <table class="table table-bordered">
-                <tr>  
-                    <thead>
-                        <td width="400px"><div id="map_canvas" style="width:400px; height:400px"></div></td>
-                        <td width="600px">
-                            <h3 style="font-family:SF"><?php echo $nombre_cliente." "; ?><?php echo Html::link('contacto/contacto_cli/'.$id_cliente, Html::img('icon_mail_phone.gif'));?></h3>
-                            <h6>
-                                <?php echo $region_ubi; ?><br>
-                                <?php echo $ciudad_ubi; ?><br>
-                                <?php echo $direccion_ubi; ?>
-                            </h6>
-                            <?php echo"<span class='label label-info'>".$mostrar.":&nbsp;Views</span>";?><br>
-                            <?php
-
-
-                                foreach ($array_servicios as $servicio) {
-                                        echo Html::link("servicio/detalle/" . $servicio->id, "Services: " . $servicio->nombre_ser . "<br>");
-                                    }  
-                                    ?>
-                        </td>
-
-                    </thead>
-                </tr>
-                <tr>
-                    <td>
-                        <?php 
-                           $calificacion = number_format($calificacion, $decimals = 1);
-                           echo "<b>Califica tu experencia de viaje:<br></b>
-                                 <b><font size='1'>Promedio:</font><font size='4'>".$calificacion."</font></b><br>
-                                 <b><font size='1'>Cantidad:</font><font size='4'>".$cantidad."</font></b><br>";
-                        ?>
-                         <div id="star1" class="rating">&nbsp;</div> 
-                     </td>
+<script>
+    $(document).ready(function(){
+	$('#boton-enviar').click(function(event){
+            event.preventDefault();
+            var nombre = $('#nombre').val();
+            var comentario = $('#comentario').val();
+            if (nombre != '' && comentario != ''){
+                $("#mensaje").fadeOut(1000, function(){
+                    $.post(
+                    "<?php echo PUBLIC_PATH;?>ajax/ingresar_comentario.php", 
+                    { nombre: nombre, comentario: comentario,  id_usu: id_usu,  id_cli: id_cli}, 
+                    function(data) {
+                        $("#comentarios").append(data);  
+                        }, 
+                        "html");
+                        $('#mensaje').text('Comentario agregado!');
+			});
+                        }
+                        else{}
+                        
+                    });
                     
-                </tr>
-
-
-
-                <?php
-                    //Trozo PHP para verificar si hay imagenes
-                    if (count($contenido) > 0)
-                    {
-                        echo "<tr><td colspan='2'><center>";
-                        foreach($contenido as $buscar)
-                        {
-                            echo  Html::img("../default/public/img/upload/".$buscar->ruta_con,"imagen","width=200 height=150");
-                        }   
-                        echo "</center></td></tr>";
-                    }
-                ?>
-
-            </table>   
+                        });
+ </script>
+<table class="table table-bordered">
+<tr>  
+<thead>
+    <td width="400px"><div id="map_canvas" style="width:400px; height:400px"></div></td>
+    <td width="600px">
+    <h3 style="font-family:SF"><?php echo $nombre_cliente." "; ?><?php echo Html::link('contacto/contacto_cli/'.$id_cliente, Html::img('icon_mail_phone.gif'));?></h3>
+    <h6>
+        <?php echo $region_ubi; ?><br>
+        <?php echo $ciudad_ubi; ?><br>
+        <?php echo $direccion_ubi; ?>
+    </h6>
+        <?php echo"<span class='label label-info'>".$mostrar.":&nbsp;Views</span>";?><br>
+        <?php
+            foreach ($array_servicios as $servicio)
+                {
+                    echo Html::link("servicio/detalle/" . $servicio->id, "Services: " . $servicio->nombre_ser . "<br>");
+                }  
+        ?>
+      </td>
+      </thead>
+      </tr>
+      <tr>
+        <td>
+            <?php 
+                $calificacion = number_format($calificacion, $decimals = 1);
+                echo "<b>Califica tu experencia de viaje:<br></b>
+                        <b><font size='1'>Promedio:</font><font size='4'>".$calificacion."</font></b><br>
+                        <b><font size='1'>Cantidad:</font><font size='4'>".$cantidad."</font></b><br>";
+            ?>
+                <div id="star1" class="rating">&nbsp;</div> 
+        </td>
+       </tr>
+           <?php
+            //Trozo PHP para verificar si hay imagenes
+            if (count($contenido) > 0)
+            {
+                echo "<tr><td colspan='2'><center>";
+                foreach($contenido as $buscar)
+                {
+                    echo  Html::img("../default/public/img/upload/".$buscar->ruta_con,"imagen","width=200 height=150");
+                }   
+                echo "</center></td></tr>";
+            }
+             ?>
+       </table>   
        
             
             <?php 
@@ -245,101 +224,66 @@ $(document).ready(function() {
                 if($cont == 1)
                 {?>
         <div class="span12">
-                    <ul class="nav nav-list inverse">
-                    <li class="active"><a href="#"><i class="icon-pencil"></i><?php echo "<b>".$numComentarios."</b>:&nbsp; "; ?>Comments</a></li>
+            <ul class="nav nav-list inverse">
+                <li class="active"><a href="#"><i class="icon-pencil"></i>Comments</a></li>
+            </ul>    
+            <?php  for($i=0; $i<=$contador-1 ; $i++) 
+             {?>
+                <table class="table table-hover">
+                <tr>
+                    <td><?php echo "<b>".$nombre[$i]."</b>"; ?></td>
+                    <td><div align="right"><?php echo "<b>".$fecha[$i]."</b>";?></div></td>
+                 </tr>
+                 </table>
+                 <table>
+                 <tr>
+                    <td> <div align="left"> <?php echo $detalle[$i];?> </div></td>
+                  </tr>  
+                    <?php 
+                    if(!Auth::is_valid())
+                    {
+                        $variable = Auth::is_valid();
+                    }
+                    else
+                    {
+                        if(Auth::get("id") ==  $id[$i])
+                        { ?>
+                        <tr>
+                            <td><?php echo Html::link("comentario/eliminar/".$idComentario[$i]."/".$id_cliente.'/'.$leng, "Remove");?></td>
+                        </tr>                             
+                        <?php }  
 
-                    </ul>   
-
-                <?php  for($i=0; $i<=$contador-1 ; $i++) 
-                    {?>
-
-                        <table class="table table-hover">
-                            <tr>
-                                <td><?php echo "<b>".$nombre[$i]."</b>"; ?></td>
-                                <td><div align="right"><?php echo "<b>".$fecha[$i]."</b>";?></div></td>
-                            </tr>
-                        </table>
-                        <table>
-                            <tr>
-                                <td> <div align="left"> <?php echo $detalle[$i];?> </div></td>
-                                </tr>  
-                            <?php 
-                            if(!Auth::is_valid())
-                            {
-                                $variable = Auth::is_valid();
-                            }
-                            else
-                            {
-                                if(Auth::get("id") ==  $id[$i])
-                                        { ?>
-                                        <tr>
-                                            <td><?php echo Html::link("comentario/eliminar/".$idComentario[$i]."/".$id_cliente.'/'.$leng, "Remove");?></td>
-                                        </tr>                             
-                                <?php }  
-
-                            }?>
-
-
-                            </table> 
-            <?php   }?>
+                    }?>
+                  </table> 
+          <?php  }?>
         </div>    
-        <?php  }?>
-
-
-
-
-        <?php 
+    <?php  }?>        
+     <?php 
         if(!Auth::is_valid())            
         {
             echo "<b>Login to post comments.</b>";
         }
         else
         {  
-        ?>
+      ?>
+       <strong id="mensaje"> Agrega un nuevo comentario:</strong>
+
+            <div id="comentarios">
+
+                    <!-- aca apareceran los nuevos comentarios -->
+
+            </div>
 
             <!--Formulario de comentario-->
-            
-            
-            <button type='button' name='getdata' id='getdata'>Get Data.</button>
-            <div id='result_table'></div> 
-            <br>
-            <div align="center" class="span12">
-
-
-               
-            <form id="myForm" action="<?php echo PUBLIC_PATH;?>ajax/ingresar_comentario.php" method="post" style="height:200px;"> 
-                
-               <?php echo Form::textarea("mensaje");?> <br>
-            <?php    echo Form::hidden('id_usu','null',Auth::get('id'));
-                     echo Form::hidden("id_cli","null",$id_cliente);?>
-            
-               <?php echo Html::img("loader.gif","loader_gif","style=' display:none;' id='loader_gif'")?>
-               <?php  echo Form::submit('Comment','class="btn btn-primary boton"'); ?>
-            </form> 
-              
-
-<!--   <?php // echo Form::open('comentario/ingresar/'.$id_cliente.'/'.$leng); ?>
-                    <table>
-                       <tr>
-                           <td><?php// echo Form::text('comentario.detalle_com', "class='span3 detalle' placeholder='Write a comment...'") ?></td>
-                       </tr>    
-                       <tr>
-                           <td><?php // echo Form::submit('Comment','class="btn btn-primary boton"'); ?> </td> 
-                       </tr>
-
-                    </table>-->
-<!--            </div>-->
-
-              <?php  
-                setlocale ( LC_TIME, 'spanish' );
-                $fecha = strftime(date('Y/m/d'));
-                echo Form::hidden('comentario.id_usu','null',Auth::get('id'));
-                echo Form::hidden("comentario.fecha_com","null",$fecha);
-                echo Form::hidden("comentario.estado_com","null",1);
-                echo Form::hidden("comentario.cli_id_usu","null",$id_cliente);
-                echo Form::close();    
-
-              }?>
+          <form action="#">
+                <?php echo Form::hidden("nombre",null,$nombre_usuario);?>  
+                <div align="center"> <?php echo Form::text("comentario","class='span3  comentario'"); ?> </div>  
+                <?php echo Form::hidden("id_usu",null,Auth::get("id") ); ?>
+                <?php echo Form::hidden("id_cli", null,$id_cliente) ?>
+                <div align="center"><input id="boton-enviar" type="submit" value="enviar" class="btn btn-primary boton" /></div>
+           </form>  
+        
+    <?php  }?>
 
 
             
