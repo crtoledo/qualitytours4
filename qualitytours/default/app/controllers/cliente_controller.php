@@ -26,7 +26,7 @@ class ClienteController extends AppController {
             $solicitud = new Solicitud ();
 
             //se verifica si el usuario tiene solicitudes
-            if (!$solicitud->find("conditions: id_usu=" . Auth::get('id'))) {
+            if (!$solicitud->find("conditions: id_usu=" . Auth::get('id')."and activo_sol='false'")) {
 
                 if (Input::hasPost('cliente')) {
                     $cliente = new Cliente(Input::post('cliente'));
