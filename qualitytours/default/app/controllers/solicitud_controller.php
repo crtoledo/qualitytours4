@@ -97,7 +97,7 @@ class SolicitudController extends AppController {
         if (Auth::get("id") == $id) {
             $confirmacionmail = new solicitud();
             $confirmacionmail->confirmar_mail($id);
-            
+
             // Se verifica que no haya confirmado anteriormente
             if ($confirmacionmail->mail_sol != "true") {
                 $confirmacionmail->mail_sol = "true";

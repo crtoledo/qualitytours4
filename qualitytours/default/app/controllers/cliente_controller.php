@@ -213,7 +213,7 @@ class ClienteController extends AppController {
             $cliente = new Cliente(Input::post('cliente'));
             
             $solicitud_modificacion = new Solicitud ();
-            $solicitud_modificacion = $solicitud_modificacion->buscar_propia($id);
+            $solicitud_modificacion = $solicitud_modificacion->modificar_solicitud($id);
             $solicitud_modificacion->modificaciones_sol = "true";
 
             //Paso de datos desde usuario encontrado a cliente a ingresar
