@@ -65,8 +65,10 @@ $usuario_automodificar_ = "";
 $publicacion_traducir_titulo="Traducir Publicaci&oacute;n";
 $publicacion_traducir_titulopub="T&iacutetulo";
 $publicacion_traducir_detalle = "Detalle";
-$publicacion_traducir_submit = "Publicar";
+$publicacion_traducir_submit = "Traducir";
 $publicacion_traducir_val_titulo = "Ingrese t&iacute;tulo";
+$publicacion_traducir_tituloen = "Ingl&eacute;s";
+$publicacion_traducir_tituloes = "Español";
 
 
 ?>

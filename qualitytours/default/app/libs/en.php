@@ -53,6 +53,9 @@ $usuario_buscar_eliminar = "Delete";
 $publicacion_traducir_titulo = "Translate publication";
 $publicacion_traducir_titulopub="Title";
 $publicacion_traducir_detalle = "Details";
-$publicacion_traducir_submit = "Publish";
+$publicacion_traducir_submit = "Translate";
 $publicacion_traducir_val_titulo = "Please enter a title";
+$publicacion_traducir_tituloen = "English";
+$publicacion_traducir_tituloes = "Spanish";
 
+?>
