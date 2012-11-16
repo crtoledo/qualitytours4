@@ -123,6 +123,12 @@ class PublicacionController extends AppController
        $this->leng = $leng ;
        $this->id_pub = $id;
        
+       $publicacion = new Publicacion();
+       $buscar = $publicacion->find($id);
+       $this->titulo_es = $buscar->titulo_pub;
+       $this->detalle_es = $buscar->detalle_pub;
+       
+       
     }
 
     

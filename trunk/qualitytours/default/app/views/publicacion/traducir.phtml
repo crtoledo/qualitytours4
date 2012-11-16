@@ -85,26 +85,54 @@ reemplazo se uso 'errorVal'.
     top: 5px;
 }
 </style>
-<div align="center"><h1><?php  echo $publicacion_traducir_titulo; ?></h1></div>
-
-<!-- captura de id para enviarlo al controlador       -->
+<div align="center"><h1><?php  echo $publicacion_traducir_titulo; ?></h1></div><br>
+ <!-- captura de id para enviarlo al controlador       -->
 <?php $id =  Auth::get('id');   ?>
 <?php echo Form::open('publicacion/updatepubeng/'.$id_pub.'/'.$leng) ?>
-<div align="center">
-    <table>
-        
-        <tr>
-            <td><?php echo $publicacion_traducir_titulopub;?>:</td>
-            <td><?php echo Form::text('publicacion.titulo_pub_eng','class="titulo"')?></td> 
-        </tr>
-        <tr>
-            <td><?php echo $publicacion_traducir_detalle;?>:</td>
-            <td><?php echo Form::textarea('publicacion.detalle_pub_eng','rows=10')?>
-            <?php View::partial('nicedit/nicedit'); ?>
-            </td>
-        </tr>     
-    </table>
-</div>
+
+ <div align="center">
+            <table align="center">
+            <tr>
+                <td>
+                    <div align="center"><h6><?php echo $publicacion_traducir_tituloes; ?></h6></div>
+                        <table>
+
+                        <tr>
+                            <td><?php echo $publicacion_traducir_titulopub;?>:</td>
+                            <td><?php echo Form::text('publicacion','class="titulo disabled" disabled=""',$titulo_es)?></td> 
+                        </tr>
+                        <tr>
+                            <td><?php echo $publicacion_traducir_detalle;?>:</td>
+                            <td><?php echo Form::textarea ("publicacion","rows='10' disabled=''",$detalle_es) ?>
+                            <?php View::partial('nicedit/nicedit'); ?>
+                            </td>
+                        </tr>     
+                        </table>
+
+
+                </td>
+                <td>
+
+                     <div align="center"><h6><?php echo $publicacion_traducir_tituloen; ?></h6></div>
+                        <table>
+
+                        <tr>
+                            <td><?php echo $publicacion_traducir_titulopub;?>:</td>
+                            <td><?php echo Form::text('publicacion.titulo_pub_eng','class="titulo"')?></td> 
+                        </tr>
+                        <tr>
+                            <td><?php echo $publicacion_traducir_detalle;?>:</td>
+                            <td><?php echo Form::textarea('publicacion.detalle_pub_eng','rows=10')?>
+                            <?php View::partial('nicedit/nicedit'); ?>
+                            </td>
+                        </tr>     
+                        </table>
+                </td>
+            </tr>
+        </table>
+ </div>
+
+
 <br>
 <div align="center">
     <table>
