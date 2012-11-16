@@ -6,7 +6,7 @@ $.ajax
         ({ 
             type: "POST",
             data : {
-                string: <?php echo $id_usuario_solicitud; ?> 
+                string: <?php echo $id_usuario_solicitud; ?>
             },            
             url: '<?php echo PUBLIC_PATH; ?>ajax/solicitudes_propias.php',
             dataType: "json",
@@ -78,7 +78,7 @@ $.ajax
     <table>
         <tr>
             <td><center><a href="/trunk/qualitytours/cliente/ingresarsolicitud/"><button class="btn btn-success" type="button">Ingresar solicitud</button>&nbsp;</a></center></td>
-            <td><center><a href="/trunk/qualitytours/solicitud/ver/<?php //echo Auth::get("id") ?>"><button class="btn btn-info" type="button">Volver</button></a></center></td>
+            <td><center><a href="/trunk/qualitytours/solicitud/ver/<?php echo Auth::get("id") ?>"><button class="btn btn-info" type="button">Volver</button></a></center></td>
         </tr>
     </table>
 </div>

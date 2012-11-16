@@ -26,7 +26,7 @@ class ClienteController extends AppController {
             $solicitud = new Solicitud ();
 
             //se verifica si el usuario tiene solicitudes
-            if (!$solicitud->find("conditions: id_usu=" . Auth::get('id')."and activo_sol='false'")) {
+            if (!$solicitud->find("conditions: id_usu=" . Auth::get('id'))) {
 
                 if (Input::hasPost('cliente')) {
                     $cliente = new Cliente(Input::post('cliente'));
@@ -69,7 +69,7 @@ class ClienteController extends AppController {
                 }
             } else {
                 // en caso de tener solicitudes, se revisa si estas estan activas
-                if (!$solicitud->find("conditions: id_usu=" . Auth::get('id') . " and activo_sol = 'true' ")) {
+                if (!$solicitud->find("conditions: id_usu=" . Auth::get('id') . " and activo_sol='true' ")) {
                     // en caso de que no tenga solicitudes activas se actualiza el cliente en la tabla cliente
                     if (Input::hasPost('cliente')) {
                         $cliente = new Cliente(Input::post('cliente'));
@@ -211,6 +211,10 @@ class ClienteController extends AppController {
         if (Input::hasPost('cliente')) {
 
             $cliente = new Cliente(Input::post('cliente'));
+            
+            $solicitud_modificacion = new Solicitud ();
+            $solicitud_modificacion = $solicitud_modificacion->buscar_propia($id);
+            $solicitud_modificacion->modificaciones_sol = "true";
 
             //Paso de datos desde usuario encontrado a cliente a ingresar
             $username_usu = $cliente->username_usu;
@@ -225,9 +229,7 @@ class ClienteController extends AppController {
             $telefono = $cliente->telefono_cli;
             $plan = $cliente->tipo_plan;
 
-
-
-            if ($cliente->sql("UPDATE cliente SET nombre_cli='" . $nombre_cli . "', rut_cli='" . $rut_cli . "', giro_cli='" . $giro . "', telefono_cli='" . $telefono . "', tipo_plan='" . $plan . "' WHERE id_usu =" . $id . ";")) {
+            if ($cliente->sql("UPDATE cliente SET nombre_cli='" . $nombre_cli . "', rut_cli='" . $rut_cli . "', giro_cli='" . $giro . "', telefono_cli='" . $telefono . "', tipo_plan='" . $plan . "' WHERE id_usu =" . $id . ";") && $solicitud_modificacion->update()) {
                 Flash::success("Solicitud modificada correctamente");
                 Input::delete();
                 Router::redirect("solicitud/ver/" . $id);
