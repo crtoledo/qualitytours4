@@ -92,6 +92,30 @@ class SolicitudController extends AppController {
         }
     }
 
+    Public function confirmacionmail($id) {
+        //se confirma que el que ingresa sea el usuario y no otro
+        if (Auth::get("id") == $id) {
+            $confirmacionmail = new solicitud();
+            $confirmacionmail->confirmar_mail($id);
+            
+            // Se verifica que no haya confirmado anteriormente
+            if ($confirmacionmail->mail_sol != "true") {
+                $confirmacionmail->mail_sol = "true";
+                if ($confirmacionmail->update()) {
+                    Flash::info('Ha confirmado el envio del mail');
+                    Router::redirect("/solicitud/ver/" . $id);
+                } else {
+                    Flash::info("error al confirmar envio mail");
+                }
+            } else {
+                Flash::info('Usted ya ha confirmado el envio del mail');
+                Router::redirect("/solicitud/ver/" . $id);
+            }
+        } else {
+            Router::redirect("/");
+        }
+    }
+
 }
 
 ?>
