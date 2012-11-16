@@ -38,7 +38,7 @@
                 <?php if ($colortabla == "info") { ?>
                 <td><center><button class="btn btn-small btn-success" type="button" onclick="mail ()">Mail enviado</button></center></td><?php } ?>
                 
-                <?php if ($colortabla != "info") { ?>
+                <?php if ($colortabla == "warning") { ?>
                 <td><a href="/trunk/qualitytours/cliente/ver/<?php echo Auth::get("id") ?>"><button class="btn btn-small btn-info" type="button">Ver datos registro</button></a></td>
                 <td><td><button class="btn btn-small btn-danger" type="button" onclick="activar_modal()" >Cancelar solicitud</button></td></td>
                 <?php } ?>
