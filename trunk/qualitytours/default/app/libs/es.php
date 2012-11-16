@@ -70,5 +70,12 @@ $publicacion_traducir_val_titulo = "Ingrese t&iacute;tulo";
 $publicacion_traducir_tituloen = "Ingl&eacute;s";
 $publicacion_traducir_tituloes = "Español";
 
+//variables para publicacion/ingresar
+$publicacion_ingresar_valtitulo="Seleccione título para la publicación";
+$publicacion_ingresar_titulo="T&iacute;tulo:";
+$publicacion_ingresar_detalle = "Detalle:";
+$publicacion_ingresar_encabesado = "Ingresar una nueva publicación";
+$publicacion_ingresar_boton =  "Publicar";
+
 
 ?>

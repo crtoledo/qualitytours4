@@ -43,8 +43,9 @@ class PublicacionController extends AppController
         $this->leng= $leng;
     }
 
-    public function ingresar()
+    public function ingresar($leng)
         { 
+           $this->leng=$leng;
                     
             if(Input::hasPost('publicacion'))
             {
