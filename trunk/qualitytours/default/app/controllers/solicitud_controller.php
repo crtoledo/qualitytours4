@@ -21,7 +21,7 @@ class SolicitudController extends AppController {
             //se crean los valores
             $nueva_solicitud->id_usu = $id;
             $nueva_solicitud->fecha_sol = date("d-m-Y");
-            $nueva_solicitud->estado_sol = "pendiente";
+            $nueva_solicitud->estado_sol = "Pendiente";
             $nueva_solicitud->tipo_sol = "nueva";
             $nueva_solicitud->observaciones_sol = "No presenta observaciones";
             $nueva_solicitud->mail_sol = "false";
@@ -29,6 +29,7 @@ class SolicitudController extends AppController {
             $nueva_solicitud->activo_sol = "true";
 
             if ($nueva_solicitud->save()) {
+                Flash::info('Solicitud ingresada correctamente');
                 Router::redirect("/");
             } else {
                 Flash::info('No se ingreso');
@@ -77,8 +78,8 @@ class SolicitudController extends AppController {
     public function cancela($id) {
         if (Auth::get("id") == $id) {
             $cancelacion = new solicitud();
-            $cancelacion->find_by_sql("select * from solicitud where id_usu = " . $id . " and activo_sol ='true'");
-            $cancelacion->estado_sol = "cancelada";
+            $cancelacion->cancelar_suscripcion($id);
+            $cancelacion->estado_sol = "Cancelada";
             $cancelacion->activo_sol = "false";
             if ($cancelacion->update()) {
                 Flash::info('Ha cancelado su solicitud');
