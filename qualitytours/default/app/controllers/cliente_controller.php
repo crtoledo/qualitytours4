@@ -113,10 +113,14 @@ class ClienteController extends AppController {
 
         //Obtenemos la ubicacion del centro
         $ubicacion = new Ubicacion();
-        $ubicacion = $ubicacion->find_by_sql("select *  from ubicacion where   id_usu = " . $id);
-        $this->region_ubi = $ubicacion->region_ubi;
-        $this->ciudad_ubi = $ubicacion->ciudad_ubi;
-        $this->direccion_ubi = $ubicacion->direccion_ubi;
+        $ubicacion = $ubicacion->find_by_sql("select *  from ubicacion where id_usu = " . $id);
+        if ($ubicacion!=null)
+        {
+            $this->region_ubi = $ubicacion->region_ubi;
+            $this->ciudad_ubi = $ubicacion->ciudad_ubi;
+            $this->direccion_ubi = $ubicacion->direccion_ubi;
+        }
+        
 
         //Comprueba que no se actualise el contador de visita si es el mismo dueño del centro turistico
         if (Session::get("id") == $id) {
