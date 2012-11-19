@@ -177,9 +177,9 @@ $(document).ready(function() {
     <td width="600px">
     <h3 style="font-family:SF"><?php echo $nombre_cliente." "; ?><?php echo Html::link('contacto/contacto_cli/'.$id_cliente, Html::img('icon_mail_phone.gif'));?></h3>
     <h6>
-        <?php echo $region_ubi; ?><br>
-        <?php echo $ciudad_ubi; ?><br>
-        <?php echo $direccion_ubi; ?>
+        <?php if (isset($region_ubi)) echo $region_ubi; ?><br>
+        <?php if (isset($ciudad_ubi)) echo $ciudad_ubi; ?><br>
+        <?php if (isset($region_ubi)) echo $direccion_ubi; ?>
     </h6>
         <?php echo"<span class='label label-info'>".$mostrar.":&nbsp;Views</span>";?><br>
         <?php
