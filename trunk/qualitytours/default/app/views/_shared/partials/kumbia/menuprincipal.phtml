@@ -89,8 +89,51 @@ foreach ($arr as $buscar) {
 ?>  
  
         ].sort();
-        $('#ciudad').typeahead({source: alCities, items:8});
+        //$('#ciudad').typeahead({source: alCities, items:8});
     });
+</script>
+
+<script type="text/javascript"> //JQUERY PARA BUSQUEDA AJAX
+    $(document).ready(function()
+    {
+        //Variable no usada todavia
+        var criterios_encontrados = 0
+        
+        $('.busqueda').keyup(function()
+        {
+            if ($('.busqueda').val() != '' && $('.busqueda').val().length > 0) //Si busqueda tiene 3 o mas caracteres
+                {
+                    
+                    $.ajax
+                    ({
+
+                        type: "POST",
+                        data : {
+                            string: $(".busqueda").val()
+                        },            
+                        url: '<?php echo PUBLIC_PATH; ?>ajax/busqueda_gral_autocomplete.php',
+                        dataType: "html",
+                        success: function(data)
+                        {
+                            var datos = data.split('SEPARADOR');
+                            var objetosJSON = new Array(3);;
+                            var i=0;
+                            //var criterios_encontrados = datos.length;
+                            for (i=0;i<datos.length;i++)
+                                {
+                                    objetosJSON[i] = $.parseJSON(datos[i]);
+                                    console.log(objetosJSON[i]);
+                                }
+                        }  // FIN SUCCESS 
+                     }); //FIN AJAX
+                       
+                }
+        }); //FIN KEY UP
+        
+        
+        //$('#ciudad').typeahead({source: ARRAY, items:5});
+    });
+
 </script>
 <div class="navbar navbar-inverse ">
     <div class="navbar-inner">
@@ -209,7 +252,7 @@ foreach ($arr as $buscar) {
                     <?php // echo Form::text("ciudad","class='search-query span2' placeholder='Buscar destinos' data-provide='typeahead' ");   ?>
                 
                     <i class="icon-search icon-white"></i>
-                    <input id="ciudad" name="ciudad" type="text" value="" class='search-query span2' placeholder='<?php echo $buscardestinos_string; ?>' data-provide='typeahead' >  
+                    <input id="ciudad" name="ciudad" type="text" value="" class='search-query span2 busqueda' placeholder='<?php echo $buscardestinos_string; ?>' data-provide='typeahead' >  
 
                     <!-- <input type="text" id="ciudad" class="search-query span2" placeholder="Buscar destinos" data-provide="typeahead" class="search-query">-->
                 <?php echo Form::close() ?>
