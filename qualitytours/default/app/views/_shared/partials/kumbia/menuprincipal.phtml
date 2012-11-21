@@ -96,7 +96,7 @@ foreach ($arr as $buscar) {
 <script type="text/javascript"> //JQUERY PARA BUSQUEDA AJAX
     $(document).ready(function()
     {
-        var array_resultados = new Array();
+        var array_res = new Array();
         
         $('.busqueda').keyup(function()
         {
@@ -114,28 +114,22 @@ foreach ($arr as $buscar) {
                         dataType: "html",
                         success: function(data)
                         {
-                            var datos = data.split('SEPARADOR');
+                            //esto para remover la ultima coma
+                            data = data.slice(0,data.length-1);
                             
+                            //Generamos el array separando el string por las comas
+                            array_res = data.split(',');
                             
-                            array_resultados.length = 0; //LIMPIA EL ARRAY
-                            for (i=0;i<datos.length;i++)
-                                {
-                                    array_resultados[i] = datos[i];
-                                    //objetosJSON[i] = $.parseJSON(datos[i]);
-                                    //console.log(objetosJSON[i]);
-                                }
+                            console.log(array_res);
                             
-                            console.log(array_resultados);
-                                
                                 
                         }  // FIN SUCCESS 
                      }); //FIN AJAX
-                       
                 }
-                $('#ciudad').typeahead({source: array_resultados, items:5});
+                $('#ciudad').typeahead({source: array_res, items:5});
         }); //FIN KEY UP
         
-        
+        $('#ciudad').typeahead({source: array_res, items:5});
         
     });
 
