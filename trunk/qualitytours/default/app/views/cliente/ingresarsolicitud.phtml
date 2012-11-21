@@ -18,8 +18,14 @@
             }else if( $(".rut").val() == ""){
                 $(".rut").focus().after("<span class='errorVal'>Ingrese un rut con puntos y guión</span>");
                 return false;
+            }else if( $(".rutp").val() == ""){
+                $(".rutp").focus().after("<span class='errorVal'>Ingrese un rut con puntos y guión</span>");
+                return false;
             }else if(!$.Rut.validar($(".rut").val()) ){
                 $(".rut").focus().after("<span class='errorVal'>Ingrese un rut valido</span>");
+                return false;
+            }else if(!$.Rut.validar($(".rutp").val()) ){
+                $(".rutp").focus().after("<span class='errorVal'>Ingrese un rut valido</span>");
                 return false;
             }else if( $(".giro").val() == ""){
                 $(".giro").focus().after("<span class='errorVal'>Ingrese un giro</span>");
@@ -63,16 +69,39 @@
                 return false;
             }
         });
+        //Borrar el mensaje de error si el usuario ingresa un rut con formato válido
+        $(".rutp").keyup(function()
+        {   
+            if( $(this).val() != "" && rutreg.test($(this).val()))
+            {
+                $(".errorVal").fadeOut();
+                return false;
+            }
+        });        
         
       //Borrar el mensaje de error si el usuario ingresa un rut con formato válido 
     $(".rut").Rut({
        on_error: function(){  $(".rut").focus().after("<span class='errorVal'>Rut invalido</span>"); return false; },
         format_on: 'keyup'
     });
+    
+        $(".rutp").Rut({
+       on_error: function(){  $(".rutp").focus().after("<span class='errorVal'>Rut invalido</span>"); return false; },
+        format_on: 'keyup'
+    });
 
     $(".rut").keyup(function()
     {
         if( $(".rut").val() != "" && rutreg.test($(".rut").val()))
+        {
+            $(".errorVal").fadeOut();
+            return false;
+        }
+    });
+    
+        $(".rutp").keyup(function()
+    {
+        if( $(".rutp").val() != "" && rutreg.test($(".rutp").val()))
         {
             $(".errorVal").fadeOut();
             return false;
@@ -126,6 +155,10 @@ reemplazo se uso 'errorVal'.
     <tr>
         <td>Nombre centro turistico:&nbsp;</td>
         <td><?php echo Form::text('cliente.nombre_cli', "class='input-medium nombre' placeholder='Nombre cliente'") ?></td>
+    </tr>
+    <tr>
+        <td>Rut privado:&nbsp;</td>
+        <td><?php echo Form::text('cliente.rut_usu',"class='input-medium rutp' placeholder='ej: 6.765.223-1' rutp") ?></td>
     </tr>
     <tr>
         <td>Rut comercial:&nbsp;</td>
