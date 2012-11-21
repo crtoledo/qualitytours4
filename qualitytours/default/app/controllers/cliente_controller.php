@@ -47,19 +47,20 @@ class ClienteController extends AppController {
                     $rol_usu = 'turista';
                     $nombre_usu = $datos_user->nombre_usu;
                     $apellido_usu = $datos_user->apellido_usu;
-                    $rut_usu = $datos_user->rut_usu;
+                    //$rut_usu = $datos_user->rut_usu;
                     $email_usu = $datos_user->email_usu;
                     $lenguaje_usu = $datos_user->lenguaje_usu;
                     ;
                     $estado_usu = "false";
                     $nombre_cli = $cliente->nombre_cli;
                     $rut_cli = $cliente->rut_cli;
+                    $rut_usu = $cliente->rut_usu;
                     $giro = $cliente->giro_cli;
                     $telefono = $cliente->telefono_cli;
                     $visitas = 0;
                     $plan = $cliente->tipo_plan;
 
-                    if ($cliente->sql("insert into Cliente (id_usu,username_usu,password_usu,rol_usu,nombre_usu,apellido_usu,rut_usu,email_usu,estado_usu,lenguaje_usu,nombre_cli,rut_cli,giro_cli,telefono_cli,visitas_cli,tipo_plan) values(" . $id . ",'" . $username_usu . "','" . $password_usu . "','" . $rol_usu . "','" . $nombre_usu . "','" . $apellido_usu . "','" . $rut_usu . "','" . $email_usu . "','" . $estado_usu . "','" . $lenguaje_usu . "','" . $nombre_cli . "','" . $rut_cli . "','" . $giro . "','" . $telefono . "'," . $visitas . ",'" . $plan . "');")) {//&&($user->sql("update Usuario set rol_usu='cliente' where id=".$id)))
+                    if ($cliente->sql("insert into Cliente (id_usu,username_usu,password_usu,rol_usu,nombre_usu,apellido_usu,email_usu,estado_usu,lenguaje_usu,nombre_cli,rut_cli,giro_cli,telefono_cli,visitas_cli,tipo_plan,rut_usu) values(" . $id . ",'" . $username_usu . "','" . $password_usu . "','" . $rol_usu . "','" . $nombre_usu . "','" . $apellido_usu . "','" . $email_usu . "','" . $estado_usu . "','" . $lenguaje_usu . "','" . $nombre_cli . "','" . $rut_cli . "','" . $giro . "','" . $telefono . "'," . $visitas . ",'" . $plan . "','" . $rut_usu . "');")) {//&&($user->sql("update Usuario set rol_usu='cliente' where id=".$id)))
                         Flash::success("Solicitud enviada correctamente");
                         Input::delete();
                         Router::redirect("solicitud/ingresar/" . $id);
