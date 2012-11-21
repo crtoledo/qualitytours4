@@ -96,8 +96,7 @@ foreach ($arr as $buscar) {
 <script type="text/javascript"> //JQUERY PARA BUSQUEDA AJAX
     $(document).ready(function()
     {
-        //Variable no usada todavia
-        var criterios_encontrados = 0
+        var array_resultados = new Array();
         
         $('.busqueda').keyup(function()
         {
@@ -116,22 +115,28 @@ foreach ($arr as $buscar) {
                         success: function(data)
                         {
                             var datos = data.split('SEPARADOR');
-                            var objetosJSON = new Array(3);;
-                            var i=0;
-                            //var criterios_encontrados = datos.length;
+                            
+                            
+                            array_resultados.length = 0; //LIMPIA EL ARRAY
                             for (i=0;i<datos.length;i++)
                                 {
-                                    objetosJSON[i] = $.parseJSON(datos[i]);
-                                    console.log(objetosJSON[i]);
+                                    array_resultados[i] = datos[i];
+                                    //objetosJSON[i] = $.parseJSON(datos[i]);
+                                    //console.log(objetosJSON[i]);
                                 }
+                            
+                            console.log(array_resultados);
+                                
+                                
                         }  // FIN SUCCESS 
                      }); //FIN AJAX
                        
                 }
+                $('#ciudad').typeahead({source: array_resultados, items:5});
         }); //FIN KEY UP
         
         
-        //$('#ciudad').typeahead({source: ARRAY, items:5});
+        
     });
 
 </script>
