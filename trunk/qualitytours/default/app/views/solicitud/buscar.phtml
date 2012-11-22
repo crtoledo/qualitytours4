@@ -103,32 +103,44 @@ reemplazo se uso 'errorVal'.
                 <div class="accordion" id="accordion2">
                     <div class="accordion-group">
                         <div class="accordion-heading">
-                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
-                                <?php echo "Más opciones"; ?>
-                            </a>
+                            <center><a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
+                                    <?php echo "Más opciones"; ?>
+                                </a></center>
                         </div>
                         <div id="collapseOne" class="accordion-body collapse">
                             <div class="accordion-inner">
-                                <label class="radio">
-                                    <input type="radio" name="optionsRadios" id="optionsRadios1" value="Aprobada">
-                                    <?php echo "Solicitud aprobada"; ?>
-                                </label>
-                                <label class="radio">
-                                    <input type="radio" name="optionsRadios" id="optionsRadios2" value="Pendiente">
-                                    <?php echo "Solicitud pendiente"; ?>
-                                </label>
-                                <label class="radio">
-                                    <input type="radio" name="optionsRadios" id="optionsRadios3" value="Esperando">
-                                    <?php echo "Solicitud confirmacion"; ?>
-                                </label> 
-                                <label class="radio">
-                                    <input type="radio" name="optionsRadios" id="optionsRadios2" value="Rechazada">
-                                    <?php echo "Solicitud rechazada"; ?>
-                                </label>
-                                <label class="radio">
-                                    <input type="radio" name="optionsRadios" id="optionsRadios3" value="Cancelada">
-                                    <?php echo "Solicitud cancelada"; ?>
-                                </label>                                     
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th><center>Buscar solo</center></th>
+                                            <th><center>Ordenar por</center></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <label class="radio">
+                                                    <input type="radio" name="optionsRadios" id="optionsRadios2" value="Rechazada">
+                                                    <?php echo "Solicitud rechazada"; ?>
+                                                </label>
+                                                <label class="radio">
+                                                    <input type="radio" name="optionsRadios" id="optionsRadios3" value="Cancelada">
+                                                    <?php echo "Solicitud cancelada"; ?>
+                                                </label>  
+                                            </td>
+                                            <td>
+                                                <label class="radio">
+                                                    <input type="radio" name="optionsRadios" id="optionsRadios2" value="modificacion">
+                                                    <?php echo "Modificación"; ?>
+                                                </label>
+                                                <label class="radio">
+                                                    <input type="radio" name="optionsRadios" id="optionsRadios3" value="mail">
+                                                    <?php echo "Confirmacion mail"; ?>
+                                                </label> 
+                                            </td>
+                                        </tr>                                  
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
