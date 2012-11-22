@@ -50,11 +50,11 @@ class AdministradorController extends AppController {
             $rol_usu = "administrador";
             $nombre_usu = $datos_user->nombre_usu;
             $apellido_usu = $datos_user->apellido_usu;
-            $rut_usu = $datos_user->rut_usu;
+            ///$rut_usu = $datos_user->rut_usu;
             $email_usu = $datos_user->email_usu;
             $estado_usu = $datos_user->estado_usu;
 
-            if(($administrador->sql("insert into Administrador  values(".$id.",'".$username_usu."','".$password_usu."','".$rol_usu."','".$nombre_usu."','".$apellido_usu."','".$rut_usu."','".$email_usu."','".$estado_usu."');"))&& ( $user->sql("update Usuario set rol_usu='administrador' where id=".$id)))
+            if(($administrador->sql("insert into Administrador  values(".$id.",0,'".$username_usu."','".$password_usu."','".$rol_usu."','".$nombre_usu."','".$apellido_usu."','".$email_usu."','".$estado_usu."');"))&& ( $user->sql("update Usuario set rol_usu='administrador' where id=".$id)))
             {   
                 Flash::success($username_usu." ahora es administrador");
                 Router::redirect("usuario/buscar/".$leng);
