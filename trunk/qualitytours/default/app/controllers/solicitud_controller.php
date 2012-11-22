@@ -13,6 +13,13 @@ class SolicitudController extends AppController {
         }
     }
 
+///////////////////////////////////////////////////////////
+//******************************************************//    
+//**********    Funciones para el usuario    **********//
+//****************************************************//    
+///////////////////////////////////////////////////////      
+    
+    
     public function ingresar($id) {
         // se comprueba que sea turista el que ingresa la solicitud
         if (Auth::get('rol_usu') != "cliente") {
@@ -121,6 +128,19 @@ class SolicitudController extends AppController {
         }
     }
 
+///////////////////////////////////////////////////////////
+//******************************************************//    
+//**********  Fin funciones para el usuario  **********//
+//****************************************************//    
+/////////////////////////////////////////////////////// 
+    
+    
+///////////////////////////////////////////////////////////
+//******************************************************//    
+//********** Funciones para el administrador **********//
+//****************************************************//    
+///////////////////////////////////////////////////////  
+    
     Public function buscar() {
         
     }
@@ -146,9 +166,11 @@ class SolicitudController extends AppController {
                 $this->telefono_cli = $datos_cliente->telefono_cli;
                 $this->tipo_plan = $datos_cliente->tipo_plan;
                 
+                $this->estado_sol = $datos_solicitud->estado_sol;
+                $this->observaciones = $datos_solicitud->observaciones_sol;
+
                 // se cargan los datos de la solicitud... para observaciones
                 $this->solicitud = $datos_solicitud;
-                
             } else {
                 Flash::info('Datos no corresponden a la solicitud');
                 Router::redirect("/solicitud/buscar");
@@ -183,29 +205,75 @@ class SolicitudController extends AppController {
 
     Public function aceptarsolicitud($id_cliente, $id_solicitud) {
         if (Auth::get("rol_usu") == "administrador") {
-            date_default_timezone_set('America/Santiago');
+            
+            $comprobar_solicitud = new solicitud();
+            // se valida que al solicitud corresponda al usuario
+            if ($comprobar_solicitud->find_by_sql("select * from solicitud where id=" . $id_solicitud . " and id_usu = " . $id_cliente)) {
+                date_default_timezone_set('America/Santiago');
 
-            $datos_actualizacion_cliente = new cliente;
-            $datos_actualizacion_usuario = new usuario;
+                $datos_actualizacion_cliente = new cliente;
+                $datos_actualizacion_usuario = new usuario;
+                $datos_actualizacion_solicitud = new solicitud;
 
-            $fecha_inicio = date("d-m-Y");
-            $fecha_fin = date('d-m-Y', strtotime('+1 Year'));
+                $fecha_inicio = date("d-m-Y");
+                $fecha_fin = date('d-m-Y', strtotime('+1 Year'));
 
-            $sentencia = "UPDATE cliente SET id_sol=" . $id_solicitud . ", rol_usu='cliente', estado_usu= true, fecha_ini_sus='" . $fecha_inicio . "', fecha_fin_sus='" . $fecha_fin . "' WHERE id_usu=" . $id_cliente;
-            $sentencia_actualizar_rol = "UPDATE usuario SET id_sol=" . $id_solicitud . ", rol_usu='cliente' WHERE id=" . $id_cliente;
+                $sentencia = "UPDATE cliente SET id_sol=" . $id_solicitud . ", rol_usu='cliente', estado_usu= true, fecha_ini_sus='" . $fecha_inicio . "', fecha_fin_sus='" . $fecha_fin . "' WHERE id_usu=" . $id_cliente;
+                $sentencia_actualizar_rol = "UPDATE usuario SET id_sol=" . $id_solicitud . ", rol_usu='cliente' WHERE id=" . $id_cliente;
+                $sentencia_actualizar_solicitud = "UPDATE solicitud SET estado_sol='Aceptada' WHERE id=" . $id_solicitud;
 
-            if ($datos_actualizacion_cliente->sql($sentencia) && $datos_actualizacion_usuario->sql($sentencia_actualizar_rol)) {
-                Flash::info('Solicitud aceptada, cliente ingresado');
-                Router::redirect("/");
-            } else {
-                
+                if ($datos_actualizacion_cliente->sql($sentencia) && $datos_actualizacion_usuario->sql($sentencia_actualizar_rol) && $datos_actualizacion_solicitud->sql($sentencia_actualizar_solicitud)) {
+                    Flash::info('Solicitud aceptada, cliente ingresado');
+                    Router::redirect("/");
+                } else {
+                    
+                }
+            }
+            else
+            {
+                Flash::info('Datos no corresponden a la solicitud');
+            Router::redirect("/");
             }
         } else {
             Flash::info('No tiene los privilegios necesarios');
             Router::redirect("/");
         }
     }
+    
+    Public function rechazar ($id)
+    {
+        if (Auth::get("rol_usu") == "administrador") {
+            
+            $solicitud_rechazar = new solicitud ();
+            if($solicitud_rechazar->find($id)){
+                $solicitud_rechazar->activo_sol = "false";
+                $solicitud_rechazar->estado_sol = "Rechazada";
+                
+                if ($solicitud_rechazar->update()){
+                    Flash::info("Solicitud Rechazada");
+                    Router::redirect("/solicitud/buscar");
+                }
+                else
+                {
+                    Flash::error("Error al actualizar");
+                }
+            }
+            else
+            {
+                Flash::error("Error al rechazar la solicitud");
+            }
+            
+        }else {
+            Flash::info('No tiene los privilegios necesarios');
+            Router::redirect("/");
+        }
+        
+    }
 
 }
-
+///////////////////////////////////////////////////////////
+//******************************************************//    
+//******** Fin funciones para el administrador ********//
+//****************************************************//    
+///////////////////////////////////////////////////////
 ?>
