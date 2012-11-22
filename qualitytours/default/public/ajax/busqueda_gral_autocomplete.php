@@ -9,8 +9,8 @@
     
     //STRINGS DE LAS DISTINSTAS BUSQUEDAS
     $string1 = "select nombre_cli, id_usu from cliente where nombre_cli ilike '%".$_REQUEST['string']."%' order by visitas_cli desc limit 5";
-    $string2 = "select region_ubi from ubicacion where region_ubi ilike '%".$_REQUEST['string']."%'";
-    $string3 = "select ciudad_ubi from ubicacion where ciudad_ubi ilike '%".$_REQUEST['string']."%'";
+    $string2 = "select DISTINCT region_ubi from ubicacion where region_ubi ilike '%".$_REQUEST['string']."%'";
+    $string3 = "select DISTINCT ciudad_ubi from ubicacion where ciudad_ubi ilike '%".$_REQUEST['string']."%'";
     
     $resu1 = pg_query($conn,$string1);
     $res1 = pg_fetch_all_columns($resu1);
