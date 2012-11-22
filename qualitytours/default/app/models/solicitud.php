@@ -20,5 +20,6 @@ class Solicitud extends ActiveRecord
     {
        return $this->find_by_sql("select * from solicitud where id_usu = " . $dato . " and activo_sol ='true'");
     }
+    
 }
 ?>

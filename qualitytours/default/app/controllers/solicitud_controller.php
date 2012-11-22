@@ -14,7 +14,8 @@ class SolicitudController extends AppController {
     }
 
     public function ingresar($id) {
-        if (Auth::is_valid()) {
+        // se comprueba que sea turista el que ingresa la solicitud
+        if (!Auth::get("rol_usu") == "cliente") {
 
             date_default_timezone_set('America/Santiago');
 
@@ -37,7 +38,7 @@ class SolicitudController extends AppController {
                 Flash::info('No se ingreso');
             }
         } else {
-            Flash::info('No posee los privilegios necesarios');
+            Flash::error('Acceso denegado');
             Router::redirect("/");
         }
     }
@@ -69,6 +70,7 @@ class SolicitudController extends AppController {
     }
 
     public function vertodas($id) {
+        // se comprueba que el usuario quien consulta sea el mismo de las solicitudes
         if (Auth::get('id') == $id) {
             $this->id_usuario_solicitud = $id;
         } else {
@@ -83,11 +85,12 @@ class SolicitudController extends AppController {
             $cancelacion->cancelar_suscripcion($id);
             $cancelacion->estado_sol = "Cancelada";
             $cancelacion->activo_sol = "false";
+
             if ($cancelacion->update()) {
                 Flash::info('Ha cancelado su solicitud');
                 Router::redirect("/");
             } else {
-                Flash::info("error al cancelar la solicitud");
+                Flash::info("Error al cancelar la solicitud");
             }
         } else {
             Router::redirect("/");
@@ -119,59 +122,90 @@ class SolicitudController extends AppController {
     }
 
     Public function buscar() {
-
+        
     }
-    
+
     Public function administrar($solicitud, $usuario) {
-        
-       
-        $datos_usuario = New Cliente;
-        $datos_solicitud = New Solicitud;
-        
-        
-        $datos_usuario = $datos_usuario->find($usuario);
-        
-        $this->id_usuario = $usuario;
-        $this->id_solicitud = $solicitud;
-        $this->nombre_cli = $datos_usuario->nombre_cli;
-        $this->nombre_usu = $datos_usuario->nombre_usu;
-        $this->rut_usu= $datos_usuario->rut_usu;
-        $this->rut_cli = $datos_usuario->rut_cli;
-        $this->nombre_usu = $datos_usuario->nombre_usu;
-        $this->giro_cli = $datos_usuario->giro_cli;
-        $this->telefono_cli = $datos_usuario->telefono_cli;
-        $this->tipo_plan = $datos_usuario->tipo_plan;
-        
+        if (Auth::get("rol_usu") == "administrador") {
 
-    }
-    
-    Public function ingresarobservacion() {
+            $datos_solicitud = new solicitud();
+            // se valida que al solicitud corresponda al usuario
+            if ($datos_solicitud->find_by_sql("select * from solicitud where id=" . $solicitud . " and id_usu = " . $usuario)) {
+                // se obtienen los datos del usuario que quiere ser cliente
+                $datos_cliente = New Cliente;
+                $datos_cliente = $datos_cliente->find($usuario);
 
-    }
-    
-    Public function aceptarsolicitud($id_cliente,$id_solicitud) {
-        
-        date_default_timezone_set('America/Santiago');
-        $datos_actualizacion_cliente = new cliente;
-        $datos_actualizacion_usuario = new usuario;
-        
-        $fecha_inicio = date("d-m-Y");
-        $fecha_fin = date('d-m-Y', strtotime('+1 Year')); 
-        
-        $sentencia= "UPDATE cliente SET id_sol=".$id_solicitud .", rol_usu='cliente', estado_usu= true, fecha_ini_sus='".$fecha_inicio."', fecha_fin_sus='". $fecha_fin."' WHERE id_usu=".$id_cliente;
-        $sentencia_actualizar_rol = "UPDATE usuario SET id_sol=".$id_solicitud .", rol_usu='cliente' WHERE id=".$id_cliente;
-        
-        if($datos_actualizacion_cliente->sql($sentencia) && $datos_actualizacion_usuario->sql($sentencia_actualizar_rol))
-        {
-            Flash::info('Solicitud aceptada, cliente ingresado');
+                $this->id_usuario = $usuario;
+                $this->id_solicitud = $solicitud;
+                $this->nombre_cli = $datos_cliente->nombre_cli;
+                $this->nombre_usu = $datos_cliente->nombre_usu;
+                $this->rut_usu = $datos_cliente->rut_usu;
+                $this->rut_cli = $datos_cliente->rut_cli;
+                $this->nombre_usu = $datos_cliente->nombre_usu;
+                $this->giro_cli = $datos_cliente->giro_cli;
+                $this->telefono_cli = $datos_cliente->telefono_cli;
+                $this->tipo_plan = $datos_cliente->tipo_plan;
+                
+                // se cargan los datos de la solicitud... para observaciones
+                $this->solicitud = $datos_solicitud;
+                
+            } else {
+                Flash::info('Datos no corresponden a la solicitud');
+                Router::redirect("/solicitud/buscar");
+            }
+        } else {
+            Flash::info('No posee los privilegios necesarios');
             Router::redirect("/");
         }
-        else
-        {
-            
-        }
-
     }
+
+    Public function ingresarobservacion($usuario, $solicitud) {
+        if (Auth::get("rol_usu") == "administrador") {
+            if (Input::hasPost('solicitud')) {
+
+                $solicitud_observacion = new solicitud(Input::post('solicitud'));
+
+                if ($solicitud_observacion->update()) {
+                    Flash::notice("Observaciones ingresadas");
+                    Router::redirect("/solicitud/administrar/" . $solicitud . "/" . $usuario);
+                } else {
+                    Flash::error("Error al ingresar observaciones");
+                }
+            } else {
+                Flash::error("Acceso denegado");
+                Router::redirect("/");
+            }
+        } else {
+            Flash::info('No tiene los privilegios necesarios');
+            Router::redirect("/");
+        }
+    }
+
+    Public function aceptarsolicitud($id_cliente, $id_solicitud) {
+        if (Auth::get("rol_usu") == "administrador") {
+            date_default_timezone_set('America/Santiago');
+
+            $datos_actualizacion_cliente = new cliente;
+            $datos_actualizacion_usuario = new usuario;
+
+            $fecha_inicio = date("d-m-Y");
+            $fecha_fin = date('d-m-Y', strtotime('+1 Year'));
+
+            $sentencia = "UPDATE cliente SET id_sol=" . $id_solicitud . ", rol_usu='cliente', estado_usu= true, fecha_ini_sus='" . $fecha_inicio . "', fecha_fin_sus='" . $fecha_fin . "' WHERE id_usu=" . $id_cliente;
+            $sentencia_actualizar_rol = "UPDATE usuario SET id_sol=" . $id_solicitud . ", rol_usu='cliente' WHERE id=" . $id_cliente;
+
+            if ($datos_actualizacion_cliente->sql($sentencia) && $datos_actualizacion_usuario->sql($sentencia_actualizar_rol)) {
+                Flash::info('Solicitud aceptada, cliente ingresado');
+                Router::redirect("/");
+            } else {
+                
+            }
+        } else {
+            Flash::info('No tiene los privilegios necesarios');
+            Router::redirect("/");
+        }
+    }
+
 }
 
 ?>

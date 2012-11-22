@@ -23,7 +23,7 @@
                             </tr>  
                             <tr>
                                 <td><dt>Nombre de usuario:</dt></td>
-                            <td width="250px"><?php echo $nombre_usu ?></td>
+                            <td width="250px"><dd><?php echo $nombre_usu ?></dd></td>
                             </tr>        
                             <tr>
                                 <td><dt>Nombre de centro turistico:</dt></td>
@@ -64,12 +64,24 @@
                 <button class="btn btn-small btn-danger" type="button">Rechazar solicitud</button>
                 <br></br>
 
-        <center><h4>Observaciones</h4></center>
-        <?php echo Form::open('solicitud/ingresarobservacion') ?>
-        <center><?php echo Form::textarea('solicitud.observaciones_sol') ?></center>
-        <center><?php echo Form::submit('Enviar observaciones', 'class="btn btn-submit boton"') ?></center>
-        <?php echo Form::close() ?>
-        </td>        
+                <center><h4>Observaciones</h4></center>
+                <?php echo Form::open('solicitud/ingresarobservacion/'.$id_usuario.'/'.$id_solicitud) ?>
+                <center><?php echo Form::textarea('solicitud.observaciones_sol') ?></center>
+
+                <?php echo Form::hidden('solicitud.id') ?>
+                <?php echo Form::hidden('solicitud.id_usu') ?>
+                <?php echo Form::hidden('solicitud.id') ?>
+                <?php echo Form::hidden('solicitud.adm_id_usu') ?>
+                <?php echo Form::hidden('solicitud.fecha_sol') ?>
+                <?php echo Form::hidden('solicitud.estado_sol') ?>
+                <?php echo Form::hidden('solicitud.tipo_sol') ?>
+                <?php echo Form::hidden('solicitud.mail_sol') ?>
+                <?php echo Form::hidden('solicitud.modificaciones_sol') ?>
+                <?php echo Form::hidden('solicitud.activo_sol') ?>
+
+                <center><?php echo Form::submit('Enviar observaciones', 'class="btn btn-submit boton"') ?></center>
+                <?php echo Form::close() ?>
+            </td>        
         </tr>
     </table>
 </div>
