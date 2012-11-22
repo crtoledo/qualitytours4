@@ -1,4 +1,12 @@
 <div><?php View::content() ?></div> 
+<script type="text/javascript">
+    //activacion del modal de la cancelacion solicitud
+    function activar_cancelacion () {
+        $('#myModal').modal('toggle');
+    };
+
+</script>
+
 <style>
     textarea {
         resize: none;
@@ -59,30 +67,57 @@
             </td>
             <!--    Opciones-->       
             <td>
-                <a href='/trunk/qualitytours/solicitud/aceptarsolicitud/<?php echo $id_usuario ?>/<?php echo $id_solicitud ?>'><button class="btn btn-small btn-success" type="button">Aceptar solicitud</button></a>
-                <button class="btn btn-small btn-primary" type="button">Aviso de espera</button>
-                <button class="btn btn-small btn-danger" type="button">Rechazar solicitud</button>
-                <br></br>
+<!--                Se verifica que la solicitud no este cancelada y rechazada-->
+                <?php if ($estado_sol == "Cancelada" || $estado_sol == "Rechazada") { ?>
+                    <center><h4>Observaciones de la solicitud</h4></center>
+                    <center><?php echo $observaciones ?></center>
+                    <br></br>
+                    <center><h4>No tiene opciones de administracion</h4></center>
+                    <center><a href='/trunk/qualitytours/solicitud/buscar'><button class="btn btn-success" type="button">Volver</button></a></center>
+                    
+<!--                Si la solicitud no esta cancelada o rechazada muestra las opciones de administracion-->
+                <?php } else { ?>
+                    <a href='/trunk/qualitytours/solicitud/aceptarsolicitud/<?php echo $id_usuario ?>/<?php echo $id_solicitud ?>'><button class="btn btn-small btn-success" type="button">Aceptar solicitud</button></a>
+                    <button class="btn btn-small btn-primary" type="button">Aviso de espera</button>
+                    <button class="btn btn-small btn-danger" type="button" onclick="activar_cancelacion()">Rechazar solicitud</button>          
+                    
+                    <br></br>
+                    <center><h4>Observaciones</h4></center>
+                    <?php echo Form::open('solicitud/ingresarobservacion/' . $id_usuario . '/' . $id_solicitud) ?>
+                    <center><?php echo Form::textarea('solicitud.observaciones_sol') ?></center>
 
-                <center><h4>Observaciones</h4></center>
-                <?php echo Form::open('solicitud/ingresarobservacion/'.$id_usuario.'/'.$id_solicitud) ?>
-                <center><?php echo Form::textarea('solicitud.observaciones_sol') ?></center>
+                    <?php echo Form::hidden('solicitud.id') ?>
+                    <?php echo Form::hidden('solicitud.id_usu') ?>
+                    <?php echo Form::hidden('solicitud.id') ?>
+                    <?php echo Form::hidden('solicitud.adm_id_usu') ?>
+                    <?php echo Form::hidden('solicitud.fecha_sol') ?>
+                    <?php echo Form::hidden('solicitud.estado_sol') ?>
+                    <?php echo Form::hidden('solicitud.tipo_sol') ?>
+                    <?php echo Form::hidden('solicitud.mail_sol') ?>
+                    <?php echo Form::hidden('solicitud.modificaciones_sol') ?>
+                    <?php echo Form::hidden('solicitud.activo_sol') ?>
 
-                <?php echo Form::hidden('solicitud.id') ?>
-                <?php echo Form::hidden('solicitud.id_usu') ?>
-                <?php echo Form::hidden('solicitud.id') ?>
-                <?php echo Form::hidden('solicitud.adm_id_usu') ?>
-                <?php echo Form::hidden('solicitud.fecha_sol') ?>
-                <?php echo Form::hidden('solicitud.estado_sol') ?>
-                <?php echo Form::hidden('solicitud.tipo_sol') ?>
-                <?php echo Form::hidden('solicitud.mail_sol') ?>
-                <?php echo Form::hidden('solicitud.modificaciones_sol') ?>
-                <?php echo Form::hidden('solicitud.activo_sol') ?>
-
-                <center><?php echo Form::submit('Enviar observaciones', 'class="btn btn-submit boton"') ?></center>
-                <?php echo Form::close() ?>
+                    <center><?php echo Form::submit('Enviar observaciones', 'class="btn btn-submit boton"') ?></center>
+                    <?php echo Form::close() ?>
+                <?php } ?>
             </td>        
         </tr>
     </table>
 </div>
 <br></br>
+
+<!--Modal para rechazar la solicitud-->
+
+<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="myModalLabel">¿ Esta seguro de rechazar la solicitud ?</h3>
+    </div>
+    <div class="modal-body">
+        <p>El rechazo de la solicitud, es una accion que no se puede deshacer</p>
+    </div>
+    <div class="modal-footer">
+        <button class="btn" data-dismiss="modal" aria-hidden="true">Cerrar</button>
+        <a href="/trunk/qualitytours/solicitud/rechazar/<?php echo $id_solicitud ?>"><button class="btn btn-primary">Rechazar solicitud</button></a>
+    </div>
+

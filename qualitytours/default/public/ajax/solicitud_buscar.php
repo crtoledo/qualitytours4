@@ -16,10 +16,15 @@ if ($tipo == "no_seleccionado") {
 from cliente join solicitud on cliente.id_usu=solicitud.id_usu 
 WHERE activo_sol = true and username_usu ilike '%" . $usuariobuscar . "%'");
     $arr = pg_fetch_all($res);
-} else {
+} else if ($tipo == "Rechazada" || $tipo == "Cancelada") {
     $res = pg_query($conn, "select solicitud.id, cliente.id_usu, cliente.username_usu, solicitud.fecha_sol, solicitud.estado_sol, solicitud.tipo_sol, solicitud.mail_sol
 from cliente join solicitud on cliente.id_usu=solicitud.id_usu 
-WHERE activo_sol = true and estado_sol = '". $tipo ."' and username_usu ilike '%" . $usuariobuscar . "%'");
+WHERE activo_sol = false and estado_sol = '" . $tipo . "' and username_usu ilike '%" . $usuariobuscar . "%'");
+    $arr = pg_fetch_all($res);
+} else if ($tipo == "mail_sol" || $tipo == "modificaciones_sol") {
+    $res = pg_query($conn, "select solicitud.id, cliente.id_usu, cliente.username_usu, solicitud.fecha_sol, solicitud.estado_sol, solicitud.tipo_sol, solicitud.mail_sol
+from cliente join solicitud on cliente.id_usu=solicitud.id_usu 
+WHERE activo_sol = true and username_usu ilike '%" . $usuariobuscar . "%' order by " . $tipo . " DESC");
     $arr = pg_fetch_all($res);
 }
 
