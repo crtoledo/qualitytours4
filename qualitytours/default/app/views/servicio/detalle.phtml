@@ -1,3 +1,14 @@
+<?php
+//Código para el idioma
+    if($leng == "en")
+    {
+        include_once APP_PATH.'libs/en.php';
+    }
+    else
+    {
+        include_once APP_PATH.'libs/es.php';
+    }
+?>    
 <!--PARA GOOGLE MAPS COMIENZO-->
 <style type="text/css">
   html { height: 100% }
@@ -6,6 +17,12 @@
 </style>
 
 <meta name="viewport" content="initial-scale=1.0, user-scalable=yes" />
+<script type="text/javascript">
+    var id_ser = <?php echo $id_servicio?>;
+    var id_usu = <?php echo Auth::get('id')?>;
+    
+    
+</script>
 
 <script type="text/javascript" src="https://maps.google.com/maps/api/js?libraries=weather&sensor=false">
 //Esto carga el api de Google Maps
@@ -46,6 +63,33 @@
         
     });
 </script>
+<!--FORMULARIO DE COMENTARIO-->
+<script>
+    $(document).ready(function(){
+	$('#boton-enviar').click(function(event){
+            
+            event.preventDefault();
+            var nombre = $('#nombre').val();
+            var comentario = $('#comentario').val();
+            if (nombre != '' && comentario != ''){
+                $("#comentario").val('');
+                $("#mensaje").fadeOut(1000, function(){
+                    $.post(
+                    "<?php echo PUBLIC_PATH;?>ajax/ingresar_comentario_serv.php", 
+                    { nombre: nombre, comentario: comentario,  id_usu: id_usu,  id_ser: id_ser}, 
+                    function(data) {
+                        $("#comentarios").append(data);  
+                        }, 
+                        "html");
+                        $('#mensaje').text('Comentario agregado!');
+			});
+                        }
+                        else{}
+                        
+                    });
+                    
+                        });
+ </script>
 
 <table class="table table-bordered">
     <tr>  
@@ -66,4 +110,79 @@
         </thead>
     </tr>
 </table>
+ 
+  <?php 
+
+                if($cont == 0)
+                {
+
+                }
+                if($cont == 1)
+                {?>
+        <div class="span12">
+            <ul class="nav nav-list inverse">
+                <li class="active"><a href="#"><i class="icon-pencil"></i>Comments</a></li>
+            </ul>    
+            <?php  for($i=0; $i<=$contador-1 ; $i++) 
+             {?>
+                <table class="table table-hover">
+                <tr>
+                    <td><?php echo "<b>".$nombre2[$i]."</b>"; ?></td>
+                    <td><div align="right"><?php echo "<b>".$fecha2[$i]."</b>";?></div></td>
+                 </tr>
+                 </table>
+                 <table>
+                 <tr>
+                    <td> <div align="left"> <?php echo $detalle2[$i];?> </div></td>
+                  </tr>  
+                    <?php 
+                    if(!Auth::is_valid())
+                    {
+                        $variable = Auth::is_valid();
+                    }
+                    else
+                    {
+                        if(Auth::get("id") ==  $id2[$i])
+                        { ?>
+                        <tr>
+                            <td><?php echo Html::link("comentario/eliminar/".$idComentario2[$i]."/".$id_servicio.'/'.$leng, "Remove");?></td>
+                        </tr>                             
+                        <?php }  
+
+                    }?>
+                  </table> 
+          <?php  }?>
+        </div>    
+    <?php  }?>        
+     <?php 
+        if(!Auth::is_valid())            
+        {
+            echo "<b>Login to post comments.</b>";
+        }
+        else
+        {  
+      ?>
+       <strong id="mensaje"> Agrega un nuevo comentario:</strong>
+
+            <div id="comentarios">
+
+                    <!-- aca apareceran los nuevos comentarios -->
+
+            </div>
+
+            <!--Formulario de comentario-->
+          <form action="#">
+                <?php echo Form::hidden("nombre",null,$nombre_usuario);?>  
+                <div align="center"> <?php echo Form::text("comentario","class='span3  comentario'"); ?> </div>  
+                <?php echo Form::hidden("id_usu",null,Auth::get("id") ); ?>
+                <?php echo Form::hidden("id_ser", null,$id_servicio) ?>
+                <div align="center"><input id="boton-enviar" type="submit" value="Comentar" class="btn btn-primary boton" /></div>
+           </form>  
+        
+    <?php  }?>
+
+
+            
+
+
 

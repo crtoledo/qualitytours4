@@ -186,7 +186,7 @@ $(document).ready(function() {
         <?php
             foreach ($array_servicios as $servicio)
                 {
-                    echo Html::link("servicio/detalle/" . $servicio->id, "Services: " . $servicio->nombre_ser . "<br>");
+                    echo Html::link("servicio/detalle/" . $servicio->id."/".$leng, "Services: " . $servicio->nombre_ser . "<br>");
                 }  
         ?>
       </td>
