@@ -220,10 +220,9 @@ $arr = Load::Model('ubicacion', 'cliente')->find_all_by_sql("select  distinct re
                                 <b class="caret"></b>
                             </a>
                             <ul class="dropdown-menu">
-                                <li><?php echo Html::link('cliente/ingresar/', '<i class="icon-plus"></i> ' . $ingresarcliente_string . ''); ?></li>
+                                <li><?php echo Html::link('solicitud/buscar/', '<i class="icon-briefcase"></i> ' . $buscar_solicitud_string . ''); ?></li>
                                 <li><?php echo Html::link('' . $enlace_usuario_buscar . '', '<i class="icon-search"></i> ' . $buscarusuarios_string . ''); ?></li>
                                 <li><?php echo Html::link(''.$enlace_usuario_publicar.'', '<i class="icon-upload"></i> ' . $ingresarpublicacion_string . ''); ?></li>
-                                <li><?php echo Html::link('solicitud/buscar/', '<i class="icon-briefcase"></i> ' . $buscar_solicitud_string . ''); ?></li>
                                 <li><?php echo Html::link('categoria/ingresar', '<i class="icon-plus"></i> ' . $ingresarcategorias_string . ''); ?></li>
                             </ul>
                         </li>
