@@ -77,63 +77,83 @@ $arr = Load::Model('ubicacion', 'cliente')->find_all_by_sql("select  distinct re
     distinct  nombre_cat from categoria");
 ?>
 
-<script type="text/javascript">
-    jQuery(document).ready(function() 
-    {
-        var alCities = [
-            // ARRAY DE CIUDADES y region         
-<?php
-foreach ($arr as $buscar) {
-    echo "'" . $buscar->region_ubi . "','" . $buscar->ciudad_ubi . "','" . $buscar->nombre_cat . "', ";
-}
-?>  
- 
-        ].sort();
-        //$('#ciudad').typeahead({source: alCities, items:8});
-    });
-</script>
 
-<script type="text/javascript"> //JQUERY PARA BUSQUEDA AJAX
+<script type="text/javascript"> //JQUERY PARA BUSQUEDA AJAX (autocompletado)
     $(document).ready(function()
-    {
-        var array_res = new Array();
-        
-        $('.busqueda').keyup(function()
-        {
-            if ($('.busqueda').val() != '' && $('.busqueda').val().length > 0) //Si busqueda tiene 3 o mas caracteres
-                {
-                    
+    { 
+// Charles Lawrence - Feb 16, 2012. Free to use and modify. Please attribute back to @geuis if you find this useful
+// Twitter Bootstrap Typeahead doesn't support remote data querying. This is an expected feature in the future. In the meantime, others have submitted patches to the core bootstrap component that allow it. 
+// The following will allow remote autocompletes *without* modifying any officially released core code. 
+// If others find ways to improve this, please share.
+
+
+    var autocomplete = $('#searchinput').typeahead()
+        .on('keyup', function(ev){
+
+            ev.stopPropagation();
+            ev.preventDefault();
+
+            //filter out up/down, tab, enter, and escape keys
+            if( $.inArray(ev.keyCode,[40,38,9,13,27]) === -1 ){
+
+                var self = $(this);
+                
+                //set typeahead source to empty
+                self.data('typeahead').source = [];
+
+                //active used so we aren't triggering duplicate keyup events
+                if( !self.data('active') && self.val().length > 0){
+
+                    self.data('active', true);
+
                     $.ajax
                     ({
 
                         type: "POST",
                         data : {
-                            string: $(".busqueda").val()
+                            string: $("#searchinput").val()
                         },            
                         url: '<?php echo PUBLIC_PATH; ?>ajax/busqueda_gral_autocomplete.php',
                         dataType: "html",
                         success: function(data)
                         {
+                            self.data('active',true);
+                            
                             //esto para remover la ultima coma
                             data = data.slice(0,data.length-1);
                             
                             //Generamos el array separando el string por las comas
                             array_res = data.split(',');
                             
-                            console.log(array_res);
-                            
-                                
+                          //CODIGO PARA Q FUNCIONE
+                          //set this to true when your callback executes
+                        self.data('active',true);
+
+                        //Filter out your own parameters. Populate them into an array, since this is what typeahead's source requires
+//                        var arr = [],
+//                            i=data.results.length;
+//                        while(i--){
+//                            arr[i] = data.results[i].text
+//                        }
+
+                        //set your results into the typehead's source 
+                        self.data('typeahead').source = array_res;
+
+                        //trigger keyup on the typeahead to make it search
+                        self.trigger('keyup');
+
+                        //All done, set to false to prepare for the next remote query.
+                        self.data('active', false);
                         }  // FIN SUCCESS 
                      }); //FIN AJAX
-                }
-                $('#ciudad').typeahead({source: array_res, items:5});
-        }); //FIN KEY UP
-        
-        $('#ciudad').typeahead({source: array_res, items:5});
-        
-    });
 
+
+                }
+            }
+        });
+        });
 </script>
+
 <div class="navbar navbar-inverse ">
     <div class="navbar-inner">
         <div class="container">
@@ -251,7 +271,7 @@ foreach ($arr as $buscar) {
                     <?php // echo Form::text("ciudad","class='search-query span2' placeholder='Buscar destinos' data-provide='typeahead' ");   ?>
                 
                     <i class="icon-search icon-white"></i>
-                    <input id="ciudad" name="ciudad" type="text" value="" class='search-query span2 busqueda' placeholder='<?php echo $buscardestinos_string; ?>' data-provide='typeahead' >  
+                    <input id="searchinput" name="ciudad" type="text" value="" class='search-query span2 busqueda' placeholder='<?php echo $buscardestinos_string; ?>' data-provide='typeahead' >  
 
                     <!-- <input type="text" id="ciudad" class="search-query span2" placeholder="Buscar destinos" data-provide="typeahead" class="search-query">-->
                 <?php echo Form::close() ?>
