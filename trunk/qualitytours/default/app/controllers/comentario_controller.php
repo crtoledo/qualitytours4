@@ -56,6 +56,12 @@ class ComentarioController extends AppController
     public function eliminar($id,$id_proveniente,$leng)
     {
          $comentario = new Comentario;
+         $cliente = new Cliente;
+         $buscar = $cliente->find($id_proveniente);
+         $valor = $buscar->visitas_cli;
+         $valor = $valor - 1;
+         $cliente->sql("UPDATE cliente set visitas_cli=".$valor."WHERE id_usu=".$id_proveniente);
+         
          
          $delete = $comentario->find($id);
          if($delete->sql("update Comentario set estado_com='f' where id=".$id))

@@ -6,14 +6,14 @@
     $fecha = strftime(date('Y/m/d'));
     $id_usu = $_POST['id_usu'];
     $comentario= $_POST['comentario'];
-    $id_cli = $_POST['id_cli'];
+    $id_ser = $_POST['id_ser'];
     $nombre = $_POST['nombre'];
     
    
   
 
-$res=  pg_query("INSERT INTO comentario(id_usu, cli_id_usu, fecha_com, detalle_com, estado_com)
-    VALUES (".$id_usu.",".$id_cli.",'".$fecha."','".$comentario."','t')");
+$res=  pg_query("INSERT INTO comentario(id_usu, id_ser, fecha_com, detalle_com, estado_com)
+    VALUES (".$id_usu.",".$id_ser.",'".$fecha."','".$comentario."','t')");
 
 
 $Db->close($conn);
