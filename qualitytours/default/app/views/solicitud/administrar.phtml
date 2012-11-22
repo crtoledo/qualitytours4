@@ -1,0 +1,76 @@
+<div><?php View::content() ?></div> 
+<style>
+    textarea {
+        resize: none;
+        width: 300px;
+        height: 100px;
+
+    }
+</style>
+
+<div align="center">
+    <h2> Solicitud de usuario: Nombre de usuario</h2> <br>
+    <table>
+        <tr>
+            <!--    Datos usuario/cliente-->        
+            <td>
+                <div align="center">
+
+                    <dl>
+                        <table class="table table-bordered">
+                            <tr>
+                                <td colspan="2"><center><h3> Datos usuario</h3></center></td>
+                            </tr>  
+                            <tr>
+                                <td><dt>Nombre de usuario:</dt></td>
+                            <td width="250px"><?php echo Auth::get('username_usu') ?></td>
+                            </tr>        
+                            <tr>
+                                <td><dt>Nombre de centro turistico:</dt></td>
+                            <td width="250px"><dd>hola</dd></td>
+                            </tr>
+                            <tr>
+                                <td><dt>Rut privado:</dt></td>
+                            <td width="250px"><dd>hola</dd></td>
+                            </tr>
+                            <tr>
+                                <td><dt>Rut comercial:</dt></td>
+                            <td width="250px"><dd>hola</dd></td>
+                            </tr>
+                            <tr>
+                                <td><dt>Giro:</dt></td>
+                            <td width="250px"><dd>hola</dd></td>
+                            </tr>
+                            <tr>
+                                <td><dt>Telefono comercial:</dt></td>
+                            <td width="250px"><dd>jaja</dd></td>
+                            </tr>
+                            <tr>
+                                <td><dt>Tipo de plan:</dt></td>
+                            <td width="250px"><dd>hola</dd></td>
+                            </tr>
+                        </table>
+                    </dl>
+                </div>
+            </td>
+            
+            <td>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            </td>
+            <!--    Opciones-->       
+            <td>
+                <button class="btn btn-small btn-success" type="button">Aceptar solicitud</button>
+                <button class="btn btn-small btn-primary" type="button">Aviso de espera</button>
+                <button class="btn btn-small btn-danger" type="button">Rechazar solicitud</button>
+                <br></br>
+
+                <center><h4>Observaciones</h4></center>
+                <?php echo Form::open('solicitud/ingresarobservacion') ?>
+                <center><?php echo Form::textarea('solicitud.observaciones_sol') ?></center>
+                <center><?php echo Form::submit('Enviar observaciones', 'class="btn btn-submit boton"') ?></center>
+                <?php echo Form::close() ?>
+        </td>        
+        </tr>
+    </table>
+</div>
+<br></br>
