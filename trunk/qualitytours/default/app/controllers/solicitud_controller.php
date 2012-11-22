@@ -1,6 +1,8 @@
 <?php
 
 load::model('solicitud');
+load::model('cliente');
+load::model('usuario');
 
 class SolicitudController extends AppController {
 
@@ -121,10 +123,53 @@ class SolicitudController extends AppController {
     }
     
     Public function administrar($solicitud, $usuario) {
+        
+       
+        $datos_usuario = New Cliente;
+        $datos_solicitud = New Solicitud;
+        
+        
+        $datos_usuario = $datos_usuario->find($usuario);
+        
+        $this->id_usuario = $usuario;
+        $this->id_solicitud = $solicitud;
+        $this->nombre_cli = $datos_usuario->nombre_cli;
+        $this->nombre_usu = $datos_usuario->nombre_usu;
+        $this->rut_usu= $datos_usuario->rut_usu;
+        $this->rut_cli = $datos_usuario->rut_cli;
+        $this->nombre_usu = $datos_usuario->nombre_usu;
+        $this->giro_cli = $datos_usuario->giro_cli;
+        $this->telefono_cli = $datos_usuario->telefono_cli;
+        $this->tipo_plan = $datos_usuario->tipo_plan;
+        
 
     }
     
     Public function ingresarobservacion() {
+
+    }
+    
+    Public function aceptarsolicitud($id_cliente,$id_solicitud) {
+        
+        date_default_timezone_set('America/Santiago');
+        $datos_actualizacion_cliente = new cliente;
+        $datos_actualizacion_usuario = new usuario;
+        
+        $fecha_inicio = date("d-m-Y");
+        $fecha_fin = date('d-m-Y', strtotime('+1 Year')); 
+        
+        $sentencia= "UPDATE cliente SET id_sol=".$id_solicitud .", rol_usu='cliente', estado_usu= true, fecha_ini_sus='".$fecha_inicio."', fecha_fin_sus='". $fecha_fin."' WHERE id_usu=".$id_cliente;
+        $sentencia_actualizar_rol = "UPDATE usuario SET id_sol=".$id_solicitud .", rol_usu='cliente' WHERE id=".$id_cliente;
+        
+        if($datos_actualizacion_cliente->sql($sentencia) && $datos_actualizacion_usuario->sql($sentencia_actualizar_rol))
+        {
+            Flash::info('Solicitud aceptada, cliente ingresado');
+            Router::redirect("/");
+        }
+        else
+        {
+            
+        }
 
     }
 }
