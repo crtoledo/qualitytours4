@@ -116,6 +116,17 @@ class SolicitudController extends AppController {
         }
     }
 
+    Public function buscar() {
+
+    }
+    
+    Public function administrar($solicitud, $usuario) {
+
+    }
+    
+    Public function ingresarobservacion() {
+
+    }
 }
 
 ?>

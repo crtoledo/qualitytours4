@@ -1,7 +1,162 @@
-<?php
+<div><?php View::content() ?></div> 
 
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-?>
+<script type="text/javascript">
+    //Validación con jquery
+    $(document).ready(function () {
+        //Borrar mensaje de error si el usuario a llenado el campo
+        $(".palabra").keyup(function()
+        {   
+            if( $(".palabra").val() != "" )
+            {
+                $(".errorVal").fadeOut();
+        
+                //AJAX COMIENZO
+                $.ajax
+                ({
+            
+                    type: "POST",
+                    data : {
+                        opcion: $("input[name='optionsRadios']:checked").val(),
+                        string: $(".palabra").val()
+                    },            
+                    url: '<?php echo PUBLIC_PATH; ?>ajax/solicitud_buscar.php',
+                    dataType: "json",
+                    success: function(data)
+                    {
+                        if (data != null && data.length > 0)
+                        {
+                            var count = 0;
+                            //console.log(data);
+                            $(".table-condensed tbody").empty();
+                            while (count < data.length)
+                            {
+                                $(".table-condensed tbody").append("<tr>");
+                                $(".table-condensed tbody").append("<td>"+data[count]['id']+"</td>");
+                                $(".table-condensed tbody").append("<td>"+data[count]['username_usu']+"</td>");
+                                $(".table-condensed tbody").append("<td>"+data[count]['fecha_sol']+"</td>");
+                                $(".table-condensed tbody").append("<td>"+data[count]['estado_sol']+"</td>");
+                                $(".table-condensed tbody").append("<td>"+data[count]['tipo_sol']+"</td>");
+                                $(".table-condensed tbody").append("<td>"+data[count]['mail_sol']+"</td>");
+                                $(".table-condensed tbody").append("<td><a href='/trunk/qualitytours/solicitud/administrar/"+data[count]['id'] +"/"+data[count]['id_usu'] +"'><button class='btn btn-info' type='button'>Administrar</button></a></td>");                     
+                                
+                                $(".table-condensed tbody").prepend("</tr>");
+                                count++;
+                            }
+                        }
+                        else 
+                        {
+                            $(".table-condensed tbody").empty();
+                            $(".table-condensed tbody").append('<td><b>NO SE ENCONTRARON RESULTADOS</b></td>');
+                        }
+                    } // cierre success
+            
+                    //DESCOMENTAR LA SIGUIENTE LINEA SI QUEREEMOS VER ALERTS SI HAY ERROR EN LA SOLICITUD AJAX
+                    //,error: function (xhr, ajaxOptions, thrownError){alert(xhr.status+' '+thrownError);}
+        
+                }); //cierre ajax
+                //AJAX FIN
+                return false;
+            }
+        });
+    });
+</script>
+
+<!--
+El CSS a continuación da estilo a los mensaje de error en la validación
+, no se usó "error" ya que kumbia ya tiene un estilo para esa clase, en su
+reemplazo se uso 'errorVal'.
+-->
+
+<style>
+    .errorVal{
+        background-color: #BC1010;
+        padding: 6px 12px;
+        border-radius: 4px;
+        color: white;
+        font-weight: bold;
+        margin-left: 16px;
+        margin-top: 6px;
+        position: absolute;
+    }
+    .errorVal:before{ /* Este es un truco para crear una flechita */
+        content: '';
+        border-top: 8px solid transparent;
+        border-bottom: 8px solid transparent;
+        border-right: 8px solid #BC1010;
+        border-left: 8px solid transparent;
+        left: -16px;
+        position: absolute;
+        top: 5px;
+    }
+</style>
+
+
+<div align="center">
+    <h1 style="font-family: SF"> <?php echo "Buscar solicitudes"; ?> </h1>
+    <table>
+        <tr> 
+            <td><?php echo "Usuario a buscar"; ?>&nbsp;&nbsp;</td>
+            <td><?php echo Form::text('usuario', "class='span3 palabra' placeholder='Ingrese usuario'") ?></td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <div class="accordion" id="accordion2">
+                    <div class="accordion-group">
+                        <div class="accordion-heading">
+                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
+                                <?php echo "Más opciones"; ?>
+                            </a>
+                        </div>
+                        <div id="collapseOne" class="accordion-body collapse">
+                            <div class="accordion-inner">
+                                <label class="radio">
+                                    <input type="radio" name="optionsRadios" id="optionsRadios1" value="Aprobada">
+                                    <?php echo "Solicitud aprobada"; ?>
+                                </label>
+                                <label class="radio">
+                                    <input type="radio" name="optionsRadios" id="optionsRadios2" value="Pendiente">
+                                    <?php echo "Solicitud pendiente"; ?>
+                                </label>
+                                <label class="radio">
+                                    <input type="radio" name="optionsRadios" id="optionsRadios3" value="Esperando">
+                                    <?php echo "Solicitud confirmacion"; ?>
+                                </label> 
+                                <label class="radio">
+                                    <input type="radio" name="optionsRadios" id="optionsRadios2" value="Rechazada">
+                                    <?php echo "Solicitud rechazada"; ?>
+                                </label>
+                                <label class="radio">
+                                    <input type="radio" name="optionsRadios" id="optionsRadios3" value="Cancelada">
+                                    <?php echo "Solicitud cancelada"; ?>
+                                </label>                                     
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </table>
+
+    <!--Resultado de la busqueda-->
+    <br>
+    <br>
+    <h4> <?php echo "Solicitudes"; ?> </h4>
+    <br>
+    <table class="table table-condensed">
+        <thead>
+            <tr>
+                <!-- cabecera de la tabla-->
+                <th><?php echo "Codigo"; ?></th>
+                <th>Username</th>
+                <th><?php echo "Fecha"; ?></th>
+                <th><?php echo "Estado"; ?></th>
+                <th><?php echo "Tipo"; ?></th>
+                <th><?php echo "Mail"; ?></th>
+                <th> </th>
+                <th> </th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+</div>
