@@ -129,7 +129,11 @@ cloudLayer.setMap(map)
 
 });
 </script>
-
+ <script>
+           $('.carousel').carousel({
+            interval: 1000
+            })
+ </script>
 
 <script type="text/javascript">
 $(document).ready(function() {
@@ -189,50 +193,13 @@ $(document).ready(function() {
                     echo Html::link("servicio/detalle/" . $servicio->id."/".$leng, "Services: " . $servicio->nombre_ser . "<br>");
                 }  
         ?>
-      </td>
-      </thead>
-      </tr>
-      <tr>
-        <td>
-            <?php 
-                if(!Auth::is_valid())
-                {
-                    echo "<font size='1'><b>Para calificar debe iniciar sesión</b></font><br>";
-                }
-                $calificacion = number_format($calificacion, $decimals = 1);
-                echo "<b>Califica tu experencia de viaje:<br></b>
-                        <b><font size='1'>Promedio:</font><font size='4'>".$calificacion."</font></b><br>
-                        <b><font size='1'>Cantidad:</font><font size='4'>".$cantidad."</font></b><br>";
-            ?>
-                <div id="star1" class="rating">&nbsp;</div> 
-               
-        </td>
-       </tr>
-           <?php
-            //Trozo PHP para verificar si hay imagenes
-//            if (count($contenido) > 0)
-//            {
-//                echo "<tr><td colspan='2'><center>";
-//                foreach($contenido as $buscar)
-//                {
-//                    echo  Html::img("../default/public/img/upload/".$buscar->ruta_con,"imagen","width=200 height=150");
-//                }   
-//                echo "</center></td></tr>";
-//            }
-             ?>
-       <script>
-           $('.carousel').carousel({
-            interval: 1000
-            })
-       </script>
-      
-   
-    <?php
+            <?php
     //Trozo PHP para verificar si hay imagenes
             if (count($contenido) > 0)
                 
             {?>
-       <tr><td colspan='2'><center>
+        <br>
+       <center>
        <div class="span4">       
                     <div id="myCarousel" class="carousel slide" with="300">
                     <!-- Carousel items -->
@@ -252,8 +219,28 @@ $(document).ready(function() {
                     <a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>
                     </div>
        </div>
-       </center></td></tr>
+       </center>
   <?php }?>
+      </td>
+      </thead>
+      </tr>
+      <tr>
+        <td>
+            <?php 
+                if(!Auth::is_valid())
+                {
+                    echo "<font size='1'><b>Para calificar debe iniciar sesión</b></font><br>";
+                }
+                $calificacion = number_format($calificacion, $decimals = 1);
+                echo "<b>Califica tu experencia de viaje:<br></b>
+                        <b><font size='1'>Promedio:</font><font size='4'>".$calificacion."</font></b><br>
+                        <b><font size='1'>Cantidad:</font><font size='4'>".$cantidad."</font></b><br>";
+            ?>
+                <div id="star1" class="rating">&nbsp;</div> 
+               
+        </td>
+       </tr>
+
        </table>   
        
             
