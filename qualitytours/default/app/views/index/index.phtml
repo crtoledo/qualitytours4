@@ -93,7 +93,20 @@
         <br>
         <h6>Mejores calificados</h6>
         <?php
-           
+        
+         $cont = 0; 
+         for ($i=0;$i<=$contadors-1;$i++)
+         {
+            $cont = $i+1;
+            echo "<table>
+                  <tr>
+                  <td><span class='badge badge-info'>".$cont."</span>&nbsp;<font size='1'>".Html::link("cliente/detalle/".$id_cli_cal[$i]."/es",$id_cli_cal[$i],"target='_blank'")." P: ".$valor_cal[$i]."</font>
+                  </td>
+                  </tr>
+                  </table>
+                   ";
+         }
+        
          ?>
     </div>
   </div>

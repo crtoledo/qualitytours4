@@ -79,18 +79,26 @@ class IndexController extends AppController
                 $i = 0;
                 foreach($client as $cliente)
                 {
-                    $this->nombre_cli[$i] = $client[$i]->nombre_cli;
-                    $this->id_cliente[$i] = $client[$i]->id_usu;
+                    $this->nombre_cli[$i] = $cliente->nombre_cli;
+                    $this->id_cliente[$i] = $cliente->id_usu;
                     $i++;
                 }
                 $this->indice = $i;
                 
                 //ranking de calificacion
                 $calificacion =  new Calificacion();
-                $cal = $calificacion->sql("select valor_cal from calificacion ");
-               $this->cal= $cal;
+                $cal = $calificacion->find('columns: cli_id_usu,avg(valor_cal)','group: cli_id_usu','order: avg desc');
+                
                 $contador = 0;
-               
+                
+                foreach($cal as $promedio)
+                {
+                    $this->id_cli_cal[$contador] = $promedio->cli_id_usu;
+                    $this->valor_cal[$contador] = $promedio->avg;
+                    $contador++;
+                }
+                $this->contadors = $contador;
+               //FIN RANKING CALIFICACION
 	}
         public function en()
         {
