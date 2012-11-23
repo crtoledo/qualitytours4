@@ -50,7 +50,7 @@ $(document).ready(function () {
             success: function(data)
             {
                 if (data != null && data.length > 0)
-                {var aglo;
+                {
                     var count = 0;
                     //console.log(data);
                     $(".table-condensed tbody").empty();
@@ -65,21 +65,18 @@ $(document).ready(function () {
                             $(".table-condensed tbody").append("<td>"+data[count]['rol_usu']+"</td>");
                             $(".table-condensed tbody").append("<td>"+
                                "<div class='btn-group'>"+
-                                    "<a class='btn btn-primary' href='#'><i class='icon-user icon-white'></i><?php echo $usuario_buscar_opciones; ?></a>"+
-                                    "<a class='btn btn-primary dropdown-toggle' data-toggle='dropdown' href='#'><span class='caret'></span></a>"+
+                                    "<a class='btn btn-small btn-primary dropdown-toggle' data-toggle='dropdown' href='#'><i class='icon-user icon-white'></i><?php echo $usuario_buscar_opciones; ?><span class='caret'></span></a>"+
                                         "<ul class='dropdown-menu'>"+
                                             "<li><a href='/trunk/qualitytours/usuario/modificar/"+data[count]['id'] +"/<?php echo $leng; ?>'><i class='icon-pencil'></i><?php echo $usuario_buscar_editar; ?></a></li>"+
                                             "<li><a href='/trunk/qualitytours/administrador/ingresar/"+data[count]['id'] +"/<?php echo $leng; ?>'><i class='icon-user'></i> <?php echo $usuario_buscar_convertir?></a></li>"+
                                         "</ul>"+
                                 "</div>");
-
                             $(".table-condensed tbody").append("<td>"+
                                "<div class='btn-group'>"+
-                                    "<a class='btn btn-danger' href='#'><i class='icon-user icon-white'></i><?php echo $usuario_buscar_opciones; ?></a>"+
-                                    "<a class='btn btn-danger dropdown-toggle' data-toggle='dropdown' href='#'><span class='caret'></span></a>"+
+                                    "<a class='btn btn-small btn-danger dropdown-toggle' data-toggle='dropdown' href='#'><i class='icon-user icon-white'></i><?php echo $usuario_buscar_opciones; ?><span class='caret'></span></a>"+
                                         "<ul class='dropdown-menu'>"+
-                                            "<li><a href='/trunk/qualitytours/usuario/modificar/"+data[count]['id']+"'><i class='icon-remove-circle'></i><?php echo $usuario_buscar_suscripcion ?></a></li>"+
-                                            "<li><a href='/trunk/qualitytours/cliente/ingresar/"+data[count]['id'] +"'><i class='icon-arrow-down'></i><?php echo $usuario_buscar_administrador ?></a></li>"+
+                                            "<li><a href='/trunk/qualitytours/cliente/eliminar/"+data[count]['id']+"'><i class='icon-remove-circle'></i><?php echo $usuario_buscar_suscripcion ?></a></li>"+
+                                            "<li><a href='/trunk/qualitytours/administrador/eliminar/"+data[count]['id'] +"'><i class='icon-arrow-down'></i><?php echo $usuario_buscar_administrador ?></a></li>"+
                                             "<li><a href='/trunk/qualitytours/usuario/eliminar/"+data[count]['id']+"'><i class='icon-trash'></i><?php echo $usuario_buscar_eliminar ?></a></li>"+
                                         "</ul>"+
                                 "</div>");
@@ -148,7 +145,7 @@ reemplazo se uso 'errorVal'.
                             <div class="accordion-group">
                                 <div class="accordion-heading">
                                     <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
-                                        <?php echo $usuario_buscar_mas_opciones; ?>
+                                        <center><?php echo $usuario_buscar_mas_opciones; ?> </center>
                                     </a>
                                 </div>
                             <div id="collapseOne" class="accordion-body collapse">
@@ -170,8 +167,6 @@ reemplazo se uso 'errorVal'.
             </table>
        
 <!--Resultado de la busqueda-->
-        <br>
-        <br>
         <h4> <?php echo $usuario_buscar_resultado; ?> </h4>
         <br>
         <table class="table table-condensed">
