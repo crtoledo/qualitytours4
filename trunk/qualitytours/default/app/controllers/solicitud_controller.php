@@ -166,8 +166,10 @@ class SolicitudController extends AppController {
                 $this->telefono_cli = $datos_cliente->telefono_cli;
                 $this->tipo_plan = $datos_cliente->tipo_plan;
                 
+                //datos de la solicitud para mostrar en la vista
                 $this->estado_sol = $datos_solicitud->estado_sol;
                 $this->observaciones = $datos_solicitud->observaciones_sol;
+                $this->fecha_sol = $datos_solicitud->fecha_sol;
 
                 // se cargan los datos de la solicitud... para observaciones
                 $this->solicitud = $datos_solicitud;
@@ -240,7 +242,7 @@ class SolicitudController extends AppController {
         }
     }
     
-    Public function rechazar ($id)
+    Public function rechazar ($id,$usuario)
     {
         if (Auth::get("rol_usu") == "administrador") {
             
@@ -251,7 +253,7 @@ class SolicitudController extends AppController {
                 
                 if ($solicitud_rechazar->update()){
                     Flash::info("Solicitud Rechazada");
-                    Router::redirect("/solicitud/buscar");
+                    Router::redirect("/solicitud/administrar/".$id."/".$usuario);
                 }
                 else
                 {
