@@ -61,6 +61,10 @@
                                 <td><dt>Fecha solicitud:</dt></td>
                             <td width="250px"><dd><?php echo $fecha_sol ?></dd></td>
                             </tr>
+                            <tr>
+                                <td><dt>Estado solicitud:</dt></td>
+                            <td width="250px"><dd><?php echo $estado_sol ?></dd></td>
+                            </tr>
                         </table>
                     </dl>
                 </div>
@@ -72,7 +76,7 @@
             <!--    Opciones-->       
             <td>
 <!--                Se verifica que la solicitud no este cancelada y rechazada-->
-                <?php if ($estado_sol == "Cancelada" || $estado_sol == "Rechazada") { ?>
+                <?php if ($estado_sol == "Cancelada" || $estado_sol == "Rechazada" || $estado_sol == "Aceptada") { ?>
                     <center><h4>Observaciones de la solicitud</h4></center>
                     <center><?php echo $observaciones ?></center>
                     <br></br>
@@ -118,7 +122,9 @@
         <h3 id="myModalLabel">¿ Esta seguro de rechazar la solicitud ?</h3>
     </div>
     <div class="modal-body">
-        <p>El rechazo de la solicitud, es una accion que no se puede deshacer</p>
+        <p><b>El rechazo de la solicitud, es una accion que no se puede deshacer</b></p>
+        <p>Antes de rechazar la solicitud asegurece de:</p>
+        <p>- Enviar las observaciones antes de rechazar la solicitud</p>
     </div>
     <div class="modal-footer">
         <button class="btn" data-dismiss="modal" aria-hidden="true">Cerrar</button>
