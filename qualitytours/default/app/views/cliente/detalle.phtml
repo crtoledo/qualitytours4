@@ -210,16 +210,50 @@ $(document).ready(function() {
        </tr>
            <?php
             //Trozo PHP para verificar si hay imagenes
-            if (count($contenido) > 0)
-            {
-                echo "<tr><td colspan='2'><center>";
-                foreach($contenido as $buscar)
-                {
-                    echo  Html::img("../default/public/img/upload/".$buscar->ruta_con,"imagen","width=200 height=150");
-                }   
-                echo "</center></td></tr>";
-            }
+//            if (count($contenido) > 0)
+//            {
+//                echo "<tr><td colspan='2'><center>";
+//                foreach($contenido as $buscar)
+//                {
+//                    echo  Html::img("../default/public/img/upload/".$buscar->ruta_con,"imagen","width=200 height=150");
+//                }   
+//                echo "</center></td></tr>";
+//            }
              ?>
+       <script>
+           $('.carousel').carousel({
+            interval: 1000
+            })
+       </script>
+      
+   
+    <?php
+    //Trozo PHP para verificar si hay imagenes
+            if (count($contenido) > 0)
+                
+            {?>
+       <tr><td colspan='2'><center>
+       <div class="span4">       
+                    <div id="myCarousel" class="carousel slide" with="300">
+                    <!-- Carousel items -->
+                        <div class="carousel-inner">
+                            <div class="item active"><?php echo Html::img("../default/public/img/upload/".$ruta_con[0],"imagen");?></div>
+                                <?php
+                                for($img = 1; $img<=$contimg-1; $img++)
+                                {
+                                    echo "<div class='item'>".Html::img("../default/public/img/upload/".$ruta_con[$img],"imagen")."</div>";
+                                } ?>         
+
+
+                    </div>
+                        <!-- Carousel nav -->
+
+                    <a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
+                    <a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>
+                    </div>
+       </div>
+       </center></td></tr>
+  <?php }?>
        </table>   
        
             

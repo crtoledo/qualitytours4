@@ -144,10 +144,19 @@ class ClienteController extends AppController {
         $this->nombre_cliente = $client->nombre_cli;
         $this->mostrar = $client->visitas_cli + 1;
         $contenido = new Contenido();
-        $contenido = $contenido->find("conditions: id_usu=" . $id);
-        $this->contenido = $contenido;
+        $arr2 = $contenido->find("conditions: id_usu=" . $id);
+        $this->contenido = $arr2;
+        $contimg=0;
+       foreach ($arr2 as $contenido) {
 
+            $this->ruta_con[$contimg] = $arr2[$contimg]->ruta_con;
+           
 
+            $contimg++;
+        }
+
+        $this->contimg = $contimg;
+        
         $services = new Servicio();
         $services = $services->find_all_by('id_usu', $id);
         $this->array_servicios = $services;
