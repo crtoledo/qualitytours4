@@ -2,6 +2,7 @@
 Load::model('publicacion');
 Load::model('contenido');
 Load::model('cliente');
+Load::model('calificacion');
 /**
  * Controller por defecto si no se usa el routes
  * 
@@ -83,6 +84,13 @@ class IndexController extends AppController
                     $i++;
                 }
                 $this->indice = $i;
+                
+                //ranking de calificacion
+                $calificacion =  new Calificacion();
+                $cal = $calificacion->sql("select valor_cal from calificacion ");
+               $this->cal= $cal;
+                $contador = 0;
+               
 	}
         public function en()
         {

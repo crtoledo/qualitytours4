@@ -9,6 +9,7 @@ load::model('comentario');
 load::model('solicitud');
 load::model('calificacion');
 
+
 class ClienteController extends AppController {
 
     public function index() {
