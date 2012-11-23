@@ -57,6 +57,10 @@
                                 <td><dt>Tipo de plan:</dt></td>
                             <td width="250px"><dd><?php echo $tipo_plan ?></dd></td>
                             </tr>
+                            <tr>
+                                <td><dt>Fecha solicitud:</dt></td>
+                            <td width="250px"><dd><?php echo $fecha_sol ?></dd></td>
+                            </tr>
                         </table>
                     </dl>
                 </div>
@@ -118,6 +122,7 @@
     </div>
     <div class="modal-footer">
         <button class="btn" data-dismiss="modal" aria-hidden="true">Cerrar</button>
-        <a href="/trunk/qualitytours/solicitud/rechazar/<?php echo $id_solicitud ?>"><button class="btn btn-primary">Rechazar solicitud</button></a>
+        <a href="/trunk/qualitytours/solicitud/rechazar/<?php echo $id_solicitud ?>/<?php echo $id_usuario ?>"><button class="btn btn-primary">Rechazar solicitud</button></a>
     </div>
+</div>
 
