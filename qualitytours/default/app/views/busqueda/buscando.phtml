@@ -1,135 +1,34 @@
-<div>
 <?php 
     View::content() ;
-
-    Load::model('cliente');
-    $cliente = new Cliente();
 ?>
-</div> 
-<?php echo  "<h6>Resultado de busqueda de: <b>".$busqueda."</b></h6><br>" ;  
-$encontrar=0;
-?>
-    <table class="table">
-        <tr>
-            <td><div align='center'><b>Nombre</b></div></td>
-            <td><div align='center'><b>Giro</b></div> </td>
-            <td><div align='center'><b>Telefono</b></div> </td>
-            <td><div align="center"><b>Ver servicios</b></div></td>
-        </tr>   
-
-<!--    BUSCANDO  POR REGION -->
- <?php $arr= Load::model('ubicacion')->find("columns: id_usu","conditions:  region_ubi='".$busqueda."'","order: id ASC"); ?>
- 
-     
-     
-     <?php foreach ($arr as $ubicaciones ) 
-       {
-         
-         //consultar por el cliente
-            $encontrar=1;
-            //echo $ubicaciones->id_usu; //Bien
-           
-            
-            $cliente->find($ubicaciones->id_usu,"conditions: estado_usu='t' and id_usu=".$ubicaciones->id_usu);
-            $nombre = $cliente->nombre_cli;
-            $giro = $cliente->giro_cli;
-            $telefono = $cliente->telefono_cli;
-
-         
-            
-        ?>    
-            <!--             Mostrar los datos encontrados:-->
-<!--       <table class="table" align="center">-->
-               <tr>
-                   <td><?php echo"<div align='center'>".$nombre."</div>"; ?></td>
-                   <td><?php echo"<div align='center'>".$giro."</div>"; ?></td>
-                   <td><?php echo"<div align='center'>".$telefono."</div>"; ?></td>
-                   <td><?php echo"<div align='center'> ".Html::link('cliente/detalle/'.$cliente->id_usu,"Visitar","target='_blank'")."</div>";?></td> 
-                       
-               </tr>    
+<script type="text/javascript"> //JQUERY PARA BUSQUEDA AJAX
+    $(document).ready(function()
+    {
         
-             
-                
-                
- <?php } ?>
-      
-
-<!--BUSCANDO POR CIUDAD-->
-
-<?php $arr= Load::model('ubicacion')->find("columns: id_usu","conditions:  ciudad_ubi='".$busqueda."'","order: id ASC"); ?>
- 
-     
-     
-     <?php foreach ($arr as $ubicaciones ) 
-       {
-            $encontrar=1;
-            $cliente->find($ubicaciones->id_usu,"conditions: estado_usu='t' and id_usu=".$ubicaciones->id_usu);
-            $nombre = $cliente->nombre_cli;
-            $giro = $cliente->giro_cli;
-            $telefono = $cliente->telefono_cli;
-
+        $.ajax
+        ({
             
-            
-       ?>    
-            
-<!--             Mostrar los datos encontrados:-->
-          
-               <tr>
-                   <td><?php echo"<div align='center'>".$nombre."</div>"; ?></td>
-                   <td><?php echo"<div align='center'>".$giro."</div>"; ?></td>
-                   <td><?php echo"<div align='center'>".$telefono."</div>"; ?></td>
-                   <td><?php echo"<div align='center'> ".Html::link('cliente/detalle/'.$cliente->id_usu,"Visitar","target='_blank'")."</div>";?></td>
-                       
-               </tr>    
-            
-               
+            type: "POST",
+            data : {
+                string: <?php echo "'".$string."'";?>
+            },            
+            url: '<?php echo PUBLIC_PATH; ?>ajax/busqueda_gral.php',
+            dataType: "html",
+            success: function(data)
+            {
+                var datos = data.split('SEPARADOR');
+                var objetosJSON = new Array(3);
                 
-                
-             
-    <?php   } ?>
+                for (i=0;i<datos.length;i++)
+                {
+                    objetosJSON[i] = $.parseJSON(datos[i]);
+                    console.log(objetosJSON[i]);
+                }
+            }  // FIN SUCCESS 
+        }); //FIN AJAX
         
-
-<!--BUSCANDO POR CATEGORIA-->
-
-<?php $arr= Load::model('categoria')->find("columns: id_usu","conditions:  nombre_cat='".$busqueda."' and estado_cat='t'","order: id ASC"); ?>
- 
-     
-     
-     <?php foreach ($arr as $ubicaciones ) 
-       {
-            $encontrar=1;
-            $cliente->find($ubicaciones->id_usu,"conditions: estado_usu='t' and id_usu=".$ubicaciones->id_usu);
-            $nombre = $cliente->nombre_cli;
-            $giro = $cliente->giro_cli;
-            $telefono = $cliente->telefono_cli;
-
-            
-            
-       ?>    
-            
-<!--             Mostrar los datos encontrados:-->
-          
-               <tr>
-                   <td><?php echo"<div align='center'>".$nombre."</div>"; ?></td>
-                   <td><?php echo"<div align='center'>".$giro."</div>"; ?></td>
-                   <td><?php echo"<div align='center'>".$telefono."</div>"; ?></td>
-                   <td><?php echo"<div align='center'> ".Html::link('cliente/detalle/'.$cliente->id_usu,"Visitar","target='_blank'")."</div>";?></td>
-                       
-               </tr>    
-            
-               
-                
-                
-             
-    <?php   } ?>
-        </table>
-
-
-
-        <?php  
-          if($encontrar == 0)
-          {
-              echo "<b>Lo sentimos no existen resultados para la búsqueda ingresada.</b>";
-          }
         
-        ?>
+    });
+    
+</script>
+    

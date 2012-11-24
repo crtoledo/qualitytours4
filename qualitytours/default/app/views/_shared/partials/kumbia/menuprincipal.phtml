@@ -267,12 +267,8 @@ $arr = Load::Model('ubicacion', 'cliente')->find_all_by_sql("select  distinct re
 
 <!-- CAMPO DE BUSQUEDA-->
                 <?php echo Form::open("busqueda/buscando/", 'post', 'class=navbar-search'); ?>
-                    <?php // echo Form::text("ciudad","class='search-query span2' placeholder='Buscar destinos' data-provide='typeahead' ");   ?>
-                
                     <i class="icon-search icon-white"></i>
-                    <input id="searchinput" name="ciudad" type="text" value="" class='search-query span2 busqueda' placeholder='<?php echo $buscardestinos_string; ?>' data-provide='typeahead' >  
-
-                    <!-- <input type="text" id="ciudad" class="search-query span2" placeholder="Buscar destinos" data-provide="typeahead" class="search-query">-->
+                    <input id="searchinput" name="string" type="text" value="" class='search-query span2 busqueda' placeholder='<?php echo $buscardestinos_string; ?>' data-provide='typeahead' >  
                 <?php echo Form::close() ?>
 
 <!-- FIN CAMPO DE BUSQUEDA-->
