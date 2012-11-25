@@ -1,4 +1,5 @@
 <?php
+ echo Tag::js('rating'); 
 //Código para el idioma
     if($leng == "en")
     {
@@ -9,6 +10,8 @@
         include_once APP_PATH.'libs/es.php';
     }
 ?>    
+<!--estilo css para estrellas de muestra-->
+
 
 <div class="container-fluid">
   <div class="row-fluid">
@@ -97,12 +100,18 @@
          $cont = 0; 
          for ($i=0;$i<=$contadors-1;$i++)
          {
-            $cont = $i+1;
-            echo "<table>
+            $cont = $i+1;?>
+            
+          
+            
+       <?php     echo "<table>
                   <tr>
-                  <td><span class='badge badge-info'>".$cont."</span>&nbsp;<font size='1'>".Html::link("cliente/detalle/".$id_cli_cal[$i]."/es",$id_cli_cal[$i],"target='_blank'")." P: ".$valor_cal[$i]."</font>
+                  <td><span class='badge badge-info'>".$cont."</span>&nbsp;<font size='1'>".Html::link("cliente/detalle/".$id[$i]."/es",$id_cli_cal[$i],"target='_blank'")." <b> ".number_format($valor_cal[$i], $decimals = 1)."</b></font>
                   </td>
-                  </tr>
+                 </tr>
+                 <tr>
+                 <td><div class='stars0 stars".number_format($valor_cal[$i], $decimals = 0)."'></div> </td>
+                 </tr>
                   </table>
                    ";
          }
