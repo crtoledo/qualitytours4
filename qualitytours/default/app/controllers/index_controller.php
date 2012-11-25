@@ -87,13 +87,16 @@ class IndexController extends AppController
                 
                 //ranking de calificacion
                 $calificacion =  new Calificacion();
-                $cal = $calificacion->find('columns: cli_id_usu,avg(valor_cal)','group: cli_id_usu','order: avg desc');
+                $cal = $calificacion->find('columns: cli_id_usu,avg(valor_cal)','group: cli_id_usu','order: avg desc','limit: 3');
                 
                 $contador = 0;
                 
                 foreach($cal as $promedio)
                 {
-                    $this->id_cli_cal[$contador] = $promedio->cli_id_usu;
+                    $id[$contador] = $promedio->cli_id_usu;
+                    $this->id[$contador]=$id[$contador];
+                    $nombre[$contador] = $cliente->find($id[$contador]);
+                    $this->id_cli_cal[$contador] = $nombre[$contador]->nombre_cli;
                     $this->valor_cal[$contador] = $promedio->avg;
                     $contador++;
                 }
