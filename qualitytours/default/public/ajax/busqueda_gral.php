@@ -8,7 +8,14 @@
     $query_ok = 0;
     
     //STRINGS DE LAS DISTINSTAS BUSQUEDAS
-    $string1 = "select nombre_cli, id_usu from cliente where nombre_cli ilike '%".$_REQUEST['string']."%' order by visitas_cli desc limit 5";
+    $string1 = "
+SELECT cliente.nombre_cli, cliente.id_usu, ubicacion.region_ubi, ubicacion.ciudad_ubi
+FROM cliente
+LEFT JOIN ubicacion on cliente.id_usu = ubicacion.id_usu
+WHERE nombre_cli ilike '%".$_REQUEST['string']."%' 
+ORDER BY visitas_cli DESC LIMIT 5";
+    
+    
     $string2 = "select region_ubi from ubicacion where region_ubi ilike '%".$_REQUEST['string']."%'";
     $string3 = "select ciudad_ubi from ubicacion where ciudad_ubi ilike '%".$_REQUEST['string']."%'";
     

@@ -1,5 +1,5 @@
-<?php 
-    View::content() ;
+<?php
+View::content();
 ?>
 <script type="text/javascript"> //JQUERY PARA BUSQUEDA AJAX
     $(document).ready(function()
@@ -10,7 +10,7 @@
             
             type: "POST",
             data : {
-                string: <?php echo "'".$string."'";?>
+                string: <?php echo "'" . $string . "'"; ?>
             },            
             url: '<?php echo PUBLIC_PATH; ?>ajax/busqueda_gral.php',
             dataType: "html",
@@ -23,12 +23,30 @@
                 {
                     objetosJSON[i] = $.parseJSON(datos[i]);
                     console.log(objetosJSON[i]);
+                    
+                    if(i==0)
+                    {
+                        //$(".resultados").append("");
+                        $(".resultados").append("<table>");
+                        for (x=0;x<objetosJSON[i].length;x++)
+                        {
+                            $(".resultados table").append("<tr><td>");
+                            $(".resultados table tbody").append(objetosJSON[i][x].nombre_cli);
+                            $(".resultados table").append("</td></tr>");   
+                        }
+                        
+                        $(".resultados").append("</table>");
+                    }
+                    
                 }
             }  // FIN SUCCESS 
         }); //FIN AJAX
         
         
-    });
-    
+    });//FIN DOCUMENT READY JQUERY
 </script>
-    
+
+
+<div class="resultados" style="text-align: center">
+
+</div>
