@@ -34,24 +34,28 @@ View::content();
                         $(".tclientes thead tr").append("<th>Ciudad</th>");
                         $(".tclientes thead tr").append("<th>Region</th>");
                         $(".tclientes thead tr").append("<th>Calificaci&oacute;n</th>");
+                        alert(objetosJSON.length);
                         for (x=0;x<objetosJSON[i].length;x++)
                         {
-                            $(".tclientes").append("<tr>");
-                            $(".tclientes tbody tr").append("<td><a href='/trunk/qualitytours/cliente/detalle/"+objetosJSON[i][x].id_cliente+"/es'>"+objetosJSON[i][x].nombre_cliente+"</a></td><td>"+objetosJSON[i][x].ciudad+"</td><td>"+objetosJSON[i][x].region+"</td>")
-                            if (objetosJSON[i][x].promedio == null)
-                                $(".tclientes tbody tr").append("<td>Sin calificaciones</td>")
+                            $(".tclientes").append("<tr class='c1res"+x+"'>");
+                            $(".c1res"+x).append("<td><a href='/trunk/qualitytours/cliente/detalle/"+objetosJSON[i][x].id_cliente+"/es'>"+objetosJSON[i][x].nombre_cliente+"</a></td><td>"+objetosJSON[i][x].ciudad+"</td><td>"+objetosJSON[i][x].region+"</td>")
+                            
+                            if (objetosJSON[i][x].promedio == 0)
+                                {
+                                    $(".c1res"+x).append("<td>Sin calificaciones</td>")
+                                }
                             else
                                 {
                                     var calificacion = objetosJSON[i][x].promedio;
                                     calificacion = Math.round(calificacion*100) / 100;
-                                    $(".tclientes tbody tr").append("<td>"+calificacion+"</td>");
+                                    $(".c1res"+x).append("<td>"+calificacion+"</td>");
                                 }
                             $(".tclientes").prepend("</tr>");
                         }
                         $(".resultados").prepend("</table>");
                     } //FIN IF
                     
-                }
+                }  // FIN FOR
             }  // FIN SUCCESS 
         }); //FIN AJAX
         
