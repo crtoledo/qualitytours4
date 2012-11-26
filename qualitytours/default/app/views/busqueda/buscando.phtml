@@ -22,21 +22,34 @@ View::content();
                 for (i=0;i<datos.length;i++)
                 {
                     objetosJSON[i] = $.parseJSON(datos[i]);
-                    console.log(objetosJSON[i]);
+                    //console.log(objetosJSON[i]);
                     
                     if(i==0)
                     {
+                        $(".resultados").append("<h4>Centros tur&iacute;sticos</h4>");
                         //$(".resultados").append("");
-                        $(".resultados").append("<table>");
+                        $(".resultados").append("<table class='table table-condensed tclientes'>");
+                        $(".tclientes").append("<thead><tr></tr></thead>");
+                        $(".tclientes thead tr").append("<th>Nombre Cliente</th>");
+                        $(".tclientes thead tr").append("<th>Ciudad</th>");
+                        $(".tclientes thead tr").append("<th>Region</th>");
+                        $(".tclientes thead tr").append("<th>Calificaci&oacute;n</th>");
                         for (x=0;x<objetosJSON[i].length;x++)
                         {
-                            $(".resultados table").append("<tr><td>");
-                            $(".resultados table tbody").append(objetosJSON[i][x].nombre_cli);
-                            $(".resultados table").append("</td></tr>");   
+                            $(".tclientes").append("<tr>");
+                            $(".tclientes tbody tr").append("<td><a href='/trunk/qualitytours/cliente/detalle/"+objetosJSON[i][x].id_cliente+"/es'>"+objetosJSON[i][x].nombre_cliente+"</a></td><td>"+objetosJSON[i][x].ciudad+"</td><td>"+objetosJSON[i][x].region+"</td>")
+                            if (objetosJSON[i][x].promedio == null)
+                                $(".tclientes tbody tr").append("<td>Sin calificaciones</td>")
+                            else
+                                {
+                                    var calificacion = objetosJSON[i][x].promedio;
+                                    calificacion = Math.round(calificacion*100) / 100;
+                                    $(".tclientes tbody tr").append("<td>"+calificacion+"</td>");
+                                }
+                            $(".tclientes").prepend("</tr>");
                         }
-                        
-                        $(".resultados").append("</table>");
-                    }
+                        $(".resultados").prepend("</table>");
+                    } //FIN IF
                     
                 }
             }  // FIN SUCCESS 
@@ -47,6 +60,6 @@ View::content();
 </script>
 
 
-<div class="resultados" style="text-align: center">
+<div class="resultados" style="text-align: center;" align="center">
 
 </div>
