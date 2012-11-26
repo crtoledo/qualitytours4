@@ -74,27 +74,27 @@
         <div align="right">
             <table>
                 <tr>
-                    <td><h6>Publica tus centros turísticos en quality tours</h6></td>
+                    <td><h6><?php echo $index_titulo_2; ?></h6></td>
                 <tr>
-                    <td> <?php echo Html::img("1341096209_publish.png","publicar"); ?> </td>
+                    <td><div align="center"> <?php echo Html::img("1341096209_publish.png","publicar"); ?></div> </td>
                 </tr>
             </table>
         </div>
-        <h6>Los más visitados</h6>
+        <h6><?php echo $index_titulo_1; ?></h6>
         <?php
          for ($i=0;$i<=$indice-1;$i++)
          {
             $cont = $i+1;
             echo "<table>
                   <tr>
-                  <td><span class='badge badge-info'>".$cont."</span>&nbsp;<font size='1'>".Html::link("cliente/detalle/".$id_cliente[$i]."/es",$nombre_cli[$i],"target='_blank'")."</font></td>
+                  <td><span class='badge badge-info'>".$cont."</span>&nbsp;<font size='1'>".Html::link("cliente/detalle/".$id_cliente[$i]."/".$leng,$nombre_cli[$i],"target='_blank'")."</font></td>
                   </tr>
                   </table>
                    ";
          }
         ?>
         <br>
-        <h6>Mejores calificados</h6>
+        <h6><?php echo $index_titulo_3; ?></h6>
         <?php
         
          $cont = 0; 
@@ -106,7 +106,7 @@
             
        <?php     echo "<table>
                   <tr>
-                  <td><span class='badge badge-info'>".$cont."</span>&nbsp;<font size='1'>".Html::link("cliente/detalle/".$id[$i]."/es",$id_cli_cal[$i],"target='_blank'")." <b> ".number_format($valor_cal[$i], $decimals = 1)."</b></font>
+                  <td><span class='badge badge-info'>".$cont."</span>&nbsp;<font size='1'>".Html::link("cliente/detalle/".$id[$i]."/".$leng,$id_cli_cal[$i],"target='_blank'")." <b> ".number_format($valor_cal[$i], $decimals = 1)."</b></font>
                   </td>
                  </tr>
                  <tr>
