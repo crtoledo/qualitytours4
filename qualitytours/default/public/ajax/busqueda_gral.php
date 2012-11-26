@@ -17,11 +17,22 @@ WHERE cliente.nombre_cli ilike '%".$_REQUEST['string']."%'
 GROUP BY cliente.id_usu, ubicacion.region_ubi, ubicacion.ciudad_ubi, cliente.visitas_cli 
 ORDER BY promedio desc, visitas";
     
+    $string2 = "select cliente.id_usu as id_cliente, cliente.nombre_cli as nombre_cliente, ubicacion.region_ubi as region, ubicacion.ciudad_ubi as ciudad, cliente.visitas_cli as visitas, coalesce(AVG(calificacion.valor_cal),0) as promedio
+from cliente
+join ubicacion on cliente.id_usu = ubicacion.id_usu
+full join calificacion on cliente.id_usu = calificacion.cli_id_usu
+WHERE ubicacion.region_ubi ilike '%".$_REQUEST['string']."%' 
+GROUP BY cliente.id_usu, ubicacion.region_ubi, ubicacion.ciudad_ubi, cliente.visitas_cli 
+ORDER BY promedio desc, visitas";
     
     
-    
-    $string2 = "select region_ubi from ubicacion where region_ubi ilike '%".$_REQUEST['string']."%'";
-    $string3 = "select ciudad_ubi from ubicacion where ciudad_ubi ilike '%".$_REQUEST['string']."%'";
+    $string3 = "select cliente.id_usu as id_cliente, cliente.nombre_cli as nombre_cliente, ubicacion.region_ubi as region, ubicacion.ciudad_ubi as ciudad, cliente.visitas_cli as visitas, coalesce(AVG(calificacion.valor_cal),0) as promedio
+from cliente
+join ubicacion on cliente.id_usu = ubicacion.id_usu
+full join calificacion on cliente.id_usu = calificacion.cli_id_usu
+WHERE ubicacion.ciudad_ubi ilike '%".$_REQUEST['string']."%' 
+GROUP BY cliente.id_usu, ubicacion.region_ubi, ubicacion.ciudad_ubi, cliente.visitas_cli 
+ORDER BY promedio desc, visitas";
     
     $resu1 = pg_query($conn,$string1);
     $res1 = pg_fetch_all($resu1);
@@ -54,6 +65,8 @@ ORDER BY promedio desc, visitas";
     {
         return 'no hay resultados';
     }
+    else
+        echo "SEPARADOR".
     
     $Db->close($conn);
 ?>
