@@ -80,5 +80,11 @@ $publicacion_ingresar_detalle = "Detalle:";
 $publicacion_ingresar_encabesado = "Ingresar una nueva publicación";
 $publicacion_ingresar_boton =  "Publicar";
 
+//variables /cliente/detalle
+$cliente_detalle_valcoment = "Ingrese comentario";
+$cliente_detalle_visitas = "Visitas";
+$cliente_detalle_servicios = "Servicios";
+$cliente_detalle_mensaje1 = "Iniciar sesi&oacute;n para calificar";
+
 
 ?>

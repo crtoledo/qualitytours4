@@ -112,16 +112,16 @@ div.rating div a:hover {
 
     .stars, .stars0
 {
-   background: transparent url('../img/stars.png') no-repeat top left;
-   width:100px;
+   background: transparent url('../img/stars.png') no-repeat top left
+;   width:100px;
    height:20px;
    float:left;
    display:block;
    margin: 5px;
 }
-.stars1 {background-position:-20px;}
-.stars2 {background-position:-40px;}
-.stars3 {background-position:-60px;}
-.stars4 {background-position:-80px;}
-.stars5 {background-position:-100px;}
+.stars1 {background-position:-80px;}
+.stars2 {background-position:-60px;}
+.stars3 {background-position:-40px;}
+.stars4 {background-position:-20px;}
+.stars5 {background-position: 0px;}
 

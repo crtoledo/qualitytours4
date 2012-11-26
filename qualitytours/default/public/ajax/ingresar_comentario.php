@@ -1,5 +1,8 @@
 <?php
+
+
  require_once 'connection.php';
+
     $Db = new db();
     $conn = $Db->open();
     setlocale ( LC_TIME, 'spanish' );
@@ -33,6 +36,10 @@ $Db->close($conn);
     <tr>
         <td> <div align="left"> <?php echo $comentario; ?> </div></td>
     </tr>
+    <tr>
+        <td> <a href="#" class="boton-delete">Remove</a> </td>
+    </tr>
+   
           
     </table> 
 </div>
