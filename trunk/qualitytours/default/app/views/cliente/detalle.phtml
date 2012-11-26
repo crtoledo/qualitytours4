@@ -21,6 +21,7 @@
     var id_cli = <?php echo $id_cliente?>;
     var id_usu = <?php echo Auth::get('id')?>;
     var promedio = <?php echo $calificacion;?>
+  
     
 </script>
  <?php echo Tag::js('rating'); ?>
@@ -34,7 +35,7 @@
         
         
          if( $(".comentario").val() == "" ){
-             $(".comentario").focus().after("<span class='errorVal'>Ingrese un comentario</span>");
+             $(".comentario").focus().after("<span class='errorVal'><?php echo $cliente_detalle_valcoment; ?></span>");
              return false;
              }
          });
@@ -148,6 +149,8 @@ $(document).ready(function() {
 });
  
 </script>
+
+
 <!--FORMULARIO DE COMENTARIO-->
 <script>
     $(document).ready(function(){
@@ -186,11 +189,11 @@ $(document).ready(function() {
         <?php if (isset($ciudad_ubi)) echo $ciudad_ubi; ?><br>
         <?php if (isset($region_ubi)) echo $direccion_ubi; ?>
     </h6>
-        <?php echo"<span class='label label-info'>".$mostrar.":&nbsp;Views</span>";?><br>
+        <?php echo"<span class='label label-info'>".$mostrar.":&nbsp;".$cliente_detalle_visitas."</span>";?><br>
         <?php
             foreach ($array_servicios as $servicio)
                 {
-                    echo Html::link("servicio/detalle/" . $servicio->id."/".$leng, "Services: " . $servicio->nombre_ser . "<br>");
+                    echo Html::link("servicio/detalle/" . $servicio->id."/".$leng, $cliente_detalle_servicios.": " . $servicio->nombre_ser . "<br>");
                 }  
         ?>
             <?php
@@ -229,7 +232,7 @@ $(document).ready(function() {
             <?php 
                 if(!Auth::is_valid())
                 {
-                    echo "<font size='1'><b>Para calificar debe iniciar sesión</b></font><br>";
+                    echo "<font size='1'><b>".$cliente_detalle_mensaje1."</b></font><br>";
                 }
                 $calificacion = number_format($calificacion, $decimals = 1);
                 echo "<b>Califica tu experencia de viaje:<br></b>

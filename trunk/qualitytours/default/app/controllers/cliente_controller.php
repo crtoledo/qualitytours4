@@ -183,6 +183,7 @@ class ClienteController extends AppController {
         $contador = 0;
         $user = new Usuario();
         foreach ($arr as $comentario) {
+            
 
             $this->detalle[$contador] = $arr[$contador]->detalle_com;
             $this->fecha[$contador] = $arr[$contador]->fecha_com;

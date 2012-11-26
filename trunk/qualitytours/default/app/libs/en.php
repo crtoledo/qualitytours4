@@ -68,4 +68,9 @@ $publicacion_ingresar_detalle = "Details:";
 $publicacion_ingresar_encabesado = "New Publish";
 $publicacion_ingresar_boton =  "Publish";
 
+//variables /cliente/detalle
+$cliente_detalle_valcoment = "Add comentary";
+$cliente_detalle_visitas = "Views";
+$cliente_detalle_servicios = "Services";
+$cliente_detalle_mensaje1 = "Login to rate";
 ?>
