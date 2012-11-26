@@ -10,6 +10,9 @@ $con_ingresar_string="en";
 $pub_editar_string="en";
 $publicacion_index_traducir="translate";
 $publicacion_index_idiom="/en";
+$index_titulo_1 = "The most visited";
+$index_titulo_2 = "Publish your center tourist in Qualitytours";
+$index_titulo_3 = "Best qualified";
 
 //variables para vista /usuario/ingresar
 $titulo_ingresar_string = "Register";
