@@ -13,6 +13,7 @@ View::content();
         ({
             
             type: "POST",
+            async: false,
             data : {
                 string: <?php echo "'" . $string . "'"; ?>
             },            
@@ -27,10 +28,10 @@ View::content();
                     $(".resultados").append("<h4>Centros tur&iacute;sticos</h4>");
                     $(".resultados").append("<table class='table table-condensed tclientes'>");
                     $(".tclientes").append("<thead><tr></tr></thead>");
-                    $(".tclientes thead tr").append("<th>Nombre Cliente</th>");
-                    $(".tclientes thead tr").append("<th>Ciudad</th>");
-                    $(".tclientes thead tr").append("<th>Region</th>");
-                    $(".tclientes thead tr").append("<th>Calificaci&oacute;n</th>");
+                    $(".tclientes thead tr").append("<th class='span3'>Nombre Cliente</th>");
+                    $(".tclientes thead tr").append("<th class='span1'>Ciudad</th>");
+                    $(".tclientes thead tr").append("<th class='span3'>Regi&oacute;n</th>");
+                    $(".tclientes thead tr").append("<th class='span1'>Calificaci&oacute;n</th>");
                     for (i=0;i<data.length;i++)
                     {
                         resultados_encontrados++;
@@ -66,6 +67,7 @@ View::content();
         ({
             
             type: "POST",
+            async: false,
             data : {
                 string: <?php echo "'" . $string . "'"; ?>
             },            
@@ -80,10 +82,10 @@ View::content();
                     $(".resultados").append("<h4>Centros tur&iacute;sticos que contienen '<?php echo $string?>' en regi&oacute;n</h4>");
                     $(".resultados").append("<table class='table table-condensed tregiones'>");
                     $(".tregiones").append("<thead><tr></tr></thead>");
-                    $(".tregiones thead tr").append("<th>Nombre Cliente</th>");
-                    $(".tregiones thead tr").append("<th>Ciudad</th>");
-                    $(".tregiones thead tr").append("<th>Region</th>");
-                    $(".tregiones thead tr").append("<th>Calificaci&oacute;n</th>");
+                    $(".tregiones thead tr").append("<th class='span3'>Nombre Cliente</th>");
+                    $(".tregiones thead tr").append("<th class='span1'>Ciudad</th>");
+                    $(".tregiones thead tr").append("<th class='span3'>Regi&oacute;n</th>");
+                    $(".tregiones thead tr").append("<th class='span1'>Calificaci&oacute;n</th>");
                     for (i=0;i<data.length;i++)
                     {
                         resultados_encontrados++;
@@ -120,6 +122,7 @@ View::content();
         ({
             
             type: "POST",
+            async: false,
             data : {
                 string: <?php echo "'" . $string . "'"; ?>
             },            
@@ -134,10 +137,10 @@ View::content();
                     $(".resultados").append("<h4>Centros tur&iacute;sticos que contienen '<?php echo $string?>' en ciudad</h4>");
                     $(".resultados").append("<table class='table table-condensed tciudades'>");
                     $(".tciudades").append("<thead><tr></tr></thead>");
-                    $(".tciudades thead tr").append("<th>Nombre Cliente</th>");
-                    $(".tciudades thead tr").append("<th>Ciudad</th>");
-                    $(".tciudades thead tr").append("<th>Region</th>");
-                    $(".tciudades thead tr").append("<th>Calificaci&oacute;n</th>");
+                    $(".tciudades thead tr").append("<th class='span3'>Nombre Cliente</th>");
+                    $(".tciudades thead tr").append("<th class='span1'>Ciudad</th>");
+                    $(".tciudades thead tr").append("<th class='span3'>Regi&oacute;n</th>");
+                    $(".tciudades thead tr").append("<th class='span1'>Calificaci&oacute;n</th>");
                     for (i=0;i<data.length;i++)
                     {
                         resultados_encontrados++;
@@ -171,7 +174,10 @@ View::content();
         }); //FIN AJAX CRITERIO 3
         
         /* ESTADISTICAS DE LA BUSQUEDA */
-        //PRONTO
+        if (resultados_encontrados>0)
+        $(".info_busqueda").append('Resultados encontrados: '+resultados_encontrados);
+        else
+        $(".info_busqueda").append("<b>No se encontraron resultados, intente otra consulta</b>");
         
     });//FIN DOCUMENT READY JQUERY
 </script>
@@ -182,3 +188,4 @@ View::content();
 </div>
 
 <div class="info_busqueda" style="text-align: center;" align="center"></div>
+<br>
