@@ -179,6 +179,30 @@ View::content();
         else
         $(".info_busqueda").append("<b>No se encontraron resultados, intente otra consulta</b>");
         
+        //INGRESO DE LA BUSQUEDA (LLAMADO AJAX 4)
+        if ('<?php echo $username_usu; ?>' != 'NOREGISTRADO' && resultados_encontrados>0)
+        {
+            $.ajax
+            ({
+
+                type: "POST",
+                async: false,
+                data : {
+                    string: <?php echo "'" . $string . "'"; ?>,
+                    resultados: resultados_encontrados,
+                    id_usu: <?php echo $id_usu; ?>
+                },            
+                url: '<?php echo PUBLIC_PATH; ?>ajax/ingreso_busqueda.php',
+                dataType: "text",
+                success: function(data)
+                {
+                    //alert(data);
+                }
+            });
+        }
+        
+        
+        
     });//FIN DOCUMENT READY JQUERY
 </script>
 
