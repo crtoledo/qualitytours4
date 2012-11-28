@@ -12,9 +12,11 @@ $estado_query = "FALLO";
 setlocale ( LC_TIME, 'spanish' );
 $fecha = strftime(date('Y/m/d'));
 
-$string_select = "select * from BUSQUEDA where texto_bus ilike '".$_REQUEST['string']."'";
+$string_select = "select count(*) from BUSQUEDA where texto_bus ilike '".$_REQUEST['string']."';";
 $resu_select = pg_query($conn, $string_select);
-$select_count = pg_affected_rows($resu_select);
+//$select_count = pg_affected_rows($resu_select); 
+ $arr= pg_fetch_all_columns($resu_select);
+ $select_count = $arr[0];
 
 if ($select_count == 0) // NO EXISTE LA BUSQUEDA EN LA BD 
 {
@@ -33,7 +35,8 @@ if ($select_count == 0) // NO EXISTE LA BUSQUEDA EN LA BD
 }
 else //YA EXISTE LA BUSQUEDA EN LA BD
 {
-    //$res_select = pg_fetch_all($resu_select);
+    $string_select = "select * from BUSQUEDA where texto_bus ilike '".$_REQUEST['string']."';";
+    $resu_select = pg_query($conn, $string_select);
     $res_select = pg_fetch_row($resu_select);
     
     $string_update = "
@@ -51,7 +54,7 @@ else //YA EXISTE LA BUSQUEDA EN LA BD
 
 
 
-return $estado_query;
+echo $estado_query;
 
 $Db->close($conn);
 ?>
