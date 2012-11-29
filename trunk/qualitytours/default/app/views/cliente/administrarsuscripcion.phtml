@@ -1,8 +1,8 @@
 <div><?php View::content() ?></div> 
 <script type="text/javascript">
     //activacion del modal de la cancelacion solicitud
-    function activar_cancelacion () {
-        $('#myModal').modal('toggle');
+    function activar_renovar () {
+        $('#renovar').modal('toggle');
     };
 
 </script>
@@ -82,7 +82,7 @@
                         </tr>
                         </tbody>
                     </table>
-                                        <table class="table table-bordered">
+                    <table class="table table-bordered">
                         <thead>
                             <tr>
                                 <th><center><dt>Observacion</dt></center></th>
@@ -91,17 +91,40 @@
                         <tbody>
                             <tr>
                                 <td width="120px"><dd><?php echo $observaciones ?></dd></td>
-                            </tr>
+                        </tr>
                         </tbody>
                     </table>
-                    <?php if (isset($muestra_boton))
-                    { 
-                        if ($muestra_boton == "Si"){ ?>
-                       <center><button class="btn btn-success" type="submit">Renovar suscripción</button></center>
-                    <?php }}?>
+                    <?php
+                    if (isset($muestra_boton)) {
+                        if ($muestra_boton == "Si") { ?>
+                            
+                            <center><button class="btn btn-success" type="submit" onclick="activar_renovar()">Renovar suscripción</button></center>
+                            <p align="center">Si desea cambiar los datos de la suscripcion, debe esperar<br>
+                                a que la actual termine para mandar una nueva solicitud</p>
+                    <?php   }
+                        } else if(isset($existe)){echo $existe;}
+                        else if(isset($noexiste)){echo $noexiste;}
+                        
+                        ?>
                 </dl>
             </td>        
         </tr>
     </table>
+</div>
+<div id="renovar" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="myModalLabel">¿ Esta seguro de renovar la suscripción?</h3>
+    </div>
+    <div class="modal-body">
+        <p><b>Al renovar su suscripción usted acepta las condiciones del servicio</b><br>
+            Observaciones: <br> 
+        <ul>1.- Asegurece que los datos mostrados corresponden a su centro turistico</ul>
+        <ul>2.- La solicitud de renovacion tiene que ser confirmada por un administrador</ul></p>
+    </div>
+    <div class="modal-footer">
+        <button class="btn" data-dismiss="modal" aria-hidden="true">Cerrar</button>
+        <a href="/trunk/qualitytours/solicitud/renovarsuscripcion"><button class="btn btn-primary">Renovar suscripción</button></a>
+    </div>
 </div>
 

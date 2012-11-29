@@ -217,9 +217,9 @@ class ClienteController extends AppController {
         }
     }
 
-   /////////////////////////////////////////////////    
-  //***Funciones relacionadas con la solicitud***//
- //*********************************************//
+    /////////////////////////////////////////////////    
+    //***Funciones relacionadas con la solicitud***//
+    //*********************************************//
 ////////////////////////////////////////////////
     //Funcion para modificar los datos del cliente una vez ingresada al solicitud.
     public function ver($id) {
@@ -230,7 +230,7 @@ class ClienteController extends AppController {
             $cliente = new Cliente(Input::post('cliente'));
 
             $solicitud_modificacion = new Solicitud ();
-            $solicitud_modificacion = $solicitud_modificacion->modificar_solicitud($id);
+            $solicitud_modificacion = $solicitud_modificacion->buscar_solicitud($id);
             $solicitud_modificacion->modificaciones_sol = "true";
 
             //Paso de datos desde usuario encontrado a cliente a ingresar
@@ -267,9 +267,10 @@ class ClienteController extends AppController {
             $datos_cliente = new cliente();
             $id_cliente = Auth::get("id");
 
-            // se valida que al solicitud corresponda al usuario
             if ($datos_cliente->find_by_sql("select * from cliente where id_usu=" . $id_cliente)) {
-
+                //*********************************
+                //Se obtienen los datos del cliente
+                //*********************************
                 $this->nombre_cli = $datos_cliente->nombre_cli;
                 $this->nombre_usu = $datos_cliente->nombre_usu;
                 $this->rut_usu = $datos_cliente->rut_usu;
@@ -280,31 +281,61 @@ class ClienteController extends AppController {
                 $this->tipo_plan = $datos_cliente->tipo_plan;
                 $this->ini_sus = $datos_cliente->fecha_ini_sus;
                 $this->fin_sus = $datos_cliente->fecha_fin_sus;
+                //*********************************
+                //Fin obtencion datos del cliente
+                //*********************************
+                //
+                //******************************************************************
+                //Se obtienen los datos de la solicitud aceptada asociada al cliente
+                //******************************************************************
+                $datos_solicitud = new solicitud();
+                $datos_solicitud->solicitud_aceptada($id_cliente); // obtengo los datos de la solicitud
 
+                $this->fecha_solicitud = $datos_solicitud->fecha_sol;
+                $this->observaciones = $datos_solicitud->observaciones_sol;
+                $this->id_solicitud = $datos_solicitud->id;
+                //******************************************************************
+                //Fin obtencion datos de la solicitud aceptada asociada al cliente
+                //******************************************************************     
+                //           
+                //**************************************
                 //Para poder mostar el boton de renovar
-                //Se obtiene la fecha actual
+                //**************************************
+
                 date_default_timezone_set('America/Santiago');
+                //Se obtiene la fecha actual
                 $dia_actual = date("d");
                 $mes_actual = date("m");
                 $ano_actual = date("Y");
-
+                $comprobar = new solicitud(); // sirve para validar que no exista otra solicitud de renovacion
                 //Se obtiene la fecha del fin suscripcion
                 $fecha_fin_suscripcion = $datos_cliente->fecha_fin_sus;
 
                 //Paso el dia, mes y año para poder comprarlos despues
                 list($ano, $mes, $dia) = explode('-', $fecha_fin_suscripcion);
 
-                if ($ano == $ano_actual && $mes == $mes_actual && $dia_actual <= $dia) {
+                //Se valida de que se cumpla las condiciones de fecha y de que no exista otra solicitud de renovacion
+                if ($ano == $ano_actual && $mes == $mes_actual && $dia_actual <= $dia && !$comprobar->solicitud_renovacion($id_cliente)) {
                     // se se cumple las condiciones el boton puede ser mostrado
                     $this->muestra_boton = "Si";
                 }
-                //Fin boton renovar                
+                //******************
+                //Fin boton renovar
+                //******************
+                //
+                //********************************************
+                //Leyendas cuando el boton renovar no aparece
+                //********************************************
 
-                $datos_solicitud = new solicitud();
-                $datos_solicitud->modificar_solicitud($id_cliente); // obtengo los datos de la solicitud
-
-                $this->fecha_solicitud = $datos_solicitud->fecha_sol;
-                $this->observaciones = $datos_solicitud->observaciones_sol;
+                $leyendas = new solicitud();
+                if ($leyendas->solicitud_renovacion($id_cliente)) {
+                    $this->existe ="<center><b>Ya tiene una solicitud de renovacion pendiente</b></center>";
+                } else {
+                    $this->noexiste = "<center><b>Todavia  no cumple los requisitos</b></center>";
+                }
+                //************************************************
+                //Fin leyendas cuando el boton renovar no aparece
+                //************************************************
             } else {
                 Flash::info('No tiene suscripcion activa');
                 Router::redirect("cliente/ingresarsolicitud");
@@ -314,6 +345,5 @@ class ClienteController extends AppController {
             Router::redirect("/");
         }
     }
-
 }
 
