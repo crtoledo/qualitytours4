@@ -59,7 +59,7 @@ class SolicitudController extends AppController {
                 $this->estado = $solicitud->estado_sol;
                 $this->tipo = $solicitud->tipo_sol;
                 $this->observaciones = $solicitud->observaciones_sol;
-                if ($solicitud->estado_sol == "Aprobada") {
+                if ($solicitud->estado_sol == "Aceptada") {
                     $this->colortabla = "success";
                 } else if ($solicitud->estado_sol == "Pendiente") {
                     $this->colortabla = "warning";
@@ -89,7 +89,7 @@ class SolicitudController extends AppController {
     public function cancela($id) {
         if (Auth::get("id") == $id) {
             $cancelacion = new solicitud();
-            $cancelacion->cancelar_suscripcion($id);
+            $cancelacion->buscar_solicitud($id);
             $cancelacion->estado_sol = "Cancelada";
             $cancelacion->activo_sol = "false";
 
@@ -133,8 +133,80 @@ class SolicitudController extends AppController {
 //**********  Fin funciones para el usuario  **********//
 //****************************************************//    
 /////////////////////////////////////////////////////// 
+///////////////////////////////////////////////////////////
+//******************************************************//    
+//************  funciones para el cliente  ************//
+//****************************************************//    
+/////////////////////////////////////////////////////// 
 
+    public function renovarsuscripcion() {
+        if (Auth::get("rol_usu") == "cliente") {
+            $id_cliente = Auth::get("id");
+            $solicitud_renovacion = new solicitud ();
+            $cantidad_Renovacion = $solicitud_renovacion->count("conditions: id_usu=" . $id_cliente . "and activo_sol= true and estado_sol= 'Renovacion'");
 
+            $this->ah = $cantidad_Renovacion;
+            if ($cantidad_Renovacion == 0) {
+                $cantidad_aceptada = $solicitud_renovacion->count("conditions: id_usu=" . $id_cliente . "and activo_sol= true and estado_sol= 'Aceptada'");
+                if ($cantidad_aceptada == 1) {
+                    //Se valida que se cumpla el requisito de un mes
+                    date_default_timezone_set('America/Santiago');
+                    $dia_actual = date("d");
+                    $mes_actual = date("m");
+                    $ano_actual = date("Y");
+
+                    //Se obtiene la fecha del fin suscripcion
+                    $datos_cliente = new cliente();
+                    $datos_cliente->find_by_sql("select * from cliente where id_usu=" . $id_cliente);
+                    $fecha_fin_suscripcion = $datos_cliente->fecha_fin_sus;
+
+                    //Paso el dia, mes y año para poder comprarlos despues
+                    list($ano, $mes, $dia) = explode('-', $fecha_fin_suscripcion);
+
+                    if ($ano == $ano_actual && $mes == $mes_actual && $dia_actual <= $dia) {
+                        // si se cumple el requisito se ingresa la solicitud de renovacion
+                        $nueva_solicitud = new solicitud();
+
+                        //se crean los valores
+                        $nueva_solicitud->id_usu = $id_cliente;
+                        $nueva_solicitud->fecha_sol = date("d-m-Y");
+                        $nueva_solicitud->estado_sol = "Renovacion";
+                        $nueva_solicitud->tipo_sol = "nueva";
+                        $nueva_solicitud->observaciones_sol = "No presenta observaciones";
+                        $nueva_solicitud->mail_sol = "false";
+                        $nueva_solicitud->modificaciones_sol = "false";
+                        $nueva_solicitud->activo_sol = "true";
+                        if ($nueva_solicitud->save()) {
+                            Flash::success('Solicitud ingresada correctamente');
+                            Router::redirect("/cliente/administrarsuscripcion/");
+                        } else {
+                            Flash::error('Solicitud no ingresada');
+                            Router::redirect("/");
+                        }
+                    } else {
+                        Flash::info('No cumple los requisitos');
+                        Router::redirect("/");
+                    }
+                } else {
+                    Flash::notice('No tiene solicitudes aceptadas');
+                    Router::redirect("/");
+                }
+            } else {
+                Flash::error('No puede ingresar más de dos solicitudes de renovacion');
+                Router::redirect("/cliente/administrarsuscripcion/");
+            }
+        } else {
+            Flash::error('No posee los privilegios necesarios');
+            Router::redirect("/");
+        }
+    }
+    
+
+///////////////////////////////////////////////////////////
+//******************************************************//    
+//**********  Fin funciones para el cliente  **********//
+//****************************************************//    
+/////////////////////////////////////////////////////// 
 ///////////////////////////////////////////////////////////
 //******************************************************//    
 //********** Funciones para el administrador **********//
@@ -234,7 +306,7 @@ class SolicitudController extends AppController {
 
                     if ($datos_actualizacion_cliente->sql($sentencia) && $datos_actualizacion_usuario->sql($sentencia_actualizar_rol) && $datos_actualizacion_solicitud->sql($sentencia_actualizar_solicitud)) {
                         Flash::info('Solicitud aceptada, cliente ingresado');
-                        Router::redirect("/solicitud/administrar/".$id_solicitud."/".$id_cliente);
+                        Router::redirect("/solicitud/administrar/" . $id_solicitud . "/" . $id_cliente);
                     } else {
                         
                     }
