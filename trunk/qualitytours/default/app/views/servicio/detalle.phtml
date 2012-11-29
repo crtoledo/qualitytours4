@@ -9,6 +9,39 @@
         include_once APP_PATH.'libs/es.php';
     }
 ?>    
+<!--eliminar comentario-->
+<script type="text/javascript">
+$(document).ready(function() {
+
+    $('.delete').click(function(){
+        //Recogemos la id del contenedor padre
+        var parent = $(this).parent().attr('id');
+        //Recogemos el valor del servicio
+        var service = $(this).parent().attr('data');
+
+        var dataString = 'id='+service;
+
+        $.ajax({
+            type: "POST",
+            url: "<?php echo PUBLIC_PATH;?>ajax/eliminar_comentario.php",
+            data: dataString,
+            success: function() {            
+                $('#delete-ok').empty();
+                $('#delete-ok').append('<div>Se ha eliminado correctamente el servicio con id='+service+'.</div>').fadeIn("slow");
+                $('#'+parent).remove();
+            }
+        });
+    });                 
+});    
+</script>
+<style>
+    .delete {
+cursor: pointer;
+font-size: 16px;
+font-weight: bold;
+margin-left: 820px;
+}
+</style>
 <!--PARA GOOGLE MAPS COMIENZO-->
 <style type="text/css">
   html { height: 100% }
@@ -110,7 +143,7 @@
         </thead>
     </tr>
 </table>
- 
+
   <?php 
 
                 if($cont == 0)
@@ -119,49 +152,50 @@
                 }
                 if($cont == 1)
                 {?>
-        <div class="span12">
-            <ul class="nav nav-list inverse">
-                <li class="active"><a href="#"><i class="icon-pencil"></i>Comments</a></li>
-            </ul>    
-            <?php  for($i=0; $i<=$contador-1 ; $i++) 
-             {?>
-                <table class="table table-hover">
-                <tr>
-                    <td><?php echo "<b>".$nombre2[$i]."</b>"; ?></td>
-                    <td><div align="right"><?php echo "<b>".$fecha2[$i]."</b>";?></div></td>
-                 </tr>
-                 </table>
-                 <table>
-                 <tr>
-                    <td> <div align="left"> <?php echo $detalle2[$i];?> </div></td>
-                  </tr>  
-                    <?php 
-                    if(!Auth::is_valid())
-                    {
-                        $variable = Auth::is_valid();
-                    }
-                    else
-                    {
-                        if(Auth::get("id") ==  $id2[$i])
-                        { ?>
-                        <tr>
-                            <td><?php echo Html::link("comentario/eliminar/".$idComentario2[$i]."/".$id_servicio.'/'.$leng, "Remove");?></td>
-                        </tr>                             
+       <div class="span12">
+                         
+                        <?php  for($i=0; $i<=$contador-1 ; $i++) 
+                        {?>
+
+                    <div class="service_list" id="service<?=$idComentario2[$i]?>" data="<?=$idComentario2[$i]?>">    
+                        <table class="table table-hover">
+                            <tr>
+                                <td><?php echo "<b>".$nombre2[$i]."</b>"; ?></td>
+                                <td><div align="right"><?php echo "<b>".$fecha2[$i]."</b>";?></div></td>
+                            </tr>
+                        </table>
+
+
+                        <table>
+                            <tr>
+                                <td> <div align="left"> <?php echo $detalle2[$i];?> </div></td>
+                            </tr> 
+                            <?php
+                        if(Auth::is_valid())
+                        {
+                            if(Auth::get("id") ==  $id2[$i])
+                            { ?>
+
+                                <a  class="delete" id="delete<?=$idComentario2[$i]?>">Eliminar</a>  
+
                         <?php }  
 
-                    }?>
-                  </table> 
-          <?php  }?>
-        </div>    
-    <?php  }?>        
-     <?php 
-        if(!Auth::is_valid())            
-        {
-            echo "<b>Login to post comments.</b>";
-        }
-        else
-        {  
-      ?>
+                        }?>
+
+
+                        </table> 
+                    </div>  
+            <?php  } //fin for?>
+
+                <?php  }?>        
+                <?php 
+                    if(!Auth::is_valid())            
+                    {
+                        echo "<b>Login to post comments.</b>";
+                    }
+                    else
+                    {  
+                ?>
        <strong id="mensaje"> Agrega un nuevo comentario:</strong>
 
             <div id="comentarios">
