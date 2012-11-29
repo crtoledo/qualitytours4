@@ -24,6 +24,32 @@
   
     
 </script>
+
+<!--eliminar comentario-->
+<script type="text/javascript">
+$(document).ready(function() {
+
+    $('.delete').click(function(){
+        //Recogemos la id del contenedor padre
+        var parent = $(this).parent().attr('id');
+        //Recogemos el valor del servicio
+        var service = $(this).parent().attr('data');
+
+        var dataString = 'id='+service;
+
+        $.ajax({
+            type: "POST",
+            url: "<?php echo PUBLIC_PATH;?>ajax/eliminar_comentario.php",
+            data: dataString,
+            success: function() {            
+                $('#delete-ok').empty();
+                $('#delete-ok').append('<div>Se ha eliminado correctamente el servicio con id='+service+'.</div>').fadeIn("slow");
+                $('#'+parent).remove();
+            }
+        });
+    });                 
+});    
+</script>
  <?php echo Tag::js('rating'); ?>
  
 <script type="text/javascript">
@@ -80,6 +106,12 @@ reemplazo se uso 'errorVal'.
     left: -16px;
     position: absolute;
     top: 5px;
+}
+.delete {
+cursor: pointer;
+font-size: 16px;
+font-weight: bold;
+margin-left: 820px;
 }
 </style>
 
@@ -256,66 +288,67 @@ $(document).ready(function() {
                 if($cont == 1)
                 {?>
         <div class="span12">
-            <ul class="nav nav-list inverse">
-                <li class="active"><a href="#"><i class="icon-pencil"></i>Comments</a></li>
-            </ul>    
-            <?php  for($i=0; $i<=$contador-1 ; $i++) 
-             {?>
-                <table class="table table-hover">
-                <tr>
-                    <td><?php echo "<b>".$nombre[$i]."</b>"; ?></td>
-                    <td><div align="right"><?php echo "<b>".$fecha[$i]."</b>";?></div></td>
-                 </tr>
-                 </table>
-                 <table>
-                 <tr>
-                    <td> <div align="left"> <?php echo $detalle[$i];?> </div></td>
-                  </tr>  
-                    <?php 
-                    if(!Auth::is_valid())
-                    {
-                        $variable = Auth::is_valid();
-                    }
-                    else
-                    {
-                        if(Auth::get("id") ==  $id[$i])
-                        { ?>
-                        <tr>
-                            <td><?php echo Html::link("comentario/eliminar/".$idComentario[$i]."/".$id_cliente.'/'.$leng, "Remove");?></td>
-                        </tr>                             
+                         
+                        <?php  for($i=0; $i<=$contador-1 ; $i++) 
+                        {?>
+
+                    <div class="service_list" id="service<?=$idComentario[$i]?>" data="<?=$idComentario[$i]?>">    
+                        <table class="table table-hover">
+                            <tr>
+                                <td><?php echo "<b>".$nombre[$i]."</b>"; ?></td>
+                                <td><div align="right"><?php echo "<b>".$fecha[$i]."</b>";?></div></td>
+                            </tr>
+                        </table>
+
+
+                        <table>
+                            <tr>
+                                <td> <div align="left"> <?php echo $detalle[$i];?> </div></td>
+                            </tr> 
+                            <?php
+                        if(Auth::is_valid())
+                        {
+                            if(Auth::get("id") ==  $id[$i])
+                            { ?>
+
+                                <a  class="delete" id="delete<?=$idComentario[$i]?>">Eliminar</a>  
+
                         <?php }  
 
-                    }?>
-                  </table> 
-          <?php  }?>
-        </div>    
-    <?php  }?>        
-     <?php 
-        if(!Auth::is_valid())            
-        {
-            echo "<b>Login to post comments.</b>";
-        }
-        else
-        {  
-      ?>
-       <strong id="mensaje"> Agrega un nuevo comentario:</strong>
-
-            <div id="comentarios">
-
-                    <!-- aca apareceran los nuevos comentarios -->
-
-            </div>
-
-            <!--Formulario de comentario-->
-          <form action="#">
-                <?php echo Form::hidden("nombre",null,$nombre_usuario);?>  
-                <div align="center"> <?php echo Form::text("comentario","class='span3  comentario'"); ?> </div>  
-                <?php echo Form::hidden("id_usu",null,Auth::get("id") ); ?>
-                <?php echo Form::hidden("id_cli", null,$id_cliente) ?>
-                <div align="center"><input id="boton-enviar" type="submit" value="Comentar" class="btn btn-primary boton" /></div>
-           </form>  
-        
-    <?php  }?>
+                        }?>
 
 
-            
+                        </table> 
+                    </div>  
+            <?php  } //fin for?>
+
+                <?php  }?>        
+                <?php 
+                    if(!Auth::is_valid())            
+                    {
+                        echo "<b>Login to post comments.</b>";
+                    }
+                    else
+                    {  
+                ?>
+                <strong id="mensaje"> Agrega un nuevo comentario:</strong>
+
+                        <div id="comentarios">
+
+                                <!-- aca apareceran los nuevos comentarios -->
+
+                        </div>
+
+                        <!--Formulario de comentario-->
+                    <form action="#">
+                            <?php echo Form::hidden("nombre",null,$nombre_usuario);?>  
+                            <div align="center"> <?php echo Form::text("comentario","class='span3  comentario'"); ?> </div>  
+                            <?php echo Form::hidden("id_usu",null,Auth::get("id") ); ?>
+                            <?php echo Form::hidden("id_cli", null,$id_cliente) ?>
+                            <div align="center"><input id="boton-enviar" type="submit" value="Comentar" class="btn btn-primary boton" /></div>
+                    </form>  
+
+                <?php  }?>
+</div>
+
+
