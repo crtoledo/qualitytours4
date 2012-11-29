@@ -9,7 +9,6 @@ load::model('comentario');
 load::model('solicitud');
 load::model('calificacion');
 
-
 class ClienteController extends AppController {
 
     public function index() {
@@ -18,7 +17,7 @@ class ClienteController extends AppController {
 
     public function ingresarsolicitud() {
         // se valida que este logeado el usuario
-        if (!Auth::is_valid() || Auth::get("rol_usu")== "administrador") {
+        if (!Auth::is_valid() || Auth::get("rol_usu") == "administrador") {
             Flash::info('No posee los privilegios necesarios');
             Router::redirect("/");
         } else {
@@ -108,7 +107,7 @@ class ClienteController extends AppController {
 
         $this->leng = $leng;
 
-       
+
         $client = new Cliente();
         $client = $client->find($id);
         $this->id_cliente = $id;
@@ -116,13 +115,12 @@ class ClienteController extends AppController {
         //Obtenemos la ubicacion del centro
         $ubicacion = new Ubicacion();
         $ubicacion = $ubicacion->find_by_sql("select *  from ubicacion where id_usu = " . $id);
-        if ($ubicacion!=null)
-        {
+        if ($ubicacion != null) {
             $this->region_ubi = $ubicacion->region_ubi;
             $this->ciudad_ubi = $ubicacion->ciudad_ubi;
             $this->direccion_ubi = $ubicacion->direccion_ubi;
         }
-        
+
 
         //Comprueba que no se actualise el contador de visita si es el mismo dueño del centro turistico
         if (Session::get("id") == $id) {
@@ -147,17 +145,17 @@ class ClienteController extends AppController {
         $contenido = new Contenido();
         $arr2 = $contenido->find("conditions: id_usu=" . $id);
         $this->contenido = $arr2;
-        $contimg=0;
-       foreach ($arr2 as $contenido) {
+        $contimg = 0;
+        foreach ($arr2 as $contenido) {
 
             $this->ruta_con[$contimg] = $arr2[$contimg]->ruta_con;
-           
+
 
             $contimg++;
         }
 
         $this->contimg = $contimg;
-        
+
         $services = new Servicio();
         $services = $services->find_all_by('id_usu', $id);
         $this->array_servicios = $services;
@@ -183,7 +181,7 @@ class ClienteController extends AppController {
         $contador = 0;
         $user = new Usuario();
         foreach ($arr as $comentario) {
-            
+
 
             $this->detalle[$contador] = $arr[$contador]->detalle_com;
             $this->fecha[$contador] = $arr[$contador]->fecha_com;
@@ -197,12 +195,12 @@ class ClienteController extends AppController {
         $this->contador = $contador;
         //CALIFICACION
         $calificacion = new Calificacion();
-        $result = $calificacion->count("conditions: cli_id_usu=".$id);
+        $result = $calificacion->count("conditions: cli_id_usu=" . $id);
 
 
         if ($result != 0) {
 
-            $promedio = $calificacion->average("valor_cal","conditions: cli_id_usu=".$id);
+            $promedio = $calificacion->average("valor_cal", "conditions: cli_id_usu=" . $id);
             $this->calificacion = $promedio;
             $this->cantidad = $result;
         } else {
@@ -210,24 +208,27 @@ class ClienteController extends AppController {
             $this->calificacion = 0;
             $this->cantidad = $result;
         }
-        
+
         //mandar nombre de usuario para el ajax.
-        if(Auth::is_valid())
-        {
-           $id_usuario = Auth::get("id");
-           $nombre = $user->find($id_usuario);
-           $this->nombre_usuario = $nombre->username_usu;
+        if (Auth::is_valid()) {
+            $id_usuario = Auth::get("id");
+            $nombre = $user->find($id_usuario);
+            $this->nombre_usuario = $nombre->username_usu;
         }
-        
     }
 
+   /////////////////////////////////////////////////    
+  //***Funciones relacionadas con la solicitud***//
+ //*********************************************//
+////////////////////////////////////////////////
+    //Funcion para modificar los datos del cliente una vez ingresada al solicitud.
     public function ver($id) {
         $vercliente = new cliente();
 
         if (Input::hasPost('cliente')) {
 
             $cliente = new Cliente(Input::post('cliente'));
-            
+
             $solicitud_modificacion = new Solicitud ();
             $solicitud_modificacion = $solicitud_modificacion->modificar_solicitud($id);
             $solicitud_modificacion->modificaciones_sol = "true";
@@ -255,6 +256,62 @@ class ClienteController extends AppController {
         } else {
             $this->cliente = $vercliente->find($id);
             $this->qq = $vercliente->tipo_plan;
+        }
+    }
+
+    //Funcion para poder renovar la solicitud o poder ver los datos del cliente y de la solicitud
+
+    public function administrarsuscripcion() {
+        if (Auth::get("rol_usu") == "cliente") {
+
+            $datos_cliente = new cliente();
+            $id_cliente = Auth::get("id");
+
+            // se valida que al solicitud corresponda al usuario
+            if ($datos_cliente->find_by_sql("select * from cliente where id_usu=" . $id_cliente)) {
+
+                $this->nombre_cli = $datos_cliente->nombre_cli;
+                $this->nombre_usu = $datos_cliente->nombre_usu;
+                $this->rut_usu = $datos_cliente->rut_usu;
+                $this->rut_cli = $datos_cliente->rut_cli;
+                $this->nombre_usu = $datos_cliente->nombre_usu;
+                $this->giro_cli = $datos_cliente->giro_cli;
+                $this->telefono_cli = $datos_cliente->telefono_cli;
+                $this->tipo_plan = $datos_cliente->tipo_plan;
+                $this->ini_sus = $datos_cliente->fecha_ini_sus;
+                $this->fin_sus = $datos_cliente->fecha_fin_sus;
+
+                //Para poder mostar el boton de renovar
+                //Se obtiene la fecha actual
+                date_default_timezone_set('America/Santiago');
+                $dia_actual = date("d");
+                $mes_actual = date("m");
+                $ano_actual = date("Y");
+
+                //Se obtiene la fecha del fin suscripcion
+                $fecha_fin_suscripcion = $datos_cliente->fecha_fin_sus;
+
+                //Paso el dia, mes y año para poder comprarlos despues
+                list($ano, $mes, $dia) = explode('-', $fecha_fin_suscripcion);
+
+                if ($ano == $ano_actual && $mes == $mes_actual && $dia_actual <= $dia) {
+                    // se se cumple las condiciones el boton puede ser mostrado
+                    $this->muestra_boton = "Si";
+                }
+                //Fin boton renovar                
+
+                $datos_solicitud = new solicitud();
+                $datos_solicitud->modificar_solicitud($id_cliente); // obtengo los datos de la solicitud
+
+                $this->fecha_solicitud = $datos_solicitud->fecha_sol;
+                $this->observaciones = $datos_solicitud->observaciones_sol;
+            } else {
+                Flash::info('No tiene suscripcion activa');
+                Router::redirect("cliente/ingresarsolicitud");
+            }
+        } else {
+            Flash::info('No posee los privilegios necesarios');
+            Router::redirect("/");
         }
     }
 
