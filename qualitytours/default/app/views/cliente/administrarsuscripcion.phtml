@@ -1,0 +1,107 @@
+<div><?php View::content() ?></div> 
+<script type="text/javascript">
+    //activacion del modal de la cancelacion solicitud
+    function activar_cancelacion () {
+        $('#myModal').modal('toggle');
+    };
+
+</script>
+
+<style>
+    textarea {
+        resize: none;
+        width: 300px;
+        height: 100px;
+
+    }
+</style>
+
+<div align="center">
+    <h2> Datos de la suscripción </h2> <br>
+    <table>
+        <tr>
+            <!--    Datos usuario/cliente-->        
+            <td>
+                <div align="center">
+
+                    <dl>
+                        <table class="table table-bordered">
+                            <tr>
+                                <td><dt>Nombre de usuario:</dt></td>
+                            <td width="250px"><dd><?php echo $nombre_usu ?></dd></td>
+                            </tr>        
+                            <tr>
+                                <td><dt>Nombre de centro turistico:</dt></td>
+                            <td width="250px"><dd><?php echo $nombre_cli ?></dd></td>
+                            </tr>
+                            <tr>
+                                <td><dt>Rut privado:</dt></td>
+                            <td width="250px"><dd><?php echo $rut_usu ?></dd></td>
+                            </tr>
+                            <tr>
+                                <td><dt>Rut comercial:</dt></td>
+                            <td width="250px"><dd><?php echo $rut_cli ?></dd></td>
+                            </tr>
+                            <tr>
+                                <td><dt>Giro:</dt></td>
+                            <td width="250px"><dd><?php echo $giro_cli ?></dd></td>
+                            </tr>
+                            <tr>
+                                <td><dt>Telefono comercial:</dt></td>
+                            <td width="250px"><dd><?php echo $telefono_cli ?></dd></td>
+                            </tr>
+                            <tr>
+                                <td><dt>Tipo de plan:</dt></td>
+                            <td width="250px"><dd><?php echo $tipo_plan ?></dd></td>
+                            </tr>
+                            <tr>
+                        </table>
+                    </dl>
+                </div>
+            </td>
+
+            <td>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            </td>
+            <!--    Opciones-->       
+            <td>
+                <dl>
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th><dt>Fecha solicitud</dt></th>
+                        <th><dt>Fecha de inicio</dt</th>
+                        <th><dt>Fin suscripción</dt></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td width="120px"><dd><?php echo $fecha_solicitud ?></dd></td>
+                        <td width="120px"><dd><?php echo $ini_sus ?></dd></td>
+                        <td width="120px"><dd><?php echo $fin_sus ?></dd></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                                        <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th><center><dt>Observacion</dt></center></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td width="120px"><dd><?php echo $observaciones ?></dd></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <?php if (isset($muestra_boton))
+                    { 
+                        if ($muestra_boton == "Si"){ ?>
+                       <center><button class="btn btn-success" type="submit">Renovar suscripción</button></center>
+                    <?php }}?>
+                </dl>
+            </td>        
+        </tr>
+    </table>
+</div>
+

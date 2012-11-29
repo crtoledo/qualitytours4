@@ -198,6 +198,7 @@ $arr = Load::Model('ubicacion', 'cliente')->find_all_by_sql("select  distinct re
                                 <b class="caret"></b>
                             </a>
                             <ul class="dropdown-menu">
+                                <li><?php echo Html::link('cliente/administrarsuscripcion/', '<i class="icon-user"></i>' . "Suscripcion (T)" . ''); ?></li>
                                 <li><?php echo Html::link('servicio/ingresar/', '<i class="icon-plus"></i>' . $publicarservicio_string . ''); ?></li>
                                 <li><?php echo Html::link('ubicacion/ingresar/', '<i class="icon-screenshot"></i>' . $indiqueubicacion_string . ''); ?></li>
                                 <li><?php echo Html::link('contenido/ingresarcli/', '<i class="icon-camera"></i>' . $subirfotos_string . ''); ?></li>
