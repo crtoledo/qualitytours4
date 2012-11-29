@@ -41,6 +41,7 @@ class IndexController extends AppController
                {
                     $this->titulo[$contador] = $arr[$contador]->titulo_pub; 
                     $this->detalle[$contador] = $arr[$contador]->detalle_pub;
+                    $this->id_pub[$contador] = $arr[$contador]->id;
                }
                else
                {    
