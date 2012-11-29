@@ -41,7 +41,10 @@ $Db->close($conn);
             <tr>
                 <td> <div align="left"> <?php echo $comentario; ?> </div></td>
             </tr>
-          
+<!--          <tr>
+                <td> <a  class="delete" id="delete<//?=$ultimoid ?>">Eliminar</a>  </td>
+                    
+            </tr>-->
             </table> 
         </div>
    
