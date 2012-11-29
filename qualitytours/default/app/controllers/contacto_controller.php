@@ -31,6 +31,7 @@ class ContactoController extends AppController {
         $cliente = new Cliente();
         $cliente->find($id_cli);
         $this->email_cli = $cliente->email_usu;
+        $this->nombre_cli = $cliente->nombre_cli;
     }
 
 }

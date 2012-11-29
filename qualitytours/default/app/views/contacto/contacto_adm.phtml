@@ -46,7 +46,70 @@ if (isset($_POST['enviar']))
     {
         text-align: center;
     }
-</style>    
+</style>  
+
+
+<script type="text/javascript">
+    //Validación con jquery
+$(document).ready(function () {
+   
+    $(".boton").click(function (){
+        $(".errorVal").remove();
+        
+         if( $(".asunto").val() == "" ){
+            $(".asunto").focus().after("<span class='errorVal'>El asunto no puede estar vacío</span>");
+            return false;
+        }else if( $(".asunto").val().length<3){
+            $(".asunto").focus().after("<span class='errorVal'>El asunto debe tener al menos 3 letras</span>");
+            return false;
+        }else if( $(".body").val() == ""){
+            $(".body").focus().after("<span class='errorVal'>El mensaje no puede estar vacío</span>");
+            return false;
+        }else if( $(".body").val().length<10){
+            $(".body").focus().after("<span class='errorVal'>El mensaje debe tener al menos 10 letras</span>");
+            return false;
+        }
+    });
+    
+    //Borrar mensaje de error si el usuario a llenado el campo
+    $(".asunto, .body").keyup(function()
+    {
+        if( $(this).val() != "" )
+        {
+            $(".errorVal").fadeOut();
+            return false;
+        }
+    });
+    
+    });
+    
+</script>
+
+<style>
+    .errorVal{
+    background-color: #BC1010;
+    padding: 6px 12px;
+    border-radius: 4px;
+    color: white;
+    font-weight: bold;
+    margin-left: 16px;
+    margin-top: 6px;
+    position: absolute;
+}
+.errorVal:before{ /* Este es un truco para crear una flechita */
+    content: '';
+    border-top: 8px solid transparent;
+    border-bottom: 8px solid transparent;
+    border-right: 8px solid #BC1010;
+    border-left: 8px solid transparent;
+    left: -16px;
+    position: absolute;
+    top: 5px;
+}
+</style>
+
+
+
 <?php
 
 echo '<div class="div_contacto">
@@ -54,8 +117,8 @@ echo '<div class="div_contacto">
 <form action="" method="post">  
 <input type="hidden" value="'.$username_usu.'" name="username" size="50" maxlength="80">
 <input type="hidden" value="'.$email_usu.'"  name="email" size="50" maxlength="60"> <label for="asunto">Asunto : </label>
-<input type="text" name="asunto" size="50" maxlength="60"><br> <label for="mensaje">Mensaje : </label>  <textarea name="mensaje" cols="31" rows="5"></textarea> <br>
+<input type="text" name="asunto" class="asunto" size="50" maxlength="60"><br> <label for="mensaje">Mensaje : </label>  <textarea name="mensaje" class="body" cols="31" rows="5"></textarea> <br>
 <label for="enviar">
-<input type="submit" name="enviar" value="Enviar consulta"></label>
+<input type="submit" class="boton" name="enviar" value="Enviar consulta"></label>
  </form></div>';
 ?>
