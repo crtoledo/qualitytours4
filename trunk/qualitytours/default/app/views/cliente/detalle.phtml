@@ -50,6 +50,7 @@ $(document).ready(function() {
     });                 
 });    
 </script>
+
  <?php echo Tag::js('rating'); ?>
  
 <script type="text/javascript">
@@ -183,6 +184,7 @@ $(document).ready(function() {
 </script>
 
 
+
 <!--FORMULARIO DE COMENTARIO-->
 <script>
     $(document).ready(function(){
@@ -198,7 +200,11 @@ $(document).ready(function() {
                     "<?php echo PUBLIC_PATH;?>ajax/ingresar_comentario.php", 
                     { nombre: nombre, comentario: comentario,  id_usu: id_usu,  id_cli: id_cli}, 
                     function(data) {
+                       
                         $("#comentarios").append(data);  
+                        //location.reload();
+                         location.reload();
+                        
                         }, 
                         "html");
                         $('#mensaje').text('Comentario agregado!');
@@ -332,13 +338,15 @@ $(document).ready(function() {
                     {  
                 ?>
                 <strong id="mensaje"> Agrega un nuevo comentario:</strong>
-
+                
                         <div id="comentarios">
+                           
 
                                 <!-- aca apareceran los nuevos comentarios -->
-
+                           
                         </div>
-
+            
+               
                         <!--Formulario de comentario-->
                     <form action="#">
                             <?php echo Form::hidden("nombre",null,$nombre_usuario);?>  
