@@ -94,7 +94,7 @@ reemplazo se uso 'errorVal'.
             <table align="center">
             <tr>
                 <td>
-                    <div align="center"><h6><?php echo $publicacion_traducir_tituloes; ?></h6></div>
+                    <div class="span4" align="center"><h6><?php echo $publicacion_traducir_tituloes; ?></h6></div>
                         <table>
 
                         <tr>
@@ -113,15 +113,15 @@ reemplazo se uso 'errorVal'.
                 </td>
                 <td>
 
-                     <div align="center"><h6><?php echo $publicacion_traducir_tituloen; ?></h6></div>
+                     <div class="span4" align="center"><h6><?php echo $publicacion_traducir_tituloen; ?></h6></div>
                         <table>
 
                         <tr>
-                            <td><?php echo $publicacion_traducir_titulopub;?>:</td>
+                            
                             <td><?php echo Form::text('publicacion.titulo_pub_eng','class="titulo"')?></td> 
                         </tr>
                         <tr>
-                            <td><?php echo $publicacion_traducir_detalle;?>:</td>
+                          
                             <td><?php echo Form::textarea('publicacion.detalle_pub_eng','rows=10')?>
                             <?php View::partial('nicedit/nicedit'); ?>
                             </td>
