@@ -22,6 +22,9 @@
             }else if($(".precio").val() == "" ){
                 $(".precio").focus().after("<span class='errorVal'><?php echo $servicio_ingresarvalpre; ?></span>");
                 return false;
+            }else if(!$.isNumeric($(".precio").val()) || $(".precio").val() <= 0 ){
+                $(".precio").focus().after("<span class='errorVal'><?php echo $servicio_ingresarvalpre; ?></span>");
+                return false;
             }
             else if($(".tipo").val() == "Seleccione" || $(".tipo").val() == "Select" ){
                 $(".tipo").focus().after("<span class='errorVal'>Ingrese el tipo de servicio</span>");
