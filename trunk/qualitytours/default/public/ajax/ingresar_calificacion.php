@@ -80,6 +80,10 @@
     }
      
  }
+ else 
+ {
+     echo "<div class='' style='width: 350px'> <b>Lo sentimos, no puede calificar su propio centro turístico</b> </div>";
+ }
 
 
      
