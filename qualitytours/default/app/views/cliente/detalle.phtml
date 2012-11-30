@@ -28,9 +28,7 @@
 
 <!--eliminar comentario-->
 <script type="text/javascript">
-        function modal () {
-        $('#example').modal('toggle');
-        }
+      
 
 $(document).ready(function() {
 
@@ -233,16 +231,7 @@ $(document).ready(function() {
         <?php if (isset($region_ubi)) echo $region_ubi; ?><br>
         <?php if (isset($ciudad_ubi)) echo $ciudad_ubi; ?><br>
         <?php if (isset($region_ubi)) echo $direccion_ubi; ?>
-        <?php 
-            if(Auth::is_valid())
-            {
-                if(Auth::get("rol_usu") == "administrador")
-                {?>
-        <a data-toggle="modal" href="" class="btn btn-primary btn-large" onclick="modal()">Abrir ventana modal</a>
-        <?php   }
-            }
-        
-        ?>
+       
         
     </h6>
         <?php echo"<span class='label label-info'>".$mostrar.":&nbsp;".$cliente_detalle_visitas."</span>";?><br>
@@ -378,19 +367,5 @@ $(document).ready(function() {
 </div>
  
 
-<!-- modal -->
 
- <div id="example" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-        <h3 id="myModalLabel">TITULO</h3>
-    </div>
-    <div class="modal-body">
-        <p>TEXTO</p>
-    </div>
-    <div class="modal-footer">
-        <button class="btn" data-dismiss="modal" aria-hidden="true">Cerrar</button>
-        <a href=""><button class="btn btn-primary">Aceptar</button></a>
-    </div>
-</div>
 

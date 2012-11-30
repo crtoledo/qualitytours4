@@ -92,8 +92,9 @@ class ServicioController extends AppController
         
     }
     
-    public function ingresar()
+    public function ingresar($leng)
     { 
+        
         //verifica si se encuentra logueado
 	if(!Auth::is_valid())
         {
@@ -111,7 +112,7 @@ class ServicioController extends AppController
             //POSEE LOS PRIVILEGIOS
             else
             {
-                
+                $this->leng = $leng;
                 //Obtenemos el nombre del centro turístico
                 $cliente = new Cliente();
                 $cliente->find(Auth::get('id'));

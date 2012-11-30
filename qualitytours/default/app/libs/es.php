@@ -86,5 +86,19 @@ $cliente_detalle_visitas = "Visitas";
 $cliente_detalle_servicios = "Servicios";
 $cliente_detalle_mensaje1 = "Iniciar sesi&oacute;n para calificar";
 
+//variables /servicio/ingresar
+
+$servicio_ingresar_titulo = "Publicar servicio";
+$servicio_ingresar_nombre_cli = "Centro tu&iacute;stico";
+$servicio_ingresar_name = "nombre";
+$servicio_ingresar_detalle = "Detalle";
+$servicio_ingresar_precio = "Precio";
+$servicio_ingresar_tipo = "Tipo";
+$servicio_ingresar_submit = "Ingresar";
+$servicio_ingresar_seleccione = "Seleccione";
+$servicio_ingresar_tit = "T&iacute;tulo del servicio";
+$servicio_ingresar_valnom = "Ingrese nombre de servicio";
+$servicio_ingresarvalpre = "Ingrese precio unitario del servicio";
+
 
 ?>
