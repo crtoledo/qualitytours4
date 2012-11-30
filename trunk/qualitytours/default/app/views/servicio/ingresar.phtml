@@ -16,13 +16,18 @@
         
         $(".boton").click(function(){
             $(".errorVal").remove();
-            if($(".nombre").val() == "" ){
+            
+            //ELIMINAMOS ESPACIOS EN BLANCO AL COMIENZO/FINAL
+            $(".nombre").val($.trim($(".nombre").val()));
+            
+            //VALIDACIONES
+            if($(".nombre").val() == ""){
                 $(".nombre").focus().after("<span class='errorVal'><?php echo $servicio_ingresar_valnom; ?></span>");
                 return false;
             }else if($(".precio").val() == "" ){
                 $(".precio").focus().after("<span class='errorVal'><?php echo $servicio_ingresarvalpre; ?></span>");
                 return false;
-            }else if(!$.isNumeric($(".precio").val()) || $(".precio").val() <= 0 ){
+            }else if(!$.isNumeric($(".precio").val()) || $(".precio").val() <= 0 || $(".precio").val() == ""){
                 $(".precio").focus().after("<span class='errorVal'><?php echo $servicio_ingresarvalpre; ?></span>");
                 return false;
             }
