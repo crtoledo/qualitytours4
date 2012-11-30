@@ -48,6 +48,7 @@ class IndexController extends AppController
                     //variables en inglés
                     $this->titulo[$contador] = $arr[$contador]->titulo_pub_eng;
                     $this->detalle[$contador] = $arr[$contador]->detalle_pub_eng;
+                    $this->id_pub[$contador] = $arr[$contador]->id;
                }     
                 //crear objeto
                 $contenido = new Contenido();
