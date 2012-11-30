@@ -10,7 +10,11 @@
     }
 ?>    
 <div><?php View::content() ?></div> 
-
+<script type="text/javascript">
+	        function modal () {
+	        $('#example').modal('toggle');
+	        }
+</script>
 <!--PARA GOOGLE MAPS COMIENZO-->
 <style type="text/css">
   html { height: 100% }
@@ -310,31 +314,25 @@ $(document).ready(function() {
                         <table class="table table-hover">
                             <tr>
                                 <td><?php echo "<b>".$nombre[$i]."</b>"; ?></td>
-                                <td><div align="right"><?php echo "<b>".$fecha[$i]."</b>";?></div></td>
+                                <td><div align="right"><?php echo "<b>".$fecha[$i]."</b>";
+                                 if(Auth::is_valid())
+                                 {
+                                    if(Auth::get("id") ==  $id[$i])
+                                    { ?>
+                                        <a  class="delete" id="<?=$idComentario[$i]?>"><i class="icon-remove"></i></a>  
+                              <?php } 
+                              
+                                 }?>
+                                 </div></td>
                             </tr>
                         </table>
-
-
                         <table>
                             <tr>
                                 <td> <div align="left"> <?php echo $detalle[$i];?> </div></td>
                             </tr> 
-                            <?php
-                        if(Auth::is_valid())
-                        {
-                            if(Auth::get("id") ==  $id[$i])
-                            { ?>
-
-                                <a  class="delete" id="<?=$idComentario[$i]?>">Eliminar</a>  
-
-                       <?php }  
-
-                        }?>
-
-
                         </table> 
                     </div>  
-            <?php  } //fin for?>
+                    <?php  } //fin for?>
 
                 <?php  }?>        
                 <?php 
@@ -367,6 +365,8 @@ $(document).ready(function() {
                 <?php  }?>
 </div>
  
+<!--<a data-toggle="modal" href="" class="btn btn-primary btn-large" onclick="modal()">Abrir ventana modal</a>-->
 
+		
 
-
+        

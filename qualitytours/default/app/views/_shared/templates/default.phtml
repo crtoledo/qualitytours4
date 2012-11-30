@@ -18,9 +18,10 @@
     Tag::css('style');
     Tag::css('bootstrap.min');
     
+   
     echo Html::includeCss();
   ?>
-    
+ 
     <script>
         $('.dropdown-toggle').dropdown();
     </script>
@@ -44,8 +45,8 @@
             
 </head>
 <body>
-   <div class="container">
-    <div id='content'>
+   <div class="container" style='background-color: #DFFFFF' >
+    <div id='content'  style='background-color: #DFFFFF' >
         <div align="center">
     <?php 
     $url =  $_SERVER['REQUEST_URI'];
@@ -76,8 +77,9 @@
     
         
     </div>
+        <div><?php View::partial('kumbia/footer') ?> </div>
    </div>
-    <div> <?php View::partial('kumbia/footer') ?> </div>
+   
      
 </body>
 </html>
