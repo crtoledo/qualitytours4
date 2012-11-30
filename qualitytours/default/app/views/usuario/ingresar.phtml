@@ -27,6 +27,11 @@ $(document).ready(function () {
     $(".boton").click(function (){
         $(".errorVal").remove();
         
+        //ELIMINAMOS ESPACIOS EN BLANCO AL COMIENZO/FINAL
+            $(".username").val($.trim($(".username").val()));
+            $(".nombre").val($.trim($(".nombre").val()));
+            $(".apellido").val($.trim($(".apellido").val()));
+        
          if( $(".username").val() == "" ){
             $(".username").focus().after("<span class='errorVal'><?php echo $val_username_string;?></span>");
             return false;
