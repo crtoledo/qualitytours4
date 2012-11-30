@@ -28,30 +28,31 @@
 
 <!--eliminar comentario-->
 <script type="text/javascript">
-      
-
-$(document).ready(function() {
-
-    $('.delete').click(function(){
-        //Recogemos la id del contenedor padre
-        var parent = $(this).parent().attr('id');
-        //Recogemos el valor del servicio
-        var service = $(this).parent().attr('data');
-
-        var dataString = 'id='+service;
-
-        $.ajax({
-            type: "POST",
-            url: "<?php echo PUBLIC_PATH;?>ajax/eliminar_comentario.php",
-            data: dataString,
-            success: function() {            
-                $('#delete-ok').empty();
-                $('#delete-ok').append('<div>Se ha eliminado correctamente el servicio con id='+service+'.</div>').fadeIn("slow");
-                $('#'+parent).remove();
-            }
-        });
-    });                 
-});    
+    
+    
+    $(document).ready(function() {
+        $('.delete').live( 'click', function() {
+        //$('.delete').click(function()// NO FUNCIONABA CUANDO ELIMINA NUEVOS COMENTARIOS
+           
+            //Recogemos el valor del servicio
+            var service = $(this).attr('id');
+            
+            var dataString = 'id='+service;
+            
+            $.ajax({
+                type: "POST",
+                url: "<?php echo PUBLIC_PATH; ?>ajax/eliminar_comentario.php",
+                data: dataString,
+                success: function() {            
+                    //$('#delete-ok').empty();
+                    //$('#delete-ok').append('<div>Se ha eliminado correctamente el servicio con id='+service+'.</div>').fadeIn("slow");
+                    //$('#'+parent).remove();
+                    $('#service'+service).remove();
+                }
+                
+            }); //FIN AJAX
+        });                 
+    });    
 </script>
 
  <?php echo Tag::js('rating'); ?>
@@ -324,7 +325,7 @@ $(document).ready(function() {
                             if(Auth::get("id") ==  $id[$i])
                             { ?>
 
-                                <a  class="delete" id="delete<?=$idComentario[$i]?>">Eliminar</a>  
+                                <a  class="delete" id="<?=$idComentario[$i]?>">Eliminar</a>  
 
                        <?php }  
 
