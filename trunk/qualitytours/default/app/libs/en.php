@@ -73,4 +73,18 @@ $cliente_detalle_valcoment = "Add comentary";
 $cliente_detalle_visitas = "Views";
 $cliente_detalle_servicios = "Services";
 $cliente_detalle_mensaje1 = "Login to rate";
+
+//variales /servicio/ingresar
+$servicio_ingresar_titulo = "Publish service";
+$servicio_ingresar_nombre_cli = "Tourist center";
+$servicio_ingresar_name = "Name";
+$servicio_ingresar_detalle = "Details";
+$servicio_ingresar_precio = "Price";
+$servicio_ingresar_tipo = "Type";
+$servicio_ingresar_submit = "Add";
+$servicio_ingresar_seleccione = "Select";
+$servicio_ingresar_tit = "Title";
+$servicio_ingresar_valnom = "Add name service";
+$servicio_ingresarvalpre = "Please enter your price";
+
 ?>

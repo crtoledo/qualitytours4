@@ -1,3 +1,14 @@
+<?php
+//Código para el idioma
+    if($leng == "en")
+    {
+        include_once APP_PATH.'libs/en.php';
+    }
+    else
+    {
+        include_once APP_PATH.'libs/es.php';
+    }
+?>    
 <div><?php View::content(); ?></div> 
 
 <script type="text/javascript">
@@ -6,10 +17,14 @@
         $(".boton").click(function(){
             $(".errorVal").remove();
             if($(".nombre").val() == "" ){
-                $(".nombre").focus().after("<span class='errorVal'>Ingrese el nombre del servicio</span>");
+                $(".nombre").focus().after("<span class='errorVal'><?php echo $servicio_ingresar_valnom; ?></span>");
                 return false;
             }else if($(".precio").val() == "" ){
-                $(".precio").focus().after("<span class='errorVal'>Ingrese el precio unitario del servicio</span>");
+                $(".precio").focus().after("<span class='errorVal'><?php echo $servicio_ingresarvalpre; ?></span>");
+                return false;
+            }
+            else if($(".tipo").val() == "Seleccione" || $(".tipo").val() == "Select" ){
+                $(".tipo").focus().after("<span class='errorVal'>Ingrese el tipo de servicio</span>");
                 return false;
             }
         });
@@ -49,23 +64,28 @@
     top: 5px;
 }
 </style>
-
+<?php 
+    $arr = array(''.$servicio_ingresar_seleccione.''=>''.$servicio_ingresar_seleccione.'','Hostel'=>'Hostel','Bed & Breakfast'=>'Bed & Breakfast','Apart hotel'=>'Apart hotel',
+        'Cabaña-Motel'=>'Cabaña-Motel','Camping'=>'Camping','Lodge'=>'Lodge','Resort'=>'Resort',
+        'Departamentos'=>'Departamentos','Estancia'=>'Estancia','Hospedaje Rural'=>'Hospedaje Rural',
+        'Hostal'=>'Hostal','Hosteria'=>'Hosteria','Hotel'=>'Hotel','Termas'=>'Termas','Otro'=>'Otro');
+?>
 
 <fieldset>
-<?php echo Form::open('servicio/ingresar') ?>
+<?php echo Form::open('servicio/ingresar/'.$leng) ?>
     <div align="center">
-        <h1> Publicar nuevo servicio </h1>
+        <h1> <?php echo $servicio_ingresar_titulo; ?> </h1>
         <table>
     <tr>
-        <td>Centro turístico:&nbsp;</td>
+        <td><?php echo $servicio_ingresar_nombre_cli; ?>:&nbsp;</td>
         <td><?php echo $nombre_cliente; ?></td>
     </tr>        
     <tr>
-        <td>Nombre:&nbsp;</td>
-        <td><?php echo Form::text('servicio.nombre_ser', "class='input-medium nombre' placeholder='Título del servicio'") ?></td>
+        <td><?php echo $servicio_ingresar_name;?>:&nbsp;</td>
+        <td><?php echo Form::text('servicio.nombre_ser', "class='input-medium nombre' placeholder='".$servicio_ingresar_tit."'") ?></td>
     </tr>
     <tr>
-        <td>Detalle:&nbsp;</td>
+        <td><?php echo $servicio_ingresar_detalle; ?>:&nbsp;</td>
         <td>
             
             <?php echo Form::textarea('servicio.detalle_ser','rows=10 class="detalle"')?>
@@ -74,8 +94,12 @@
         </td>
     </tr>
     <tr>
-        <td>Precio:&nbsp;</td>
+        <td><?php echo $servicio_ingresar_precio; ?>:&nbsp;</td>
         <td><?php echo Form::text('servicio.precio_ser',"class='input-medium precio' placeholder='$' ") ?></td>
+    </tr>
+    <tr>
+        <td><?php echo $servicio_ingresar_tipo; ?> :&nbsp;</td>
+        <td><?php echo Form::Select('servicio.tipo_ser',$arr,"class='input-medium tipo'") ?></td>
     </tr>
 </table>
     </div>
@@ -85,8 +109,8 @@
     <?php echo Form::hidden('servicio.id_usu','',Auth::get('id'))?>
     <table>
         <tr>
-            <td><?php echo Form::submit('Publicar Servicio','class="btn btn-submit boton"') ?>&nbsp;</td>
-            <td><?php echo Form::reset('Reiniciar','class="btn btn-info"')?></td>
+            <td><?php echo Form::submit(''.$servicio_ingresar_submit.'','class="btn btn-submit boton"') ?>&nbsp;</td>
+            
         </tr>         
     </table>
    </div>
