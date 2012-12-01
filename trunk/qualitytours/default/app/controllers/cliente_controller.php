@@ -8,6 +8,7 @@ load::model('contenido');
 load::model('comentario');
 load::model('solicitud');
 load::model('calificacion');
+load::model('categoria');
 
 class ClienteController extends AppController {
 
@@ -233,7 +234,7 @@ class ClienteController extends AppController {
             $solicitud_modificacion = new Solicitud ();
             $solicitud_modificacion = $solicitud_modificacion->buscar_solicitud($id);
             $solicitud_modificacion->modificaciones_sol = "true";
-
+           
             //Paso de datos desde usuario encontrado a cliente a ingresar
             $username_usu = $cliente->username_usu;
             $password_usu = $cliente->password_usu;
@@ -246,6 +247,7 @@ class ClienteController extends AppController {
             $giro = $cliente->giro_cli;
             $telefono = $cliente->telefono_cli;
             $plan = $cliente->tipo_plan;
+            
 
             if ($cliente->sql("UPDATE cliente SET nombre_cli='" . $nombre_cli . "', rut_cli='" . $rut_cli . "', giro_cli='" . $giro . "', telefono_cli='" . $telefono . "', tipo_plan='" . $plan . "' WHERE id_usu =" . $id . ";") && $solicitud_modificacion->update()) {
                 Flash::success("Solicitud modificada correctamente");

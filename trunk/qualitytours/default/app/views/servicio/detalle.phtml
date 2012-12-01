@@ -8,32 +8,37 @@
     {
         include_once APP_PATH.'libs/es.php';
     }
-?>    
+?>
 <!--eliminar comentario-->
 <script type="text/javascript">
-$(document).ready(function() {
-
-    $('.delete').click(function(){
-        //Recogemos la id del contenedor padre
-        var parent = $(this).parent().attr('id');
-        //Recogemos el valor del servicio
-        var service = $(this).parent().attr('data');
-
-        var dataString = 'id='+service;
-
-        $.ajax({
-            type: "POST",
-            url: "<?php echo PUBLIC_PATH;?>ajax/eliminar_comentario.php",
-            data: dataString,
-            success: function() {            
-                $('#delete-ok').empty();
-                $('#delete-ok').append('<div>Se ha eliminado correctamente el servicio con id='+service+'.</div>').fadeIn("slow");
-                $('#'+parent).remove();
-            }
-        });
-    });                 
-});    
+    
+    
+    $(document).ready(function() {
+        $('.delete').live( 'click', function() {
+        //$('.delete').click(function()// NO FUNCIONABA CUANDO ELIMINA NUEVOS COMENTARIOS
+           
+            //Recogemos el valor del servicio
+            var service = $(this).attr('id');
+            
+            var dataString = 'id='+service;
+            
+            $.ajax({
+                type: "POST",
+                url: "<?php echo PUBLIC_PATH; ?>ajax/eliminar_comentario.php",
+                data: dataString,
+                success: function() {            
+                    //$('#delete-ok').empty();
+                    //$('#delete-ok').append('<div>Se ha eliminado correctamente el servicio con id='+service+'.</div>').fadeIn("slow");
+                    //$('#'+parent).remove();
+                    $('#service'+service).remove();
+                }
+                
+            }); //FIN AJAX
+        });                 
+    });    
 </script>
+
+
 <style>
     .delete {
 cursor: pointer;
@@ -154,6 +159,7 @@ margin-left: 820px;
                 {?>
        <div class="span12">
                          
+                          
                         <?php  for($i=0; $i<=$contador-1 ; $i++) 
                         {?>
 
@@ -161,31 +167,25 @@ margin-left: 820px;
                         <table class="table table-hover">
                             <tr>
                                 <td><?php echo "<b>".$nombre2[$i]."</b>"; ?></td>
-                                <td><div align="right"><?php echo "<b>".$fecha2[$i]."</b>";?></div></td>
+                                <td><div align="right"><?php echo "<b>".$fecha2[$i]."</b>";
+                                 if(Auth::is_valid())
+                                 {
+                                    if(Auth::get("id") ==  $id2[$i])
+                                    { ?>
+                                        <a  class="delete" id="<?=$idComentario2[$i]?>"><i class="icon-remove"></i></a>  
+                              <?php } 
+                              
+                                 }?>
+                                 </div></td>
                             </tr>
                         </table>
-
-
                         <table>
                             <tr>
                                 <td> <div align="left"> <?php echo $detalle2[$i];?> </div></td>
                             </tr> 
-                            <?php
-                        if(Auth::is_valid())
-                        {
-                            if(Auth::get("id") ==  $id2[$i])
-                            { ?>
-
-                                <a  class="delete" id="delete<?=$idComentario2[$i]?>">Eliminar</a>  
-
-                        <?php }  
-
-                        }?>
-
-
                         </table> 
                     </div>  
-            <?php  } //fin for?>
+                    <?php  } //fin for?>
 
                 <?php  }?>        
                 <?php 
