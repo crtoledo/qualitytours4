@@ -18,22 +18,17 @@ $res=  pg_query("INSERT INTO comentario(id_usu, id_ser, fecha_com, detalle_com, 
 
 $Db->close($conn);
 ?>
-<div class="span12">
-    <div class="comentarios">
-    
-   
-    
-    <table class="table table-hover">
-        <tr>
-            <td><?php echo "<b>".$nombre."</b>"; ?></td>
-            <td><div align="right"><?php echo "<b>".$fecha."</b>";?></div></td>
-        </tr>
-    </table>
-    <table>
-    <tr>
-        <td> <div align="left"> <?php echo $comentario; ?> </div></td>
-    </tr>
-          
-    </table> 
-</div>
-</div>
+ <div class="service_list" id="service<?=$ultimoid ?>" data="<?=$ultimoid ?>">  
+            <table class="table table-hover">
+                <tr>
+                    <td><?php echo "<b>".$nombre."</b>"; ?></td>
+                    <td><div align="right"><?php echo "<b>".$fecha."</b>";?> <a  class="delete" id="<?=$ultimoid ?>"><i class="icon-remove"></i></a> </div></td>
+                </tr>
+            </table>
+            <table>
+            <tr>
+                <td> <div align="left"> <?php echo $comentario; ?> </div></td>
+            </tr>
+           </table> 
+        </div>
+
