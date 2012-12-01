@@ -85,6 +85,14 @@ $cliente_detalle_valcoment = "Ingrese comentario";
 $cliente_detalle_visitas = "Visitas";
 $cliente_detalle_servicios = "Servicios";
 $cliente_detalle_mensaje1 = "Iniciar sesi&oacute;n para calificar";
+$cliente_detalle_direccion = "Direcci&oacute;n";
+$cliente_detalle_telefono = "Tel&eacute;fono";
+$cliente_detalle_promedio = "Promedio";
+$cliente_detalle_galeria =  "Galer&iacute;a de Fotos";
+$cliente_detalle_ubicacion = "Ubicaci&oacute;n";
+$cliente_detalle_nuevocom = "Agrega un nuevo comentario";
+$cliente_detalle_boton = "Comentar";
+$cliente_detalle_mensaje2 = "Iniciar sesi&oacute;n para comentar";
 
 //variables /servicio/ingresar
 

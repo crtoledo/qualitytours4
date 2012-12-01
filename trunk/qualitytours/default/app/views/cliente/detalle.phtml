@@ -299,7 +299,9 @@ $(document).ready(function() {
  <div class="container-fluid">
   <div class="row-fluid">
     <div class="span8">
-        <h4> <?php echo"<font color='#9F9F9F' >".$nombre_cliente."&nbsp;-&nbsp;";?><?php if (isset($ciudad_ubi)) echo $ciudad_ubi."</font> &nbsp;"; echo Html::link('contacto/contacto_cli/'.$id_cliente, Html::img('icon_mail_phone.gif'));?></h4><br>
+        <h4> <?php echo"<font color='#9F9F9F' >".$nombre_cliente."&nbsp;-&nbsp;";?><?php if (isset($ciudad_ubi)) echo $ciudad_ubi."</font> &nbsp;"; echo Html::link('contacto/contacto_cli/'.$id_cliente, Html::img('icon_mail_phone.gif'));?></h4>
+       <?php echo  "<span class='label label-info'>".$mostrar.":&nbsp;".$cliente_detalle_visitas."</span><br>"; ?>
+        <br>
 
              <!--        IMAGEN PRINCIPAL DEL CENTRO TURÍSTICO -->
         <?php
@@ -316,13 +318,13 @@ $(document).ready(function() {
     <tr>
         <td>
             <!--        DIRECCION DEL RECINTO.-->
-            <h4><font color="#9F9F9F">Direcci&oacute;n</font></h4>
+            <h4><font color="#9F9F9F"><?php echo $cliente_detalle_direccion; ?></font></h4>
            <h6>
             <?php if (isset($region_ubi)) echo $region_ubi; ?><br>
             <?php if (isset($ciudad_ubi)) echo $ciudad_ubi; ?><br>
             <?php if (isset($region_ubi)) echo $direccion_ubi; ?>
             </h6>
-            <h4><font color="#9F9F9F">Tel&eacute;fono:</font></h4>
+            <h4><font color="#9F9F9F"><?php echo $cliente_detalle_telefono; ?></font></h4>
             <h6>
                 <?php if(isset ($telefono)) echo $telefono;?>
             </h6>
@@ -332,12 +334,12 @@ $(document).ready(function() {
                 <?php 
                 if(!Auth::is_valid())
                 {
-                    echo "<font size='1'><b>Para calificar debe iniciar sesión</b></font><br>";
+                    echo "<font size='1'><b>".$cliente_detalle_mensaje1."</b></font><br>";
                 }
                 $calificacion = number_format($calificacion, $decimals = 1);
                 echo "<b>Califica tu experencia de viaje:<br></b>
-                        <b><font size='1'>Promedio:</font><font size='4'>".$calificacion."</font></b><br>
-                        <b><font size='1'>Cantidad:</font><font size='4'>".$cantidad."</font></b><br>";
+                        <b><font size='1'>".$cliente_detalle_promedio.":</font><font size='4'>".$calificacion."</font></b><br>
+                        <b><font size='1'>Total:</font><font size='4'>".$cantidad."</font></b><br>";
             ?>
                 <div id="star1" class="rating">&nbsp;</div>
         </td>
@@ -351,7 +353,7 @@ $(document).ready(function() {
     <table class="table table-bordered"> 
      <tr>  
         <td>
-            <div align="center"><font size="1"><b>Galer&iacute;a de fotos:</b><icon class="icon-camera"></icon></font></div>
+            <div align="center"><font size="1"><b><?php echo $cliente_detalle_galeria; ?>:</b><icon class="icon-camera"></icon></font></div>
             <!--Galeria de imagenes-->
             <div id="content2">
             <div id="carrusel">
@@ -373,11 +375,11 @@ $(document).ready(function() {
       <tr>
         <td>
    <!--      LISTADO DE SERVICIOS-->
-        <div align="center"><font size="1"><b>Servicios</b></font><icon class="icon-thumbs-up"></icon></div>
+        <div align="center"><font size="1"><b><?php echo $cliente_detalle_servicios; ?>&nbsp;</b></font><icon class="icon-thumbs-up"></icon></div>
         <?php
             foreach ($array_servicios as $servicio)
              {
-                echo"&#8226;<font size='1'>".Html::link("servicio/detalle/" . $servicio->id."/".$leng, "Services: " . $servicio->nombre_ser . "</font><br>");
+                echo"&#8226;<font size='1'>".Html::link("servicio/detalle/" . $servicio->id."/".$leng,  $servicio->nombre_ser . "</font><br>");
              }  
         ?>
         </td>
@@ -385,7 +387,7 @@ $(document).ready(function() {
      <tr>
         <td>
 <!--MAPA DE LA UBICACION-->
-        <div align="center"><font size="1"><b>Ubicaci&oacute;n:</b></font><icon class="icon-map-marker"></icon></div> 
+        <div align="center"><font size="1"><b><?php echo $cliente_detalle_ubicacion; ?>:</b></font><icon class="icon-map-marker"></icon></div> 
         <div id="map_canvas" style="width:290px; height:290px"></div>
         </td>
      </tr>
@@ -437,12 +439,12 @@ $(document).ready(function() {
                 <?php 
                     if(!Auth::is_valid())            
                     {
-                        echo "<b>Login to post comments.</b>";
+                        echo "<b>".$cliente_detalle_mensaje2."</b>";
                     }
                     else
                     {  
                 ?>
-                <strong id="mensaje"> Agrega un nuevo comentario:</strong>
+                <strong id="mensaje"><?php echo $cliente_detalle_nuevocom; ?> </strong>
                 
                         <div id="comentarios">
                            
@@ -458,7 +460,7 @@ $(document).ready(function() {
                             <div align="center"> <?php echo Form::text("comentario","class='span3  comentario'"); ?> </div>  
                             <?php echo Form::hidden("id_usu",null,Auth::get("id") ); ?>
                             <?php echo Form::hidden("id_cli", null,$id_cliente) ?>
-                            <div align="center"><input id="boton-enviar" type="submit" value="Comentar" class="btn btn-primary boton" /></div>
+                            <div align="center"><input id="boton-enviar" type="submit" value="<?php echo $cliente_detalle_boton; ?>" class="btn btn-primary boton" /></div>
                     </form>  
 
                 <?php  }?>

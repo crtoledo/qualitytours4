@@ -73,6 +73,14 @@ $cliente_detalle_valcoment = "Add comentary";
 $cliente_detalle_visitas = "Views";
 $cliente_detalle_servicios = "Services";
 $cliente_detalle_mensaje1 = "Login to rate";
+$cliente_detalle_direccion = "Address";
+$cliente_detalle_telefono = "Phone";
+$cliente_detalle_promedio = "Average";
+$cliente_detalle_galeria =  "Photo Gallery";
+$cliente_detalle_ubicacion = "Location";
+$cliente_detalle_nuevocom = "Add a new comment";
+$cliente_detalle_boton = "Comment";
+$cliente_detalle_mensaje2 = "Login to post comments";
 
 //variales /servicio/ingresar
 $servicio_ingresar_titulo = "Publish service";
