@@ -8,8 +8,83 @@
     {
         include_once APP_PATH.'libs/es.php';
     }
-?>    
+?>
+
 <div><?php View::content() ?></div> 
+
+<!--SCRIPT DEL NUEVO CARRUSEL-->
+<script>
+ var posicion = 0;
+ var imagenes = new Array();
+ $(document).ready(function() {
+   var numeroImatges =  <?php echo $contimg+2;?>;
+   if(numeroImatges<=3){
+       $('.derecha_flecha').css('display','none');
+    $('.izquierda_flecha').css('display','none');
+   }
+
+     $('.img_carrusel').live('click',function(){
+         $('#bigimage').attr('src',$(this).attr('src'));
+        return false;
+     });
+
+     $('.izquierda_flecha').live('click',function(){
+         if(posicion>0){
+            posicion = posicion-1;
+        }else{
+            posicion = numeroImatges-1;
+        }
+        $(".carrusel").animate({"left": -($('#imagen_'+posicion).position().left)}, 900);
+        return false;
+     });
+
+     $('.izquierda_flecha').hover(function(){
+         $(this).css('opacity','0.5');
+     },function(){
+         $(this).css('opacity','1');
+     });
+
+     $('.derecha_flecha').hover(function(){
+         $(this).css('opacity','0.5');
+     },function(){
+         $(this).css('opacity','1');
+     });
+
+     $('.derecha_flecha').live('click',function(){
+        if(numeroImatges>posicion+3){
+            posicion = posicion+1;
+        }else{
+            posicion = 0;
+        }
+        $(".carrusel").animate({"left": -($('#imagen_'+posicion).position().left)}, 900);
+        return false;
+     });
+
+ });
+</script>
+<!--ESTILO CSS DEL NUEVO CARRUSEL-->
+<style>
+#carrusel{ width:300px; overflow:hidden; height:100px; position:relative; margin-top:20px;}
+#carrusel .izquierda_flecha{position:absolute; left:30px; z-index:1; top:50%; margin-top:-9px;}
+#carrusel .derecha_flecha{position:absolute; right:10px; z-index:1; top:50%; margin-top:-9px;}
+.carrusel{width:4000px;left:0px; position:absolute; z-index:0}
+.carrusel>div{
+    float: left;
+    height: 100px;
+    margin-right: 5px;
+    width: 300px;
+    text-align:center;
+}
+.carrusel .img_carrusel{cursor:pointer;}
+
+#content2 {
+    float:left;
+    width:300px;
+    margin-bottom:40px;
+    margin:0px auto;
+}
+  
+</style>
 <script type="text/javascript">
 	        function modal () {
 	        $('#example').modal('toggle');
@@ -171,12 +246,6 @@ cloudLayer.setMap(map)
 
 });
 </script>
- <script>
-           $('.carousel').carousel({
-            interval: 1000
-            })
- </script>
-
 <script type="text/javascript">
 $(document).ready(function() {
     
@@ -226,78 +295,108 @@ $(document).ready(function() {
                     
                         });
  </script>
-<table class="table table-bordered">
-<tr>  
-<thead>
-    <td width="400px"><div id="map_canvas" style="width:400px; height:400px"></div></td>
-    <td width="600px">
-    <h3 style="font-family:SF"><?php echo $nombre_cliente." "; ?><?php echo Html::link('contacto/contacto_cli/'.$id_cliente, Html::img('icon_mail_phone.gif'));?></h3>
-    <h6>
-        <?php if (isset($region_ubi)) echo $region_ubi; ?><br>
-        <?php if (isset($ciudad_ubi)) echo $ciudad_ubi; ?><br>
-        <?php if (isset($region_ubi)) echo $direccion_ubi; ?>
-       
-        
-    </h6>
-        <?php echo"<span class='label label-info'>".$mostrar.":&nbsp;".$cliente_detalle_visitas."</span>";?><br>
+<!--DISEÑO DEL  LA VISTA DEL CLIENTE -->
+ <div class="container-fluid">
+  <div class="row-fluid">
+    <div class="span8">
+        <h4> <?php echo"<font color='#9F9F9F' >".$nombre_cliente."&nbsp;-&nbsp;";?><?php if (isset($ciudad_ubi)) echo $ciudad_ubi."</font> &nbsp;"; echo Html::link('contacto/contacto_cli/'.$id_cliente, Html::img('icon_mail_phone.gif'));?></h4><br>
+
+             <!--        IMAGEN PRINCIPAL DEL CENTRO TURÍSTICO -->
         <?php
-            foreach ($array_servicios as $servicio)
-                {
-                    echo Html::link("servicio/detalle/" . $servicio->id."/".$leng, $cliente_detalle_servicios.": " . $servicio->nombre_ser . "<br>");
-                }  
-        ?>
-            <?php
-    //Trozo PHP para verificar si hay imagenes
+             
             if (count($contenido) > 0)
-                
-            {?>
+            {
+                 
+               echo "<div class='item'>".Html::img("../default/public/img/upload/".$ruta_con[0],"imagen"," id='bigimage' height='250' width='564' class='img_carrusel'")."</div>";
+                   
+            
+            }  ?>
         <br>
-       <center>
-       <div class="span5">       
-                    <div id="myCarousel" class="carousel slide" with="300">
-                    <!-- Carousel items -->
-                        <div class="carousel-inner">
-                            <div class="item active"><?php echo Html::img("../default/public/img/upload/".$ruta_con[0],"imagen");?></div>
-                                <?php
-                                for($img = 1; $img<=$contimg-1; $img++)
-                                {
-                                    echo "<div class='item'>".Html::img("../default/public/img/upload/".$ruta_con[$img],"imagen")."</div>";
-                                } ?>         
-
-
-                    </div>
-                        <!-- Carousel nav -->
-
-                    <a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
-                    <a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>
-                    </div>
-       </div>
-       </center>
-  <?php }?>
-      </td>
-      </thead>
-      </tr>
-      <tr>
+<table class="table table-bordered">  
+    <tr>
         <td>
-            <?php 
+            <!--        DIRECCION DEL RECINTO.-->
+            <h4><font color="#9F9F9F">Direcci&oacute;n</font></h4>
+           <h6>
+            <?php if (isset($region_ubi)) echo $region_ubi; ?><br>
+            <?php if (isset($ciudad_ubi)) echo $ciudad_ubi; ?><br>
+            <?php if (isset($region_ubi)) echo $direccion_ubi; ?>
+            </h6>
+            <h4><font color="#9F9F9F">Tel&eacute;fono:</font></h4>
+            <h6>
+                <?php if(isset ($telefono)) echo $telefono;?>
+            </h6>
+            
+        </td>
+        <td>
+                <?php 
                 if(!Auth::is_valid())
                 {
-                    echo "<font size='1'><b>".$cliente_detalle_mensaje1."</b></font><br>";
+                    echo "<font size='1'><b>Para calificar debe iniciar sesión</b></font><br>";
                 }
                 $calificacion = number_format($calificacion, $decimals = 1);
                 echo "<b>Califica tu experencia de viaje:<br></b>
                         <b><font size='1'>Promedio:</font><font size='4'>".$calificacion."</font></b><br>
                         <b><font size='1'>Cantidad:</font><font size='4'>".$cantidad."</font></b><br>";
             ?>
-                <div id="star1" class="rating">&nbsp;</div> 
-               
+                <div id="star1" class="rating">&nbsp;</div>
         </td>
-       </tr>
+    </tr>
 
-       </table>   
-       
-            
-            <?php 
+
+</table>
+    </div>
+<!--      SEGUNDA PARTE  LAYOUT-->
+    <div class="span4" >
+    <table class="table table-bordered"> 
+     <tr>  
+        <td>
+            <div align="center"><font size="1"><b>Galer&iacute;a de fotos:</b><icon class="icon-camera"></icon></font></div>
+            <!--Galeria de imagenes-->
+            <div id="content2">
+            <div id="carrusel">
+            <a class="izquierda_flecha" href="#"><i class="icon-arrow-left"></i></a>
+            <a class="derecha_flecha"   href="#"><i class="icon-arrow-right"></i></a>
+            <div class="carrusel">
+            <?php
+            for($img = 0; $img<=$contimg-1; $img++)
+             {
+                $ruta = $ruta_con[$img];
+                echo "<div id='imagen_".$img."'>".Html::img("../default/public/img/upload/".$ruta_con[$img],"imagen","class='img_carrusel' width='200px' height='78px' class='img_carrusel'")."</div>";
+             }?>
+             </div>
+            </div>
+           </div>
+<!--            fin de la galeria-->
+         </td>
+      </tr>
+      <tr>
+        <td>
+   <!--      LISTADO DE SERVICIOS-->
+        <div align="center"><font size="1"><b>Servicios</b></font><icon class="icon-thumbs-up"></icon></div>
+        <?php
+            foreach ($array_servicios as $servicio)
+             {
+                echo"&#8226;<font size='1'>".Html::link("servicio/detalle/" . $servicio->id."/".$leng, "Services: " . $servicio->nombre_ser . "</font><br>");
+             }  
+        ?>
+        </td>
+     </tr>
+     <tr>
+        <td>
+<!--MAPA DE LA UBICACION-->
+        <div align="center"><font size="1"><b>Ubicaci&oacute;n:</b></font><icon class="icon-map-marker"></icon></div> 
+        <div id="map_canvas" style="width:290px; height:290px"></div>
+        </td>
+     </tr>
+     </table>
+    </div>
+  </div>
+ </div>           
+
+
+<!--SECCION DE COMENTARIOS-->
+ <?php 
 
                 if($cont == 0)
                 {
@@ -365,7 +464,7 @@ $(document).ready(function() {
                 <?php  }?>
 </div>
  
-<!--<a data-toggle="modal" href="" class="btn btn-primary btn-large" onclick="modal()">Abrir ventana modal</a>-->
+
 
 		
 
