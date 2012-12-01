@@ -111,6 +111,7 @@ class ClienteController extends AppController {
         $client = new Cliente();
         $client = $client->find($id);
         $this->id_cliente = $id;
+        $this->telefono = $client->telefono_cli;
 
         //Obtenemos la ubicacion del centro
         $ubicacion = new Ubicacion();
