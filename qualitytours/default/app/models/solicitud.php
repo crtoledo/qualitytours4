@@ -18,7 +18,7 @@ class Solicitud extends ActiveRecord
 
     Public function solicitud_renovacion($dato)
     {
-       return $this->find_by_sql("select * from solicitud where id_usu=".$dato. " and activo_sol ='true' and estado_sol='Renovacion'");
+       return $this->find_by_sql("select * from solicitud where id_usu=".$dato. " and activo_sol ='true' and tipo_sol='Renovacion'");
     }
     
     Public function confirmar_mail($dato)

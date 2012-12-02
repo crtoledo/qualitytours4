@@ -326,13 +326,20 @@ class ClienteController extends AppController {
                 //Fin boton renovar
                 //******************
                 //
-                //********************************************
-                //Leyendas cuando el boton renovar no aparece
-                //********************************************
+                //************************************************************
+                //Leyendas y panel de administracion de la nueva solicitud de 
+                //administracion, cuando el boton renovar no aparece
+                //************************************************************
 
                 $leyendas = new solicitud();
                 if ($leyendas->solicitud_renovacion($id_cliente)) {
+                    //Se obtienen los datos de la solicitud renovacion, para poder mostrar el panel de administracion de la misma
                     $this->existe ="<center><b>Ya tiene una solicitud de renovacion pendiente</b></center>";
+                    $this->panel_suscripcion_renovacion = $leyendas->tipo_sol;
+                    $this->estado_sol = $leyendas->estado_sol;
+                    $this->fecha_sol = $leyendas->fecha_sol;
+                    $this->observaciones_sol = $leyendas->observaciones_sol;
+                    $this->id_usu = $leyendas->id_usu;
                 } else {
                     $this->noexiste = "<center><b>Todavia  no cumple los requisitos</b></center>";
                 }
