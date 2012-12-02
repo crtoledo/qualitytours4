@@ -191,8 +191,8 @@ class SolicitudController extends AppController {
                         //se crean los valores
                         $nueva_solicitud->id_usu = $id_cliente;
                         $nueva_solicitud->fecha_sol = date("d-m-Y");
-                        $nueva_solicitud->estado_sol = "Renovacion";
-                        $nueva_solicitud->tipo_sol = "nueva";
+                        $nueva_solicitud->estado_sol = "Pendiente";
+                        $nueva_solicitud->tipo_sol = "Renovacion";
                         $nueva_solicitud->observaciones_sol = "No presenta observaciones";
                         $nueva_solicitud->mail_sol = "false";
                         $nueva_solicitud->modificaciones_sol = "false";

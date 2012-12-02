@@ -63,54 +63,108 @@
             <td>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             </td>
-            <!--    Opciones-->       
-            <td>
-                <dl>
-                    <table class="table table-bordered">
-                        <thead>
-                            <tr>
-                                <th><dt>Fecha solicitud</dt></th>
-                        <th><dt>Fecha de inicio</dt</th>
-                        <th><dt>Fin suscripción</dt></th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td width="120px"><dd><?php echo $fecha_solicitud ?></dd></td>
-                        <td width="120px"><dd><?php echo $ini_sus ?></dd></td>
-                        <td width="120px"><dd><?php echo $fin_sus ?></dd></td>
-                        </tr>
-                        </tbody>
-                    </table>
-                    <table class="table table-bordered">
-                        <thead>
-                            <tr>
-                                <th><center><dt>Observacion</dt></center></th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td width="120px"><dd><?php echo $observaciones ?></dd></td>
-                        </tr>
-                        </tbody>
-                    </table>
-                    <?php
-                    if (isset($muestra_boton)) {
-                        if ($muestra_boton == "Si") { ?>
-                            
-                            <center><button class="btn btn-success" type="submit" onclick="activar_renovar()">Renovar suscripción</button></center>
-                            <p align="center">Si desea cambiar los datos de la suscripcion, debe esperar<br>
-                                a que la actual termine para mandar una nueva solicitud</p>
-                    <?php   }
-                        } else if(isset($existe)){echo $existe;}
-                        else if(isset($noexiste)){echo $noexiste;}
-                        
+            <!--    Opciones-->   
+            <!--            Si no existe una solicitud de renovacion, se muestra el panel de la solicitud actual-->
+            <?php if (!isset($panel_suscripcion_renovacion)) { ?>
+                <td>
+                    <dl>
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th><dt>Fecha solicitud</dt></th>
+                            <th><dt>Fecha de inicio</dt</th>
+                            <th><dt>Fin suscripción</dt></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td width="120px"><dd><?php echo $fecha_solicitud ?></dd></td>
+                            <td width="120px"><dd><?php echo $ini_sus ?></dd></td>
+                            <td width="120px"><dd><?php echo $fin_sus ?></dd></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th><center><dt>Observacion</dt></center></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td width="120px"><dd><?php echo $observaciones ?></dd></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <?php
+                        if (isset($muestra_boton)) {
+                            if ($muestra_boton == "Si") {
+                                ?>
+
+                                <center><button class="btn btn-success" type="submit" onclick="activar_renovar()">Renovar suscripción</button></center>
+                                <p align="center">Si desea cambiar los datos de la suscripcion, debe esperar<br>
+                                    a que la actual termine para mandar una nueva solicitud</p>
+                                <?php
+                            }
+                        } else if (isset($existe)) {
+                            echo $existe;
+                        } else if (isset($noexiste)) {
+                            echo $noexiste;
+                        }
                         ?>
-                </dl>
-            </td>        
-        </tr>
+                    </dl>
+                </td>  
+            <?php } else { ?> 
+                <td>
+                    <h4> <center> Datos solicitud renovacion </center></h4>
+                    <!-- ******************************************************* 
+                         Panel de administracion de la solicitud de renovacion
+                         *******************************************************  -->
+
+                    <!-- Datos (fecha y estado )de la solicitud de renovacion-->
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th><center>Fecha</center></th>
+                                <th><center>Estado</center></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><center><?php echo $fecha_sol ?> </center></td>
+                                <td><center><?php echo $estado_sol ?> </center></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <!-- Fin Datos (fecha y estado )de la solicitud de renovacion-->
+                    
+                    <!-- Datos (Observaciones)de la solicitud de renovacion-->
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th><center>Observaciones</center></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td width="400px"><center><?php echo $observaciones_sol ?></center></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <center>
+                        <table>
+                            <tr>
+                                <td><a href="/trunk/qualitytours/solicitud/confirmacionmail/<?php echo Auth::get("id") ?>"><button class="btn btn-primary btn-small" type="submit" >Confirmacion mail</button></a>&nbsp</td>
+                                <td><button class="btn btn-danger btn-small" type="submit" >Cancelar renovacion</button></td>
+                            </tr>
+                        </table>
+                    </center>
+                </td>
+<?php } ?>
+            </tr>
     </table>
 </div>
+<!-- Modal para aceptar la renovacion de la solicitud-->
 <div id="renovar" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>

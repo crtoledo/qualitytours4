@@ -15,7 +15,7 @@ $tipo = $_REQUEST['opcion'];
 if ($tipo == "1") {
     $resu = pg_query($conn, "select solicitud.id, cliente.id_usu, cliente.username_usu, solicitud.fecha_sol, solicitud.estado_sol, solicitud.tipo_sol 
 from solicitud join cliente on solicitud.id_usu= cliente.id_usu
-where activo_sol= true and estado_sol ='Pendiente'");
+where activo_sol= true and estado_sol ='Pendiente' and modificaciones_sol=false");
     $res = pg_fetch_all($resu);
 } else if ($tipo == "2") {
     $resu = pg_query($conn, "select solicitud.id, cliente.id_usu, cliente.username_usu, solicitud.fecha_sol, solicitud.estado_sol, solicitud.tipo_sol  
