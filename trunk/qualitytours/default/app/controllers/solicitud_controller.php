@@ -19,7 +19,6 @@ class SolicitudController extends AppController {
 //****************************************************//    
 ///////////////////////////////////////////////////////      
 
-
     public function ingresar($id) {
         // se comprueba que sea turista el que ingresa la solicitud
         if (Auth::get('rol_usu') != "cliente") {
@@ -54,22 +53,31 @@ class SolicitudController extends AppController {
         $solicitud = new solicitud();
         //Se verifica que el turista sea el turista que consulta su solicitud
         if (Auth::get('id') == $id) {
-            if ($solicitud->find_by_sql("select * from solicitud where id_usu = " . $id . " and activo_sol='true'")) {
-                $this->fecha = $solicitud->fecha_sol;
-                $this->estado = $solicitud->estado_sol;
-                $this->tipo = $solicitud->tipo_sol;
-                $this->observaciones = $solicitud->observaciones_sol;
-                if ($solicitud->estado_sol == "Aceptada") {
-                    $this->colortabla = "success";
-                } else if ($solicitud->estado_sol == "Pendiente") {
-                    $this->colortabla = "warning";
-                } else if ($solicitud->estado_sol == "Rechazada" || $solicitud->estado_sol == "Cancelada") {
-                    $this->colortabla = "error";
-                } else if ($solicitud->estado_sol == "Esperando") {
-                    $this->colortabla = "info";
+            // se valida que sea turista
+            if (Auth::get('rol_usu') == "turista") {
+                if ($solicitud->buscar_solicitud($id)) {
+                    $this->fecha = $solicitud->fecha_sol;
+                    $this->estado = $solicitud->estado_sol;
+                    $this->tipo = $solicitud->tipo_sol;
+                    $this->observaciones = $solicitud->observaciones_sol;
+                    $this->mail_sol = $solicitud->mail_sol;
+
+                    // Acontinuacion se le asigna el color a la tabla que se muestra en la vista
+                    if ($solicitud->estado_sol == "Aceptada") {
+                        $this->colortabla = "success";
+                    } else if ($solicitud->estado_sol == "Pendiente") {
+                        $this->colortabla = "warning";
+                    } else if ($solicitud->estado_sol == "Rechazada" || $solicitud->estado_sol == "Cancelada") {
+                        $this->colortabla = "error";
+                    } else if ($solicitud->estado_sol == "Esperando") {
+                        $this->colortabla = "info";
+                    }
+                } else {
+                    Router::redirect("/solicitud/vertodas/" . Auth::get("id"));
                 }
             } else {
-                Router::redirect("/solicitud/vertodas/" . Auth::get("id"));
+                Flash::error('Acceso denegado');
+                Router::redirect("/");
             }
         } else {
             Router::redirect("/");
@@ -87,17 +95,29 @@ class SolicitudController extends AppController {
     }
 
     public function cancela($id) {
+        // se comprueba que el usuario quien cancela sea el mismo de la solicitud
         if (Auth::get("id") == $id) {
             $cancelacion = new solicitud();
-            $cancelacion->buscar_solicitud($id);
-            $cancelacion->estado_sol = "Cancelada";
-            $cancelacion->activo_sol = "false";
+            // se verifica que la solicitud exista
+            if ($cancelacion->buscar_solicitud($id)) {
+                // se valida que no pueda cancelar la solicitud si es que ya confirmo el envio del mail
+                if ($cancelacion->mail_sol == "t") {
+                    $cancelacion->estado_sol = "Cancelada";
+                    $cancelacion->activo_sol = "false";
 
-            if ($cancelacion->update()) {
-                Flash::info('Ha cancelado su solicitud');
-                Router::redirect("/");
+                    if ($cancelacion->update()) {
+                        Flash::info('Ha cancelado su solicitud');
+                        Router::redirect("/");
+                    } else {
+                        Flash::info("Error al cancelar la solicitud");
+                    }
+                } else {
+                    Flash::info("No puede cancelar su solicitud");
+                    Router::redirect("/");
+                }
             } else {
-                Flash::info("Error al cancelar la solicitud");
+                Flash::info("Solicitud no encontrada");
+                Router::redirect("/");
             }
         } else {
             Router::redirect("/");
@@ -111,7 +131,7 @@ class SolicitudController extends AppController {
             $confirmacionmail->confirmar_mail($id);
 
             // Se verifica que no haya confirmado anteriormente
-            if ($confirmacionmail->mail_sol != "true") {
+            if ($confirmacionmail->mail_sol != "t") {
                 $confirmacionmail->mail_sol = "true";
                 if ($confirmacionmail->update()) {
                     Flash::info('Ha confirmado el envio del mail');
@@ -133,6 +153,7 @@ class SolicitudController extends AppController {
 //**********  Fin funciones para el usuario  **********//
 //****************************************************//    
 /////////////////////////////////////////////////////// 
+//
 ///////////////////////////////////////////////////////////
 //******************************************************//    
 //************  funciones para el cliente  ************//
@@ -200,7 +221,6 @@ class SolicitudController extends AppController {
             Router::redirect("/");
         }
     }
-    
 
 ///////////////////////////////////////////////////////////
 //******************************************************//    
@@ -226,7 +246,15 @@ class SolicitudController extends AppController {
             if (is_numeric($solicitud) && is_numeric($usuario)) {
                 // se valida que al solicitud corresponda al usuario
                 if ($datos_solicitud->find_by_sql("select * from solicitud where id=" . $solicitud . " and id_usu = " . $usuario)) {
-                    // se obtienen los datos del usuario que quiere ser cliente
+
+                    //Se pregunta si la solicitud fue modificada
+                    if ($datos_solicitud->modificaciones_sol == "t") {
+                        // So la solicitud tenia modificaciones, se pasa el campo de true a false
+                        $datos_solicitud->modificaciones_sol = "false";
+                        $datos_solicitud->update();
+                    }
+
+                    //Se obtienen los datos del usuario que quiere ser cliente
                     $datos_cliente = New Cliente;
                     $datos_cliente = $datos_cliente->find($usuario);
 
@@ -246,7 +274,10 @@ class SolicitudController extends AppController {
                     $this->observaciones = $datos_solicitud->observaciones_sol;
                     $this->fecha_sol = $datos_solicitud->fecha_sol;
 
-                    // se cargan los datos de la solicitud... para observaciones
+                    //Se obtienen los datos de la solicitud para administrar los botones
+                    $this->mail_sol = $datos_solicitud->mail_sol;
+
+                    // se cargan los datos de la solicitud en especifico para observaciones
                     $this->solicitud = $datos_solicitud;
                 } else {
                     Flash::info('Datos no corresponden a la solicitud');
@@ -343,7 +374,38 @@ class SolicitudController extends AppController {
                     Flash::error("Error al rechazar la solicitud");
                 }
             } else {
-                Flash::info('Datos no corresponden a la solicitud');
+                Flash::info('Datos no son correctos');
+                Router::redirect("/");
+            }
+        } else {
+            Flash::info('No tiene los privilegios necesarios');
+            Router::redirect("/");
+        }
+    }
+
+    public function aviso($id_solicitud, $id_usuario) {
+        //Se verifica el rol
+        if (Auth::get("rol_usu") == "administrador") {
+            // se verifica que los datos enviados sean numericos
+            if (is_numeric($id_solicitud) && is_numeric($id_usuario)) {
+                $solicitud = new solicitud;
+                // Se verifica que la solicitud exista y que ademas los datos (id) correspondan a ella
+                if ($solicitud->find_by_sql("select * from solicitud where id=" . $id_solicitud . " and id_usu = " . $id_usuario . "and activo_sol='true'")) {
+
+                    //Se cambian los valores de la solicitud
+                    $solicitud->estado_sol = "Esperando";
+                    if ($solicitud->update()) {
+                        Router::redirect("/solicitud/administrar/" . $id_solicitud . "/" . $id_usuario);
+                    } else {
+                        Flash::error('Error al actualizar la solicitud');
+                        Router::redirect("/solicitud/administrar/" . $id_solicitud . "/" . $id_usuario);
+                    }
+                } else {
+                    Flash::info('Datos no corresponden a la solicitud');
+                    Router::redirect("/");
+                }
+            } else {
+                Flash::info('Datos no son correctos');
                 Router::redirect("/");
             }
         } else {

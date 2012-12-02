@@ -20,11 +20,11 @@
                     while (count < data.length)
                     {
                         $(".table-condensed tbody").append("<tr>");
-                        $(".table-condensed tbody").append("<td>"+data[count]['username_usu']+"</td>");
-                        $(".table-condensed tbody").append("<td>"+data[count]['fecha_sol']+"</td>");
-                        $(".table-condensed tbody").append("<td>"+data[count]['estado_sol']+"</td>");
-                        $(".table-condensed tbody").append("<td>"+data[count]['tipo_sol']+"</td>");
-                        $(".table-condensed tbody").append("<td><a href='/trunk/qualitytours/solicitud/administrar/"+data[count]['id'] +"/"+data[count]['id_usu'] +"'><button class='btn btn-small btn-info' type='button'>Administrar</button></a></td>");
+                        $(".table-condensed tbody").append("<td><center>"+data[count]['username_usu']+"</center></td>");
+                        $(".table-condensed tbody").append("<td><center>"+data[count]['fecha_sol']+"</center></td>");
+                        $(".table-condensed tbody").append("<td><center>"+data[count]['estado_sol']+"</center></td>");
+                        $(".table-condensed tbody").append("<td><center>"+data[count]['tipo_sol']+"</center></td>");
+                        $(".table-condensed tbody").append("<td><center><a href='/trunk/qualitytours/solicitud/administrar/"+data[count]['id'] +"/"+data[count]['id_usu'] +"'><button class='btn btn-small btn-info' type='button'>Administrar</button></a></center></td>");
                         $(".table-condensed tbody").prepend("</tr>");
                         count++;
                     }
@@ -46,11 +46,10 @@
     <thead>
         <tr>
             <!-- cabecera de la tabla-->
-            <th>Username</th>
-            <th><?php echo "Fecha"; ?></th>
-            <th><?php echo "Estado"; ?></th>
-            <th><?php echo "Tipo" ?></th>
-            <th> </th>
+            <th><center>Username</center></th>
+            <th><center><?php echo "Fecha"; ?></center></th>
+            <th><center><?php echo "Estado"; ?></center></th>
+            <th><center><?php echo "Tipo" ?></center></th>
             <th> </th>
         </tr>
     </thead>
