@@ -27,7 +27,7 @@
                     <dl>
                         <table class="table table-bordered">
                             <tr>
-                                <td colspan="2"><center><h3> Datos usuario</h3></center></td>
+                                <td colspan="2"><center><h4> Datos del usuario</h4></center></td>
                             </tr>  
                             <tr>
                                 <td><dt>Nombre de usuario:</dt></td>
@@ -85,9 +85,16 @@
                     
 <!--                Si la solicitud no esta cancelada o rechazada muestra las opciones de administracion-->
                 <?php } else { ?>
-                    <a href='/trunk/qualitytours/solicitud/aceptarsolicitud/<?php echo $id_usuario ?>/<?php echo $id_solicitud ?>'><button class="btn btn-small btn-success" type="button">Aceptar solicitud</button></a>
-                    <button class="btn btn-small btn-primary" type="button">Aviso de espera</button>
-                    <button class="btn btn-small btn-danger" type="button" onclick="activar_cancelacion()">Rechazar solicitud</button>          
+                    <center>
+<!--                    Se verifica que el mail fue mandado y que el estado de la solicitud sea esperando, si esto se cumple se muestra el boton de aceptar solicitud-->
+                    <?php if ($mail_sol == "t" && $estado_sol == "Esperando") {?><a href='/trunk/qualitytours/solicitud/aceptarsolicitud/<?php echo $id_usuario ?>/<?php echo $id_solicitud ?>'><button class="btn btn-small btn-success" type="button">Aceptar solicitud</button></a><?php }?>
+<!--                    Se verifica que el mail no este mandando y que el estado de la solicitud sea pendiente, si esto se cumple se muestra los botones de aviso y rechazo-->
+                    <?php if ($mail_sol == "f" && $estado_sol == "Pendiente") {?>
+                    <a href='/trunk/qualitytours/solicitud/aviso/<?php echo $id_solicitud ?>/<?php echo $id_usuario ?>'><button class="btn btn-small btn-primary" type="button">Aviso de espera</button></a>
+                    <button class="btn btn-small btn-danger" type="button" onclick="activar_cancelacion()">Rechazar solicitud</button><?php }?>
+<!--                    Si el usuario no ha confirmado el envio del mail se muestra el mensaje-->
+                    <?php if ($mail_sol == "f" && $estado_sol == "Esperando") {echo "<b>El usuario no ha confirmado el envio del mail</b>";}?>
+                    </center>
                     
                     <br></br>
                     <center><h4>Observaciones</h4></center>

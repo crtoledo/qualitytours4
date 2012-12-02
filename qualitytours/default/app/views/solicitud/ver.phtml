@@ -34,10 +34,13 @@
                 <td><center><?php echo $estado ?></center</td>
                 <td><center><?php echo $fecha ?></center</td>
                 <td><center><?php echo $tipo ?></center</td>
-
-                <?php if ($colortabla == "info") { ?>
-                <td><center><button class="btn btn-small btn-success" type="button" onclick="mail ()">Mail enviado</button></center></td><?php } ?>
                 
+<!--                Se valida que el usuario no haya mandado el mail y que el estado de la solicitud sea esperando, esto para poder mostar el boton-->
+                <?php if ($colortabla == "info"  && $mail_sol == "f") { ?>
+                <td><center><button class="btn btn-small btn-success" type="button" onclick="mail ()">Mail enviado</button></center></td>
+<!--                En el caso de que ya envio el mail, se muestra el aviso-->
+                <?php }else{?> <td><center><b>Usted ya confirmo el envio</b></center></td><?php } ?>
+    
                 <?php if ($colortabla == "warning") { ?>
                 <td><a href="/trunk/qualitytours/cliente/ver/<?php echo Auth::get("id") ?>"><button class="btn btn-small btn-info" type="button">Ver datos registro</button></a></td>
                 <td><td><button class="btn btn-small btn-danger" type="button" onclick="activar_modal()" >Cancelar solicitud</button></td></td>

@@ -147,7 +147,7 @@ reemplazo se uso 'errorVal'.
     <table>
         <tr>
             <td><?php echo Form::submit('Modificar solicitud','class="btn btn-submit boton"') ?>&nbsp;</td>
-            <td><?php echo Form::button('Cancelar','class="btn btn-info"')?></td>
+            <td><a href='/trunk/qualitytours/solicitud/ver/<?php echo Auth::get("id")?>'><?php echo Form::button('Cancelar','class="btn btn-info"')?></a></td>
         </tr>         
     </table>
    </div>
