@@ -34,7 +34,7 @@ if ($url == "en") {
     $contraseña_string = "Password";
     $ingresar_string = "Sign in";
     $enlace_usuario_buscar = "usuario/buscar/en";
-    $enlace_usuario_publicar="publicacion/ingresar/en";
+    $enlace_usuario_publicar = "publicacion/ingresar/en";
 } else {
     $leng = "es";
     //español
@@ -66,7 +66,7 @@ if ($url == "en") {
     $contraseña_string = "Contraseña";
     $ingresar_string = "Ingresar";
     $enlace_usuario_buscar = "usuario/buscar/es";
-     $enlace_usuario_publicar="publicacion/ingresar/es";
+    $enlace_usuario_publicar = "publicacion/ingresar/es";
 }
 ?>
 
@@ -83,13 +83,13 @@ $arr = Load::Model('ubicacion', 'cliente')->find_all_by_sql("select  distinct re
 <script type="text/javascript"> //JQUERY PARA BUSQUEDA AJAX (autocompletado)
     $(document).ready(function()
     { 
-// Charles Lawrence - Feb 16, 2012. Free to use and modify. Please attribute back to @geuis if you find this useful
-// Twitter Bootstrap Typeahead doesn't support remote data querying. This is an expected feature in the future. In the meantime, others have submitted patches to the core bootstrap component that allow it. 
-// The following will allow remote autocompletes *without* modifying any officially released core code. 
-// If others find ways to improve this, please share.
+        // Charles Lawrence - Feb 16, 2012. Free to use and modify. Please attribute back to @geuis if you find this useful
+        // Twitter Bootstrap Typeahead doesn't support remote data querying. This is an expected feature in the future. In the meantime, others have submitted patches to the core bootstrap component that allow it. 
+        // The following will allow remote autocompletes *without* modifying any officially released core code. 
+        // If others find ways to improve this, please share.
 
 
-    var autocomplete = $('#searchinput').typeahead()
+        var autocomplete = $('#searchinput').typeahead()
         .on('keyup', function(ev){
 
             ev.stopPropagation();
@@ -127,35 +127,72 @@ $arr = Load::Model('ubicacion', 'cliente')->find_all_by_sql("select  distinct re
                             //Generamos el array separando el string por las comas
                             array_res = data.split(',');
                             
-                          //CODIGO PARA Q FUNCIONE
-                          //set this to true when your callback executes
-                        self.data('active',true);
+                            //CODIGO PARA Q FUNCIONE
+                            //set this to true when your callback executes
+                            self.data('active',true);
 
-                        //Filter out your own parameters. Populate them into an array, since this is what typeahead's source requires
-//                        var arr = [],
-//                            i=data.results.length;
-//                        while(i--){
-//                            arr[i] = data.results[i].text
-//                        }
+                            //Filter out your own parameters. Populate them into an array, since this is what typeahead's source requires
+                            //                        var arr = [],
+                            //                            i=data.results.length;
+                            //                        while(i--){
+                            //                            arr[i] = data.results[i].text
+                            //                        }
 
-                        //set your results into the typehead's source 
-                        self.data('typeahead').source = array_res;
+                            //set your results into the typehead's source 
+                            self.data('typeahead').source = array_res;
 
-                        //trigger keyup on the typeahead to make it search
-                        self.trigger('keyup');
+                            //trigger keyup on the typeahead to make it search
+                            self.trigger('keyup');
 
-                        //All done, set to false to prepare for the next remote query.
-                        self.data('active', false);
+                            //All done, set to false to prepare for the next remote query.
+                            self.data('active', false);
                         }  // FIN SUCCESS 
-                     }); //FIN AJAX
+                    }); //FIN AJAX
 
 
                 }
             }
         });
+        
+        $.ajax
+        ({
+            
+            type: "POST",        
+            url: '<?php echo PUBLIC_PATH; ?>ajax/notificaciones.php',
+            dataType: "json",
+            success: function(data)
+            {
+                if (data != null && data.length > 0)
+                {
+                    if (data[2]['datos'] != 0)
+                    {$("#pen_sol").after("<span class='notifi'>" + data[2]['datos'] +"</span>");}
+                    if(data[0]['datos'] != 0)
+                    {$("#mail_sol").after("<span class='notifi'>" + data[0]['datos'] +"</span>");}
+                    if(data[1]['datos'] != 0)
+                    {$("#modi_sol").after("<span class='notifi'>" + data[1]['datos'] +"</span>");}
+                }
+                else 
+                {
+                }
+            } // cierre success
+            
+            //DESCOMENTAR LA SIGUIENTE LINEA SI QUEREEMOS VER ALERTS SI HAY ERROR EN LA SOLICITUD AJAX
+            //,error: function (xhr, ajaxOptions, thrownError){alert(xhr.status+' '+thrownError);}
         });
+    });
 </script>
-
+<style>
+    .notifi{
+        background-color: #BC1010;
+        padding: 1px 1px; /* tamaño */
+        border-radius: 4px;
+        color: white; /* Color del texto */
+        font-weight: bold; /* grosor del texto */
+        margin-left: 0px; /* Distancia al icono de izquierda a derecha*/
+        margin-top: -18px; /* Distancia al icono de arriba a abajo */
+        position: absolute;
+    }
+</style>
 <div class="navbar navbar-inverse ">
     <div class="navbar-inner">
         <div class="container">
@@ -168,24 +205,24 @@ $arr = Load::Model('ubicacion', 'cliente')->find_all_by_sql("select  distinct re
 
                 <!--Menu del usuario-->
                 <?php
-                    if (Auth::is_valid()) {
-                        if (Session::get('rol_usu') == 'turista') {
-                ?>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <i class="icon-wrench icon-white"></i> 
-                        <?php echo $cuenta_string; ?>
-                        <b class="caret"></b>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><?php echo Html::link('usuario/automodificar/', '<i class="icon-file"></i>' . $modificardatos_string . ''); ?></li>
-                        <li><?php echo Html::link('cliente/ingresarsolicitud/', '<i class="icon-thumbs-up"></i>' . $suscripcion_string . ''); ?></li>
-                        <li><?php echo Html::link('solicitud/vertodas/'.Auth::get("id"), '<i class="icon-eye-open"></i>Solicitudes anteriores(t)'); ?></li>
-                    </ul>
-                </li>
-                <?php
-                        }
+                if (Auth::is_valid()) {
+                    if (Session::get('rol_usu') == 'turista') {
+                        ?>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <i class="icon-wrench icon-white"></i> 
+                                <?php echo $cuenta_string; ?>
+                                <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><?php echo Html::link('usuario/automodificar/', '<i class="icon-file"></i>' . $modificardatos_string . ''); ?></li>
+                                <li><?php echo Html::link('cliente/ingresarsolicitud/', '<i class="icon-thumbs-up"></i>' . $suscripcion_string . ''); ?></li>
+                                <li><?php echo Html::link('solicitud/vertodas/' . Auth::get("id"), '<i class="icon-eye-open"></i>Solicitudes anteriores(t)'); ?></li>
+                            </ul>
+                        </li>
+                        <?php
                     }
+                }
                 ?>
 
                 <!--Menu del cliente-->
@@ -201,14 +238,14 @@ $arr = Load::Model('ubicacion', 'cliente')->find_all_by_sql("select  distinct re
                             </a>
                             <ul class="dropdown-menu">
                                 <li><?php echo Html::link('cliente/administrarsuscripcion/', '<i class="icon-user"></i>' . "Suscripcion (T)" . ''); ?></li>
-                                <li><?php echo Html::link('servicio/ingresar/'.$leng, '<i class="icon-plus"></i>' . $publicarservicio_string . ''); ?></li>
+                                <li><?php echo Html::link('servicio/ingresar/' . $leng, '<i class="icon-plus"></i>' . $publicarservicio_string . ''); ?></li>
                                 <li><?php echo Html::link('ubicacion/ingresar/', '<i class="icon-screenshot"></i>' . $indiqueubicacion_string . ''); ?></li>
                                 <li><?php echo Html::link('contenido/ingresarcli/', '<i class="icon-camera"></i>' . $subirfotos_string . ''); ?></li>
                             </ul>
                         </li>
-                 <?php
+                        <?php
                     }
-                 }
+                }
                 ?>
 
                 <!--Panel de administración-->
@@ -216,6 +253,7 @@ $arr = Load::Model('ubicacion', 'cliente')->find_all_by_sql("select  distinct re
                 if (Auth::is_valid()) {
                     if (Session::get('rol_usu') == 'administrador') {
                         ?>
+
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                 <i class="icon-tasks icon-white"></i> 
@@ -225,58 +263,66 @@ $arr = Load::Model('ubicacion', 'cliente')->find_all_by_sql("select  distinct re
                             <ul class="dropdown-menu">
                                 <li><?php echo Html::link('solicitud/buscar/', '<i class="icon-briefcase"></i> ' . $buscar_solicitud_string . ''); ?></li>
                                 <li><?php echo Html::link('' . $enlace_usuario_buscar . '', '<i class="icon-search"></i> ' . $buscarusuarios_string . ''); ?></li>
-                                <li><?php echo Html::link(''.$enlace_usuario_publicar.'', '<i class="icon-upload"></i> ' . $ingresarpublicacion_string . ''); ?></li>
+                                <li><?php echo Html::link('' . $enlace_usuario_publicar . '', '<i class="icon-upload"></i> ' . $ingresarpublicacion_string . ''); ?></li>
                                 <li><?php echo Html::link('categoria/ingresar', '<i class="icon-plus"></i> ' . $ingresarcategorias_string . ''); ?></li>
                             </ul>
                         </li>
-                <?php
+                        <li>
+                            <?php echo Html::link('administrador/notificaciones', '<i id="pen_sol" class="icon-exclamation-sign icon-white"></i>')?>
+                        </li>
+                        <li>
+                            <?php echo Html::link('administrador/notificaciones', '<i id="mail_sol" class="icon-envelope icon-white"></i>')?>
+                        </li>
+                        <li>
+                            <?php echo Html::link('administrador/notificaciones', '<i id="modi_sol" class="icon-edit icon-white"></i>')?>
+                        </li>
+
+                        <?php
                     }
                 }
                 ?>
             </ul>
-<!--Fin menus usuario, cliente y administrador-->
+            <!--Fin menus usuario, cliente y administrador-->
 
-<!--Banderas-->
+            <!--Banderas-->
             <ul class="nav pull-right">
-            <?php
-            $url = $_SERVER['REQUEST_URI'];
-            if ($url == "/trunk/qualitytours/" || $url == "/trunk/qualitytours/index/?l=en" || $url == "/trunk/qualitytours/index/" || $url == "/trunk/qualitytours/index" || $url == "trunk/qualitytours") {
-            ?>
-                
-            <?php if (!Auth::is_valid()) 
-                { 
-            ?>
-                <li> <?php echo Html::link('index', "<img src='/trunk/qualitytours/img/1351461465_es.png'>"); ?></li>
-                <li> <?php echo Html::link('index/en', "<img src='/trunk/qualitytours/img/1351461500_gb.png'>"); ?></li>
+                <?php
+                $url = $_SERVER['REQUEST_URI'];
+                if ($url == "/trunk/qualitytours/" || $url == "/trunk/qualitytours/index/?l=en" || $url == "/trunk/qualitytours/index/" || $url == "/trunk/qualitytours/index" || $url == "trunk/qualitytours") {
+                    ?>
 
-            <?php
-                 } 
-                 else 
-                 {
-            ?>
-                    <li> <?php echo Html::link('usuario/leng/es', "<img src='/trunk/qualitytours/img/1351461465_es.png'>"); ?></li>
-                    <li> <?php echo Html::link('usuario/leng/en', "<img src='/trunk/qualitytours/img/1351461500_gb.png'>"); ?></li>
-           <?php } ?>
+                    <?php
+                    if (!Auth::is_valid()) {
+                        ?>
+                        <li> <?php echo Html::link('index', "<img src='/trunk/qualitytours/img/1351461465_es.png'>"); ?></li>
+                        <li> <?php echo Html::link('index/en', "<img src='/trunk/qualitytours/img/1351461500_gb.png'>"); ?></li>
 
-<?php
-} else {
-    ?>
+                        <?php
+                    } else {
+                        ?>
+                        <li> <?php echo Html::link('usuario/leng/es', "<img src='/trunk/qualitytours/img/1351461465_es.png'>"); ?></li>
+                        <li> <?php echo Html::link('usuario/leng/en', "<img src='/trunk/qualitytours/img/1351461500_gb.png'>"); ?></li>
+                    <?php } ?>
+
+                    <?php
+                } else {
+                    ?>
                     <?php $url = substr($url, 0, -2); ?>
                     <li> <?php echo "<a href='" . $url . "es'><img src='/trunk/qualitytours/img/1351461465_es.png'></a>"; ?> </li>
                     <li> <?php echo "<a href='" . $url . "en'><img src='/trunk/qualitytours/img/1351461500_gb.png'></a>"; ?></li>
                 <?php } ?>
 
-<!--Fin banderas-->
+                <!--Fin banderas-->
 
-<!-- CAMPO DE BUSQUEDA-->
+                <!-- CAMPO DE BUSQUEDA-->
                 <?php echo Form::open("busqueda/buscando/", 'post', 'class=navbar-search'); ?>
-                    <i class="icon-search icon-white"></i>
-                    <input id="searchinput" name="string" type="text" value="" class='search-query span2 busqueda' placeholder='<?php echo $buscardestinos_string; ?>' data-provide='typeahead' >  
+                <i class="icon-search icon-white"></i>
+                <input id="searchinput" name="string" type="text" value="" class='search-query span2 busqueda' placeholder='<?php echo $buscardestinos_string; ?>' data-provide='typeahead' >  
                 <?php echo Form::close() ?>
 
-<!-- FIN CAMPO DE BUSQUEDA-->
+                <!-- FIN CAMPO DE BUSQUEDA-->
 
-<!-- MENU INICIO/CIERRE DE SESION-->
+                <!-- MENU INICIO/CIERRE DE SESION-->
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <?php
@@ -290,33 +336,33 @@ $arr = Load::Model('ubicacion', 'cliente')->find_all_by_sql("select  distinct re
                         <b class="caret"></b>
                     </a>
                     <ul class="dropdown-menu">
-                 
-                    <li>
-                    <?php
-                    //Si el user esta loguedao se mostrará la opción para cerrar sesión en el menu desplegable
-                    if (Auth::is_valid()) {
-                        echo "<li>";
-                        echo Html::link('' . $enlace_cerrarsesion . '', '<i class="icon-off"></i> ' . $cerrarsesion_string);
-                        echo "</li>";
-                    } else { //Si no esta logueado se mostrará el form para iniciar sesión
-                    ?>
-                        <?php echo Form::open('' . $enlace_form_login . '', 'post', 'class=navbar-form'); ?>
-                        <center>
-                        <?php echo $usuario_string; ?>
-                        <?php echo Form::text("username_usu", "class='span2'"); ?>
-                        <?php echo $contraseña_string; ?>
-                        <?php echo Form::pass("password_usu", "class='span2'"); ?>
-                        <?php echo Form::submit('' . $ingresar_string . '', "class='btn btn-primary'"); ?>
-                        <br><hr>
-               
-                    <li><?php echo Html::link('' . $enlace_registrate . '', $registrate_string . ' <i class="icon-plus-sign"></i>'); ?></li>
-                        </center>
-                             </form> 
+
+                        <li>
+                            <?php
+//Si el user esta loguedao se mostrará la opción para cerrar sesión en el menu desplegable
+                            if (Auth::is_valid()) {
+                                echo "<li>";
+                                echo Html::link('' . $enlace_cerrarsesion . '', '<i class="icon-off"></i> ' . $cerrarsesion_string);
+                                echo "</li>";
+                            } else { //Si no esta logueado se mostrará el form para iniciar sesión
+                                ?>
+                                <?php echo Form::open('' . $enlace_form_login . '', 'post', 'class=navbar-form'); ?>
+                            <center>
+                                <?php echo $usuario_string; ?>
+                                <?php echo Form::text("username_usu", "class='span2'"); ?>
+                                <?php echo $contraseña_string; ?>
+                                <?php echo Form::pass("password_usu", "class='span2'"); ?>
+                                <?php echo Form::submit('' . $ingresar_string . '', "class='btn btn-primary'"); ?>
+                                <br><hr>
+
+                                <li><?php echo Html::link('' . $enlace_registrate . '', $registrate_string . ' <i class="icon-plus-sign"></i>'); ?></li>
+                            </center>
+                            </form> 
                         <?php } ?>
 
-                      </li>
-                    </ul>
                 </li>
+            </ul>
+            </li>
             </ul>
         </div>
     </div>
