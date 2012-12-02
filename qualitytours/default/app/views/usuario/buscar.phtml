@@ -15,18 +15,6 @@
     //Validación con jquery
 $(document).ready(function () {
     
-    //boton de confirmacion
-    $('.eliminar').confirm({
-      timeout:3000,
-      msg:'Desea eliminar&nbsp;',
-      dialogShow:'fadeIn',
-      dialogSpeed:'slow',
-      buttons: {
-        wrapper:'<button class="btn btn-info" value="Si"></button>',
-        separator:'  '
-      }  
-    });
-    
     //Borrar mensaje de error si el usuario a llenado el campo
     $(".palabra").keyup(function()
     { 

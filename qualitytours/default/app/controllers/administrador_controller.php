@@ -61,5 +61,9 @@ class AdministradorController extends AppController {
             Router::redirect("usuario/buscar/" . $leng);
         }
     }
+    public function notificaciones ()
+    {
+        
+    }
 
 }
