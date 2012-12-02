@@ -61,9 +61,15 @@ class AdministradorController extends AppController {
             Router::redirect("usuario/buscar/" . $leng);
         }
     }
-    public function notificaciones ()
-    {
-        
+
+    public function notificaciones($tipo_consulta) {
+        if($tipo_consulta == "pendiente") {
+            $this->codigo = 1;
+        } else if($tipo_consulta == "mail") {
+            $this->codigo = 2;
+        } else if ($tipo_consulta == "modificacion") {
+            $this->codigo = 3;
+        }
     }
 
 }
