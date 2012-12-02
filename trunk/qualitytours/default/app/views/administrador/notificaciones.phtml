@@ -1,0 +1,59 @@
+<script type="text/javascript">    
+    $(document).ready(function()
+    {        
+        $.ajax
+        ({
+            
+            type: "POST", 
+            data : {
+                opcion: <?php echo $codigo ?>
+            },
+            url: '<?php echo PUBLIC_PATH; ?>ajax/notificacionesdetalles.php',
+            dataType: "json",
+            success: function(data)
+            {
+                if (data != null && data.length > 0)
+                {
+                    var count = 0;
+                    //console.log(data);
+                    $(".table-condensed tbody").empty();
+                    while (count < data.length)
+                    {
+                        $(".table-condensed tbody").append("<tr>");
+                        $(".table-condensed tbody").append("<td>"+data[count]['username_usu']+"</td>");
+                        $(".table-condensed tbody").append("<td>"+data[count]['fecha_sol']+"</td>");
+                        $(".table-condensed tbody").append("<td>"+data[count]['estado_sol']+"</td>");
+                        $(".table-condensed tbody").append("<td>"+data[count]['tipo_sol']+"</td>");
+                        $(".table-condensed tbody").append("<td><a href='/trunk/qualitytours/solicitud/administrar/"+data[count]['id'] +"/"+data[count]['id_usu'] +"'><button class='btn btn-small btn-info' type='button'>Administrar</button></a></td>");
+                        $(".table-condensed tbody").prepend("</tr>");
+                        count++;
+                    }
+                }
+                else 
+                {
+                    $(".table-condensed tbody").empty();
+                    $(".table-condensed tbody").append('<td><b>NO SE ENCONTRARON RESULTADOS</b></td>');
+                }
+            } // cierre success
+            
+            //DESCOMENTAR LA SIGUIENTE LINEA SI QUEREEMOS VER ALERTS SI HAY ERROR EN LA SOLICITUD AJAX
+            //,error: function (xhr, ajaxOptions, thrownError){alert(xhr.status+' '+thrownError);}
+        });
+    });
+</script>
+
+<table class="table table-condensed">
+    <thead>
+        <tr>
+            <!-- cabecera de la tabla-->
+            <th>Username</th>
+            <th><?php echo "Fecha"; ?></th>
+            <th><?php echo "Estado"; ?></th>
+            <th><?php echo "Tipo" ?></th>
+            <th> </th>
+            <th> </th>
+        </tr>
+    </thead>
+    <tbody>
+    </tbody>
+</table>

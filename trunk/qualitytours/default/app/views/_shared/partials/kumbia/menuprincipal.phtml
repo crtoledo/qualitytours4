@@ -153,7 +153,7 @@ $arr = Load::Model('ubicacion', 'cliente')->find_all_by_sql("select  distinct re
                 }
             }
         });
-        
+        // AJAX PARA LAS NOTIFICACIONES
         $.ajax
         ({
             
@@ -268,13 +268,13 @@ $arr = Load::Model('ubicacion', 'cliente')->find_all_by_sql("select  distinct re
                             </ul>
                         </li>
                         <li>
-                            <?php echo Html::link('administrador/notificaciones', '<i id="pen_sol" class="icon-exclamation-sign icon-white"></i>')?>
+                            <?php echo Html::link('administrador/notificaciones/pendiente', '<i id="pen_sol" class="icon-exclamation-sign icon-white"></i>')?>
                         </li>
                         <li>
-                            <?php echo Html::link('administrador/notificaciones', '<i id="mail_sol" class="icon-envelope icon-white"></i>')?>
+                            <?php echo Html::link('administrador/notificaciones/mail', '<i id="mail_sol" class="icon-envelope icon-white"></i>')?>
                         </li>
                         <li>
-                            <?php echo Html::link('administrador/notificaciones', '<i id="modi_sol" class="icon-edit icon-white"></i>')?>
+                            <?php echo Html::link('administrador/notificaciones/modificacion', '<i id="modi_sol" class="icon-edit icon-white"></i>')?>
                         </li>
 
                         <?php
