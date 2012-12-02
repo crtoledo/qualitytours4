@@ -3,13 +3,47 @@
 
 
         position: relative;
-        margin-top: 100px; /* ponga en negativo el alto de su pie de página para nuestro    ejemplo usamos 63, usted debe remplazarlo según su diseño   */
+        margin-top: 539px; /* ponga en negativo el alto de su pie de página para nuestro    ejemplo usamos 63, usted debe remplazarlo según su diseño   */
         height: 63px;
         clear:both;
         width:100%;
-
+        
+   
+        
     }
-</style> 
+</style>
+<style>
+    #toTop{
+        width: 100px;
+        border: 1px solid #ccc;
+        background: #f7f7f7;
+        text-align: center;
+        padding:    5px;
+        position: fixed;
+        bottom: 10px;
+        right: 10px;
+        cursor: pointer;
+        display: none;
+        color: #333;
+        font-family: verdana;
+        font-size: 11px;
+    }
+</style>
+<script type="text/javascript">
+$(function() {
+	$(window).scroll(function() {
+		if($(this).scrollTop() != 0) {
+			$('#toTop').fadeIn();	
+		} else {
+			$('#toTop').fadeOut();
+		}
+	});
+ 
+	$('#toTop').click(function() {
+		$('body,html').animate({scrollTop:0},800);
+	});	
+});
+</script>
 <footer>
 
     <div class="row-fluid">
@@ -33,6 +67,7 @@
                     </blockquote>
                 </div>
             </div>
+            <div id="toTop">^ Back to Top</div>
         </div>    
 
     </div>
