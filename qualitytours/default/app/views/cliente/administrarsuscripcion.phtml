@@ -4,7 +4,15 @@
     function activar_renovar () {
         $('#renovar').modal('toggle');
     };
+    //activacion del modal de la cancelacion solicitud
+    function cancelar () {
+        $('#cancela').modal('toggle');
+    };
 
+    //activacion del modal confirmacion mail
+    function confirmar () {
+        $('#email').modal('toggle');
+    }
 </script>
 
 <style>
@@ -64,57 +72,8 @@
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             </td>
             <!--    Opciones-->   
-            <!--            Si no existe una solicitud de renovacion, se muestra el panel de la solicitud actual-->
-            <?php if (!isset($panel_suscripcion_renovacion)) { ?>
-                <td>
-                    <dl>
-                        <table class="table table-bordered">
-                            <thead>
-                                <tr>
-                                    <th><dt>Fecha solicitud</dt></th>
-                            <th><dt>Fecha de inicio</dt</th>
-                            <th><dt>Fin suscripción</dt></th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td width="120px"><dd><?php echo $fecha_solicitud ?></dd></td>
-                            <td width="120px"><dd><?php echo $ini_sus ?></dd></td>
-                            <td width="120px"><dd><?php echo $fin_sus ?></dd></td>
-                            </tr>
-                            </tbody>
-                        </table>
-                        <table class="table table-bordered">
-                            <thead>
-                                <tr>
-                                    <th><center><dt>Observacion</dt></center></th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td width="120px"><dd><?php echo $observaciones ?></dd></td>
-                            </tr>
-                            </tbody>
-                        </table>
-                        <?php
-                        if (isset($muestra_boton)) {
-                            if ($muestra_boton == "Si") {
-                                ?>
 
-                                <center><button class="btn btn-success" type="submit" onclick="activar_renovar()">Renovar suscripción</button></center>
-                                <p align="center">Si desea cambiar los datos de la suscripcion, debe esperar<br>
-                                    a que la actual termine para mandar una nueva solicitud</p>
-                                <?php
-                            }
-                        } else if (isset($existe)) {
-                            echo $existe;
-                        } else if (isset($noexiste)) {
-                            echo $noexiste;
-                        }
-                        ?>
-                    </dl>
-                </td>  
-            <?php } else { ?> 
+            <?php if (isset($panel_suscripcion_renovacion) && $estado_sol == "Pendiente" || $estado_sol == "Esperando") { ?>
                 <td>
                     <h4> <center> Datos solicitud renovacion </center></h4>
                     <!-- ******************************************************* 
@@ -126,59 +85,157 @@
                         <thead>
                             <tr>
                                 <th><center>Fecha</center></th>
-                                <th><center>Estado</center></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td><center><?php echo $fecha_sol ?> </center></td>
-                                <td><center><?php echo $estado_sol ?> </center></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <!-- Fin Datos (fecha y estado )de la solicitud de renovacion-->
-                    
-                    <!-- Datos (Observaciones)de la solicitud de renovacion-->
-                    <table class="table table-bordered">
-                        <thead>
-                            <tr>
-                                <th><center>Observaciones</center></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td width="400px"><center><?php echo $observaciones_sol ?></center></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <center>
-                        <table>
-                            <tr>
-                                <td><a href="/trunk/qualitytours/solicitud/confirmacionmail/<?php echo Auth::get("id") ?>"><button class="btn btn-primary btn-small" type="submit" >Confirmacion mail</button></a>&nbsp</td>
-                                <td><button class="btn btn-danger btn-small" type="submit" >Cancelar renovacion</button></td>
-                            </tr>
-                        </table>
-                    </center>
-                </td>
-<?php } ?>
+                        <th><center>Estado</center></th>
             </tr>
-    </table>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><center><?php echo $fecha_sol ?> </center></td>
+            <td><center><?php echo $estado_sol ?> </center></td>
+            </tr>
+            </tbody>
+        </table>
+        <!-- Fin Datos (fecha y estado )de la solicitud de renovacion-->
+
+        <!-- Datos (Observaciones)de la solicitud de renovacion-->
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th><center>Observaciones</center></th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td width="400px"><center><?php echo $observaciones_sol ?></center></td>
+            </tr>
+            </tbody>
+        </table>
+        <center>
+            <table>
+                <tr>
+                    <?php if ($estado_sol == "Pendiente") { ?><td><button class="btn btn-danger btn-small" type="submit" onclick="cancelar ();">Cancelar renovacion</button></td> <?php } ?>
+                    <?php if ($estado_sol == "Esperando" && $mail_sol == "f") { ?><td><button class="btn btn-primary btn-small" type="submit" onclick="confirmar ();">Confirmacion mail</button>&nbsp</td>
+                    <?php
+                    } else if ($estado_sol == "Esperando" && $mail_sol == "t") {
+                        echo "<b>Usted ya envio la confirmacion del envio del mail <b>";
+                    }
+                    ?>
+
+                </tr>
+            </table>
+        </center>
+    </td>    
+
+<?php } else { ?> 
+    <td>
+        <dl>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th><dt>Fecha solicitud</dt></th>
+                <th><dt>Fecha de inicio</dt</th>
+                <th><dt>Fin suscripción</dt></th>
+                </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td width="120px"><dd><?php echo $fecha_solicitud ?></dd></td>
+                <td width="120px"><dd><?php echo $ini_sus ?></dd></td>
+                <td width="120px"><dd><?php echo $fin_sus ?></dd></td>
+                </tr>
+                </tbody>
+            </table>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th><center><dt>Observacion</dt></center></th>
+                </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td width="120px"><dd><?php echo $observaciones ?></dd></td>
+                </tr>
+                </tbody>
+            </table>
+            <?php
+            if (isset($muestra_boton)) {
+                if ($muestra_boton == "Si") {
+                    ?>
+
+                    <center><button class="btn btn-success" type="submit" onclick="activar_renovar()">Renovar suscripción</button></center>
+                    <p align="center">Si desea cambiar los datos de la suscripcion, debe esperar<br>
+                        a que la actual termine para mandar una nueva solicitud</p>
+                    <?php
+                }
+            } else if (isset($existe)) {
+                echo $existe;
+            } else if (isset($noexiste)) {
+                echo $noexiste;
+            }
+            ?>
+        </dl>
+    </td>  
+<?php } ?>
+</tr>
+</table>
 </div>
-<!-- Modal para aceptar la renovacion de la solicitud-->
-<div id="renovar" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-        <h3 id="myModalLabel">¿ Esta seguro de renovar la suscripción?</h3>
-    </div>
-    <div class="modal-body">
-        <p><b>Al renovar su suscripción usted acepta las condiciones del servicio</b><br>
-            Observaciones: <br> 
-        <ul>1.- Asegurece que los datos mostrados corresponden a su centro turistico</ul>
-        <ul>2.- La solicitud de renovacion tiene que ser confirmada por un administrador</ul></p>
-    </div>
-    <div class="modal-footer">
-        <button class="btn" data-dismiss="modal" aria-hidden="true">Cerrar</button>
-        <a href="/trunk/qualitytours/solicitud/renovarsuscripcion"><button class="btn btn-primary">Renovar suscripción</button></a>
-    </div>
-</div>
+<!--
+****************
+Seccion de modal
+****************
+-->
+<?php if (isset($muestra_boton)) {
+    if ($muestra_boton == "Si") { ?>
+        <!-- Modal para aceptar la renovacion de la solicitud-->
+        <div id="renovar" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h3 id="myModalLabel">¿ Esta seguro de renovar la suscripción?</h3>
+            </div>
+            <div class="modal-body">
+                <p><b>Al renovar su suscripción usted acepta las condiciones del servicio</b><br>
+                    Observaciones: <br> 
+                <ul>1.- Asegurece que los datos mostrados corresponden a su centro turistico</ul>
+                <ul>2.- La solicitud de renovacion tiene que ser confirmada por un administrador</ul></p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn" data-dismiss="modal" aria-hidden="true">Cerrar</button>
+                <a href="/trunk/qualitytours/solicitud/renovarsuscripcion"><button class="btn btn-primary">Renovar suscripción</button></a>
+            </div>
+        </div>
+    <?php }
+} ?> 
+<?php if (isset($estado_sol)) {
+    if ($estado_sol == "Pendiente") { ?>
+        <!--   Modal de confirmacion de cancelacion de la solicitud-->   
+        <div id="cancela" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h3 id="myModalLabel">¿ Esta seguro de cancelar ?</h3>
+            </div>
+            <div class="modal-body">
+                <p>La cancelación de esta solicitud no se podra deshacer</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn" data-dismiss="modal" aria-hidden="true">Cerrar</button>
+                <a href="/trunk/qualitytours/solicitud/cancela/<?php echo Auth::get("id") ?>"><button class="btn btn-primary">Cancelar solicitud</button></a>
+            </div>
+    <?php } else if ($estado_sol == "Esperando") { ?>
+            <!--   Modal de confirmacion de envio mail-->   
+            <div id="email" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h3 id="myModalLabel">¿ ha enviado el correo correspondiente?</h3>
+                </div>
+                <div class="modal-body">
+                    <p>Si usted ha enviado el mail con los datos solicitados: </p>
+                    <p>  - Imagen del deposito bancario</p>
+                    <p>  - Datos solicitados</p>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn" data-dismiss="modal" aria-hidden="true">Cerrar</button>
+                    <a href="/trunk/qualitytours/solicitud/confirmacionmail_renovacion/<?php echo Auth::get("id") ?>"><button class="btn btn-primary">Aceptar</button></a>
+                </div>  
+            <?php }
+        } ?>
 

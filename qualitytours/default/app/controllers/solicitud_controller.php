@@ -124,27 +124,29 @@ class SolicitudController extends AppController {
         }
     }
 
-    Public function confirmacionmail($id) {
+
+    Public function confirmacionmail_renovacion($id) {
         //se confirma que el que ingresa sea el usuario y no otro
         if (Auth::get("id") == $id) {
             $confirmacionmail = new solicitud();
-            $confirmacionmail->confirmar_mail($id);
+            $confirmacionmail->confirmar_mail_renovacion($id);
 
             // Se verifica que no haya confirmado anteriormente
             if ($confirmacionmail->mail_sol != "t") {
                 $confirmacionmail->mail_sol = "true";
+
                 if ($confirmacionmail->update()) {
                     Flash::info('Ha confirmado el envio del mail');
-                    Router::redirect("/solicitud/ver/" . $id);
+                    Router::redirect("/cliente/administrarsuscripcion/");
                 } else {
                     Flash::info("error al confirmar envio mail");
                 }
             } else {
                 Flash::info('Usted ya ha confirmado el envio del mail');
-                Router::redirect("/solicitud/ver/" . $id);
+                //Router::redirect("/solicitud/ver/" . $id);
             }
         } else {
-            Router::redirect("/");
+            //Router::redirect("/");
         }
     }
 
@@ -218,6 +220,31 @@ class SolicitudController extends AppController {
             }
         } else {
             Flash::error('No posee los privilegios necesarios');
+            Router::redirect("/");
+        }
+    }
+    
+    Public function confirmacionmail($id) {
+        //se confirma que el que ingresa sea el usuario y no otro
+        if (Auth::get("id") == $id) {
+            $confirmacionmail = new solicitud();
+            $confirmacionmail->confirmar_mail($id);
+
+            // Se verifica que no haya confirmado anteriormente
+            if ($confirmacionmail->mail_sol != "t") {
+                $confirmacionmail->mail_sol = "true";
+
+                if ($confirmacionmail->update()) {
+                    Flash::info('Ha confirmado el envio del mail');
+                    Router::redirect("/solicitud/ver/" . $id);
+                } else {
+                    Flash::info("error al confirmar envio mail");
+                }
+            } else {
+                Flash::info('Usted ya ha confirmado el envio del mail');
+                Router::redirect("/solicitud/ver/" . $id);
+            }
+        } else {
             Router::redirect("/");
         }
     }
@@ -321,21 +348,39 @@ class SolicitudController extends AppController {
             if (is_numeric($id_cliente) && ($id_solicitud)) {
                 $comprobar_solicitud = new solicitud();
                 // se valida que al solicitud corresponda al usuario
-                if ($comprobar_solicitud->find_by_sql("select * from solicitud where id=" . $id_solicitud . " and id_usu = " . $id_cliente)) {
+                if ($comprobar_solicitud->find_by_sql("select * from solicitud where id=" . $id_solicitud . " and id_usu = " . $id_cliente . "and activo_sol = 't'")) {
+
+                    //Se obtiene el tipo de solicitud, si esta es de renovacion se debera buscar y actualizar 
+                    //la anterior solicitud para cambiar el activo_sol a false
+                    $tipo_solicitud = $comprobar_solicitud->tipo_sol;
+
                     date_default_timezone_set('America/Santiago');
 
                     $datos_actualizacion_cliente = new cliente;
                     $datos_actualizacion_usuario = new usuario;
                     $datos_actualizacion_solicitud = new solicitud;
 
+                    //Se asignas las fechas de inicio y fin de la suscripcion
                     $fecha_inicio = date("d-m-Y");
                     $fecha_fin = date('d-m-Y', strtotime('+1 Year'));
 
+                    //Se actualiza la tabla cliente con los nuevos datos del cliente
                     $sentencia = "UPDATE cliente SET id_sol=" . $id_solicitud . ", rol_usu='cliente', estado_usu= true, fecha_ini_sus='" . $fecha_inicio . "', fecha_fin_sus='" . $fecha_fin . "' WHERE id_usu=" . $id_cliente;
                     $sentencia_actualizar_rol = "UPDATE usuario SET id_sol=" . $id_solicitud . ", rol_usu='cliente' WHERE id=" . $id_cliente;
                     $sentencia_actualizar_solicitud = "UPDATE solicitud SET estado_sol='Aceptada' WHERE id=" . $id_solicitud;
+                    if ($tipo_solicitud == "Renovacion") {
+                        // Se busca la antigua solicitud
+                        $solicitud_antigua = new solicitud;
+                        $solicitud_antigua->solicitud_aceptada($id_cliente);
+
+                        $solicitud_antigua->activo_sol = "false";
+                        $solicitud_antigua->update();
+                    }
 
                     if ($datos_actualizacion_cliente->sql($sentencia) && $datos_actualizacion_usuario->sql($sentencia_actualizar_rol) && $datos_actualizacion_solicitud->sql($sentencia_actualizar_solicitud)) {
+                        // Si la aceptacion de la solicitud de renovacion fue exitosa,
+                        //se procede a eliminar la antigua solicitud, solo si esta existe.
+
                         Flash::info('Solicitud aceptada, cliente ingresado');
                         Router::redirect("/solicitud/administrar/" . $id_solicitud . "/" . $id_cliente);
                     } else {
