@@ -12,6 +12,8 @@
 </script>
 
 <script type="text/javascript">
+    var array_categorias = [];
+    
     //Validación con jquery
     //El siguiente script valida que los campos no estén vacios y el formato del RUT
     $(document).ready(function () {
@@ -19,11 +21,15 @@
         
         
         $(".boton").click(function (){
+            
+            //SE LIMPIA ARRAY CATEGORIAS
+            array_categorias.length = 0;
         
-        if($(".categoria").hasClass("active"))
-        {
-            alert($(".categoria").val());
-        }
+            //CAPTURA DE LAS CATEGORIAS
+            $(".categoria.active").each(function()
+            {
+                array_categorias.push($(this).val());
+            });
             
             $(".errorVal").remove();
             if( $(".nombre").val() == "" ){
@@ -229,10 +235,10 @@ reemplazo se uso 'errorVal'.
                                 <td>Clima: &nbsp;</td>
                                 <td>
                                     <div  class="btn-group" data-toggle="buttons-checkbox">
-                                        <button type="button" class="btn btn-info btn-small" name="Calido" value="Calido">Calido</button>
-                                        <button type="button" class="btn btn-info btn-small" name="Nieve" value="Nieve">Nieve</button>
-                                        <button type="button" class="btn btn-info btn-small" name="Lluviso" value="Lluviso">Lluviso</button>
-                                        <button type="button" class="btn btn-info btn-small" name="Templado" value="Piscina">Templado</button>
+                                        <button type="button" class="btn btn-info btn-small categoria" name="Calido" value="Calido">Calido</button>
+                                        <button type="button" class="btn btn-info btn-small categoria" name="Nieve" value="Nieve">Nieve</button>
+                                        <button type="button" class="btn btn-info btn-small categoria" name="Lluviso" value="Lluviso">Lluviso</button>
+                                        <button type="button" class="btn btn-info btn-small categoria" name="Templado" value="Piscina">Templado</button>
                                     </div>    
                                 </td>
                             </tr>
@@ -243,9 +249,9 @@ reemplazo se uso 'errorVal'.
                                 <td>Social: &nbsp;</td>
                                 <td>
                                     <div  class="btn-group" data-toggle="buttons-checkbox">
-                                        <button type="button" class="btn btn-info btn-small" name="Tercera" value="Tercera">Tercera edad</button>
-                                        <button type="button" class="btn btn-info btn-small" name="Juvenil" value="Juvenil">Juvenil</button>
-                                        <button type="button" class="btn btn-info btn-small" name="Familiar" value="Familiar">Familiar</button>
+                                        <button type="button" class="btn btn-info btn-small categoria" name="Tercera" value="Tercera">Tercera edad</button>
+                                        <button type="button" class="btn btn-info btn-small categoria" name="Juvenil" value="Juvenil">Juvenil</button>
+                                        <button type="button" class="btn btn-info btn-small categoria" name="Familiar" value="Familiar">Familiar</button>
                                     </div>    
                                 </td>
                             </tr>
@@ -256,11 +262,11 @@ reemplazo se uso 'errorVal'.
                                 <td>Deportes: &nbsp;</td>
                                 <td>
                                     <div  class="btn-group" data-toggle="buttons-checkbox">
-                                        <button type="button" class="btn btn-info btn-small probando" name="Terrestres" value="Terrestres">Terrestres</button>
-                                        <button type="button" class="btn btn-info btn-small" name="Extremos" value="Extremos">Extremos</button>
-                                        <button type="button" class="btn btn-info btn-small" name="Acuaticos" value="Acuáticos">Acuáticos</button>
-                                        <button type="button" class="btn btn-info btn-small" name="Aventura" value="Aventura">Aventura</button>
-                                        <button type="button" class="btn btn-info btn-small" name="Fitness" value="Fitness">Fitness</button>
+                                        <button type="button" class="btn btn-info btn-small categoria" name="Terrestres" value="Terrestres">Terrestres</button>
+                                        <button type="button" class="btn btn-info btn-small categoria" name="Extremos" value="Extremos">Extremos</button>
+                                        <button type="button" class="btn btn-info btn-small categoria" name="Acuaticos" value="Acuáticos">Acuáticos</button>
+                                        <button type="button" class="btn btn-info btn-small categoria" name="Aventura" value="Aventura">Aventura</button>
+                                        <button type="button" class="btn btn-info btn-small categoria" name="Fitness" value="Fitness">Fitness</button>
                                     </div>    
                                 </td>
                             </tr>

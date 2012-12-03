@@ -101,7 +101,7 @@ class SolicitudController extends AppController {
             // se verifica que la solicitud exista
             if ($cancelacion->buscar_solicitud($id)) {
                 // se valida que no pueda cancelar la solicitud si es que ya confirmo el envio del mail
-                if ($cancelacion->mail_sol == "t") {
+                if ($cancelacion->mail_sol == "f") {
                     $cancelacion->estado_sol = "Cancelada";
                     $cancelacion->activo_sol = "false";
 
