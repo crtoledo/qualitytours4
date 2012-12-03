@@ -124,7 +124,7 @@ class ServicioController extends AppController
                 if($tipoPlan == "free")
                 {
                     $cantidad = $servicio->count("conditions: id_usu=".Auth::get("id"));
-                    echo Flash::info($cantidad);
+                    
                     if($cantidad > 1)
                     {
                         echo Flash::info("No puede publicar un servicio su plan superó el limite");
