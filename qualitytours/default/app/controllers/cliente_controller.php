@@ -144,7 +144,7 @@ class ClienteController extends AppController {
         $this->nombre_cliente = $client->nombre_cli;
         $this->mostrar = $client->visitas_cli + 1;
         $contenido = new Contenido();
-        $arr2 = $contenido->find("conditions: id_usu=" . $id);
+        $arr2 = $contenido->find("conditions: id_usu=" . $id."and estado_con='t'");
         $this->contenido = $arr2;
         $contimg = 0;
         foreach ($arr2 as $contenido) {
