@@ -1,5 +1,6 @@
 <?php
     //BUSQUEDA PARA EL MENU NAV BAR (BUSQUEDA GENERAL)
+    
     require_once 'connection.php';
     $Db = new db();
     $conn = $Db->open();

@@ -24,6 +24,7 @@
 $(document).ready(function () {
     //var rutreg = /^\d{1,2}\.\d{3}\.\d{3}[-][0-9kK]{1}$/;
     var emailreg = /^[_a-z0-9-]+(.[_a-z0-9-]+)*@[a-z0-9-]+(.[a-z0-9-]+)*(.[a-z]{2,3})$/;
+     $permitidos = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_"; 
     $(".boton").click(function (){
         $(".errorVal").remove();
         
@@ -38,6 +39,10 @@ $(document).ready(function () {
         }else if( $(".username").val().length<3){
             $(".username").focus().after("<span class='errorVal'><?php echo $usuario_username_minimo; ?></span>");
             return false;
+          }else if( $(".username").keyCode == 241){
+            
+            
+            return false; 
         }else if( $(".password").val() == ""){
             $(".password").focus().after("<span class='errorVal'><?php echo $val_password_string; ?></span>");
             return false;
