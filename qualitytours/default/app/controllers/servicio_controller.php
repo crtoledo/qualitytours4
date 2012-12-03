@@ -117,26 +117,113 @@ class ServicioController extends AppController
                 $cliente = new Cliente();
                 $cliente->find(Auth::get('id'));
                 $this->nombre_cliente = $cliente->nombre_cli; 
+                //SE CAPTURA EL TIPO DE PLAN:
+                $tipoPlan = $cliente->tipo_plan;
+                $servicio = new Servicio();
                 
-                //SI HAY DATOS PARA INGRESAR SALVARLOS A LA BD ENTRA AL IF
-                if (Input::hasPost('servicio'))
+                if($tipoPlan == "free")
                 {
-                    $servicio = new Servicio(Input::post('servicio'));
-            
-                    if($servicio->save())
+                    $cantidad = $servicio->count("conditions: id_usu=".Auth::get("id"));
+                    echo Flash::info($cantidad);
+                    if($cantidad > 1)
                     {
-                    Flash::success('Servicio publicado satisfactoriamente');
-                    Input::delete();
-                    Router::redirect('/');
+                        echo Flash::info("No puede publicar un servicio su plan superó el limite");
+                        Router::redirect('/');
                     }
                     else
                     {
-                        Flash::info('Error al publicar el servicio');
+                         //SI HAY DATOS PARA INGRESAR SALVARLOS A LA BD ENTRA AL IF
+                        if (Input::hasPost('servicio'))
+                        {
+                            $servicio = new Servicio(Input::post('servicio'));
+
+                            if($servicio->save())
+                            {
+                                Flash::success('Servicio publicado satisfactoriamente');
+                                Input::delete();
+                                Router::redirect('/');
+                            }
+                            else
+                            {
+                                Flash::info('Error al publicar el servicio');
+                            }
+
+                        }           
+
+                        //Ingreso del servicio a la BD
                     }
+                                   
+                }
+                if($tipoPlan == "normal")
+                {
+                    $cantidad = $servicio->count("conditions: id_usu=".Auth::get("id"));
+                    if($cantidad > 3)
+                    {
+                        echo Flash::info("No puede publicar un servicio su plan superó el limite");
+                        Router::redirect('/');
+                    }
+                    else
+                    {
+                         //SI HAY DATOS PARA INGRESAR SALVARLOS A LA BD ENTRA AL IF
+                        if (Input::hasPost('servicio'))
+                        {
+                            $servicio = new Servicio(Input::post('servicio'));
+
+                            if($servicio->save())
+                            {
+                                Flash::success('Servicio publicado satisfactoriamente');
+                                Input::delete();
+                                Router::redirect('/');
+                            }
+                            else
+                            {
+                                Flash::info('Error al publicar el servicio');
+                            }
+
+                        }           
+
+                        //Ingreso del servicio a la BD
+                    }
+                        
+                    
+                }
+                if($tipoPlan == "plus")
+                {
+                    $cantidad = $servicio->count("conditions: id_usu=".Auth::get("id"));
+                    if($cantidad > 14)
+                    {
+                        echo Flash::info("No puede publicar un servicio su plan superó el limite");
+                        Router::redirect('/');
+                    }
+                    else
+                    {
+                         //SI HAY DATOS PARA INGRESAR SALVARLOS A LA BD ENTRA AL IF
+                        if (Input::hasPost('servicio'))
+                        {
+                            $servicio = new Servicio(Input::post('servicio'));
+
+                            if($servicio->save())
+                            {
+                                Flash::success('Servicio publicado satisfactoriamente');
+                                Input::delete();
+                                Router::redirect('/');
+                            }
+                            else
+                            {
+                                Flash::info('Error al publicar el servicio');
+                            }
+
+                        }           
+
+                        //Ingreso del servicio a la BD
+                    }
+                        
+                    
+                }
                 
-                }           
                 
-                //Ingreso del servicio a la BD
+                
+                   
             } 
         }   
         
