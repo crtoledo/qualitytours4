@@ -135,6 +135,7 @@
 </script>
 
  <?php echo Tag::js('rating'); ?>
+   
  
 <script type="text/javascript">
     
@@ -249,12 +250,17 @@ cloudLayer.setMap(map)
 <script type="text/javascript">
 $(document).ready(function() {
     
+        
+    
     $('#star1').rating("<?php echo PUBLIC_PATH;?>ajax/ingresar_calificacion.php", 
     {
         maxvalue: 5,
         curvalue: <?php echo $calificacion;?>, 
         id:0
+        
     });
+     
+    
    
 });
  

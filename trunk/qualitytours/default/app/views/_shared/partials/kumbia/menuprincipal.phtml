@@ -1,5 +1,8 @@
 <!--Codigo para el idioma-->
+
 <?php
+echo Tag::js('jquery.keyfilter');
+
 $url = $_SERVER['REQUEST_URI'];
 //devuelve los 2 ultimos caracteres de la url si es igual a en se utiliza las variables en inglés
 $url = substr($url, -2);
@@ -317,7 +320,7 @@ $arr = Load::Model('ubicacion', 'cliente')->find_all_by_sql("select  distinct re
                 <!-- CAMPO DE BUSQUEDA-->
                 <?php echo Form::open("busqueda/buscando/", 'post', 'class=navbar-search'); ?>
                 <i class="icon-search icon-white"></i>
-                <input id="searchinput" name="string" type="text" value="" class='search-query span2 busqueda' placeholder='<?php echo $buscardestinos_string; ?>' data-provide='typeahead' >  
+                <input id="searchinput" name="string" type="text" value="" class='search-query span2 busqueda  mask-alphanum' placeholder='<?php echo $buscardestinos_string; ?>' data-provide='typeahead' >  
                 <?php echo Form::close() ?>
 
                 <!-- FIN CAMPO DE BUSQUEDA-->

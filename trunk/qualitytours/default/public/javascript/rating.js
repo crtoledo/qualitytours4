@@ -87,6 +87,7 @@ jQuery.fn.rating = function(url, options) {
             });
 
     stars.click(function(){
+       
 		if(settings.cancel == true){
             settings.curvalue = stars.index(this) + 1;
             $.post(container.url, 
@@ -98,6 +99,7 @@ jQuery.fn.rating = function(url, options) {
                                   
 				},
 				function(data){
+                                    
     				//$(".starRpta").html(data);
 					jQuery(container).children('.starRpta').html(data);
   				}
@@ -120,8 +122,12 @@ jQuery.fn.rating = function(url, options) {
 					jQuery(container).children('.starRpta').html(data);
   				}
 			);
+                            
 			return false;
 		}
+                else{
+                    alert("algo");
+                }
 		return true;
 			
     });
