@@ -70,12 +70,10 @@ class ContenidoController extends AppController
             if ($archivo->isUploaded()) 
             {     //CAPTURA LA RUTA TRANSFOMADA EN MD5 PARA GUARDARLA EN LA BD
                 if($ruta = $archivo->saveRandom())
-                {   
-
-                    Flash::valid('Imagen subida correctamente...!!!');
+                {
                     if($contenido->sql("insert into Contenido(id_pub, ruta_con, fecha_con, nombre_con, tipo_con,estado_con)values(".$id_pub.",'".$ruta."','".$fecha."','".$nombre."','".$tipo."','t')"))
                     {   
-                     Flash::success('Contenido Ingresado Exitosamente.');
+                     Flash::success('Contenido ingresado exitosamente.');
                      Router::redirect("/");
                     }       
                 }

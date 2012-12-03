@@ -8,6 +8,9 @@
     //VARIABLE Q INDICA CUANTAS QUERYS FUERON EXITOSAS
     $query_ok = 0;
     
+    //Limpiar comillas simples
+    $_REQUEST['string'] = str_replace("'", '', $_REQUEST['string']);
+    
     //STRINGS DE LAS DISTINSTAS BUSQUEDAS
     $string1 = "select nombre_cli, id_usu from cliente where nombre_cli ilike '%".$_REQUEST['string']."%' order by visitas_cli desc limit 5";
     $string2 = "select DISTINCT region_ubi from ubicacion where region_ubi ilike '%".$_REQUEST['string']."%' limit 5";

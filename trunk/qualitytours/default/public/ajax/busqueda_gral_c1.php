@@ -5,7 +5,6 @@ require_once 'connection.php';
 $Db = new db();
 $conn = $Db->open();
 
-
 //STRING de la busqueda por nombre de centro turistico
 $string =
     "select cliente.id_usu as id_cliente, cliente.nombre_cli as nombre_cliente, ubicacion.region_ubi as region, ubicacion.ciudad_ubi as ciudad, cliente.visitas_cli as visitas, coalesce(AVG(calificacion.valor_cal),0) as promedio
