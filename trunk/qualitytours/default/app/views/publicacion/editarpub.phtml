@@ -1,4 +1,10 @@
-<div><?php View::content() ?></div> <br>
+<div>
+    <?php
+        View::content();
+        //CARGA NICEDIT
+        echo Tag::js("nicedit/nicEdit");
+    ?>
+</div> <br>
 <script type="text/javascript">
     //Validación con jquery
     //El siguiente script valida que los campos no estén vacios y el formato del RUT
@@ -72,25 +78,34 @@ reemplazo se uso 'errorVal'.
     top: 5px;
 }
 </style>
+
+ <script type="text/javascript">
+ //LINKEO A NICEDIT
+  bkLib.onDomLoaded(function() { 
+      nicEditors.allTextAreas(
+		{buttonList : ['bold','italic','underline','ol','ul','subscript','superscript',
+'strikethrough','fontFormat','hr','link','unlink','image','xhtml' ],
+		iconsPath : '<?php echo PUBLIC_PATH;?>/javascript/nicedit/nicEditorIcons.gif'})
+	});
+
+  </script>
+
 <div align="center"><h1>Editar publicación</h1></div>
 
 
 <?php echo Form::open('publicacion/actualizar') ?>
 <div align="center">
-    <table>
+    <table class="table table-condensed">
         <tr>
             <td>Fecha  Publicación: </td>
-            <td><?php echo Calendar::text('publicacion.fecha_pub',' class="calendario"',$fecha)?></td>
+            <td><?php echo Calendar::text('publicacion.fecha_pub',' class="calendario span3"',$fecha)?></td>
         </tr>
         <tr>
-            <td>Título:</td>
-            <td><?php echo Form::text('publicacion.titulo_pub',' class="titulo"',$titulo)?></td> 
+            <td class="span2">Título:</td>
+            <td><?php echo Form::text('publicacion.titulo_pub',' class="titulo span3"',$titulo)?></td> 
         </tr>
         <tr>
-            <td>Detalle:</td>
-            <td><?php echo Form::textarea('publicacion.detalle_pub','rows=10',$detalle)?>
-            <?php View::partial('nicedit/nicedit'); ?>
-            </td>
+            <td colspan="2"><?php echo Form::textarea('publicacion.detalle_pub','rows=10 style="width: 100%;"',$detalle)?></td>
         </tr>     
     </table>
 </div>
@@ -98,7 +113,7 @@ reemplazo se uso 'errorVal'.
 <div align="center">
     <table>
         <tr>
-             <td><?php echo Form::submit('Editar','class="btn btn-submit boton" ') ?>&nbsp;</td>
+             <td><?php echo Form::submit('Editar',' class="btn btn-submit boton" style="width: 100%;"') ?>&nbsp;</td>
         </tr>   
     </table>
 </div>
