@@ -1,16 +1,30 @@
 <div>
-<?php
+    <?php
     View::content();
     echo Tag::js("jquery/jquery.Rut.min");
-?>
+    ?>
 </div> 
+<script>
+    $(document).ready(function () {
+       
+       
+    });
+</script>
 
 <script type="text/javascript">
-//Validación con jquery
-//El siguiente script valida que los campos no estén vacios y el formato del RUT
+    //Validación con jquery
+    //El siguiente script valida que los campos no estén vacios y el formato del RUT
     $(document).ready(function () {
         var rutreg = /^\d{1,2}\.\d{3}\.\d{3}[-][0-9kK]{1}$/;
+        
+        
         $(".boton").click(function (){
+        
+        if($(".categoria").hasClass("active"))
+        {
+            alert($(".categoria").val());
+        }
+            
             $(".errorVal").remove();
             if( $(".nombre").val() == "" ){
                 $(".nombre").focus().after("<span class='errorVal'>Ingrese su nombre</span>");
@@ -34,9 +48,9 @@
                 $(".telefono").focus().after("<span class='errorVal'>Ingrese un teléfono</span>");
                 return false;
             }else if($('#acepta').is(':checked') == false){
-           $("#acepta").focus().after("<span class='errorVal'><?php echo "Debe aceptar los terminos del servicio"; ?></span>");
-           return false;
-        }
+                $("#acepta").focus().after("<span class='errorVal'><?php echo "Debe aceptar los terminos del servicio"; ?></span>");
+                return false;
+            }
         });
 
         //Borrar mensaje de error si el usuario a llenado el campo
@@ -49,16 +63,16 @@
             }
         });
 
-//Para el caso del listbox, no se puede borrar el error de validación con keyup
-//Ya que no es un textbox, usamos el metodo blur
-// $(".seleccion_usuario").blur(function()
-// {
-// if( $(this).val() != "" )
-//  {
-//     $(".errorVal").fadeOut();
-//     return false;
-//  }
-//});
+        //Para el caso del listbox, no se puede borrar el error de validación con keyup
+        //Ya que no es un textbox, usamos el metodo blur
+        // $(".seleccion_usuario").blur(function()
+        // {
+        // if( $(this).val() != "" )
+        //  {
+        //     $(".errorVal").fadeOut();
+        //     return false;
+        //  }
+        //});
 
         //Borrar el mensaje de error si el usuario ingresa un rut con formato válido
         $(".rut").keyup(function()
@@ -79,35 +93,37 @@
             }
         });        
         
-      //Borrar el mensaje de error si el usuario ingresa un rut con formato válido 
-    $(".rut").Rut({
-       on_error: function(){  $(".rut").focus().after("<span class='errorVal'>Rut invalido</span>"); return false; },
-        format_on: 'keyup'
-    });
+        //Borrar el mensaje de error si el usuario ingresa un rut con formato válido 
+        $(".rut").Rut({
+            on_error: function(){  $(".rut").focus().after("<span class='errorVal'>Rut invalido</span>"); return false; },
+            format_on: 'keyup'
+        });
     
         $(".rutp").Rut({
-       on_error: function(){  $(".rutp").focus().after("<span class='errorVal'>Rut invalido</span>"); return false; },
-        format_on: 'keyup'
-    });
+            on_error: function(){  $(".rutp").focus().after("<span class='errorVal'>Rut invalido</span>"); return false; },
+            format_on: 'keyup'
+        });
 
-    $(".rut").keyup(function()
-    {
-        if( $(".rut").val() != "" && rutreg.test($(".rut").val()))
+        $(".rut").keyup(function()
         {
-            $(".errorVal").fadeOut();
-            return false;
-        }
-    });
+            if( $(".rut").val() != "" && rutreg.test($(".rut").val()))
+            {
+                $(".errorVal").fadeOut();
+                return false;
+            }
+        });
     
         $(".rutp").keyup(function()
-    {
-        if( $(".rutp").val() != "" && rutreg.test($(".rutp").val()))
         {
-            $(".errorVal").fadeOut();
-            return false;
-        }
+            if( $(".rutp").val() != "" && rutreg.test($(".rutp").val()))
+            {
+                $(".errorVal").fadeOut();
+                return false;
+            }
+        });
+        
+    
     });
-});
 </script>
 
 <!--
@@ -118,84 +134,184 @@ reemplazo se uso 'errorVal'.
 
 <style>
     .errorVal{
-    background-color: #BC1010;
-    padding: 6px 12px;
-    border-radius: 4px;
-    color: white;
-    font-weight: bold;
-    margin-left: 16px;
-    margin-top: 6px;
-    position: absolute;
-}
-.errorVal:before{ /* Este es un truco para crear una flechita */
-    content: '';
-    border-top: 8px solid transparent;
-    border-bottom: 8px solid transparent;
-    border-right: 8px solid #BC1010;
-    border-left: 8px solid transparent;
-    left: -16px;
-    position: absolute;
-    top: 5px;
-}
+        background-color: #BC1010;
+        padding: 6px 12px;
+        border-radius: 4px;
+        color: white;
+        font-weight: bold;
+        margin-left: 16px;
+        margin-top: 6px;
+        position: absolute;
+    }
+    .errorVal:before{ /* Este es un truco para crear una flechita */
+        content: '';
+        border-top: 8px solid transparent;
+        border-bottom: 8px solid transparent;
+        border-right: 8px solid #BC1010;
+        border-left: 8px solid transparent;
+        left: -16px;
+        position: absolute;
+        top: 5px;
+    }
 </style>
-      
+
 <br>
 <fieldset>
-    
-    <?php $data = array('free'=>'Free', 'normal'=>'Normal','plus'=>'Plus' ); ?>
-    
-<?php echo Form::open('cliente/ingresarsolicitud') ?>
-    <div align="center">
-        <h1> Enviar solicitud de suscripción</h1><br>
-        <table>
-    <tr>
-        <td>Nombre de usuario:&nbsp;</td>
-        <td><?php echo Auth::get('username_usu') ?></td>
-    </tr>        
-    <tr>
-        <td>Nombre centro turistico:&nbsp;</td>
-        <td><?php echo Form::text('cliente.nombre_cli', "class='input-medium nombre' placeholder='Nombre cliente'") ?></td>
-    </tr>
-    <tr>
-        <td>Rut privado:&nbsp;</td>
-        <td><?php echo Form::text('cliente.rut_usu',"class='input-medium rutp' placeholder='ej: 6.765.223-1' rutp") ?></td>
-    </tr>
-    <tr>
-        <td>Rut comercial:&nbsp;</td>
-        <td><?php echo Form::text('cliente.rut_cli',"class='input-medium rut' placeholder='ej: 6.765.223-1' rut") ?></td>
-    </tr>
-    <tr>
-        <td>Giro:&nbsp;</td>
-        <td><?php echo Form::text('cliente.giro_cli',"class='input-medium giro' ") ?></td>
-    </tr>
-    <tr>
-        <td>Telefono comercial:&nbsp;</td>
-        <td><?php echo Form::text('cliente.telefono_cli',"class='input-medium telefono'") ?></td>
-    </tr>
-    <tr>
-        <td>Seleccione el plan:&nbsp;</td>
-        <td><?php echo Form::select('cliente.tipo_plan', $data, "class='span2'") ?></td>
-    </tr>
-  
 
-    <tr>
-        <td align="right" colspan="2">He leido las condiciones del servicio y las acepto&nbsp;<?php echo Form::check('acepta', 'checkValue')?></td>
-    </tr>
-    
-</table>
+    <div align="center">
+        <h2> Enviar solicitud de suscripción</h2>
+        <table>
+            <tr>
+                <td>
+                    <div aling="center">
+                        <h4><center> Ingrese los datos del centro turistico</center></h4>
+                        <table class="table table-bordered">
+                            <?php $data = array('free' => 'Free', 'normal' => 'Normal', 'plus' => 'Plus'); ?>
+
+                            <?php echo Form::open('cliente/ingresarsolicitud') ?>
+                            <tr>
+                                <td>Nombre de usuario:&nbsp;</td>
+                                <td><?php echo Auth::get('username_usu') ?></td>
+                            </tr>        
+                            <tr>
+                                <td>Nombre centro turistico:&nbsp;</td>
+                                <td><?php echo Form::text('cliente.nombre_cli', "class='input-medium nombre' placeholder='Nombre cliente'") ?></td>
+                            </tr>
+                            <tr>
+                                <td>Rut privado:&nbsp;</td>
+                                <td><?php echo Form::text('cliente.rut_usu', "class='input-medium rutp' placeholder='ej: 6.765.223-1' rutp") ?></td>
+                            </tr>
+                            <tr>
+                                <td>Rut comercial:&nbsp;</td>
+                                <td><?php echo Form::text('cliente.rut_cli', "class='input-medium rut' placeholder='ej: 6.765.223-1' rut") ?></td>
+                            </tr>
+                            <tr>
+                                <td>Giro:&nbsp;</td>
+                                <td><?php echo Form::text('cliente.giro_cli', "class='input-medium giro' ") ?></td>
+                            </tr>
+                            <tr>
+                                <td>Telefono comercial:&nbsp;</td>
+                                <td><?php echo Form::text('cliente.telefono_cli', "class='input-medium telefono'") ?></td>
+                            </tr>
+                            <tr>
+                                <td>Seleccione el plan:&nbsp;</td>
+                                <td><?php echo Form::select('cliente.tipo_plan', $data, "class='span2'") ?></td>
+                            </tr>
+                            <tr>
+                                <td align="right" colspan="2">He leido las condiciones del servicio y las acepto&nbsp;<?php echo Form::check('acepta', 'checkValue') ?></td>
+                            </tr>
+                        </table>
+                    </div>
+                </td>
+                <td>
+                    &nbsp;&nbsp;&nbsp;&nbsp
+                </td>
+
+                <td>
+                    <div aling="center">
+                        <h4> <center> Seleccione sus categorias </center> </h4>
+                        <table>
+                            <tr>
+                                <td>Lugares: &nbsp;</td>
+                                <td>
+                                    <div  class="btn-group" data-toggle="buttons-checkbox">
+                                        <button type="button" class="btn btn-info btn-small categoria" name="Playa" value="Playa">Playa</button>
+                                        <button type="button" class="btn btn-info btn-small categoria" name="Lago" value="Lago">Lago</button>
+                                        <button type="button" class="btn btn-info btn-small categoria" name="Rio" value="Río">Río</button>
+                                        <button type="button" class="btn btn-info btn-small categoria" name="Piscina" value="Piscina">Piscina</button>
+                                    </div>    
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td>Clima: &nbsp;</td>
+                                <td>
+                                    <div  class="btn-group" data-toggle="buttons-checkbox">
+                                        <button type="button" class="btn btn-info btn-small" name="Calido" value="Calido">Calido</button>
+                                        <button type="button" class="btn btn-info btn-small" name="Nieve" value="Nieve">Nieve</button>
+                                        <button type="button" class="btn btn-info btn-small" name="Lluviso" value="Lluviso">Lluviso</button>
+                                        <button type="button" class="btn btn-info btn-small" name="Templado" value="Piscina">Templado</button>
+                                    </div>    
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td>Social: &nbsp;</td>
+                                <td>
+                                    <div  class="btn-group" data-toggle="buttons-checkbox">
+                                        <button type="button" class="btn btn-info btn-small" name="Tercera" value="Tercera">Tercera edad</button>
+                                        <button type="button" class="btn btn-info btn-small" name="Juvenil" value="Juvenil">Juvenil</button>
+                                        <button type="button" class="btn btn-info btn-small" name="Familiar" value="Familiar">Familiar</button>
+                                    </div>    
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td>Deportes: &nbsp;</td>
+                                <td>
+                                    <div  class="btn-group" data-toggle="buttons-checkbox">
+                                        <button type="button" class="btn btn-info btn-small probando" name="Terrestres" value="Terrestres">Terrestres</button>
+                                        <button type="button" class="btn btn-info btn-small" name="Extremos" value="Extremos">Extremos</button>
+                                        <button type="button" class="btn btn-info btn-small" name="Acuaticos" value="Acuáticos">Acuáticos</button>
+                                        <button type="button" class="btn btn-info btn-small" name="Aventura" value="Aventura">Aventura</button>
+                                        <button type="button" class="btn btn-info btn-small" name="Fitness" value="Fitness">Fitness</button>
+                                    </div>    
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>&nbsp;</td>
+                            </tr>
+<!--                            <tr>
+                                <td>Cultural:&nbsp;</td>
+                                <td>
+                                    <table>
+                                        <tr>
+                                            <td>
+                                                <div  class="btn-group" data-toggle="buttons-checkbox">
+                                                    <button type="button" class="btn btn-info btn-small" name="Historico" value="Histórico">Histórico</button>
+                                                    <button type="button" class="btn btn-info btn-small" name="Etnico" value="Étnico">Étnico</button>
+                                                    <button type="button" class="btn btn-info btn-small" name="Folklore" value="Folklore">Folklore</button>
+                                                    <button type="button" class="btn btn-info btn-small" name="Religioso" value="Religioso">Religioso</button>
+                                                </div> 
+                                            </td><td>
+                                                <div  class="btn-group" data-toggle="buttons-checkbox">
+                                                    <button type="button" class="btn btn-info btn-small" name="Festivo" value="Festivo">Festivo</button>
+                                                    <button type="button" class="btn btn-info btn-small" name="Literario" value="Literario">Literario</button>
+                                                    <button type="button" class="btn btn-info btn-small" name="Gastronomico" value="Gastronómico">Gastronomico</button>
+                                                    <button type="button" class="btn btn-info btn-small" name="Shopping" value="Shopping">Shopping</button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>-->
+                        </table>
+                    </div>
+                </td>
+            </tr>
+        </table>
+
+
+
     </div>
     <div align="center">
-    <table>
-        <tr>
-            <td><?php echo Form::submit('Enviar solicitud','class="btn btn-submit boton"') ?>&nbsp;</td>
-            <td><?php echo Form::reset('Reiniciar','class="btn btn-info"')?></td>
-        </tr>         
-    </table>
-   </div>
-<?php echo Form::hidden('cliente.id',null , Auth::get('id')); ?>
-<?php echo Form::hidden('cliente.username_usu',null , Auth::get('username_usu')); ?>
-<?php echo Form::hidden('cliente.visitas_cli',null , 0); ?>
+        <table>
+            <tr>
+                <td><?php echo Form::submit('Enviar solicitud', 'class="btn btn-submit btn-success boton"') ?>&nbsp;</td>
+                <td><?php echo Form::reset('Reiniciar', 'class="btn btn-danger"') ?></td>
+            </tr>         
+        </table>
+    </div>
+    <?php echo Form::hidden('cliente.id', null, Auth::get('id')); ?>
+    <?php echo Form::hidden('cliente.username_usu', null, Auth::get('username_usu')); ?>
+    <?php echo Form::hidden('cliente.visitas_cli', null, 0); ?>
 
-<?php echo Form::close() ?> 
-    </fieldset>
+    <?php echo Form::close() ?> 
+</fieldset>
 

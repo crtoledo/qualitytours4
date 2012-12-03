@@ -51,7 +51,6 @@ class ClienteController extends AppController {
                     //$rut_usu = $datos_user->rut_usu;
                     $email_usu = $datos_user->email_usu;
                     $lenguaje_usu = $datos_user->lenguaje_usu;
-                    ;
                     $estado_usu = "false";
                     $nombre_cli = $cliente->nombre_cli;
                     $rut_cli = $cliente->rut_cli;
