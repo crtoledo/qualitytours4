@@ -1,6 +1,7 @@
 <?php
 load::model('publicacion');
 load::model('contenido');
+load::model('cliente');
 
 class ContenidoController extends AppController 
 {
@@ -93,44 +94,169 @@ class ContenidoController extends AppController
     public function ingresarcli($leng) {
        
         $this->leng = $leng;
-        if (Input::hasPost('contenido')) 
-        {  //para saber si se envió el form
- 
-            //llamamos a la libreria y le pasamos el nombre del campo file del formulario
-            //el segundo parametro de Upload::factory indica que estamos subiendo una imagen
-            //por defecto la libreria Upload trabaja con archivos...
-            $archivo = Upload::factory('imagen', 'image'); 
-            $archivo->setExtensions(array('jpg', 'png', 'gif'));//le asignamos las extensiones a permitir
+        $cliente = new Cliente();
+        $cliente = $cliente->find(Auth::get("id"));
+        $tipoPlan = $cliente->tipo_plan;
+        $contenido = new Contenido;
+        if($tipoPlan=="free")
+        {
+            $cantidad = $contenido->count("conditions: id_usu=".Auth::get("id"));
             
-            $contenido = new Contenido(Input::post('contenido'));
-            //OBTIENE LOS PARAMETROS DEL FORMULARIO
-            $id_usu = $contenido->id_usu;
-            $fecha = $contenido->fecha_con;
-            $nombre = $contenido->nombre_con;
-            $tipo = $contenido->tipo_con;
-      
-            if ($archivo->isUploaded()) 
-            {     //CAPTURA LA RUTA TRANSFOMADA EN MD5 PARA GUARDARLA EN LA BD
-                if($ruta = $archivo->saveRandom())
-                {   
+            if($cantidad > 1)
+            {
+                echo Flash::info("Lo sentimos superó el limite de imagenes");
+                Router::redirect("/");
+            }
+            else
+            {
+                if (Input::hasPost('contenido')) 
+                {  //para saber si se envió el form
 
-                   
-                    if($contenido->sql("insert into Contenido(id_usu, ruta_con, fecha_con, nombre_con, tipo_con,estado_con)values(".$id_usu.",'".$ruta."','".$fecha."','".$nombre."','".$tipo."','t')"))
-                    {   
-                     Flash::success('Contenido Ingresado Exitosamente.');
-                     Router::redirect("/");
-                    }       
-                }
-                else
-                {
-                    Flash::warning('No se ha Podido guardar la imagen...!!!');
+                    //llamamos a la libreria y le pasamos el nombre del campo file del formulario
+                    //el segundo parametro de Upload::factory indica que estamos subiendo una imagen
+                    //por defecto la libreria Upload trabaja con archivos...
+                    $archivo = Upload::factory('imagen', 'image'); 
+                    $archivo->setExtensions(array('jpg', 'png', 'gif'));//le asignamos las extensiones a permitir
+
+                    $contenido = new Contenido(Input::post('contenido'));
+                    //OBTIENE LOS PARAMETROS DEL FORMULARIO
+                    $id_usu = $contenido->id_usu;
+                    $fecha = $contenido->fecha_con;
+                    $nombre = $contenido->nombre_con;
+                    $tipo = $contenido->tipo_con;
+
+                    if ($archivo->isUploaded()) 
+                    {     //CAPTURA LA RUTA TRANSFOMADA EN MD5 PARA GUARDARLA EN LA BD
+                        if($ruta = $archivo->saveRandom())
+                        {   
+
+
+                            if($contenido->sql("insert into Contenido(id_usu, ruta_con, fecha_con, nombre_con, tipo_con,estado_con)values(".$id_usu.",'".$ruta."','".$fecha."','".$nombre."','".$tipo."','t')"))
+                            {   
+                            Flash::success('Contenido Ingresado Exitosamente.');
+                            Router::redirect("/");
+                            }       
+                        }
+                        else
+                        {
+                            Flash::warning('No se ha Podido guardar la imagen...!!!');
+                        }
+                    }
+                        else
+                        {
+                            Flash::warning('No se ha Podido transmitir la imagen...!!!');
+                        }
                 }
             }
-                else
-                {
-                    Flash::warning('No se ha Podido transmitir la imagen...!!!');
-                }
+            
+            
         }
+        if($tipoPlan == "normal")
+        {
+            $cantidad = $contenido->count("conditions: id_usu=".Auth::get("id"));
+            
+            if($cantidad > 4)
+            {
+                echo Flash::info("Lo sentimos superó el limite de imagenes");
+                Router::redirect("/");
+            }
+            else
+            {
+                if (Input::hasPost('contenido')) 
+                {  //para saber si se envió el form
+
+                    //llamamos a la libreria y le pasamos el nombre del campo file del formulario
+                    //el segundo parametro de Upload::factory indica que estamos subiendo una imagen
+                    //por defecto la libreria Upload trabaja con archivos...
+                    $archivo = Upload::factory('imagen', 'image'); 
+                    $archivo->setExtensions(array('jpg', 'png', 'gif'));//le asignamos las extensiones a permitir
+
+                    $contenido = new Contenido(Input::post('contenido'));
+                    //OBTIENE LOS PARAMETROS DEL FORMULARIO
+                    $id_usu = $contenido->id_usu;
+                    $fecha = $contenido->fecha_con;
+                    $nombre = $contenido->nombre_con;
+                    $tipo = $contenido->tipo_con;
+
+                    if ($archivo->isUploaded()) 
+                    {     //CAPTURA LA RUTA TRANSFOMADA EN MD5 PARA GUARDARLA EN LA BD
+                        if($ruta = $archivo->saveRandom())
+                        {   
+
+
+                            if($contenido->sql("insert into Contenido(id_usu, ruta_con, fecha_con, nombre_con, tipo_con,estado_con)values(".$id_usu.",'".$ruta."','".$fecha."','".$nombre."','".$tipo."','t')"))
+                            {   
+                            Flash::success('Contenido Ingresado Exitosamente.');
+                            Router::redirect("/");
+                            }       
+                        }
+                        else
+                        {
+                            Flash::warning('No se ha Podido guardar la imagen...!!!');
+                        }
+                    }
+                        else
+                        {
+                            Flash::warning('No se ha Podido transmitir la imagen...!!!');
+                        }
+                }
+            }
+        }
+        if($tipoPlan == "plus")
+        {
+             $cantidad = $contenido->count("conditions: id_usu=".Auth::get("id"));
+            
+            if($cantidad > 29)
+            {
+                echo Flash::info("Lo sentimos superó el limite de imagenes");
+                Router::redirect("/");
+            }
+            else
+            {
+                if (Input::hasPost('contenido')) 
+                {  //para saber si se envió el form
+
+                    //llamamos a la libreria y le pasamos el nombre del campo file del formulario
+                    //el segundo parametro de Upload::factory indica que estamos subiendo una imagen
+                    //por defecto la libreria Upload trabaja con archivos...
+                    $archivo = Upload::factory('imagen', 'image'); 
+                    $archivo->setExtensions(array('jpg', 'png', 'gif'));//le asignamos las extensiones a permitir
+
+                    $contenido = new Contenido(Input::post('contenido'));
+                    //OBTIENE LOS PARAMETROS DEL FORMULARIO
+                    $id_usu = $contenido->id_usu;
+                    $fecha = $contenido->fecha_con;
+                    $nombre = $contenido->nombre_con;
+                    $tipo = $contenido->tipo_con;
+
+                    if ($archivo->isUploaded()) 
+                    {     //CAPTURA LA RUTA TRANSFOMADA EN MD5 PARA GUARDARLA EN LA BD
+                        if($ruta = $archivo->saveRandom())
+                        {   
+
+
+                            if($contenido->sql("insert into Contenido(id_usu, ruta_con, fecha_con, nombre_con, tipo_con,estado_con)values(".$id_usu.",'".$ruta."','".$fecha."','".$nombre."','".$tipo."','t')"))
+                            {   
+                            Flash::success('Contenido Ingresado Exitosamente.');
+                            Router::redirect("/");
+                            }       
+                        }
+                        else
+                        {
+                            Flash::warning('No se ha Podido guardar la imagen...!!!');
+                        }
+                    }
+                        else
+                        {
+                            Flash::warning('No se ha Podido transmitir la imagen...!!!');
+                        }
+                }
+            }   
+            
+        }
+        
+        
+            
     }
             
     
