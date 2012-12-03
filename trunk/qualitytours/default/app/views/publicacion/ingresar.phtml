@@ -9,6 +9,10 @@
     {
         include_once APP_PATH.'libs/es.php';
     }
+    
+//CARGA NICEDIT
+    
+    echo Tag::js("nicedit/nicEdit");
 ?>    
 <script type="text/javascript">
     //Validación con jquery
@@ -77,9 +81,15 @@ reemplazo se uso 'errorVal'.
 </style>
 <div style='text-align: center;'><h1><?php echo $publicacion_ingresar_encabesado; ?></h1></div>
 
-<script type="text/javascript" src="http://js.nicedit.com/nicEdit-latest.js"></script> <script type="text/javascript">
 
-  bkLib.onDomLoaded(function() { nicEditors.allTextAreas() });
+ <script type="text/javascript">
+
+  bkLib.onDomLoaded(function() { 
+      nicEditors.allTextAreas(
+		{buttonList : ['bold','italic','underline','ol','ul','subscript','superscript',
+'strikethrough','fontFormat','hr','link','unlink','image','xhtml' ],
+		iconsPath : '<?php echo PUBLIC_PATH;?>/javascript/nicedit/nicEditorIcons.gif'})
+	});
 
   </script>
 
