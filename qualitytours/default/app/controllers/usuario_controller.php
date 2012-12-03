@@ -133,10 +133,11 @@ class UsuarioController extends AppController
     }
     
     //funcion para que el usuario turista pueda modificar sus datos
-    public function automodificar()
+    public function automodificar($leng)
     {
         if(Auth::is_valid())
         {
+            $this->leng= $leng;
             if(Auth::get('rol_usu')== 'turista')
             { 
                 $usuarioaeditar = new Usuario();

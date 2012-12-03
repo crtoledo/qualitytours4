@@ -37,8 +37,8 @@
 		num:      /[\d\-\.]/,
 		hex:      /[0-9a-f]/i,
 		email:    /[a-z0-9_\.\-@]/i,
-		alpha:    /[a-z_]/i,
-		alphanum: /[a-z0-9_]/i
+		alpha:    /[a-z_ ]/i,
+		alphanum: /[a-z0-9_ ]/i
 	};
 
 	var Keys = {

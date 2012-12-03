@@ -56,13 +56,8 @@ $usuario_buscar_eliminar = "Eliminar";
 $usuario_automodificar_titulo = "Modificación de datos";
 $usuario_automodificar_nombre = "Nombre";
 $usuario_automodificar_apellido = "Apellido";
-$usuario_automodificar_ = "";
-$usuario_automodificar_ = "";
-$usuario_automodificar_ = "";
-$usuario_automodificar_ = "";
-$usuario_automodificar_ = "";
-$usuario_automodificar_ = "";
-$usuario_automodificar_ = "";
+$usuario_automodificar_modcontraseña = "Modifica tu contraseña";
+$usuario_automodificar_botonatras = "Volver";
 
 //variables para publicacion/traducir
 $publicacion_traducir_titulo="Traducir Publicaci&oacute;n";
