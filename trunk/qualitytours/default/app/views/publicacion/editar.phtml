@@ -12,14 +12,10 @@
 
 
 <div align="center">
-    <table class="table">
+    <table class="table table-striped">
         <tr>
-            <td><div align="center"><?php echo  Html::img("1341165838_image_add.png","ingresar imagen ","width=150 height=150"); ?></div></td>
-            <td><div align="center"><?php echo Html::img("1341166104_edit-notes.png","editar ","width=150 height=150");?></div></td>
-        </tr>
-        <tr>
-            <td> <div align="center"><?php  echo Html::link("contenido/ingresar/".$id_pub.'/'.$con_ingresar_string,''.$i_contenido_string.''); ?></div></td>
-            <td><div align="center"><?php echo Html::link("publicacion/editarpub/".$id_pub.'/'.$pub_editar_string,''.$e_publicacion_string.'');?></div></td>
+            <td> <div align="center"><?php  echo Html::link("contenido/ingresar/".$id_pub.'/'.$con_ingresar_string,Html::img("1341165838_image_add.png","ingresar imagen ","width=150 height=150")."<br>".$i_contenido_string); ?></div></td>
+            <td><div align="center"><?php echo Html::link("publicacion/editarpub/".$id_pub.'/'.$pub_editar_string,Html::img("1341166104_edit-notes.png","editar ","width=150 height=150")."<br>".$e_publicacion_string);?></div></td>
         </tr>
     </table>
 </div>
