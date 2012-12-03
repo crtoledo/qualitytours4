@@ -28,6 +28,7 @@
             //CAPTURA DE LAS CATEGORIAS
             $(".categoria.active").each(function()
             {
+                $string += ",".$(this).val();
                 array_categorias.push($(this).val());
             });
             

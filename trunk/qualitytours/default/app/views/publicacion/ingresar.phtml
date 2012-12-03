@@ -75,22 +75,26 @@ reemplazo se uso 'errorVal'.
     top: 5px;
 }
 </style>
-<div align="center"><h1><?php echo $publicacion_ingresar_encabesado; ?></h1></div>
+<div style='text-align: center;'><h1><?php echo $publicacion_ingresar_encabesado; ?></h1></div>
+
+<script type="text/javascript" src="http://js.nicedit.com/nicEdit-latest.js"></script> <script type="text/javascript">
+
+  bkLib.onDomLoaded(function() { nicEditors.allTextAreas() });
+
+  </script>
 
 <!-- captura de id para enviarlo al controlador       -->
 <?php $id =  Auth::get('id');   ?>
 <?php echo Form::open('publicacion/ingresar/'.$leng) ?>
-<div align="center">
-    <table>
+<div >
+    <table class="table table-striped">
         
         <tr>
-            <td><?php echo $publicacion_ingresar_titulo; ?></td>
-            <td><?php echo Form::text('publicacion.titulo_pub','class="titulo"')?></td> 
+            <td><?php echo Form::text('publicacion.titulo_pub','class="titulo" placeholder="'.$publicacion_ingresar_titulo.'"')?></td> 
         </tr>
         <tr>
-            <td><?php echo $publicacion_ingresar_detalle; ?></td>
-            <td><?php echo Form::textarea('publicacion.detalle_pub','rows=10')?>
-            <?php View::partial('nicedit/nicedit'); ?>
+            <?php // echo $publicacion_ingresar_detalle; ?>
+            <td><?php echo Form::textarea('publicacion.detalle_pub','id="area1" rows="10" style="width: 100%;"')?>
             </td>
         </tr>     
     </table>
