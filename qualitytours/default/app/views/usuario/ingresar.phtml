@@ -14,6 +14,7 @@
 <div>
 <?php
     View::content();
+    echo Tag::js('jquery.keyfilter');
     echo Tag::js("jquery/jquery.Rut.min");
 ?>
 </div> 
@@ -170,29 +171,29 @@ reemplazo se uso 'errorVal'.
         <table>
     <tr>
         <td align="right"><?php echo $usuario_ingresar_usuario ?>:&nbsp;</td>
-        <td><?php echo Form::text('usuario.username_usu', "class='input-medium username' placeholder='Username'") ?></td>
+        <td><?php echo Form::text('usuario.username_usu', "class='input-medium username mask-alphanum' placeholder='Username'") ?></td>
     </tr>
     <tr>
         <td align="right"><?php echo $usuario_ingresar_contraseña ?>:&nbsp;</td>
-        <td><?php echo Form::pass('usuario.password_usu', "class='input-medium password' placeholder='Password'") ?></td>
+        <td><?php echo Form::pass('usuario.password_usu', "class='input-medium password mask-alphanum' placeholder='Password'") ?></td>
     </tr>
         <tr>
         <td align="right"><?php echo $usuario_ingresar_confirmar ?>:&nbsp;</td>
-        <td><?php echo Form::pass('',"class='input-medium passworddos' placeholder='Confirmar password'") ?></td>
+        <td><?php echo Form::pass('',"class='input-medium passworddos mask-alphanum' placeholder='Confirmar password'") ?></td>
     </tr>
 
     <tr>
         <td align="right"><?php echo $nombre_ingresar_string;?>:&nbsp;</td>
-        <td><?php echo Form::text('usuario.nombre_usu',"class='input-medium nombre'") ?></td>
+        <td><?php echo Form::text('usuario.nombre_usu',"class='input-medium nombre mask-alpha'") ?></td>
     </tr>
     <tr>
         <td align="right"><?php echo $apellido_ingresar_string;?>:&nbsp;</td>
-        <td><?php echo Form::text('usuario.apellido_usu',"class='input-medium apellido'") ?></td>
+        <td><?php echo Form::text('usuario.apellido_usu',"class='input-medium apellido mask-alpha'") ?></td>
     </tr>
 
     <tr>
         <td align="right">E-mail:&nbsp;</td>
-        <td><?php echo Form::text('usuario.email_usu',"class='input-medium email'") ?></td>
+        <td><?php echo Form::text('usuario.email_usu',"class='input-medium email mask-email'") ?></td>
     </tr>
     <tr>
         <td align="right" colspan="2"><?php echo $usuario_ingresar_condiciones; ?>&nbsp;<?php echo Form::check('acepta', 'checkValue')?></td>
