@@ -11,7 +11,7 @@
     $id_usu = $_POST['id_usu'];
     $id_cli = $_POST['id_cli'];
     
-echo $id_usu;
+
     
         
  if($id_usu != $id_cli)
