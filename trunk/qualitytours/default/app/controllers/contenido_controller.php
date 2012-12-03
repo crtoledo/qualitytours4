@@ -90,8 +90,9 @@ class ContenidoController extends AppController
     }
 
 
-    public function ingresarcli() {
+    public function ingresarcli($leng) {
        
+        $this->leng = $leng;
         if (Input::hasPost('contenido')) 
         {  //para saber si se envió el form
  
@@ -113,7 +114,7 @@ class ContenidoController extends AppController
                 if($ruta = $archivo->saveRandom())
                 {   
 
-                    Flash::valid('Imagen subida correctamente...!!!');
+                   
                     if($contenido->sql("insert into Contenido(id_usu, ruta_con, fecha_con, nombre_con, tipo_con,estado_con)values(".$id_usu.",'".$ruta."','".$fecha."','".$nombre."','".$tipo."','t')"))
                     {   
                      Flash::success('Contenido Ingresado Exitosamente.');

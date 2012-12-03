@@ -1,4 +1,15 @@
 <div><?php View::content() ?></div> 
+<?php
+//Código para el idioma
+    if($leng == "en")
+    {
+        include_once APP_PATH.'libs/en.php';
+    }
+    else
+    {
+        include_once APP_PATH.'libs/es.php';
+    }
+?>    
 <script type="text/javascript">
     //Validación con jquery
     //El siguiente script valida que los campos no estén vacios y el formato del RUT
@@ -95,6 +106,8 @@ reemplazo se uso 'errorVal'.
 <!-- captura de id  del usuario para enviarlo al controlador       -->
 <?php 
     $id =  Auth::get('id'); 
+    setlocale ( LC_TIME, 'spanish' );
+    $fecha = strftime(date('Y/m/d'));
     
   ?>
 
@@ -103,7 +116,7 @@ reemplazo se uso 'errorVal'.
     <h1>Ingresar Contenido</h1>
     <table>
         <tr>
-            <td>  <?php echo Form::openMultipart('contenido/ingresarcli') ?>
+            <td>  <?php echo Form::openMultipart('contenido/ingresarcli/'.$leng) ?>
                   Ingrese una imagen .jpg , .gif ó .png :
                   <?php echo Form::file("imagen","class='archivo'") ?>
                   <?php //echo Form::hidden('oculto') //para saber si se envió el form ?>
@@ -111,6 +124,8 @@ reemplazo se uso 'errorVal'.
                 
                   <?php echo Form::hidden('contenido.id_usu',null , $id); ?>
                   <?php echo Form::hidden('contenido.tipo_con',null ,"imagen"); ?>
+                  <?php echo Form::hidden('contenido.nombre_con',null,"imagen");?>
+                  <?php echo Form::hidden('contenido.fecha_con',null,$fecha);?>
                   
               
             </td>      
@@ -118,14 +133,6 @@ reemplazo se uso 'errorVal'.
         </tr>
       </table>
        <table>    
-        <tr>
-            <td>fecha:</td>
-            <td><?php echo Calendar::text('contenido.fecha_con','class="fecha"') ?></td>
-        </tr>
-        <tr>
-            <td>Nombre:</td>
-            <td><?php  echo Form::text('contenido.nombre_con','class="nombre"') ?></td>
-        </tr>
         <tr>
             <td>  
                 <div align="center"> <?php echo  Form::submit('Ingresar','class="btn btn-submit boton" ')  ?></div>
