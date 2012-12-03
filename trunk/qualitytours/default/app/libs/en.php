@@ -52,6 +52,13 @@ $usuario_buscar_suscripcion = "Unsubscribe";
 $usuario_buscar_administrador = "Delete administrator";
 $usuario_buscar_eliminar = "Delete";
 
+//variales para usuario/automodificar
+$usuario_automodificar_titulo = "Modificación de datos";
+$usuario_automodificar_nombre = "Nombre";
+$usuario_automodificar_apellido = "Apellido";
+$usuario_automodificar_modcontraseña = "Modify your password";
+$usuario_automodificar_botonatras = "Go Back";
+
 //variables para publicacion/traducir
 $publicacion_traducir_titulo = "Translate publication";
 $publicacion_traducir_titulopub="Title";

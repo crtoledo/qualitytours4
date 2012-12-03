@@ -86,6 +86,12 @@ $arr = Load::Model('ubicacion', 'cliente')->find_all_by_sql("select  distinct re
 <script type="text/javascript"> //JQUERY PARA BUSQUEDA AJAX (autocompletado)
     $(document).ready(function()
     { 
+        //VALIDACION COMILLAS FORM LOGIN
+        $(".botonlogin").click(function(){
+            $(".login_usu").val( $(".login_usu").val().replace(/[^a-z0-9\s]/gi,"") );
+            $(".login_pass").val( $(".login_pass").val().replace(/[^a-z0-9\s]/gi,"") );
+        });
+        
         // Charles Lawrence - Feb 16, 2012. Free to use and modify. Please attribute back to @geuis if you find this useful
         // Twitter Bootstrap Typeahead doesn't support remote data querying. This is an expected feature in the future. In the meantime, others have submitted patches to the core bootstrap component that allow it. 
         // The following will allow remote autocompletes *without* modifying any officially released core code. 
@@ -352,10 +358,10 @@ $arr = Load::Model('ubicacion', 'cliente')->find_all_by_sql("select  distinct re
                                 <?php echo Form::open('' . $enlace_form_login . '', 'post', 'class=navbar-form'); ?>
                             <center>
                                 <?php echo $usuario_string; ?>
-                                <?php echo Form::text("username_usu", "class='span2'"); ?>
+                                <?php echo Form::text("username_usu", "class='span2 mask-alphanum login_usu'"); ?>
                                 <?php echo $contraseña_string; ?>
-                                <?php echo Form::pass("password_usu", "class='span2'"); ?>
-                                <?php echo Form::submit('' . $ingresar_string . '', "class='btn btn-primary'"); ?>
+                                <?php echo Form::pass("password_usu", "class='span2 mask-alphanum login_pass'"); ?>
+                                <?php echo Form::submit('' . $ingresar_string . '', "class='btn btn-primary botonlogin'"); ?>
                                 <br><hr>
 
                                 <li><?php echo Html::link('' . $enlace_registrate . '', $registrate_string . ' <i class="icon-plus-sign"></i>'); ?></li>
