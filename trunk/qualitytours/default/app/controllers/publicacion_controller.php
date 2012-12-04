@@ -170,7 +170,7 @@ class PublicacionController extends AppController
          {
             $this->cont = 1;
             //buscando comentarios:
-            $arr = $publicacion->find();
+            $arr = $publicacion->find("conditions: estado_pub='t'");
             $contador = 0;
              foreach ($arr as $publicacion) 
              {
