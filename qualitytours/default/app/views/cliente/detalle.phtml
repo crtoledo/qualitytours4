@@ -79,22 +79,105 @@
 
 #content2 {
     float:left;
-    width:300px;
+    width:290px; /* ancho del carrusel*/
     margin-bottom:40px;
     margin:0px auto;
 }
   
 </style>
-<script type="text/javascript">
-	        function modal () {
-	        $('#example').modal('toggle');
-	        }
+
+<script type="text/javascript"> //MODAL RECORRIDO
+    $(document).ready(function() 
+    {
+        //ARAY DE MARCADORES PARA EL CALCULO DE RECORRIDO
+        var markersArray = [];
+        var latlng_cliente = new google.maps.LatLng(<?php echo $latitud; ?>,<?php echo $longitud; ?>)
+        
+        function clearOverlays() 
+        {
+            for (var i = 0; i < markersArray.length; i++ ) 
+            {
+                markersArray[i].setMap(null);
+            }
+        }
+        
+        $(".boton-recorrido").click(function()
+        {
+            //SE MUESTRA EL MODAL
+            $("#modal-recorrido").modal('toggle');
+            
+            
+            //Setup del mapa
+            var myOptions = {
+                zoom: 12,
+                center: latlng,
+                disableDefaultUI: true,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            };
+            map_modal = new google.maps.Map(document.getElementById('map_canvas_recorrido'),
+            myOptions);
+            //$("#map_canvas_recorrido").css('position','fixed');
+            
+            
+            marker = new google.maps.Marker({
+                position: latlng,
+                map: map_modal,
+                title:" <?php echo $nombre_cliente ?> "
+            });
+            
+            google.maps.event.addListener(map_modal, 'click', function(event) {  //Al hacer click en el mapa...
+                
+                //alert(event.latLng);
+                clearOverlays();
+                
+                var marker_miubicacion = new google.maps.Marker({
+                    position: event.latLng,
+                    map: map_modal,
+                    title:"Mi ubicación"
+                });
+                markersArray.push(marker_miubicacion);
+                
+                //CODIGO DISTANCIA
+                var directionDisplay;
+                var directionsService = new google.maps.DirectionsService();
+                directionsDisplay = new google.maps.DirectionsRenderer();
+                
+                directionsDisplay.setMap(map_modal);
+                directionsDisplay.setPanel(document.getElementById("directionsPanel"));
+                $("#directionsPanel").empty();
+                
+                function calcRoute() 
+                {
+                    var request = {
+                        origin: latlng_cliente,
+                        destination: event.latLng,
+                        travelMode: google.maps.DirectionsTravelMode.DRIVING
+                    };
+                    directionsService.route(request, function(response, status) {
+                        if (status == google.maps.DirectionsStatus.OK) {
+                            directionsDisplay.setDirections(response);
+                        }
+                    });
+                    
+                    
+                }
+                
+                calcRoute();
+                
+                //FIN CODIGO DISTANCIA
+                
+            }); //Fin al hacer click en el mapa
+            
+        });
+    });
 </script>
+
 <!--PARA GOOGLE MAPS COMIENZO-->
 <style type="text/css">
   html { height: 100% }
   body { height: 100%; margin: 0px; padding: 0px }
   #map_canvas { height: 100% }
+  #map_canvas_recorrido { height: 100% }
 </style>
 
 <script type="text/javascript">
@@ -243,15 +326,13 @@ weatherLayer.setMap(map);
 var cloudLayer = new google.maps.weather.CloudLayer();
 cloudLayer.setMap(map)
 
-
-
 });
+
 </script>
-<script type="text/javascript">
-$(document).ready(function() {
-    
-        
-    
+
+<script type="text/javascript"> // SCRIPT CALIFICACION
+$(document).ready(function() 
+{
     $('#star1').rating("<?php echo PUBLIC_PATH;?>ajax/ingresar_calificacion.php", 
     {
         maxvalue: 5,
@@ -259,9 +340,6 @@ $(document).ready(function() {
         id:0
         
     });
-     
-    
-   
 });
  
 </script>
@@ -323,7 +401,7 @@ $(document).ready(function() {
 <table class="table table-bordered">  
     <tr>
         <td>
-            <!--        DIRECCION DEL RECINTO.-->
+            <!--DIRECCION DEL RECINTO.-->
             <h4><font color="#9F9F9F"><?php echo $cliente_detalle_direccion; ?></font></h4>
            <h6>
             <?php if (isset($region_ubi)) echo $region_ubi; ?><br>
@@ -355,11 +433,12 @@ $(document).ready(function() {
 </table>
     </div>
 <!--      SEGUNDA PARTE  LAYOUT-->
-    <div class="span4" >
-    <table class="table table-bordered"> 
+    <div class="span4" id="segundo_layout">
+    <table class="table table-bordered">
+        <tbody>
      <tr>  
         <td>
-            <div align="center"><font size="1"><b><?php echo $cliente_detalle_galeria; ?>:</b><icon class="icon-camera"></icon></font></div>
+            <div style=" text-align: center"><font size="1"><b><?php echo $cliente_detalle_galeria; ?>:</b><icon class="icon-camera"></icon></font></div>
             <!--Galeria de imagenes-->
             <div id="content2">
             <div id="carrusel">
@@ -381,7 +460,7 @@ $(document).ready(function() {
       <tr>
         <td>
    <!--      LISTADO DE SERVICIOS-->
-        <div align="center"><font size="1"><b><?php echo $cliente_detalle_servicios; ?>&nbsp;</b></font><icon class="icon-thumbs-up"></icon></div>
+        <div style="text-align: center"><font size="1"><b><?php echo $cliente_detalle_servicios; ?>&nbsp;</b></font><icon class="icon-thumbs-up"></icon></div>
         <?php
             foreach ($array_servicios as $servicio)
              {
@@ -393,10 +472,13 @@ $(document).ready(function() {
      <tr>
         <td>
 <!--MAPA DE LA UBICACION-->
-        <div align="center"><font size="1"><b><?php echo $cliente_detalle_ubicacion; ?>:</b></font><icon class="icon-map-marker"></icon></div> 
+        <div style=" text-align:center;"><font size="1"><b><?php echo $cliente_detalle_ubicacion; ?>:</b></font><icon class="icon-map-marker"></icon></div> 
         <div id="map_canvas" style="width:290px; height:290px"></div>
+        <button class="btn btn-info span4 boton-recorrido" >Calcular recorrido</button>
+        
         </td>
      </tr>
+     </tbody>
      </table>
     </div>
   </div>
@@ -471,9 +553,21 @@ $(document).ready(function() {
 
                 <?php  }?>
 
- 
-
-
-		
-
-        
+<!-- MODAL DEL CALCULO RECORRIDO-->
+<div class="modal hide" id="modal-recorrido" style="width:97%; left:22%; top:54%; ">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h3>Seleccione su ubicaci&oacute;n:</h3>
+  </div>
+  <div class="modal-body container-fluid">
+      <div class="row-fluid">
+      
+                  <div id="map_canvas_recorrido" class="span6" style=" height:400px;position:fixed;  overflow:hidden; float: left "></div>
+       
+                  <div id="directionsPanel" class="span6" style="height:100%;  float: right;"></div>
+       
+      </div>
+          
+  </div>
+    
+</div>
