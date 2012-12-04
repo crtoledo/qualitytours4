@@ -364,4 +364,10 @@ class UsuarioController extends AppController
             router::redirect("index/?l=en");
         }
     }
+    public function ingresart($leng)
+    {
+        $this->leng = $leng;
+        
+        
+    }
 }
