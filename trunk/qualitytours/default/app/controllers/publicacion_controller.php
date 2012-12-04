@@ -52,6 +52,8 @@ class PublicacionController extends AppController
            
                     $publicacion = new Publicacion(Input::post('publicacion'));
             
+                    $publicacion->detalle_pub = str_replace("'", '', $publicacion->detalle_pub);
+                    
                     if($publicacion->save())
                  {
                    Flash::success('Publicación ingresado satisfactoriamente');
