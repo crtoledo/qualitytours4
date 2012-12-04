@@ -96,7 +96,7 @@ reemplazo se uso 'errorVal'.
 <?php $id =  Auth::get('id');   ?>
 <?php echo Form::open('publicacion/ingresar/'.$leng) ?>
 <div >
-    <table class="table table-striped">
+    <table class="table table-bordered">
         
         <tr>
             <td><?php echo Form::text('publicacion.titulo_pub','class="titulo" placeholder="'.$publicacion_ingresar_titulo.'"')?></td> 
@@ -109,7 +109,7 @@ reemplazo se uso 'errorVal'.
     </table>
 </div>
 <br>
-<div align="center">
+<div align="center" >
     <table>
         <tr>
              <td><?php echo Form::submit(''.$publicacion_ingresar_boton.'','class="btn btn-submit boton" ') ?>&nbsp;</td>

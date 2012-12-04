@@ -4,6 +4,7 @@
 }
 body{
     background-color: #fdfdfd;
+    
     font-family: Arial, Helvetica;
 }
 #head {
@@ -146,7 +147,7 @@ hr, .hrcolor {
 .detalle_pub1{
     padding: 15px;
     padding-top: 0px;
-    text-align: justify
+    text-align: justify;
 }
 
 
