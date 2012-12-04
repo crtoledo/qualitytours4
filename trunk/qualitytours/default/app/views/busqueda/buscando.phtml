@@ -182,10 +182,14 @@ $string = str_replace("'", '', $string);
             data : {
                 string: <?php echo "'" . $string . "'"; ?>
             },            
-            url: '<?php echo PUBLIC_PATH; ?>ajax/busqueda_gral_c4.php',
+            url: '<?php  
+                         if ($leng=="es") echo PUBLIC_PATH."ajax/busqueda_gral_c4.php";
+                         else echo PUBLIC_PATH."ajax/busqueda_gral_c5.php"
+                    ?>',
             dataType: "json",
             success: function(data)
             {
+                
                 if (data != null && data.length > 0)
                 {
                     criterios_encontrados++;
