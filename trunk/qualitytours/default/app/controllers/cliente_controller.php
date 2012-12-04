@@ -284,98 +284,103 @@ class ClienteController extends AppController {
     //Funcion para poder renovar la solicitud o poder ver los datos del cliente y de la solicitud
 
     public function administrarsuscripcion() {
-        if (Auth::get("rol_usu") == "cliente") {
+        if (Auth::is_valid()) {
+            if (Auth::get("rol_usu") == "cliente") {
 
-            $datos_cliente = new cliente();
-            $id_cliente = Auth::get("id");
+                $datos_cliente = new cliente();
+                $id_cliente = Auth::get("id");
 
-            if ($datos_cliente->find_by_sql("select * from cliente where id_usu=" . $id_cliente)) {
-                //*********************************
-                //Se obtienen los datos del cliente
-                //*********************************
-                $this->nombre_cli = $datos_cliente->nombre_cli;
-                $this->nombre_usu = $datos_cliente->nombre_usu;
-                $this->rut_usu = $datos_cliente->rut_usu;
-                $this->rut_cli = $datos_cliente->rut_cli;
-                $this->nombre_usu = $datos_cliente->nombre_usu;
-                $this->giro_cli = $datos_cliente->giro_cli;
-                $this->telefono_cli = $datos_cliente->telefono_cli;
-                $this->tipo_plan = $datos_cliente->tipo_plan;
-                $this->ini_sus = $datos_cliente->fecha_ini_sus;
-                $this->fin_sus = $datos_cliente->fecha_fin_sus;
-                //*********************************
-                //Fin obtencion datos del cliente
-                //*********************************
-                //
+                if ($datos_cliente->find_by_sql("select * from cliente where id_usu=" . $id_cliente)) {
+                    //*********************************
+                    //Se obtienen los datos del cliente
+                    //*********************************
+                    $this->nombre_cli = $datos_cliente->nombre_cli;
+                    $this->nombre_usu = $datos_cliente->nombre_usu;
+                    $this->rut_usu = $datos_cliente->rut_usu;
+                    $this->rut_cli = $datos_cliente->rut_cli;
+                    $this->nombre_usu = $datos_cliente->nombre_usu;
+                    $this->giro_cli = $datos_cliente->giro_cli;
+                    $this->telefono_cli = $datos_cliente->telefono_cli;
+                    $this->tipo_plan = $datos_cliente->tipo_plan;
+                    $this->ini_sus = $datos_cliente->fecha_ini_sus;
+                    $this->fin_sus = $datos_cliente->fecha_fin_sus;
+                    //*********************************
+                    //Fin obtencion datos del cliente
+                    //*********************************
+                    //
                 //******************************************************************
-                //Se obtienen los datos de la solicitud aceptada asociada al cliente
-                //******************************************************************
-                $datos_solicitud = new solicitud();
-                $datos_solicitud->solicitud_aceptada($id_cliente); // obtengo los datos de la solicitud
+                    //Se obtienen los datos de la solicitud aceptada asociada al cliente
+                    //******************************************************************
+                    $datos_solicitud = new solicitud();
+                    $datos_solicitud->solicitud_aceptada($id_cliente); // obtengo los datos de la solicitud
 
-                $this->fecha_solicitud = $datos_solicitud->fecha_sol;
-                $this->observaciones = $datos_solicitud->observaciones_sol;
-                $this->id_solicitud = $datos_solicitud->id;
-                //******************************************************************
-                //Fin obtencion datos de la solicitud aceptada asociada al cliente
-                //******************************************************************     
-                //           
-                //**************************************
-                //Para poder mostar el boton de renovar
-                //**************************************
+                    $this->fecha_solicitud = $datos_solicitud->fecha_sol;
+                    $this->observaciones = $datos_solicitud->observaciones_sol;
+                    $this->id_solicitud = $datos_solicitud->id;
+                    //******************************************************************
+                    //Fin obtencion datos de la solicitud aceptada asociada al cliente
+                    //******************************************************************     
+                    //           
+                    //**************************************
+                    //Para poder mostar el boton de renovar
+                    //**************************************
 
-                date_default_timezone_set('America/Santiago');
-                //Se obtiene la fecha actual
-                $dia_actual = date("d");
-                $mes_actual = date("m");
-                $ano_actual = date("Y");
-                $comprobar = new solicitud(); // sirve para validar que no exista otra solicitud de renovacion
-                //Se obtiene la fecha del fin suscripcion
-                $fecha_fin_suscripcion = $datos_cliente->fecha_fin_sus;
+                    date_default_timezone_set('America/Santiago');
+                    //Se obtiene la fecha actual
+                    $dia_actual = date("d");
+                    $mes_actual = date("m");
+                    $ano_actual = date("Y");
+                    $comprobar = new solicitud(); // sirve para validar que no exista otra solicitud de renovacion
+                    //Se obtiene la fecha del fin suscripcion
+                    $fecha_fin_suscripcion = $datos_cliente->fecha_fin_sus;
 
-                //Paso el dia, mes y año para poder comprarlos despues
-                list($ano, $mes, $dia) = explode('-', $fecha_fin_suscripcion);
+                    //Paso el dia, mes y año para poder comprarlos despues
+                    list($ano, $mes, $dia) = explode('-', $fecha_fin_suscripcion);
 
-                //Se valida de que se cumpla las condiciones de fecha y de que no exista otra solicitud de renovacion
-                if ($ano == $ano_actual && $mes == $mes_actual && $dia_actual <= $dia && !$comprobar->solicitud_renovacion($id_cliente)) {
-                    // se se cumple las condiciones el boton puede ser mostrado
-                    $this->muestra_boton = "Si";
-                    $this->estado_sol = "1";
-                } else {
-                    $this->noexiste = "<center><b>Todavia  no cumple los requisitos</b></center>";
-                    $this->estado_sol = "1";
-                }
-                //******************
-                //Fin boton renovar
-                //******************
-                //
+                    //Se valida de que se cumpla las condiciones de fecha y de que no exista otra solicitud de renovacion
+                    if ($ano == $ano_actual && $mes == $mes_actual && $dia_actual <= $dia && !$comprobar->solicitud_renovacion($id_cliente)) {
+                        // se se cumple las condiciones el boton puede ser mostrado
+                        $this->muestra_boton = "Si";
+                        $this->estado_sol = "1";
+                    } else {
+                        $this->noexiste = "<center><b>Todavia  no cumple los requisitos</b></center>";
+                        $this->estado_sol = "1";
+                    }
+                    //******************
+                    //Fin boton renovar
+                    //******************
+                    //
                 //************************************************************
-                //Leyendas y panel de administracion de la nueva solicitud de 
-                //administracion, cuando el boton renovar no aparece
-                //************************************************************
+                    //Leyendas y panel de administracion de la nueva solicitud de 
+                    //administracion, cuando el boton renovar no aparece
+                    //************************************************************
 
-                $leyendas = new solicitud();
-                if ($leyendas->solicitud_renovacion($id_cliente)) {
-                    //Se obtienen los datos de la solicitud renovacion, para poder mostrar el panel de administracion de la misma
+                    $leyendas = new solicitud();
+                    if ($leyendas->solicitud_renovacion($id_cliente)) {
+                        //Se obtienen los datos de la solicitud renovacion, para poder mostrar el panel de administracion de la misma
 
-                    $this->panel_suscripcion_renovacion = $leyendas->tipo_sol;
-                    $this->estado_sol = $leyendas->estado_sol;
-                    $this->fecha_sol = $leyendas->fecha_sol;
-                    $this->observaciones_sol = $leyendas->observaciones_sol;
-                    $this->id_usu = $leyendas->id_usu;
-                    $this->mail_sol = $leyendas->mail_sol;
+                        $this->panel_suscripcion_renovacion = $leyendas->tipo_sol;
+                        $this->estado_sol = $leyendas->estado_sol;
+                        $this->fecha_sol = $leyendas->fecha_sol;
+                        $this->observaciones_sol = $leyendas->observaciones_sol;
+                        $this->id_usu = $leyendas->id_usu;
+                        $this->mail_sol = $leyendas->mail_sol;
+                    } else {
+                        //$this->existe ="<center><b>Ya tiene una solicitud de renovacion pendiente</b></center>";
+                    }
+                    //************************************************
+                    //Fin leyendas cuando el boton renovar no aparece
+                    //************************************************
                 } else {
-                    //$this->existe ="<center><b>Ya tiene una solicitud de renovacion pendiente</b></center>";
+                    Flash::info('No tiene suscripcion activa');
+                    Router::redirect("cliente/ingresarsolicitud");
                 }
-                //************************************************
-                //Fin leyendas cuando el boton renovar no aparece
-                //************************************************
             } else {
-                Flash::info('No tiene suscripcion activa');
-                Router::redirect("cliente/ingresarsolicitud");
+                Flash::info('No posee los privilegios necesarios');
+                Router::redirect("/");
             }
         } else {
-            Flash::info('No posee los privilegios necesarios');
+            Flash::info('Debe iniciar sesión');
             Router::redirect("/");
         }
     }
