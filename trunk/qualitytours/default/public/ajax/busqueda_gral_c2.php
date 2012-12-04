@@ -13,7 +13,8 @@ join ubicacion on cliente.id_usu = ubicacion.id_usu
 full join calificacion on cliente.id_usu = calificacion.cli_id_usu
 WHERE ubicacion.region_ubi ilike '%".$_REQUEST['string']."%' 
 GROUP BY cliente.id_usu, ubicacion.region_ubi, ubicacion.ciudad_ubi, cliente.visitas_cli 
-ORDER BY promedio desc, visitas";
+ORDER BY promedio desc, visitas
+limit 20";
 
 $resu = pg_query($conn, $string);
 $res = pg_fetch_all($resu);
