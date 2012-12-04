@@ -193,6 +193,7 @@ class ServicioController extends AppController
                 if($tipoPlan == "plus")
                 {
                     $cantidad = $servicio->count("conditions: id_usu=".Auth::get("id"));
+                    
                     if($cantidad > 14)
                     {
                         echo Flash::info("No puede publicar un servicio su plan superó el limite");
@@ -201,6 +202,7 @@ class ServicioController extends AppController
                     else
                     {
                          //SI HAY DATOS PARA INGRESAR SALVARLOS A LA BD ENTRA AL IF
+                       
                         if (Input::hasPost('servicio'))
                         {
                             $servicio = new Servicio(Input::post('servicio'));

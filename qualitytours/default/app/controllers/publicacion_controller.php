@@ -175,18 +175,19 @@ class PublicacionController extends AppController
             $contador = 0;
              foreach ($arr as $publicacion) 
              {
-               if($arr[$contador]->titulo_pub_eng == null && $arr[$contador]->detalle_pub_eng == null )
-               {
-                 $this->idpub[$contador] =  $arr[$contador]->id;
-                 $this->titulo[$contador] = $arr[$contador]->titulo_pub;
-                 $this->fecha[$contador]  = $arr[$contador]->fecha_pub;
-                 $contador++;
+              
+                 if($arr[$contador]->titulo_pub_eng == null && $arr[$contador]->detalle_pub_eng == null )
+                {
+                    $this->idpub[$contador] =  $arr[$contador]->id;
+                    $this->titulo[$contador] = $arr[$contador]->titulo_pub;
+                    $this->fecha[$contador]  = $arr[$contador]->fecha_pub;
+                    $contador++;
+
+                }
+                else
+                {
                    
-               }
-               else
-               {
-                   $this->cont= 0;
-               }
+                }
                  
               }
               $this->contador = $contador;
