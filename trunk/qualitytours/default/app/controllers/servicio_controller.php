@@ -123,6 +123,7 @@ class ServicioController extends AppController
                 
                 if($tipoPlan == "free")
                 {
+                    
                     $cantidad = $servicio->count("conditions: id_usu=".Auth::get("id"));
                     
                     if($cantidad > 1)
@@ -130,68 +131,21 @@ class ServicioController extends AppController
                         echo Flash::info("No puede publicar un servicio su plan superó el limite");
                         Router::redirect('/');
                     }
-                    else
-                    {
-                         //SI HAY DATOS PARA INGRESAR SALVARLOS A LA BD ENTRA AL IF
-                        if (Input::hasPost('servicio'))
-                        {
-                            $servicio = new Servicio(Input::post('servicio'));
-                            
-                            //SACAMOS LAS COMILLAS DEL TEXTO EN EL TEXTAREA (Detalle servicio)
-                            $servicio->detalle_ser = str_replace("'", '', $servicio->detalle_ser);
-                            
-                            if($servicio->save())
-                            {
-                                Flash::success('Servicio publicado satisfactoriamente');
-                                Input::delete();
-                                Router::redirect('/');
-                            }
-                            else
-                            {
-                                Flash::info('Error al publicar el servicio');
-                            }
-
-                        }           
-
-                        //Ingreso del servicio a la BD
-                    }
-                                   
+                      
                 }
-                if($tipoPlan == "normal")
+               if($tipoPlan == "normal")
                 {
+                     
                     $cantidad = $servicio->count("conditions: id_usu=".Auth::get("id"));
                     if($cantidad > 3)
                     {
                         echo Flash::info("No puede publicar un servicio su plan superó el limite");
                         Router::redirect('/');
-                    }
-                    else
-                    {
-                         //SI HAY DATOS PARA INGRESAR SALVARLOS A LA BD ENTRA AL IF
-                        if (Input::hasPost('servicio'))
-                        {
-                            $servicio = new Servicio(Input::post('servicio'));
-
-                            if($servicio->save())
-                            {
-                                Flash::success('Servicio publicado satisfactoriamente');
-                                Input::delete();
-                                Router::redirect('/');
-                            }
-                            else
-                            {
-                                Flash::info('Error al publicar el servicio');
-                            }
-
-                        }           
-
-                        //Ingreso del servicio a la BD
-                    }
-                        
-                    
+                    }  
                 }
-                if($tipoPlan == "plus")
+                 if($tipoPlan == "plus")
                 {
+                     
                     $cantidad = $servicio->count("conditions: id_usu=".Auth::get("id"));
                     
                     if($cantidad > 14)
@@ -199,93 +153,75 @@ class ServicioController extends AppController
                         echo Flash::info("No puede publicar un servicio su plan superó el limite");
                         Router::redirect('/');
                     }
-                    else
-                    {
-                         //SI HAY DATOS PARA INGRESAR SALVARLOS A LA BD ENTRA AL IF
-                       
+                    
+                }     
+             
+                  
+                   //carga a la base de datos
+              
                         if (Input::hasPost('servicio'))
                         {
                             $servicio = new Servicio(Input::post('servicio'));
-                            
-                             $nombre = $servicio->nombre_ser;
-                             $detalle = $servicio->detalle_ser;
-                             $precio  = $servicio->precio_ser;
-                             $tipoes  = $servicio->tipo_ser;
-                             $estado = $servicio->estado_ser;
-                             $visitas = $servicio->visitas_ser;
-                             $id_usu = $servicio->id_usu;
+                           
                              
-                            if($tipoes == "Cabaña-Motel")
+                            if($servicio->tipo_ser == "Cabaña-Motel")
                             {
-                                $tipoen = "cabin-motel";
+                                $servicio->tipo_ser_eng = "cabin-motel";
                             }
-                            if($tipoes == "Departamentos")
+                            if($servicio->tipo_ser == "Departamentos")
                             {
-                                $tipoen = "departments";
+                                $servicio->tipo_ser_eng = "departments";
                             }
-                            if($tipoes == "Estancia")
+                            if($servicio->tipo_ser == "Estancia")
                             {
-                                $tipoen = "residence";
+                                $servicio->tipo_ser_eng = "residence";
                             }
-                            if($tipoes == "Hospedaje Rural")
+                            if($servicio->tipo_ser == "Hospedaje Rural")
                             {
-                                $tipoen="rural lodging";
+                                $servicio->tipo_ser_eng="rural lodging";
                             }
-                            if($tipoes == "Hostal")
+                            if($servicio->tipo_ser == "Hostal")
                             {
-                                $tipoen = "hostel";
+                                $servicio->tipo_ser_eng = "hostel";
                             }
-                            if($tipoes == "Hosteria")
+                            if($servicio->tipo_ser == "Hosteria")
                             {
-                                $tipoen = "hosteria";
+                                $servicio->tipo_ser_eng = "hosteria";
                             }
-                            if($tipoes == "Termas")
+                            if($servicio->tipo_ser == "Termas")
                             {
-                                $tipoen = "hot spring";
+                                $servicio->tipo_ser_eng = "hot spring";
                             }
-                            if($tipoes == "Otro")
+                            if($servicio->tipo_ser == "Otro")
                             {
-                                $tipoen = "other";
+                               $servicio->tipo_ser_eng = "other";
                             }
-                            if($tipoes == "Hostel" || $tipoes == "Bed & Breakfast" || $tipoes == "Apart hotel"|| $tipoes=="Camping"|| $tipoes == "Lodge" || $tipoes == "Resort")
+                            if($servicio->tipo_ser == "Hotel" || $servicio->tipo_ser == "Bed & Breakfast" || $servicio->tipo_ser == "Apart hotel"|| $servicio->tipo_ser =="Camping"|| $servicio->tipo_ser == "Lodge" || $servicio->tipo_ser == "Resort")
                             {
-                                $tipoen = $tipoes;
+                                $servicio->tipo_ser_eng = $servicio->tipo_ser;
                             }
                             
-                            if($servicio->sql("insert into servicio (id_usu, precio_ser, detalle_ser, nombre_ser,estado_ser,visitas_ser,tipo_ser,tipo_ser_eng) VALUES (".$id_usu.",'".$precio."','".$detalle."','".$nombre."','".$estado."',".$visitas.",'".$tipoes."','".$tipoen."')"))
+                            
+                            if($servicio->save())
                             {
                                 Flash::success('Servicio publicado satisfactoriamente');
                                 Input::delete();
                                 Router::redirect('/');
-                                
                             }
                             else
                             {
-                                echo flash::error("error");
+                                Flash::info('Error al publicar el servicio');
                             }
-//                            if($servicio->save())
-//                            {
-//                                Flash::success('Servicio publicado satisfactoriamente');
-//                                Input::delete();
-//                                Router::redirect('/');
-//                            }
-//                            else
-//                            {
-//                                Flash::info('Error al publicar el servicio');
-//                            }
 
                         }           
 
-                        //Ingreso del servicio a la BD
-                    }
-                        
                     
-                }
                 
                 
+            } 
                 
                    
-            } 
+            
         }   
         
         
