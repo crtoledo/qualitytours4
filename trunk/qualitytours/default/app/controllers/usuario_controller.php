@@ -366,7 +366,25 @@ class UsuarioController extends AppController
     }
     public function ingresart($leng)
     {
-        $this->leng = $leng;
+        if(Auth::is_valid())
+        {
+           if(Auth::get("rol_usu") == "administrador")
+           {
+               $this->leng = $leng;
+           }
+           else
+           {
+               echo Flash::info("No posee los privilegios necesarios");
+                Router::redirect("/");
+           }
+        }
+        else
+        {
+             echo Flash::info("Debe iniciar Sesión");
+             Router::redirect("/");
+        }
+        
+        
         
         
     }
