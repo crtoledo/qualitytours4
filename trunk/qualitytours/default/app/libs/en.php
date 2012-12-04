@@ -102,4 +102,13 @@ $servicio_ingresar_tit = "Title";
 $servicio_ingresar_valnom = "Add name service";
 $servicio_ingresarvalpre = "Please enter your price";
 
+//variables de ubicacion/ingresar
+$ubicacion_ingresar_valcalle = "Please enter your street";
+$ubicacion_ingresar_valciudad = "Please enter your city";
+$ubicacion_ingresar_titulo1 = "Add your direction ";
+$ubicacion_ingresar_titulo2 = "Indicate the location of your destination";
+$ubicacion_ingresar_ubi = "Enter a location...";
+$ubicacion_ingresar_submit = "Add Ubication";
+$ubicacion_ingresar_link = "Enter your location by entering a geographic";
+
 ?>

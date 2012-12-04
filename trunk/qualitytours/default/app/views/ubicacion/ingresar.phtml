@@ -3,6 +3,16 @@
 </script>
 
 <?php
+//Código para el idioma
+    if($leng == "en")
+    {
+        include_once APP_PATH.'libs/en.php';
+    }
+    else
+    {
+        include_once APP_PATH.'libs/es.php';
+    }
+    
 //Incluimos el Geocomplete plugin Jquery
 echo Tag::js('jquery.geocomplete.min');
 ?>
@@ -50,12 +60,12 @@ echo Tag::js('jquery.geocomplete.min');
            
            if ($(".ciudad").val() == '')
            {
-               alert('Ingrese una ciudad')
+               alert('<?php echo $ubicacion_ingresar_valciudad; ?>')
                return false;
            }
            if ($(".direccion").val() == '')
            {
-               alert('Ingrese una calle')
+               alert('<?php echo $ubicacion_ingresar_valcalle; ?>')
                return false;
            }
            
@@ -68,7 +78,7 @@ echo Tag::js('jquery.geocomplete.min');
 <style type="text/css">
   
   .map_canvas:after{
-  content: "Ingrese una dirección para verla en el mapa";
+  content: "<?php echo $ubicacion_ingresar_titulo1; ?>";
   padding-top: 170px;
   display: block;
   text-align: center;
@@ -81,11 +91,11 @@ echo Tag::js('jquery.geocomplete.min');
 <div align="center">
     <table>
         <tr>
-            <td>Centro turístico:&nbsp;</td>
+            <td><?php echo $usuario_buscar_centro ?>:&nbsp;</td>
             <td><?php echo $nombre_cliente; ?></td>
         </tr>
     </table>
-    <br><h6>Indique la ubicación de su destino turístico</h6>
+    <br><h6><?php echo $ubicacion_ingresar_titulo2; ?></h6>
         
     <?php echo Form::open('ubicacion/ingresar') ?>
         <table>
@@ -94,8 +104,8 @@ echo Tag::js('jquery.geocomplete.min');
                     
                 </td>
                 <td>
-                   <input id="geocomplete" type="text" placeholder="Ingrese una ubicación..." value="" class="span6"/><br>
-                   <?php echo Form::submit('Ingresar ubicación', 'class="btn-ingresar btn btn-warning"')?><hr>
+                   <input id="geocomplete" type="text" placeholder="<?php echo $ubicacion_ingresar_ubi; ?>" value="" class="span6"/><br>
+                   <?php echo Form::submit(''.$ubicacion_ingresar_submit.'', 'class="btn-ingresar btn btn-warning"')?><hr>
                 </td>
             </tr>
         </table>
@@ -105,7 +115,7 @@ echo Tag::js('jquery.geocomplete.min');
     <div class="map_canvas" style="width:400px; height:400px"></div>
         
     <?php
-        echo Html::link("ubicacion/ingresar_mapa", 'Ingrese su ubicación indicando un punto geográfico');
+        echo Html::link("ubicacion/ingresar_mapa", ''.$ubicacion_ingresar_link.'');
   
         echo Form::hidden('ubicacion.latitud_ubi','class="latitud"');
         echo Form::hidden('ubicacion.longitud_ubi','class="longitud"');

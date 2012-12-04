@@ -9,8 +9,9 @@ class UbicacionController extends AppController
         
     }
     
-    public function ingresar()
+    public function ingresar($leng)
     {
+        $this->leng = $leng;
         if (Auth::is_valid())
         {
             if(Auth::get('rol_usu') == 'cliente')

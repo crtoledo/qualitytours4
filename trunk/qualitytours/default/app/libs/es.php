@@ -103,5 +103,15 @@ $servicio_ingresar_tit = "T&iacute;tulo del servicio";
 $servicio_ingresar_valnom = "Ingrese nombre de servicio";
 $servicio_ingresarvalpre = "Ingrese precio unitario del servicio";
 
+//variables de ubicacion/ingresar
+$ubicacion_ingresar_valcalle = "Ingrese una calle";
+$ubicacion_ingresar_valciudad = "Ingrese una ciudad";
+$ubicacion_ingresar_titulo1 = "Indique una dirección del su centro turístico";
+$ubicacion_ingresar_titulo2 = "Indique la ubicación de su destino turístico";
+$ubicacion_ingresar_ubi = "Ingrese una ubicación...";
+$ubicacion_ingresar_submit = "Ingresar Ubicación";
+$ubicacion_ingresar_link = "Ingrese su ubicación indicando un punto geográfico";
+
+
 
 ?>
