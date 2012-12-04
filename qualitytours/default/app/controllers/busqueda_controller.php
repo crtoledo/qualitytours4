@@ -31,9 +31,9 @@ class BusquedaController extends AppController
     {
         
     }
-    public function buscando()
+    public function buscando($leng)
     {
-        
+        $this->leng = $leng;
         
         if (Input::hasPost('string'))
         {
