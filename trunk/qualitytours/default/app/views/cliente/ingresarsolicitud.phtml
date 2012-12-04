@@ -4,15 +4,8 @@
     echo Tag::js("jquery/jquery.Rut.min");
     ?>
 </div> 
-<script>
-    $(document).ready(function () {
-       
-       
-    });
-</script>
 
 <script type="text/javascript">
-    //var array_categorias = [];
     var cats;
     
     //Validación con jquery
@@ -20,7 +13,7 @@
     $(document).ready(function () {
         var rutreg = /^\d{1,2}\.\d{3}\.\d{3}[-][0-9kK]{1}$/;
         
-         $(".boton").click(function (){
+        $(".boton").click(function (){
             
             //SE LIMPIA ARRAY CATEGORIAS
             cats=' ';
@@ -36,18 +29,16 @@
             //enviar al controlador
             //cats=array_categorias[0];
             $(".categorias_string").val(cats);
-            
-            
-            
+      
             $(".errorVal").remove();
             if( $(".nombre").val() == "" ){
                 $(".nombre").focus().after("<span class='errorVal'>Ingrese su nombre</span>");
                 return false;
-            }else if( $(".rut").val() == ""){
-                $(".rut").focus().after("<span class='errorVal'>Ingrese un rut con puntos y guión</span>");
-                return false;
             }else if( $(".rutp").val() == ""){
-                $(".rutp").focus().after("<span class='errorVal'>Ingrese un rut con puntos y guión</span>");
+                $(".rutp").focus().after("<span class='errorVal'>Ingrese un rut valido</span>");
+                return false;
+            }else if( $(".rut").val() == ""){
+                $(".rut").focus().after("<span class='errorVal'>Ingrese un rut valido</span>");
                 return false;
             }else if(!$.Rut.validar($(".rut").val()) ){
                 $(".rut").focus().after("<span class='errorVal'>Ingrese un rut valido</span>");
@@ -65,9 +56,6 @@
                 $("#acepta").focus().after("<span class='errorVal'><?php echo "Debe aceptar los terminos del servicio"; ?></span>");
                 return false;
             }
-            
-            
-        
         });
 
         //Borrar mensaje de error si el usuario a llenado el campo
@@ -92,7 +80,7 @@
         //});
 
         //Borrar el mensaje de error si el usuario ingresa un rut con formato válido
-        $(".rut").keyup(function()
+        $(".rutp").keyup(function()
         {   
             if( $(this).val() != "" && rutreg.test($(this).val()))
             {
@@ -101,7 +89,7 @@
             }
         });
         //Borrar el mensaje de error si el usuario ingresa un rut con formato válido
-        $(".rutp").keyup(function()
+        $(".rut").keyup(function()
         {   
             if( $(this).val() != "" && rutreg.test($(this).val()))
             {
@@ -111,25 +99,16 @@
         });        
         
         //Borrar el mensaje de error si el usuario ingresa un rut con formato válido 
-        $(".rut").Rut({
-            on_error: function(){  $(".rut").focus().after("<span class='errorVal'>Rut invalido</span>"); return false; },
-            format_on: 'keyup'
-        });
-    
         $(".rutp").Rut({
             on_error: function(){  $(".rutp").focus().after("<span class='errorVal'>Rut invalido</span>"); return false; },
             format_on: 'keyup'
         });
-
-        $(".rut").keyup(function()
-        {
-            if( $(".rut").val() != "" && rutreg.test($(".rut").val()))
-            {
-                $(".errorVal").fadeOut();
-                return false;
-            }
-        });
     
+        $(".rut").Rut({
+            on_error: function(){  $(".rut").focus().after("<span class='errorVal'>Rut invalido</span>"); return false; },
+            format_on: 'keyup'
+        });
+
         $(".rutp").keyup(function()
         {
             if( $(".rutp").val() != "" && rutreg.test($(".rutp").val()))
@@ -137,12 +116,16 @@
                 $(".errorVal").fadeOut();
                 return false;
             }
-            
-            
-            
         });
-        
     
+        $(".rut").keyup(function()
+        {
+            if( $(".rut").val() != "" && rutreg.test($(".rut").val()))
+            {
+                $(".errorVal").fadeOut();
+                return false;
+            } 
+        });
     });
 </script>
 
@@ -155,24 +138,24 @@ reemplazo se uso 'errorVal'.
 <style>
     .errorVal{
         background-color: #BC1010;
-        padding: 6px 12px;
+        padding: 1px 2px;
         border-radius: 4px;
         color: white;
-        font-weight: bold;
-        margin-left: 16px;
-        margin-top: 6px;
+        /*        font-weight: bold;*/
+        margin-left: -330px;
+        margin-top: 20px;
         position: absolute;
     }
-    .errorVal:before{ /* Este es un truco para crear una flechita */
-        content: '';
-        border-top: 8px solid transparent;
-        border-bottom: 8px solid transparent;
-        border-right: 8px solid #BC1010;
-        border-left: 8px solid transparent;
-        left: -16px;
-        position: absolute;
-        top: 5px;
-    }
+    /*    .errorVal:before{  Este es un truco para crear una flechita 
+            content: '';
+            border-top: 8px solid transparent;
+            border-bottom: -18px solid transparent;
+            border-right: 8px solid #BC1010;
+            border-left: 180px solid transparent;
+            left: -28px;
+            position: absolute;
+            top: 25px;
+        }*/
 </style>
 
 <br>
@@ -183,153 +166,183 @@ reemplazo se uso 'errorVal'.
         <table>
             <tr>
                 <td>
-                    <div aling="center">
-                        <h4><center> Ingrese los datos del centro turistico</center></h4>
-                        <table class="table table-bordered">
-                            <?php $data = array('free' => 'Free', 'normal' => 'Normal', 'plus' => 'Plus'); ?>
+                    <h4><center> Ingrese los datos del centro turistico</center></h4>
+                    <table class="table table-bordered">
+                        <?php $data = array('free' => 'Free', 'normal' => 'Normal', 'plus' => 'Plus'); ?>
 
-                            <?php echo Form::open('cliente/ingresarsolicitud') ?>
-                            <tr>
-                                <td>Nombre de usuario:&nbsp;</td>
-                                <td><?php echo Auth::get('username_usu') ?></td>
-                            </tr>        
-                            <tr>
-                                <td>Nombre centro turistico:&nbsp;</td>
-                                <td><?php echo Form::text('cliente.nombre_cli', "class='input-medium nombre' placeholder='Nombre cliente'") ?></td>
-                            </tr>
-                            <tr>
-                                <td>Rut privado:&nbsp;</td>
-                                <td><?php echo Form::text('cliente.rut_usu', "class='input-medium rutp' placeholder='ej: 6.765.223-1' rutp") ?></td>
-                            </tr>
-                            <tr>
-                                <td>Rut comercial:&nbsp;</td>
-                                <td><?php echo Form::text('cliente.rut_cli', "class='input-medium rut' placeholder='ej: 6.765.223-1' rut") ?></td>
-                            </tr>
-                            <tr>
-                                <td>Giro:&nbsp;</td>
-                                <td><?php echo Form::text('cliente.giro_cli', "class='input-medium giro' ") ?></td>
-                            </tr>
-                            <tr>
-                                <td>Telefono comercial:&nbsp;</td>
-                                <td><?php echo Form::text('cliente.telefono_cli', "class='input-medium telefono'") ?></td>
-                            </tr>
-                            <tr>
-                                <td>Seleccione el plan:&nbsp;</td>
-                                <td><?php echo Form::select('cliente.tipo_plan', $data, "class='span2'") ?></td>
-                            </tr>
-                            <tr>
-                                <td align="right" colspan="2">He leido las condiciones del servicio y las acepto&nbsp;<?php echo Form::check('acepta', 'checkValue') ?></td>
-                            </tr>
-                        </table>
-                    </div>
+                        <?php echo Form::open('cliente/ingresarsolicitud') ?>
+                        <tr>
+                            <td>Nombre de usuario:&nbsp;</td>
+                            <td><?php echo Auth::get('username_usu') ?></td>
+                        </tr>        
+                        <tr>
+                            <td>Nombre centro turistico:&nbsp;</td>
+                            <td><?php echo Form::text('cliente.nombre_cli', "class='input-medium nombre' placeholder='Nombre cliente'") ?></td>
+                        </tr>
+                        <tr>
+                            <td>Rut privado:&nbsp;</td>
+                            <td><?php echo Form::text('cliente.rut_usu', "class='input-medium rutp' placeholder='ej: 6.765.223-1' rutp") ?></td>
+                        </tr>
+                        <tr>
+                            <td>Rut comercial:&nbsp;</td>
+                            <td><?php echo Form::text('cliente.rut_cli', "class='input-medium rut' placeholder='ej: 6.765.223-1' rut") ?></td>
+                        </tr>
+                        <tr>
+                            <td>Giro:&nbsp;</td>
+                            <td><?php echo Form::text('cliente.giro_cli', "class='input-medium giro' ") ?></td>
+                        </tr>
+                        <tr>
+                            <td>Telefono comercial:&nbsp;</td>
+                            <td><?php echo Form::text('cliente.telefono_cli', "class='input-medium telefono'") ?></td>
+                        </tr>
+                        <tr>
+                            <td>Seleccione el plan:&nbsp;</td>
+                            <td><?php echo Form::select('cliente.tipo_plan', $data, "class='span2'") ?></td>
+                        </tr>
+                        <tr>
+                            <td align="right" colspan="2">He leido las condiciones del servicio y las acepto&nbsp;<?php echo Form::check('acepta', 'checkValue') ?></td>
+                        </tr>
+                    </table>
                 </td>
                 <td>
                     &nbsp;&nbsp;&nbsp;&nbsp
                 </td>
 
                 <td>
-                    <div aling="center">
-                        <h4> <center> Seleccione sus categorias </center> </h4>
-                        <table>
-                            <tr>
-                                <td>Lugares: &nbsp;</td>
-                                <td>
-                                    <div  class="btn-group" data-toggle="buttons-checkbox">
-                                        <button type="button" class="btn btn-info btn-small categoria" name="Playa" value="Playa">Playa</button>
-                                        <button type="button" class="btn btn-info btn-small categoria" name="Lago" value="Lago">Lago</button>
-                                        <button type="button" class="btn btn-info btn-small categoria" name="Rio" value="Río">Río</button>
-                                        <button type="button" class="btn btn-info btn-small categoria" name="Piscina" value="Piscina">Piscina</button>
-                                    </div>    
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>&nbsp;</td>
-                            </tr>
-                            <tr>
-                                <td>Clima: &nbsp;</td>
-                                <td>
-                                    <div  class="btn-group" data-toggle="buttons-checkbox">
-                                        <button type="button" class="btn btn-info btn-small categoria" name="Calido" value="Calido">Calido</button>
-                                        <button type="button" class="btn btn-info btn-small categoria" name="Nieve" value="Nieve">Nieve</button>
-                                        <button type="button" class="btn btn-info btn-small categoria" name="Lluviso" value="Lluviso">Lluviso</button>
-                                        <button type="button" class="btn btn-info btn-small categoria" name="Templado" value="Piscina">Templado</button>
-                                    </div>    
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>&nbsp;</td>
-                            </tr>
-                            <tr>
-                                <td>Social: &nbsp;</td>
-                                <td>
-                                    <div  class="btn-group" data-toggle="buttons-checkbox">
-                                        <button type="button" class="btn btn-info btn-small categoria" name="Tercera" value="Tercera">Tercera edad</button>
-                                        <button type="button" class="btn btn-info btn-small categoria" name="Juvenil" value="Juvenil">Juvenil</button>
-                                        <button type="button" class="btn btn-info btn-small categoria" name="Familiar" value="Familiar">Familiar</button>
-                                    </div>    
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>&nbsp;</td>
-                            </tr>
-                            <tr>
-                                <td>Deportes: &nbsp;</td>
-                                <td>
-                                    <div  class="btn-group" data-toggle="buttons-checkbox">
-                                        <button type="button" class="btn btn-info btn-small categoria" name="Terrestres" value="Terrestres">Terrestres</button>
-                                        <button type="button" class="btn btn-info btn-small categoria" name="Extremos" value="Extremos">Extremos</button>
-                                        <button type="button" class="btn btn-info btn-small categoria" name="Acuaticos" value="Acuáticos">Acuáticos</button>
-                                        <button type="button" class="btn btn-info btn-small categoria" name="Aventura" value="Aventura">Aventura</button>
-                                        <button type="button" class="btn btn-info btn-small categoria" name="Fitness" value="Fitness">Fitness</button>
-                                    </div>    
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>&nbsp;</td>
-                            </tr>
-<!--                            <tr>
-                                <td>Cultural:&nbsp;</td>
-                                <td>
-                                    <table>
-                                        <tr>
-                                            <td>
-                                                <div  class="btn-group" data-toggle="buttons-checkbox">
-                                                    <button type="button" class="btn btn-info btn-small" name="Historico" value="Histórico">Histórico</button>
-                                                    <button type="button" class="btn btn-info btn-small" name="Etnico" value="Étnico">Étnico</button>
-                                                    <button type="button" class="btn btn-info btn-small" name="Folklore" value="Folklore">Folklore</button>
-                                                    <button type="button" class="btn btn-info btn-small" name="Religioso" value="Religioso">Religioso</button>
-                                                </div> 
-                                            </td><td>
-                                                <div  class="btn-group" data-toggle="buttons-checkbox">
-                                                    <button type="button" class="btn btn-info btn-small" name="Festivo" value="Festivo">Festivo</button>
-                                                    <button type="button" class="btn btn-info btn-small" name="Literario" value="Literario">Literario</button>
-                                                    <button type="button" class="btn btn-info btn-small" name="Gastronomico" value="Gastronómico">Gastronomico</button>
-                                                    <button type="button" class="btn btn-info btn-small" name="Shopping" value="Shopping">Shopping</button>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </td>
-                            </tr>-->
-                        </table>
-                    </div>
+                    <h4> <center> Seleccione sus categorias </center> </h4>
+                    <table>
+                        <tr>
+                            <td>Lugares: &nbsp;</td>
+                            <td>
+                                <div  class="btn-group" data-toggle="buttons-checkbox">
+                                    <button type="button" class="btn btn-info btn-small categoria" name="Playa" value="Playa">Playa</button>
+                                    <button type="button" class="btn btn-info btn-small categoria" name="Lago" value="Lago">Lago</button>
+                                    <button type="button" class="btn btn-info btn-small categoria" name="Rio" value="Río">Río</button>
+                                    <button type="button" class="btn btn-info btn-small categoria" name="Piscina" value="Piscina">Piscina</button>
+                                </div>    
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td>Clima: &nbsp;</td>
+                            <td>
+                                <div  class="btn-group" data-toggle="buttons-checkbox">
+                                    <button type="button" class="btn btn-info btn-small categoria" name="Calido" value="Calido">Calido</button>
+                                    <button type="button" class="btn btn-info btn-small categoria" name="Nieve" value="Nieve">Nieve</button>
+                                    <button type="button" class="btn btn-info btn-small categoria" name="Lluviso" value="Lluviso">Lluviso</button>
+                                    <button type="button" class="btn btn-info btn-small categoria" name="Templado" value="Piscina">Templado</button>
+                                </div>    
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td>Social: &nbsp;</td>
+                            <td>
+                                <div  class="btn-group" data-toggle="buttons-checkbox">
+                                    <button type="button" class="btn btn-info btn-small categoria" name="Tercera" value="Tercera">Tercera edad</button>
+                                    <button type="button" class="btn btn-info btn-small categoria" name="Juvenil" value="Juvenil">Juvenil</button>
+                                    <button type="button" class="btn btn-info btn-small categoria" name="Familiar" value="Familiar">Familiar</button>
+                                </div>    
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td>Deportes: &nbsp;</td>
+                            <td>
+                                <div  class="btn-group" data-toggle="buttons-checkbox">
+                                    <button type="button" class="btn btn-info btn-small categoria" name="Terrestres" value="Terrestres">Terrestres</button>
+                                    <button type="button" class="btn btn-info btn-small categoria" name="Extremos" value="Extremos">Extremos</button>
+                                    <button type="button" class="btn btn-info btn-small categoria" name="Acuaticos" value="Acuáticos">Acuáticos</button>
+                                    <button type="button" class="btn btn-info btn-small categoria" name="Aventura" value="Aventura">Aventura</button>
+                                    <button type="button" class="btn btn-info btn-small categoria" name="Fitness" value="Fitness">Fitness</button>
+                                </div>    
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td>Cultural: &nbsp;</td>
+                            <td>
+                                <div  class="btn-group" data-toggle="buttons-checkbox">
+                                    <button type="button" class="btn btn-info btn-small categoria" name="Historico" value="Histórico">Histórico</button>
+                                    <button type="button" class="btn btn-info btn-small categoria" name="Festivo" value="Festivo">Festivo</button>
+                                    <button type="button" class="btn btn-info btn-small categoria" name="Gastronomico" value="Gastronómico">Gastronómico</button>
+                                    <button type="button" class="btn btn-info btn-small categoria" name="Shopping" value="Shopping">Shopping</button>
+                                    <button type="button" class="btn btn-info btn-small categoria" name="Folklore" value="Folklore">Folklore</button>
+                                </div>    
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td>Tecnología: &nbsp;</td>
+                            <td>
+                                <div  class="btn-group" data-toggle="buttons-checkbox">
+                                    <button type="button" class="btn btn-info btn-small categoria" name="WiFi" value="WiFi">WiFi</button>
+                                    <button type="button" class="btn btn-info btn-small categoria" name="TV-Cable" value="TV-Cable">TV-Cable</button>
+                                    <button type="button" class="btn btn-info btn-small categoria" name="GTelevision" value="Televisión">Televisión</button>
+                                    <button type="button" class="btn btn-info btn-small categoria" name="Radio" value="Radio">Radio</button>
+                                </div>    
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td>Servicios: &nbsp;</td>
+                            <td>
+                                <div  class="btn-group" data-toggle="buttons-checkbox">
+                                    <button type="button" class="btn btn-info btn-small categoria" name="Calefaccion" value="Calefacción">Calefacción</button>
+                                    <button type="button" class="btn btn-info btn-small categoria" name="Baños" value="Baños individuales">Baños individuales</button>
+                                    <button type="button" class="btn btn-info btn-small categoria" name="Duchas" value="Duchas">Duchas</button>
+                                    <button type="button" class="btn btn-info btn-small categoria" name="DuchasI" value="Duchas individuales">Duchas individuales</button>
+                                </div>    
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp</td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp</td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp</td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp</td>
+                            
+                        </tr>
+                        <tr>
+                            <td>&nbsp</td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp</td>
+                        </tr>
+                        
+                    </table>
                 </td>
             </tr>
         </table>
-
-
-
     </div>
+
     <div align="center">
         <table>
             <tr>
-                
+
                 <td><?php echo Form::submit('Enviar solicitud', 'class="btn btn-submit btn-success boton"') ?>&nbsp;</td>
                 <td><?php echo Form::reset('Reiniciar', 'class="btn btn-danger"') ?></td>
             </tr>         
         </table>
     </div>
-    <?php echo Form::hidden('categorias','class="categorias_string"'); ?>
+    <?php echo Form::hidden('categorias', 'class="categorias_string"'); ?>
     <?php echo Form::hidden('cliente.id', null, Auth::get('id')); ?>
     <?php echo Form::hidden('cliente.username_usu', null, Auth::get('username_usu')); ?>
     <?php echo Form::hidden('cliente.visitas_cli', null, 0); ?>
