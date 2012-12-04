@@ -131,9 +131,13 @@ echo Tag::js("nicedit/nicEdit");
         </table>
     </div>
     <div align="center">
+   
+        
+        
     <?php echo Form::hidden('servicio.estado_ser','','TRUE')?>
     <?php echo Form::hidden('servicio.visitas_ser','',0)?>
     <?php echo Form::hidden('servicio.id_usu','',Auth::get('id'))?>
+        
     <table>
         <tr>
             <td><?php echo Form::submit(''.$servicio_ingresar_submit.'','class="btn btn-submit boton"') ?>&nbsp;</td>
