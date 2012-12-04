@@ -206,17 +206,73 @@ class ServicioController extends AppController
                         if (Input::hasPost('servicio'))
                         {
                             $servicio = new Servicio(Input::post('servicio'));
-
-                            if($servicio->save())
+                            
+                             $nombre = $servicio->nombre_ser;
+                             $detalle = $servicio->detalle_ser;
+                             $precio  = $servicio->precio_ser;
+                             $tipoes  = $servicio->tipo_ser;
+                             $estado = $servicio->estado_ser;
+                             $visitas = $servicio->visitas_ser;
+                             $id_usu = $servicio->id_usu;
+                             
+                            if($tipoes == "Cabaña-motel")
+                            {
+                                $tipoen = "cabin-motel";
+                            }
+                            if($tipoes == "Departamentos")
+                            {
+                                $tipoen = "departments";
+                            }
+                            if($tipoes == "Estancia")
+                            {
+                                $tipoen = "residence";
+                            }
+                            if($tipoes == "Hospedaje Rural")
+                            {
+                                $tipoen="rural lodging";
+                            }
+                            if($tipoes == "Hostal")
+                            {
+                                $tipoen = "hostel";
+                            }
+                            if($tipoes == "Hosteria")
+                            {
+                                $tipoen = "hosteria";
+                            }
+                            if($tipoes == "Termas")
+                            {
+                                $tipoen = "hot spring";
+                            }
+                            if($tipoes == "Otro")
+                            {
+                                $tipoen = "other";
+                            }
+                            if($tipoes == "Hostel" || $tipoes == "Bed & Breakfast" || $tipoes == "Apart hotel"|| $tipoes=="Camping"|| $tipoes == "Lodge" || $tipoes == "Resort")
+                            {
+                                $tipoen = $tipoes;
+                            }
+                            
+                            if($servicio->sql("insert into servicio (id_usu, precio_ser, detalle_ser, nombre_ser,estado_ser,visitas_ser,tipo_ser,tipo_ser_eng) VALUES (".$id_usu.",'".$precio."','".$detalle."','".$nombre."','".$estado."',".$visitas.",'".$tipoes."','".$tipoen."')"))
                             {
                                 Flash::success('Servicio publicado satisfactoriamente');
                                 Input::delete();
                                 Router::redirect('/');
+                                
                             }
                             else
                             {
-                                Flash::info('Error al publicar el servicio');
+                                echo flash::error("error");
                             }
+//                            if($servicio->save())
+//                            {
+//                                Flash::success('Servicio publicado satisfactoriamente');
+//                                Input::delete();
+//                                Router::redirect('/');
+//                            }
+//                            else
+//                            {
+//                                Flash::info('Error al publicar el servicio');
+//                            }
 
                         }           
 
