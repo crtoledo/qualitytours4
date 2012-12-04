@@ -46,8 +46,8 @@
 </head>
 <body>
    <div class="container" >
-    <div id='content'   >
-        <div align="center">
+    <div id='content' style=" background-color: #fbffff; height: 100%; min-height: 100%;">
+        <div class="div-logo" align="center" >
     <?php 
     $url =  $_SERVER['REQUEST_URI'];
     //devuelve los 2 ultimos caracteres de la url si es igual a en se utiliza las variables en inglés
@@ -66,7 +66,7 @@
     
 
 <!-- Partial del menu-->
-   <div> <?php View::partial('kumbia/menuprincipal') ?></div> 
+   <div > <?php View::partial('kumbia/menuprincipal') ?></div> 
           
         <!--Muestra la pagina correspondiente (vista)-->
        
@@ -77,7 +77,7 @@
     
         
     </div>
-        <div><?php View::partial('kumbia/footer') ?> </div>
+        <div ><?php View::partial('kumbia/footer') ?> </div>
    </div>
    
      
