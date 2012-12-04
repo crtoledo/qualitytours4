@@ -23,7 +23,7 @@ class PublicacionController extends AppController
             //verifica si el rol pertenece como corresponde
             else
             {
-                 if(Auth::get('rol_usu') != 'administrador' && Auth::get('rol_usu') != 'cliente' )
+                 if(Auth::get('rol_usu') != 'administrador' && Auth::get('rol_usu') != 'cliente' && Auth::get('rol_usu') != 'traductor' )
                 {
                     Flash::info('No posee los privilegios necesarios');
 		    Router::redirect("/");
@@ -156,6 +156,41 @@ class PublicacionController extends AppController
             }
                    
         }
+    }
+    public function traduct($leng)
+    {
+        $this->leng = $leng;
+        //buscar publicaciones que no tengan traduccion:
+        $publicacion = new Publicacion();
+         if ($publicacion->count("conditions: estado_pub='t'") == 0) 
+          {
+            $this->cont = 0;
+          }
+        if ($publicacion->count("conditions: estado_pub='t'") > 0) 
+         {
+            $this->cont = 1;
+            //buscando comentarios:
+            $arr = $publicacion->find();
+            $contador = 0;
+             foreach ($arr as $publicacion) 
+             {
+               if($arr[$contador]->titulo_pub_eng == null && $arr[$contador]->detalle_pub_eng == null )
+               {
+                 $this->idpub[$contador] =  $arr[$contador]->id;
+                 $this->titulo[$contador] = $arr[$contador]->titulo_pub;
+                 $this->fecha[$contador]  = $arr[$contador]->fecha_pub;
+                 $contador++;
+                   
+               }
+               else
+               {
+                   $this->cont= 0;
+               }
+                 
+              }
+              $this->contador = $contador;
+            
+         }
     }
     
             

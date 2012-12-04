@@ -1,0 +1,46 @@
+<?php
+//Código para el idioma
+    if($leng == "en")
+    {
+        include_once APP_PATH.'libs/en.php';
+    }
+    else
+    {
+        include_once APP_PATH.'libs/es.php';
+    }
+    View::content();
+?>
+
+<div align="center"><h1>Traducir Publicaciones</h1></div>
+
+<?php 
+    if($cont == 0)
+    {
+        echo "<b>No existen publicaciones sin traductir</b>";
+    }
+        if($cont == 1)
+        { ?>  
+        
+            <table class="table table-bordered">
+                <tr>
+                    <td>Id</td>
+                    <td>Titulo</td>
+                    <td>Fecha</td>
+                    <td>Acceso</td>
+                </tr>
+             <?php   
+            for($i=0;$i<=$contador-1;$i++)
+            {?>
+                <tr>
+                    <td><?php echo $idpub[$i]; ?></td>
+                    <td><?php echo $titulo[$i]; ?></td>
+                    <td><?php echo $fecha[$i]; ?></td>
+                    <td><?php echo Html::link("publicacion/traducir/".$idpub[$i]."/".$leng,"ingresar") ?></td>
+                </tr>
+      <?php }?>
+            </table>
+ <?php  }?>
+
+
+
+    
