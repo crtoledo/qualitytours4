@@ -3,6 +3,7 @@
 load::model('solicitud');
 load::model('cliente');
 load::model('usuario');
+load::model('categoria');
 
 class SolicitudController extends AppController {
 
@@ -359,6 +360,7 @@ class SolicitudController extends AppController {
                     $datos_actualizacion_cliente = new cliente;
                     $datos_actualizacion_usuario = new usuario;
                     $datos_actualizacion_solicitud = new solicitud;
+                    $datos_actualizacion_categoria = new categoria;
 
                     //Se asignas las fechas de inicio y fin de la suscripcion
                     $fecha_inicio = date("d-m-Y");
@@ -368,6 +370,7 @@ class SolicitudController extends AppController {
                     $sentencia = "UPDATE cliente SET id_sol=" . $id_solicitud . ", rol_usu='cliente', estado_usu= true, fecha_ini_sus='" . $fecha_inicio . "', fecha_fin_sus='" . $fecha_fin . "' WHERE id_usu=" . $id_cliente;
                     $sentencia_actualizar_rol = "UPDATE usuario SET id_sol=" . $id_solicitud . ", rol_usu='cliente' WHERE id=" . $id_cliente;
                     $sentencia_actualizar_solicitud = "UPDATE solicitud SET estado_sol='Aceptada' WHERE id=" . $id_solicitud;
+                    $sentencia_actualizar_estado_categoria = "UPDATE categoria SET estado_cat=true WHERE id_usu =". $id_cliente;
                     if ($tipo_solicitud == "Renovacion") {
                         // Se busca la antigua solicitud
                         $solicitud_antigua = new solicitud;
@@ -377,7 +380,7 @@ class SolicitudController extends AppController {
                         $solicitud_antigua->update();
                     }
 
-                    if ($datos_actualizacion_cliente->sql($sentencia) && $datos_actualizacion_usuario->sql($sentencia_actualizar_rol) && $datos_actualizacion_solicitud->sql($sentencia_actualizar_solicitud)) {
+                    if ($datos_actualizacion_cliente->sql($sentencia) && $datos_actualizacion_usuario->sql($sentencia_actualizar_rol) && $datos_actualizacion_solicitud->sql($sentencia_actualizar_solicitud) && $datos_actualizacion_categoria->sql($sentencia_actualizar_estado_categoria) ) {
                         // Si la aceptacion de la solicitud de renovacion fue exitosa,
                         //se procede a eliminar la antigua solicitud, solo si esta existe.
 
