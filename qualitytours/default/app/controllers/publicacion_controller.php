@@ -137,7 +137,8 @@ class PublicacionController extends AppController
     {
         $publicacion = new Publicacion(Input::post('publicacion'));
 
-     
+        $publicacion->detalle_pub_eng = str_replace("'", '', $publicacion->detalle_pub_eng);
+        
         $titulo = $publicacion->titulo_pub_eng;
         $detalle = $publicacion->detalle_pub_eng;
      
