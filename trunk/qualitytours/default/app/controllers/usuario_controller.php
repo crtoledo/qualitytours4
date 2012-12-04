@@ -138,7 +138,7 @@ class UsuarioController extends AppController
         if(Auth::is_valid())
         {
             $this->leng= $leng;
-            if(Auth::get('rol_usu')== 'turista')
+            if(Auth::get('rol_usu') == 'turista')
             { 
                 $usuarioaeditar = new Usuario();
         
