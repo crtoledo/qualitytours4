@@ -136,7 +136,10 @@ class ServicioController extends AppController
                         if (Input::hasPost('servicio'))
                         {
                             $servicio = new Servicio(Input::post('servicio'));
-
+                            
+                            //SACAMOS LAS COMILLAS DEL TEXTO EN EL TEXTAREA (Detalle servicio)
+                            $servicio->detalle_ser = str_replace("'", '', $servicio->detalle_ser);
+                            
                             if($servicio->save())
                             {
                                 Flash::success('Servicio publicado satisfactoriamente');
