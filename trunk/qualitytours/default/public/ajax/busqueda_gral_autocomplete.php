@@ -11,12 +11,31 @@
     //Limpiar comillas simples
     $_REQUEST['string'] = str_replace("'", '', $_REQUEST['string']);
     
+    //RECIBIMOS EL LENGUAJE
+    $leng = $_REQUEST['leng'];
+    
     //STRINGS DE LAS DISTINSTAS BUSQUEDAS
     $string1 = "select nombre_cli, id_usu from cliente where nombre_cli ilike '%".$_REQUEST['string']."%' order by visitas_cli desc limit 5";
     $string2 = "select DISTINCT region_ubi from ubicacion where region_ubi ilike '%".$_REQUEST['string']."%' limit 5";
     $string3 = "select DISTINCT ciudad_ubi from ubicacion where ciudad_ubi ilike '%".$_REQUEST['string']."%' limit 5";
     
-    $resu1 = pg_query($conn,$string1);
+    //STRING DE BUSQUEDA POR CATEGORIA (ESPANOL-INGLES)
+    if ($leng == "es")
+    {
+        $string4 = "select distinct nombre_cat, count (categoria.nombre_cat) from categoria where categoria.nombre_cat ilike '%" . $_REQUEST['string'] . "%'
+    group by nombre_cat
+    order by count desc 
+    limit 5";
+    }
+    if ($leng == "en")
+    {
+        $string4 = "select distinct nombre_cat_eng, count (categoria.nombre_cat_eng) from categoria where categoria.nombre_cat_eng ilike '%" . $_REQUEST['string'] . "%'
+    group by nombre_cat_eng
+    order by count desc 
+    limit 5";
+    }
+
+$resu1 = pg_query($conn,$string1);
     $res1 = pg_fetch_all_columns($resu1);
     
     $resu2 = pg_query($conn,$string2);
@@ -24,6 +43,9 @@
 
     $resu3 = pg_query($conn,$string3);
     $res3 = pg_fetch_all_columns($resu3);
+    
+    $resu4 = pg_query($conn,$string4);
+    $res4 = pg_fetch_all_columns($resu4);
    
     if (is_array($res1) && isset($res1[0]))
     {    
@@ -47,6 +69,15 @@
         //echo "SEPARADOR".json_encode($res3);
         //echo "SEPARADOR";
         foreach ($res3 as $valor)
+            echo $valor.",";
+        $query_ok++;
+    }
+    
+    if (is_array($res4) && isset($res4[0]))
+    {
+        //echo "SEPARADOR".json_encode($res3);
+        //echo "SEPARADOR";
+        foreach ($res4 as $valor)
             echo $valor.",";
         $query_ok++;
     }

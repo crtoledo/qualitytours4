@@ -109,7 +109,8 @@ if ($url == "en") {
 
                         type: "POST",
                         data : {
-                            string: $("#searchinput").val()
+                            string: $("#searchinput").val(),
+                            leng: '<?php echo $leng ?>'
                         },            
                         url: '<?php echo PUBLIC_PATH; ?>ajax/busqueda_gral_autocomplete.php',
                         dataType: "html",
@@ -332,7 +333,7 @@ if ($url == "en") {
                 <!--Fin banderas-->
 
                 <!-- CAMPO DE BUSQUEDA-->
-                <?php echo Form::open("busqueda/buscando/", 'post', 'class=navbar-search'); ?>
+                <?php echo Form::open("busqueda/buscando/".$leng, 'post', 'class=navbar-search'); ?>
                 <i class="icon-search icon-white"></i>
                 <input id="searchinput" name="string" type="text" value="" class='search-query span2 busqueda  mask-alphanum' placeholder='<?php echo $buscardestinos_string; ?>' data-provide='typeahead' >  
                 <?php echo Form::close() ?>
