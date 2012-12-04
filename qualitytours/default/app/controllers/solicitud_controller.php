@@ -187,7 +187,7 @@ class SolicitudController extends AppController {
                     //Paso el dia, mes y año para poder comprarlos despues
                     list($ano, $mes, $dia) = explode('-', $fecha_fin_suscripcion);
 
-                    if ($ano == $ano_actual && $mes == $mes_actual && $dia_actual <= $dia) {
+                    if ($ano == $ano_actual && $mes == $mes_actual && $dia_actual >= $dia) {
                         // si se cumple el requisito se ingresa la solicitud de renovacion
                         $nueva_solicitud = new solicitud();
 

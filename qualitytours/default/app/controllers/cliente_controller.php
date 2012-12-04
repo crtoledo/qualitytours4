@@ -76,7 +76,85 @@ class ClienteController extends AppController {
 
                         if ($cliente->sql("insert into Cliente (id_usu,username_usu,password_usu,rol_usu,nombre_usu,apellido_usu,email_usu,estado_usu,lenguaje_usu,nombre_cli,rut_cli,giro_cli,telefono_cli,visitas_cli,tipo_plan,rut_usu) values(" . $id . ",'" . $username_usu . "','" . $password_usu . "','" . $rol_usu . "','" . $nombre_usu . "','" . $apellido_usu . "','" . $email_usu . "','" . $estado_usu . "','" . $lenguaje_usu . "','" . $nombre_cli . "','" . $rut_cli . "','" . $giro . "','" . $telefono . "'," . $visitas . ",'" . $plan . "','" . $rut_usu . "');")) {//&&($user->sql("update Usuario set rol_usu='cliente' where id=".$id)))
                             foreach ($array_categorias as &$categoria) {
-                                $sentencia_categoria->sql("INSERT INTO categoria(id_usu, nombre_cat, estado_cat, nombre_cat_eng) VALUES (" . $id . ", '" . $categoria . "', 'false', 'categoria_ingles')");
+                                //Traduccion de las categorias
+                                $categoria_ingles = "";
+                                switch ($categoria):
+                                    case "Playa":
+                                        $categoria_ingles = "Beach";
+                                        break;
+                                    case "Lago":
+                                        $categoria_ingles = "Lake";
+                                        break;
+                                    case "Río":
+                                        $categoria_ingles = "River";
+                                        break;
+                                    case "Piscina":
+                                        $categoria_ingles = "Pool";
+                                        break;
+                                    case "Calido":
+                                        $categoria_ingles = "Warm";
+                                        break;
+                                    case "Nieve":
+                                        $categoria_ingles = "Snow";
+                                        break;
+                                    case "Lluvioso":
+                                        $categoria_ingles = "Rainy";
+                                        break;
+                                    case "Templado":
+                                        $categoria_ingles = "Temperate";
+                                        break;
+                                    case "Tercera edad":
+                                        $categoria_ingles = "Seniors";
+                                        break;
+                                    case "Juvenil":
+                                        $categoria_ingles = "Youth";
+                                        break;
+                                    case "Familiar":
+                                        $categoria_ingles = "Juvenile";
+                                        break;
+                                    case "Terrestres":
+                                        $categoria_ingles = "Terrestrial";
+                                        break;
+                                    case "Extremos":
+                                        $categoria_ingles = "Extremes";
+                                        break;
+                                    case "Acuáticos":
+                                        $categoria_ingles = "Aquatic";
+                                        break;
+                                    case "Aventura":
+                                        $categoria_ingles = "Adventure";
+                                        break;
+                                    case "Histórico":
+                                        $categoria_ingles = "Historical";
+                                        break;
+                                    case "Festivo":
+                                        $categoria_ingles = "Festive";
+                                        break;
+                                    case "Gastronómico":
+                                        $categoria_ingles = "Gastronomic";
+                                        break;
+                                    case "Televisión":
+                                        $categoria_ingles = "TV";
+                                        break;
+                                    case "Calefacción":
+                                        $categoria_ingles = "Heating";
+                                        break;
+                                    case "Baños individuale":
+                                        $categoria_ingles = "Individual bathrooms";
+                                        break;
+                                    case "Duchas":
+                                        $categoria_ingles = "Showers";
+                                        break;
+                                    case "Duchas individuales":
+                                        $categoria_ingles = "Individual showers";
+                                        break;
+                                    default:
+                                        $categoria_ingles = $categoria;
+                                  endswitch;
+                                  //Fin traduccion de las categorias
+
+                                //Se inserta la categoria en la tabla categoria
+                                $sentencia_categoria->sql("INSERT INTO categoria(id_usu, nombre_cat, estado_cat, nombre_cat_eng) VALUES (" . $id . ", '" . $categoria . "', 'false', '".$categoria_ingles."')");
                             }
                             Flash::success("Solicitud enviada correctamente");
                             Input::delete();
@@ -338,7 +416,7 @@ class ClienteController extends AppController {
                     list($ano, $mes, $dia) = explode('-', $fecha_fin_suscripcion);
 
                     //Se valida de que se cumpla las condiciones de fecha y de que no exista otra solicitud de renovacion
-                    if ($ano == $ano_actual && $mes == $mes_actual && $dia_actual <= $dia && !$comprobar->solicitud_renovacion($id_cliente)) {
+                    if ($ano == $ano_actual && $mes == $mes_actual && $dia_actual >= $dia && !$comprobar->solicitud_renovacion($id_cliente)) {
                         // se se cumple las condiciones el boton puede ser mostrado
                         $this->muestra_boton = "Si";
                         $this->estado_sol = "1";
