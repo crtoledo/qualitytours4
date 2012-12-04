@@ -8,6 +8,10 @@
     {
         include_once APP_PATH.'libs/es.php';
     }
+    
+    
+//CARGA NICEDIT
+echo Tag::js("nicedit/nicEdit");
 ?>    
 
 
@@ -85,26 +89,40 @@ reemplazo se uso 'errorVal'.
     top: 5px;
 }
 </style>
+
+
+ <script type="text/javascript">
+ //LINKEO A NICEDIT
+  bkLib.onDomLoaded(function() { 
+      nicEditors.allTextAreas(
+		{buttonList : ['bold','italic','underline','ol','ul','subscript','superscript',
+'strikethrough','fontFormat','hr','link','unlink','image','xhtml' ],
+		iconsPath : '<?php echo PUBLIC_PATH;?>/javascript/nicedit/nicEditorIcons.gif'})
+	});
+
+
+
+  </script>
+  
 <div align="center"><h1><?php  echo $publicacion_traducir_titulo; ?></h1></div><br>
  <!-- captura de id para enviarlo al controlador       -->
 <?php $id =  Auth::get('id');   ?>
 <?php echo Form::open('publicacion/updatepubeng/'.$id_pub.'/'.$leng) ?>
 
  <div align="center">
-            <table align="center">
+            <table align="center" class="table table-condensed">
             <tr>
                 <td>
-                    <div class="span4" align="center"><h6><?php echo $publicacion_traducir_tituloes; ?></h6></div>
-                        <table>
+                    <div class="span6" align="center"><h6><?php echo $publicacion_traducir_tituloes; ?></h6></div>
+                        <table class="table table-condensed">
 
                         <tr>
                             <td><?php echo $publicacion_traducir_titulopub;?>:</td>
                             <td><?php echo Form::text('publicacion','class="titulo disabled" disabled=""',$titulo_es)?></td> 
                         </tr>
                         <tr>
-                            <td><?php echo $publicacion_traducir_detalle;?>:</td>
-                            <td><?php echo Form::textarea ("publicacion","rows='10' disabled=''",$detalle_es) ?>
-                            <?php View::partial('nicedit/nicedit'); ?>
+                            <td class="span1"><?php echo $publicacion_traducir_detalle;?>:</td>
+                            <td class="span6"><?php echo Form::textarea ("publicacion","rows='10' style='width: 100%;' disabled=''",$detalle_es) ?>
                             </td>
                         </tr>     
                         </table>
@@ -113,8 +131,8 @@ reemplazo se uso 'errorVal'.
                 </td>
                 <td>
 
-                     <div class="span4" align="center"><h6><?php echo $publicacion_traducir_tituloen; ?></h6></div>
-                        <table>
+                     <div class="span6" align="center"><h6><?php echo $publicacion_traducir_tituloen; ?></h6></div>
+                        <table class="table table-condensed">
 
                         <tr>
                             
@@ -122,8 +140,7 @@ reemplazo se uso 'errorVal'.
                         </tr>
                         <tr>
                           
-                            <td><?php echo Form::textarea('publicacion.detalle_pub_eng','rows=10')?>
-                            <?php View::partial('nicedit/nicedit'); ?>
+                            <td class="span6"><?php echo Form::textarea('publicacion.detalle_pub_eng','rows=10 style="width: 100%;" ')?>
                             </td>
                         </tr>     
                         </table>
