@@ -9,12 +9,17 @@
         include_once APP_PATH.'libs/es.php';
     }
 ?>    
-<div><?php View::content(); ?></div> 
+<div><?php View::content(); 
+//CARGA NICEDIT
+echo Tag::js("nicedit/nicEdit");
+?></div> 
 
 <script type="text/javascript">
     $(document).ready(function (){
         
         $(".boton").click(function(){
+            
+            
             $(".errorVal").remove();
             
             //ELIMINAMOS ESPACIOS EN BLANCO AL COMIENZO/FINAL
@@ -38,13 +43,16 @@
         });
         
      //Borrar mensaje de error si el usuario a llenado el campo nombre o precio del servicio
-     $(".nombre, .precio").keyup(function (){
+     $(".nombre, .precio").keyup(function ()
+     {
         if( $(this).val() != "" )
         {
             $(".errorVal").fadeOut();
             return false;
         }
      });   
+     
+     
      
  }); //Fin funcion principal
   
@@ -72,6 +80,20 @@
     top: 5px;
 }
 </style>
+
+ <script type="text/javascript">
+ //LINKEO A NICEDIT
+  bkLib.onDomLoaded(function() { 
+      nicEditors.allTextAreas(
+		{buttonList : ['bold','italic','underline','ol','ul','subscript','superscript',
+'strikethrough','fontFormat','hr','link','unlink','image','xhtml' ],
+		iconsPath : '<?php echo PUBLIC_PATH;?>/javascript/nicedit/nicEditorIcons.gif'})
+	});
+
+
+
+  </script>
+
 <?php 
     $arr = array(''.$servicio_ingresar_seleccione.''=>''.$servicio_ingresar_seleccione.'','Hostel'=>'Hostel','Bed & Breakfast'=>'Bed & Breakfast','Apart hotel'=>'Apart hotel',
         'Cabaña-Motel'=>'Cabaña-Motel','Camping'=>'Camping','Lodge'=>'Lodge','Resort'=>'Resort',
@@ -81,35 +103,32 @@
 
 <fieldset>
 <?php echo Form::open('servicio/ingresar/'.$leng) ?>
-    <div align="center">
+    <div style="text-align: center">
         <h1> <?php echo $servicio_ingresar_titulo; ?> </h1>
-        <table>
-    <tr>
-        <td><?php echo $servicio_ingresar_nombre_cli; ?>:&nbsp;</td>
-        <td><?php echo $nombre_cliente; ?></td>
-    </tr>        
-    <tr>
-        <td><?php echo $servicio_ingresar_name;?>:&nbsp;</td>
-        <td><?php echo Form::text('servicio.nombre_ser', "class='input-medium nombre' placeholder='".$servicio_ingresar_tit."'") ?></td>
-    </tr>
-    <tr>
-        <td><?php echo $servicio_ingresar_detalle; ?>:&nbsp;</td>
-        <td>
-            
-            <?php echo Form::textarea('servicio.detalle_ser','rows=10 class="detalle"')?>
-            <?php View::partial('nicedit/nicedit'); ?>
-            
-        </td>
-    </tr>
-    <tr>
-        <td><?php echo $servicio_ingresar_precio; ?>:&nbsp;</td>
-        <td><?php echo Form::text('servicio.precio_ser',"class='input-medium precio' placeholder='$' ") ?></td>
-    </tr>
-    <tr>
-        <td><?php echo $servicio_ingresar_tipo; ?> :&nbsp;</td>
-        <td><?php echo Form::Select('servicio.tipo_ser',$arr,"class='input-medium tipo'") ?></td>
-    </tr>
-</table>
+        <table class="table table-bordered">
+            <tr>
+                <td class="span2"><?php echo $servicio_ingresar_nombre_cli; ?>:&nbsp;</td>
+                <td class="span10"><?php echo $nombre_cliente; ?></td>
+            </tr>        
+            <tr>
+                <td><?php echo $servicio_ingresar_name; ?>:&nbsp;</td>
+                <td><?php echo Form::text('servicio.nombre_ser', "class='input-medium nombre mask-alphanum' placeholder='" . $servicio_ingresar_tit . "'") ?></td>
+            </tr>
+            <tr>
+                <td><?php echo $servicio_ingresar_detalle; ?>:&nbsp;</td>
+                <td>
+                    <?php echo Form::textarea('servicio.detalle_ser', 'rows=10 style="width: 100%;" class="detalle"') ?>
+                </td>
+            </tr>
+            <tr>
+                <td><?php echo $servicio_ingresar_precio; ?>:&nbsp;</td>
+                <td><?php echo Form::text('servicio.precio_ser', "class='input-medium precio mask-pint' placeholder='$' ") ?></td>
+            </tr>
+            <tr>
+                <td><?php echo $servicio_ingresar_tipo; ?> :&nbsp;</td>
+                <td><?php echo Form::Select('servicio.tipo_ser', $arr, "class='input-medium tipo'") ?></td>
+            </tr>
+        </table>
     </div>
     <div align="center">
     <?php echo Form::hidden('servicio.estado_ser','','TRUE')?>
