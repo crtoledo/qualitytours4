@@ -60,12 +60,32 @@ class ClienteController extends AppController {
                     $visitas = 0;
                     $plan = $cliente->tipo_plan;
 
-                    if ($cliente->sql("insert into Cliente (id_usu,username_usu,password_usu,rol_usu,nombre_usu,apellido_usu,email_usu,estado_usu,lenguaje_usu,nombre_cli,rut_cli,giro_cli,telefono_cli,visitas_cli,tipo_plan,rut_usu) values(" . $id . ",'" . $username_usu . "','" . $password_usu . "','" . $rol_usu . "','" . $nombre_usu . "','" . $apellido_usu . "','" . $email_usu . "','" . $estado_usu . "','" . $lenguaje_usu . "','" . $nombre_cli . "','" . $rut_cli . "','" . $giro . "','" . $telefono . "'," . $visitas . ",'" . $plan . "','" . $rut_usu . "');")) {//&&($user->sql("update Usuario set rol_usu='cliente' where id=".$id)))
-                        Flash::success("Solicitud enviada correctamente");
-                        Input::delete();
-                        Router::redirect("solicitud/ingresar/" . $id);
+                    //Se valida de que exista a lo menos una categoria ingresada
+                    if ($_REQUEST["categorias"] != " ") {
+
+                        //Se obtienen las categorias enviadas
+                        $array_categorias_enviadas = $_REQUEST["categorias"];
+
+                        //El string obtenido se pasa a array
+                        $array_categorias = explode(".", $array_categorias_enviadas);
+
+                        //Se elimina el espacio en blanco al principio del array
+                        unset($array_categorias[0]);
+
+                        $sentencia_categoria = new categoria();
+
+                        if ($cliente->sql("insert into Cliente (id_usu,username_usu,password_usu,rol_usu,nombre_usu,apellido_usu,email_usu,estado_usu,lenguaje_usu,nombre_cli,rut_cli,giro_cli,telefono_cli,visitas_cli,tipo_plan,rut_usu) values(" . $id . ",'" . $username_usu . "','" . $password_usu . "','" . $rol_usu . "','" . $nombre_usu . "','" . $apellido_usu . "','" . $email_usu . "','" . $estado_usu . "','" . $lenguaje_usu . "','" . $nombre_cli . "','" . $rut_cli . "','" . $giro . "','" . $telefono . "'," . $visitas . ",'" . $plan . "','" . $rut_usu . "');")) {//&&($user->sql("update Usuario set rol_usu='cliente' where id=".$id)))
+                            foreach ($array_categorias as &$categoria) {
+                                $sentencia_categoria->sql("INSERT INTO categoria(id_usu, nombre_cat, estado_cat, nombre_cat_eng) VALUES (" . $id . ", '" . $categoria . "', 'false', 'categoria_ingles')");
+                            }
+                            Flash::success("Solicitud enviada correctamente");
+                            Input::delete();
+                            Router::redirect("solicitud/ingresar/" . $id);
+                        } else {
+                            Flash::error("Error en el ingreso del cliente");
+                        }
                     } else {
-                        Flash::error("Error en el ingreso del cliente");
+                        Flash::error("Debe ingresar a lo menos una categoria");
                     }
                 }
             } else {
@@ -84,7 +104,7 @@ class ClienteController extends AppController {
                         $plan = $cliente->tipo_plan;
 
                         if ($cliente->sql("UPDATE cliente SET estado_usu='" . $estado_usu . "' , nombre_cli='" . $nombre_cli . "', rut_cli='" . $rut_cli . "', giro_cli='" . $giro . "', telefono_cli='" . $telefono . "', visitas_cli=" . $visitas . " , tipo_plan='" . $plan . "' WHERE id_usu =" . $id . ";")) {
-                            Flash::success("Solicitud modificada correctamente");
+                            //Flash::success("Solicitud modificada correctamente");
                             Input::delete();
                             Router::redirect("solicitud/ingresar/" . $id);
                         }
@@ -144,7 +164,7 @@ class ClienteController extends AppController {
         $this->nombre_cliente = $client->nombre_cli;
         $this->mostrar = $client->visitas_cli + 1;
         $contenido = new Contenido();
-        $arr2 = $contenido->find("conditions: id_usu=" . $id."and estado_con='t'");
+        $arr2 = $contenido->find("conditions: id_usu=" . $id . "and estado_con='t'");
         $this->contenido = $arr2;
         $contimg = 0;
         foreach ($arr2 as $contenido) {
@@ -233,7 +253,7 @@ class ClienteController extends AppController {
             $solicitud_modificacion = new Solicitud ();
             $solicitud_modificacion = $solicitud_modificacion->buscar_solicitud($id);
             $solicitud_modificacion->modificaciones_sol = "true";
-           
+
             //Paso de datos desde usuario encontrado a cliente a ingresar
             $username_usu = $cliente->username_usu;
             $password_usu = $cliente->password_usu;
@@ -246,7 +266,7 @@ class ClienteController extends AppController {
             $giro = $cliente->giro_cli;
             $telefono = $cliente->telefono_cli;
             $plan = $cliente->tipo_plan;
-            
+
 
             if ($cliente->sql("UPDATE cliente SET nombre_cli='" . $nombre_cli . "', rut_cli='" . $rut_cli . "', giro_cli='" . $giro . "', telefono_cli='" . $telefono . "', tipo_plan='" . $plan . "' WHERE id_usu =" . $id . ";") && $solicitud_modificacion->update()) {
                 Flash::success("Solicitud modificada correctamente");
@@ -321,11 +341,9 @@ class ClienteController extends AppController {
                     // se se cumple las condiciones el boton puede ser mostrado
                     $this->muestra_boton = "Si";
                     $this->estado_sol = "1";
-                }
-                else
-                {
-                   $this->noexiste = "<center><b>Todavia  no cumple los requisitos</b></center>";
-                   $this->estado_sol = "1";
+                } else {
+                    $this->noexiste = "<center><b>Todavia  no cumple los requisitos</b></center>";
+                    $this->estado_sol = "1";
                 }
                 //******************
                 //Fin boton renovar
@@ -335,11 +353,11 @@ class ClienteController extends AppController {
                 //Leyendas y panel de administracion de la nueva solicitud de 
                 //administracion, cuando el boton renovar no aparece
                 //************************************************************
-                
+
                 $leyendas = new solicitud();
                 if ($leyendas->solicitud_renovacion($id_cliente)) {
                     //Se obtienen los datos de la solicitud renovacion, para poder mostrar el panel de administracion de la misma
-                    
+
                     $this->panel_suscripcion_renovacion = $leyendas->tipo_sol;
                     $this->estado_sol = $leyendas->estado_sol;
                     $this->fecha_sol = $leyendas->fecha_sol;
@@ -361,5 +379,6 @@ class ClienteController extends AppController {
             Router::redirect("/");
         }
     }
+
 }
 

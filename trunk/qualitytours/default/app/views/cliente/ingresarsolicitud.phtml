@@ -12,25 +12,32 @@
 </script>
 
 <script type="text/javascript">
-    var array_categorias = [];
+    //var array_categorias = [];
+    var cats;
     
     //Validación con jquery
     //El siguiente script valida que los campos no estén vacios y el formato del RUT
     $(document).ready(function () {
         var rutreg = /^\d{1,2}\.\d{3}\.\d{3}[-][0-9kK]{1}$/;
         
-        
-        $(".boton").click(function (){
+         $(".boton").click(function (){
             
             //SE LIMPIA ARRAY CATEGORIAS
-            array_categorias.length = 0;
+            cats=' ';
+            //array_categorias.length = 0;
         
             //CAPTURA DE LAS CATEGORIAS
             $(".categoria.active").each(function()
             {
-                $string += ",".$(this).val();
-                array_categorias.push($(this).val());
+                //array_categorias.push($(this).val());
+                cats = cats+"."+$(this).val();
+                
             });
+            //enviar al controlador
+            //cats=array_categorias[0];
+            $(".categorias_string").val(cats);
+            
+            
             
             $(".errorVal").remove();
             if( $(".nombre").val() == "" ){
@@ -58,6 +65,9 @@
                 $("#acepta").focus().after("<span class='errorVal'><?php echo "Debe aceptar los terminos del servicio"; ?></span>");
                 return false;
             }
+            
+            
+        
         });
 
         //Borrar mensaje de error si el usuario a llenado el campo
@@ -127,6 +137,9 @@
                 $(".errorVal").fadeOut();
                 return false;
             }
+            
+            
+            
         });
         
     
@@ -310,15 +323,16 @@ reemplazo se uso 'errorVal'.
     <div align="center">
         <table>
             <tr>
+                
                 <td><?php echo Form::submit('Enviar solicitud', 'class="btn btn-submit btn-success boton"') ?>&nbsp;</td>
                 <td><?php echo Form::reset('Reiniciar', 'class="btn btn-danger"') ?></td>
             </tr>         
         </table>
     </div>
+    <?php echo Form::hidden('categorias','class="categorias_string"'); ?>
     <?php echo Form::hidden('cliente.id', null, Auth::get('id')); ?>
     <?php echo Form::hidden('cliente.username_usu', null, Auth::get('username_usu')); ?>
     <?php echo Form::hidden('cliente.visitas_cli', null, 0); ?>
 
     <?php echo Form::close() ?> 
 </fieldset>
-
