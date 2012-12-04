@@ -215,7 +215,7 @@ class ServicioController extends AppController
                              $visitas = $servicio->visitas_ser;
                              $id_usu = $servicio->id_usu;
                              
-                            if($tipoes == "Cabaña-motel")
+                            if($tipoes == "Cabaña-Motel")
                             {
                                 $tipoen = "cabin-motel";
                             }
