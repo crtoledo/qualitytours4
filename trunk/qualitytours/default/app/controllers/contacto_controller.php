@@ -13,7 +13,7 @@ class ContactoController extends AppController {
         }
     }
 
-    public function contacto_adm()
+    public function contacto()
     {
         $usuario = new Usuario();
         $usuario->find(Auth::get('id'));
