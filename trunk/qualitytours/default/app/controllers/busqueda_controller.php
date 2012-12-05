@@ -37,11 +37,13 @@ class BusquedaController extends AppController
         
         if (Input::hasPost('string'))
         {
+        
             $this->string = Input::post('string');
         }
         else
         {
-            Router::redirect('/');
+            $this->string = "&nbsp;";
+            //Router::redirect('/');
         }
     }
     

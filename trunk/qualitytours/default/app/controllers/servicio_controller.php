@@ -229,5 +229,95 @@ class ServicioController extends AppController
         
     }
     
+    public function  traduct($leng)
+    {
+        $this->leng = $leng;
+        //validar que haya iniciado sesión
+        if (Auth::is_valid()) 
+           {
+            //validar los privilegios
+            if (Auth::get("rol_usu") == "administrador" || Auth::get("rol_usu") == "traductor") 
+               {
+                 $servicio = new Servicio();
+               
+                if ($servicio->count("conditions: estado_ser='t'") > 0)
+                {
+                    //buscando servicios:
+                    $arr = $servicio->find("conditions: estado_ser='t'");
+                    $contador = 0;
+                    foreach ($arr as $servicio) {
+
+                        if ($arr[$contador]->detalle_ser_eng == null && $arr[$contador]->nombre_ser_eng == null) {
+                            $this->idser[$contador] = $arr[$contador]->id;
+                            $this->titulo[$contador] = $arr[$contador]->nombre_ser;
+                            $this->tipo[$contador] = $arr[$contador]->tipo_ser;
+                            $contador++;
+                        } else {
+                            
+                        }
+                    }
+                    $this->contador = $contador;
+                    $this->cont = 1;
+                } 
+                else 
+                 {
+                     $this->cont = 0;
+                 }
+            } 
+            else 
+            {
+                echo Flash::info("Lo sentimos revise su dirección");
+                Router::Redirect("/");
+            }
+        }
+        else
+        {
+            echo Flash::info("Lo sentimos revise su dirección");
+            Router::Redirect("/");
+        }
+    }
+
+    public function traducir($id,$leng)
+    {
+        $this->leng = $leng;
+         if (Input::hasPost('servicio')) 
+        {
+                $servicioactualizado = new servicio;
+            if ($servicioactualizado->update(Input::post('servicio'))) {
+                Flash::info("servicio traducido con exito");
+                Router::redirect("servicio/traduct/" . $leng);
+            }
+        }
+        
+        if(Auth::is_valid())
+        {
+            if(Auth::get("rol_usu") == "administrador" || Auth::get("rol_usu") == "traductor")
+            {
+                $servicio = new Servicio();
+                $servicio = $servicio->find($id);
+                //enviar parametros a la vista:
+                $this->nombre_ser = $servicio->nombre_ser;
+                $this->detalle_ser = $servicio->detalle_ser;
+                $this->id_ser = $servicio->id;
+                $this->id_usu = $servicio->id_usu;
+               
+              
+                
+                
+            }
+            else
+            {
+                echo Flash::info("Lo sentimos revise su dirección");
+                Router::Redirect("/");
+            }
+        }
+        else
+        {
+                echo Flash::info("Lo sentimos revise su dirección");
+                 Router::Redirect("/"); 
+        }
+    }
+    
+   
 }
 ?>

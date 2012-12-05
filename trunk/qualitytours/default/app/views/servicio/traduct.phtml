@@ -1,0 +1,50 @@
+<?php
+//Código para el idioma
+    if($leng == "en")
+    {
+        include_once APP_PATH.'libs/en.php';
+    }
+    else
+    {
+        include_once APP_PATH.'libs/es.php';
+    }
+?>    
+<div><?php View::content(); 
+//CARGA NICEDIT
+echo Tag::js("nicedit/nicEdit");
+?></div> 
+
+<div style="text-align: center;"> <h1>Traducir Servicios</h1></div><br>
+
+<table class="table">
+    <tr>
+        <td style="text-align: center;"><b>Id</b></td>
+        <td style="text-align: center;"><b>Titulo</b></td>
+        <td style="text-align: center;"><b>Tipo</b></td>
+        <td style="text-align: center;"><b>Enlace</b></td>
+    </tr>
+    <?php
+   if($cont == 0)
+   {
+       
+   }
+   if($cont == 1)
+   {
+        
+        for($i=0; $i<=$contador-1;$i++)
+        {
+    ?>
+    <tr>
+        <td style="text-align: center;"><?php echo $idser[$i]; ?></td>
+        <td style="text-align: center;"><?php echo $titulo[$i];?></td>
+        <td style="text-align: center;"><?php echo $tipo[$i]; ?></td>
+        <td style="text-align: center;"><?php echo Html::link("servicio/traducir/".$idser[$i]."/".$leng,"Ingresar");?></td>
+    </tr>
+    
+    
+    
+    <?php
+        }
+   }   
+    ?>
+</table>
