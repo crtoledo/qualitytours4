@@ -115,7 +115,7 @@ echo Tag::js('jquery.geocomplete.min');
     <div class="map_canvas" style="width:400px; height:400px"></div>
         
     <?php
-        echo Html::link("ubicacion/ingresar_mapa", ''.$ubicacion_ingresar_link.'');
+        echo Html::link("ubicacion/ingresar_mapa/".$leng, ''.$ubicacion_ingresar_link.'');
   
         echo Form::hidden('ubicacion.latitud_ubi','class="latitud"');
         echo Form::hidden('ubicacion.longitud_ubi','class="longitud"');

@@ -1,3 +1,14 @@
+<?php
+//Código para el idioma
+    if($leng == "en")
+    {
+        include_once APP_PATH.'libs/en.php';
+    }
+    else
+    {
+        include_once APP_PATH.'libs/es.php';
+    }
+    ?>
 <!--Estilos para mensajes y errores de validación-->
 
 <style>
@@ -131,14 +142,14 @@ $(document).ready(function(){
                 //1 - Obtención de datos y validacion dirección Chilena
                 if(sliced_address.length == 4) //Obtuvimos una direccion con todos los datos
                 {
-                    if($.trim(sliced_address[3]) != "Chile"){alert("Seleccione una ubicación dentro de Chile") ;return false;}
+                    if($.trim(sliced_address[3]) != "Chile"){alert("<?php echo $ubicacion_ingresar_mapa_valpais; ?>") ;return false;}
                     $(".direccion").val($.trim(sliced_address[0]));
                     $(".ciudad").val($.trim(sliced_address[1]));
                     $(".region").val($.trim(sliced_address[2]));
                 }
                 else if(sliced_address.length == 3) //el 2 es el pais
                 {
-                    if($.trim(sliced_address[2]) != "Chile"){alert("Seleccione una ubicación dentro de Chile") ;return false;}
+                    if($.trim(sliced_address[2]) != "Chile"){alert("<?php echo $ubicacion_ingresar_mapa_valpais; ?>") ;return false;}
                     $(".direccion").val("No disponible");
                     $(".ciudad").val($.trim(sliced_address[0]));
                     $(".region").val($.trim(sliced_address[1]));
@@ -146,7 +157,7 @@ $(document).ready(function(){
                 else if(sliced_address.length == 2)//SOLO REGION Y PAIS
                 {
                     //sliced_address[sliced_address.length-1] ES EL PAIS
-                    if($.trim(sliced_address[sliced_address.length-1]) != "Chile"){alert("Seleccione una ubicación dentro de Chile") ;return false;}
+                    if($.trim(sliced_address[sliced_address.length-1]) != "Chile"){alert("<?php echo $ubicacion_ingresar_mapa_valpais; ?>") ;return false;}
                     $(".direccion").val("No disponible");
                     $(".ciudad").val("No disponible");
                     $(".region").val($.trim(sliced_address[sliced_address.length-2]));
@@ -207,21 +218,21 @@ $(document).ready(function(){
 
 
 <!--FIN CODIGO PARA GOOGLE MAPS-->
-<?php echo Form::open('ubicacion/ingresar_mapa') ?>
+<?php echo Form::open('ubicacion/ingresar_mapa/'.$leng) ?>
 <fieldset>
     <div align="center">
         <table>
             <tr>
-                <td>Centro turístico:&nbsp;</td>
+                <td><?php echo $usuario_buscar_centro; ?>:&nbsp;</td>
                 <td><?php echo $nombre_cliente; ?></td>
             </tr>
         </table>
-        <br><h6>Indique la ubicación de su destino turístico</h6>
+        <br><h6><?php echo $ubicacion_ingresar_titulo2; ?></h6>
         
         <div id="map_canvas" style="width:400px; height:400px"></div>
         
         <?php
-            echo Html::link("ubicacion/ingresar", 'Ingrese su ubicación indicando una dirección');
+            echo Html::link("ubicacion/ingresar/".$leng, ''.$ubicacion_ingresar_titulo1.'');
         ?>
         <br>
         <table class="tablaform">
@@ -230,11 +241,11 @@ $(document).ready(function(){
                 <td><?php echo Form::hidden('ubicacion.longitud_ubi','class="longitud" placeholder=" l o n g i t u d "','')?></td>
             </tr>
             <tr class="tr_direccion">
-                <td>Dirección:&nbsp;</td>
+                <td><?php echo $cliente_detalle_direccion;  ?>:&nbsp;</td>
                 <td><?php echo Form::text('ubicacion.direccion_ubi','class="direccion" ','')?></td>
             </tr>
             <tr class="tr_ciudad">
-                <td>Ciudad:&nbsp;</td>
+                <td><?php echo $ubicacion_ingresar_mapa_ciudad; ?>:&nbsp;</td>
                 <td><?php echo Form::text('ubicacion.ciudad_ubi','class="ciudad" ','')?></td>
             </tr>
             <tr class="tr_region">
@@ -243,14 +254,14 @@ $(document).ready(function(){
             </tr>
             <tr>
                 <td colspan="2"><center>
-                    <p class="advertencia_json"><i>Obtener la dirección de su marcador en el mapa</i></p>
-                    <?php echo Form::button('Obtener direccion','class="json-direccion btn btn-success"')?>
+                    <p class="advertencia_json"><i><?php $ubicacion_ingresar_mapa_advertencia; ?></i></p>
+                    <?php echo Form::button(''.$ubicacion_ingresar_mapa_obtener.'','class="json-direccion btn btn-success"')?>
                 </center></td>
             </tr>
             <tr>
                 <td colspan="2"><center>
-                    <p class="advertencia"><i>Verifique los datos antes de ingresar su ubicación</i></p>
-                    <?php echo Form::submit('Confirmar ubicación', 'class="btn btn-primary submit"') ?>&nbsp;
+                    <p class="advertencia"><i><?php echo $ubicacion_ingresar_mapa_check; ?></i></p>
+                    <?php echo Form::submit(''.$ubicacion_ingresar_mapa_confirmar.'', 'class="btn btn-primary submit"') ?>&nbsp;
                 </center></td>
             </tr> 
         </table>

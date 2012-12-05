@@ -123,4 +123,13 @@ $usuario_eliminar_boton = "Accept";
 //usuario/modificar
 $usuario_modificar_titulo1 = "Modify your data";
 
+//ubicacacion/ingresar_mapa
+$ubicacion_ingresar_mapa_valpais = "Select a location in Chile";
+$ubicacion_ingresar_mapa_ciudad = "City";
+$ubicacion_ingresar_mapa_advertencia = "Get the address of his marker on the map";
+$ubicacion_ingresar_mapa_obtener = "Get Address";
+$ubicacion_ingresar_mapa_check = "Check the data before entering your location";
+$ubicacion_ingresar_mapa_confirmar = "Confirm";
+
+
 ?>
