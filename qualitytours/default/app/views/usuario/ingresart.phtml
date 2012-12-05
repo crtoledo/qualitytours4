@@ -62,10 +62,7 @@ $(document).ready(function () {
         }else if($(".email").val() == "" || !emailreg.test($(".email").val()) ){
            $(".email").focus().after("<span class='errorVal'><?php echo $val_email_string; ?></span>");
            return false;
-       }else if($('#acepta').is(':checked') == false){
-           $("#acepta").focus().after("<span class='errorVal'><?php echo "Debe aceptar los terminos de uso"; ?></span>");
-           return false;
-        }
+       }
     });
     
     //Borrar mensaje de error si el usuario a llenado el campo
@@ -195,10 +192,7 @@ reemplazo se uso 'errorVal'.
         <td align="right">E-mail:&nbsp;</td>
         <td><?php echo Form::text('usuario.email_usu',"class='input-medium email mask-email'") ?></td>
     </tr>
-    <tr>
-        <td align="right" colspan="2"><?php echo $usuario_ingresar_condiciones; ?>&nbsp;<?php echo Form::check('acepta', 'checkValue')?></td>
-    </tr>
-
+ 
 </table>
     </div>
     <div align="center">

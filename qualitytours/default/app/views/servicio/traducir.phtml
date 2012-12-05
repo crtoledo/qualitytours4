@@ -1,0 +1,146 @@
+<?php
+//Código para el idioma
+    if($leng == "en")
+    {
+        include_once APP_PATH.'libs/en.php';
+    }
+    else
+    {
+        include_once APP_PATH.'libs/es.php';
+    }
+?>    
+<div><?php View::content(); 
+//CARGA NICEDIT
+echo Tag::js("nicedit/nicEdit");
+?></div> 
+<script type="text/javascript">
+    //Validación con jquery
+    //El siguiente script valida que los campos no estén vacios y el formato del RUT
+$(document).ready(function () {
+    
+    $(".boton").click(function (){
+        $(".errorVal").remove();
+        
+        
+         
+        if( $(".titulo").val() == "" )
+        {
+            $(".titulo").focus().after("<span class='errorVal'><?php echo $publicacion_traducir_val_titulo;?></span>");
+            return false;
+        }
+    });
+    
+    
+    //Para el caso del listbox, no se puede borrar el error de validación con keyup
+    //Ya que no es un textbox, usamos el metodo blur
+   
+    
+    $(".titulo").keyup(function()
+    {
+        if( $(this).val() != "" )
+        {
+            $(".errorVal").fadeOut();
+            return false;
+        }
+    });
+    
+});
+</script>
+
+<!--
+El CSS a continuación da estilo a los mensaje de error en la validación
+, no se usó "error" ya que kumbia ya tiene un estilo para esa clase, en su
+reemplazo se uso 'errorVal'.
+-->
+
+<style>
+    .errorVal{
+    background-color: #BC1010;
+    padding: 6px 12px;
+    border-radius: 4px;
+    color: white;
+    font-weight: bold;
+    margin-left: 16px;
+    margin-top: 6px;
+    position: absolute;
+}
+.errorVal:before{ /* Este es un truco para crear una flechita */
+    content: '';
+    border-top: 8px solid transparent;
+    border-bottom: 8px solid transparent;
+    border-right: 8px solid #BC1010;
+    border-left: 8px solid transparent;
+    left: -16px;
+    position: absolute;
+    top: 5px;
+}
+</style>
+
+ <script type="text/javascript">
+ //LINKEO A NICEDIT
+  bkLib.onDomLoaded(function() { 
+      nicEditors.allTextAreas(
+		{buttonList : ['bold','italic','underline','ol','ul','subscript','superscript',
+'strikethrough','fontFormat','hr','link','unlink','image','xhtml' ],
+		iconsPath : '<?php echo PUBLIC_PATH;?>/javascript/nicedit/nicEditorIcons.gif'})
+	});
+
+
+
+  </script>
+
+ <?php echo Form::open() ?>
+
+ <div align="center">
+            <table align="center" class="table table-condensed">
+            <tr>
+                <td>
+                    <div class="span6" align="center"><h6>Español</h6></div>
+                        <table class="table table-condensed">
+
+                        <tr>
+                            <td>T&iacute;tulo:</td>
+                            <td><?php echo Form::text('publicacion','class=" disabled" disabled=""',$nombre_ser)?></td> 
+                        </tr>
+                        <tr>
+                            <td class="span1">Detalle:</td>
+                            <td class="span6"><?php echo Form::textarea ("publicacion","rows='10' style='width: 100%;' disabled=''",$detalle_ser) ?>
+                            </td>
+                        </tr>     
+                        </table>
+
+
+                </td>
+                <td>
+
+                     <div class="span6" align="center"><h6>Ingles</h6></div>
+                        <table class="table table-condensed">
+
+                        <tr>
+                            
+                            <td><?php echo Form::text('servicio.nombre_ser_eng','class="titulo"')?></td> 
+                        </tr>
+                        <tr>
+                          
+                            <td class="span6"><?php echo Form::textarea('servicio.detalle_ser_eng','rows=10 style="width: 100%;" ')?>
+                            </td>
+                        </tr>     
+                        </table>
+                </td>
+            </tr>
+        </table>
+ </div>
+
+
+<br>
+<div align="center">
+    <table>
+        <tr>
+             <td><?php echo Form::submit(''.$publicacion_traducir_submit.'','class="btn btn-submit boton" ') ?>&nbsp;</td>
+        </tr>   
+    </table>
+</div>
+
+<?php echo Form::hidden('servicio.id','',$id_ser); ?>
+<?php echo Form::hidden('servicio.id_usu','',$id_usu); ?>
+    <?php echo Form::close() ?> 
