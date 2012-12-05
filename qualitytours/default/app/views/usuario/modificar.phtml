@@ -1,3 +1,14 @@
+<?php
+//Código para el idioma
+    if($leng == "en")
+    {
+        include_once APP_PATH.'libs/en.php';
+    }
+    else
+    {
+        include_once APP_PATH.'libs/es.php';
+    }
+?>   
 <div><?php View::content() ?></div> 
 
 <?php
@@ -8,10 +19,10 @@ if($diferenciador=='1')
 <fieldset>
 <?php echo Form::open() ?>
     <div align="center">
-        <h1 style="font-family: SF"> Modificaci&oacute;n de datos </h1>
+        <h1 style="font-family: SF"> <?php echo $usuario_modificar_titulo1; ?> </h1>
         <table>
     <tr>
-        <td>Username:&nbsp;</td>
+        <td><?php echo $usuario_ingresar_usuario; ?>:&nbsp;</td>
         <td><?php echo Form::text('usuario.username_usu', "class='input-medium disabled username' disabled=''") ?></td>
     </tr>
     <tr>
@@ -20,11 +31,11 @@ if($diferenciador=='1')
     </tr>
 
     <tr>
-        <td>Nombre:&nbsp;</td>
+        <td><?php echo $nombre_ingresar_string; ?>:&nbsp;</td>
         <td><?php echo Form::text('usuario.nombre_usu',"class='input-medium nombre'") ?></td>
     </tr>
     <tr>
-        <td>Apellido:&nbsp;</td>
+        <td><?php echo $apellido_ingresar_string; ?>:&nbsp;</td>
         <td><?php echo Form::text('usuario.apellido_usu',"class='input-medium apellido'") ?></td>
     </tr>
     <tr>
@@ -41,8 +52,8 @@ if($diferenciador=='1')
     <div align="center">
     <table>
         <tr>
-            <td><?php echo Form::submit('Modificar datos','class="btn btn-submit boton"') ?>&nbsp;</td>
-            <td><?php echo Form::reset('Reiniciar','class="btn btn-info"')?></td>
+            <td><?php echo Form::submit(''.$usuario_eliminar_boton .'','class="btn btn-submit boton"') ?>&nbsp;</td>
+           
         </tr>         
     </table>
    </div>
