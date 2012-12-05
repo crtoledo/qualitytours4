@@ -1,17 +1,11 @@
 <style>
     footer {
-
-
         position: relative;
-/*        margin-top: 150px;  ponga en negativo el alto de su pie de página para nuestro    ejemplo usamos 63, usted debe remplazarlo según su diseño   */
-        
+        /*      margin-top: 150px;  ponga en negativo el alto de su pie de página para nuestro    ejemplo usamos 63, usted debe remplazarlo según su diseño   */
         height: 63px;
         clear:both;
         width:100%;
         background-color: #fbffff;
-        
-   
-        
     }
 </style>
 <style>
@@ -32,49 +26,52 @@
     }
 </style>
 <script type="text/javascript">
-$(function() {
-	$(window).scroll(function() {
-		if($(this).scrollTop() != 0) {
-			$('#toTop').fadeIn();	
-		} else {
-			$('#toTop').fadeOut();
-		}
-	});
+    $(function() {
+        $(window).scroll(function() {
+            if($(this).scrollTop() != 0) {
+                $('#toTop').fadeIn();	
+            } else {
+                $('#toTop').fadeOut();
+            }
+        });
  
-	$('#toTop').click(function() {
-		$('body,html').animate({scrollTop:0},800);
-	});	
-});
+        $('#toTop').click(function() {
+            $('body,html').animate({scrollTop:0},800);
+        });	
+    });
 </script>
 
 <footer >
 
     <div class="row-fluid" style=" background-color: #fbffff">
         <div class="span12">
-<!--            <address>
-                <center><strong>Quality tours 2012 <i class="icon-hand-left"></i></strong></center>
-            </address>   -->
+            <!--            <address>
+                            <center><strong>Quality tours 2012 <i class="icon-hand-left"></i></strong></center>
+                        </address>   -->
 
-<hr style="height: 1px; background-color: #fbffff; border-style:inset;  ">
+            <hr style="height: 1px; background-color: #fbffff; border-style:inset;  ">
 
             <div class="row-fluid">
                 <div class="span6"> 
-        <blockquote>
-            <p><span style="font-size: 10px">Condiciones de uso | Condiciones del servicio | Pol&iacute;tica de privacidad </span></p>
-    <small style="font-size: 8px">Actualizado al 2 de Diciembre</small>
-    </blockquote></div>
+                    <blockquote>
+                        <p><span style="font-size: 10px">Condiciones de uso | Condiciones del servicio | Pol&iacute;tica de privacidad | <?php echo Html::link('contacto/contacto', 'Contactenos'); ?> </span></p>
+                        <small style="font-size: 8px">Actualizado al 4 de Diciembre</small>
+                    </blockquote>
+                </div>
                 <div class="span6">  
                     <blockquote class="pull-right">
-                    <p style="line-height: 80%">
-                        <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/deed.es"><img alt="Licencia Creative Commons" style="border-width:0" src="http://i.creativecommons.org/l/by-sa/3.0/80x15.png" /></a><br />
-                        <span xmlns:dct="http://purl.org/dc/terms/" property="dct:title"></span> <span style="font-size: 10px; "><a xmlns:cc="http://creativecommons.org/ns#" href="http://qualitytours.no-ip.org" property="cc:attributionName" rel="cc:attributionURL">Quality Tours</a><br> 
-                            se encuentra bajo una<a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/deed.es"><br>Licencia Creative Commons </a></span>  
-                    </p>
+<!--                        <p><span style="font-size: 10px"><a href="http://qualitytours.no-ip.org">Quality Tours 2012</a></span></p>
+                        <span style="font-size: 10px">Algunos derechos reservados</span>-->
+                        <p><span style="font-size: 10px"><a href="http://qualitytours.no-ip.org">Quality Tours 2012</a> </span></p>
+                        <small style="font-size: 10px">Algunos derechos reservados</small>
                     </blockquote>
                 </div>
             </div>
-            <div id="toTop">^ Back to Top</div>
+            <div id="toTop"><i class="icon-arrow-up"></i> Subir</div>
         </div>    
 
     </div>
 </footer>
+ <!-- <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/deed.es"><img alt="Licencia Creative Commons" style="border-width:0" src="http://i.creativecommons.org/l/by-sa/3.0/80x15.png" /></a><br />
+                            <span xmlns:dct="http://purl.org/dc/terms/" property="dct:title"></span> <span style="font-size: 10px; "><a xmlns:cc="http://creativecommons.org/ns#" href="http://qualitytours.no-ip.org" property="cc:attributionName" rel="cc:attributionURL">Quality Tours</a><br> 
+                                se encuentra bajo una<a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/deed.es"><br>Licencia Creative Commons </a></span>  -->

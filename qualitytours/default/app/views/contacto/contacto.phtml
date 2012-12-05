@@ -105,20 +105,28 @@ $(document).ready(function () {
     left: -16px;
     position: absolute;
     top: 5px;
+    
+}
+textarea {
+    resize: none;
+    width: 300px;
+    height: 200px;   
 }
 </style>
 
+<style>
 
+</style>
 
 <?php
 
 echo '<div class="div_contacto">
-<h1 style="font-family: SF"> Contacto administrador </h1>    
+<h1 style="font-family: SF"> Contacto</h1>    
 <form action="" method="post">  
 <input type="hidden" value="'.$username_usu.'" name="username" size="50" maxlength="80">
 <input type="hidden" value="'.$email_usu.'"  name="email" size="50" maxlength="60"> <label for="asunto">Asunto : </label>
 <input type="text" name="asunto" class="asunto" size="50" maxlength="60"><br> <label for="mensaje">Mensaje : </label>  <textarea name="mensaje" class="body" cols="31" rows="5"></textarea> <br>
 <label for="enviar">
-<input type="submit" class="boton" name="enviar" value="Enviar consulta"></label>
+<input type="submit" class="btn btn-success boton" name="enviar" value="Enviar mensaje"></label>
  </form></div>';
 ?>
