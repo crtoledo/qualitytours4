@@ -212,7 +212,7 @@ if ($url == "en") {
                                 <b class="caret"></b>
                             </a>
                             <ul class="dropdown-menu">
-                                <li><?php echo Html::link('usuario/automodificar/', '<i class="icon-file"></i>' . $modificardatos_string . ''); ?></li>
+                                <li><?php echo Html::link('usuario/automodificar/'.$leng, '<i class="icon-file"></i>' . $modificardatos_string . ''); ?></li>
                                 <li><?php echo Html::link('cliente/ingresarsolicitud/', '<i class="icon-thumbs-up"></i>' . $suscripcion_string . ''); ?></li>
                                 <li><?php echo Html::link('solicitud/vertodas/' . Auth::get("id"), '<i class="icon-eye-open"></i>Solicitudes anteriores(t)'); ?></li>
                             </ul>

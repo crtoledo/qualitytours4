@@ -26,6 +26,7 @@ $usuario_ingresar_condiciones = "Acepto las condiciones de uso";
 $usuario_ingreso_minimo = "Ingresa una contraseña de al menos 5 caracteres";
 $usuario_username_minimo = "Ingresa un nombre de usuario de al menos 3 caracteres";
 $usuario_ingresar_obligatorios = "*Todos los campos son obligatorios";
+$usuario_ingresar_traductor = "Ingresar Traductor";
 $val_username_string = "Ingrese username";
 $val_password_string = "Ingrese password";
 $val_nombre_string = "Ingrese nombre";
@@ -53,6 +54,7 @@ $usuario_buscar_administrador= "Eliminar administrador";
 $usuario_buscar_eliminar = "Eliminar";
 
 //variales para usuario/automodificar
+
 $usuario_automodificar_titulo = "Modificación de datos";
 $usuario_automodificar_nombre = "Nombre";
 $usuario_automodificar_apellido = "Apellido";
@@ -111,6 +113,11 @@ $ubicacion_ingresar_titulo2 = "Indique la ubicación de su destino turístico";
 $ubicacion_ingresar_ubi = "Ingrese una ubicación...";
 $ubicacion_ingresar_submit = "Ingresar Ubicación";
 $ubicacion_ingresar_link = "Ingrese su ubicación indicando un punto geográfico";
+//usuario/eliminar
+
+$usuario_eliminar_titulo = "Usuario Eliminado";
+$usuario_eliminar_cuerpo = "La eliminacion del usuario se ha efectuado con exito";
+$usuario_eliminar_boton = "Aceptar";
 
 
 

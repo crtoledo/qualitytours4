@@ -26,6 +26,7 @@ $usuario_ingresar_condiciones = "I accept the terms of use";
 $usuario_ingreso_minimo = "Enter a password of at least 5 characters";
 $usuario_username_minimo = "Enter a username of at least 3 characters";
 $usuario_ingresar_obligatorios = "*All fields are required";
+$usuario_ingresar_traductor = "Add Translator";
 $val_username_string = "Please enter username";
 $val_password_string = "Please enter password";
 $val_nombre_string = "Please enter your first name";
@@ -33,6 +34,8 @@ $val_apellido_string = "Please enter your last name";
 $val_rut_string = "Please enter your ID";
 $val_email_string = "Please enter your email";
 $val_passwords_string = "Passwords don't match"; // sacada del registro de google 
+
+
 
 //variables para usuario/buscar
 $usuario_buscar_titulo = "Search users";
@@ -53,7 +56,7 @@ $usuario_buscar_administrador = "Delete administrator";
 $usuario_buscar_eliminar = "Delete";
 
 //variales para usuario/automodificar
-$usuario_automodificar_titulo = "Modificación de datos";
+$usuario_automodificar_titulo = "Modify your date";
 $usuario_automodificar_nombre = "Nombre";
 $usuario_automodificar_apellido = "Apellido";
 $usuario_automodificar_modcontraseña = "Modify your password";
@@ -110,5 +113,11 @@ $ubicacion_ingresar_titulo2 = "Indicate the location of your destination";
 $ubicacion_ingresar_ubi = "Enter a location...";
 $ubicacion_ingresar_submit = "Add Ubication";
 $ubicacion_ingresar_link = "Enter your location by entering a geographic";
+
+//usuario/eliminar
+
+$usuario_eliminar_titulo = "Delete user";
+$usuario_eliminar_cuerpo = "The elimination of the user has been successfully";
+$usuario_eliminar_boton = "Accept";
 
 ?>

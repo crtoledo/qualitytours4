@@ -175,7 +175,41 @@ class UsuarioController extends AppController
     
     public function buscar($leng)
     {
-        $this->leng= $leng;
+        if(Auth::is_valid())
+        {
+            if(Auth::get("rol_usu") == "administrador")
+            {
+                $this->leng = $leng;
+            }
+            else
+            {
+                if($leng == "en")
+                {
+                     echo Flash::info("location not found");
+                    Router::redirect("index/?l=en");
+                }
+                else
+                {
+                     echo Flash::info("Ubicaci&oacute;n no encontrada");
+                     Router::redirect("/");
+                }
+            }
+            
+        }
+        else
+        {
+            if($leng == "en")
+            {
+                echo Flash::info("location not found");
+                Router::redirect("index/?l=en");
+            }
+            else
+            {
+                echo Flash::info("Lo sentimos ubicaci&oacute;n no encontrada");
+                Router::redirect("/");
+            }
+        }
+        
     }
 
     public function admin()
@@ -183,12 +217,13 @@ class UsuarioController extends AppController
         
     }
 
-    public function eliminar($id)
+    public function eliminar($id,$leng)
     {
         if(Auth::is_valid())
         {
             if(Auth::get('rol_usu')== 'administrador')
             {
+                $this->leng = $leng;
                 //problemas tabla cliente y usuario
                 $usuarioaeliminar = new Usuario;
                 $usuario = $usuarioaeliminar->find($id);
