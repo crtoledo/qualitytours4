@@ -120,4 +120,7 @@ $usuario_eliminar_titulo = "Delete user";
 $usuario_eliminar_cuerpo = "The elimination of the user has been successfully";
 $usuario_eliminar_boton = "Accept";
 
+//usuario/modificar
+$usuario_modificar_titulo1 = "Modify your data";
+
 ?>

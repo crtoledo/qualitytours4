@@ -119,6 +119,9 @@ $usuario_eliminar_titulo = "Usuario Eliminado";
 $usuario_eliminar_cuerpo = "La eliminacion del usuario se ha efectuado con exito";
 $usuario_eliminar_boton = "Aceptar";
 
+//usuario/modificar
+$usuario_modificar_titulo1 = "Modificaci&oacute;n de datos";
+
 
 
 ?>
