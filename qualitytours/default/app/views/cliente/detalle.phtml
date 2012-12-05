@@ -149,8 +149,8 @@
                 function calcRoute() 
                 {
                     var request = {
-                        origin: latlng_cliente,
-                        destination: event.latLng,
+                        origin: event.latLng,
+                        destination: latlng_cliente,
                         travelMode: google.maps.DirectionsTravelMode.DRIVING
                     };
                     directionsService.route(request, function(response, status) {
