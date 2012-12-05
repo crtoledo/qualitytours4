@@ -70,12 +70,13 @@ class UbicacionController extends AppController
         }
     }
     
-    public function ingresar_mapa()
+    public function ingresar_mapa($leng)
     {
         if (Auth::is_valid())
         {
             if(Auth::get('rol_usu') == 'cliente')
             {
+                $this->leng = $leng;
                 $cliente = new Cliente();
                 $cliente->find(Auth::get('id'));
                 $this->nombre_cliente = $cliente->nombre_cli;

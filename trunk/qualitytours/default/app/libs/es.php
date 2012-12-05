@@ -122,6 +122,15 @@ $usuario_eliminar_boton = "Aceptar";
 //usuario/modificar
 $usuario_modificar_titulo1 = "Modificaci&oacute;n de datos";
 
+//ubicacacion/ingresar_mapa
+$ubicacion_ingresar_mapa_valpais = "Seleccione una ubicación dentro de Chile";
+$ubicacion_ingresar_mapa_ciudad = "Ciudad";
+$ubicacion_ingresar_mapa_advertencia = "Obtener la dirección de su marcador en el mapa";
+$ubicacion_ingresar_mapa_obtener = "Obtener Direcci&oacute;n";
+$ubicacion_ingresar_mapa_check = "Verifique los datos antes de ingresar su ubicaci&oacute;n";
+$ubicacion_ingresar_mapa_confirmar = "Confirmar";
+
+
 
 
 ?>
