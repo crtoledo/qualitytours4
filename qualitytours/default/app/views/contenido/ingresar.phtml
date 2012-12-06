@@ -97,6 +97,9 @@ reemplazo se uso 'errorVal'.
     $id =  Auth::get('id'); 
     //captura del id de la publicacion
     $id_pub= $id_pub;
+    
+    setlocale ( LC_TIME, 'spanish' );
+    $fecha = strftime(date('Y/m/d'));
   ?>
 
 
@@ -118,11 +121,7 @@ reemplazo se uso 'errorVal'.
             
         </tr>
       </table>
-       <table>    
-        <tr>
-            <td>fecha:</td>
-            <td><?php echo Calendar::text('contenido.fecha_con','class="fecha"') ?></td>
-        </tr>
+       <table><?php echo Form::hidden('contenido.fecha_con',null,$fecha);?>
         <tr>
             <td>Nombre:</td>
             <td><?php  echo Form::text('contenido.nombre_con','class="nombre"') ?></td>
