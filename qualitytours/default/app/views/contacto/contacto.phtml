@@ -56,6 +56,9 @@ $(document).ready(function () {
     $(".boton").click(function (){
         $(".errorVal").remove();
         
+        //ELIMINAMOS ESPACIOS EN BLANCO AL COMIENZO/FINAL
+            $(".asunto").val($.trim($(".asunto").val()));
+        
          if( $(".asunto").val() == "" ){
             $(".asunto").focus().after("<span class='errorVal'>El asunto no puede estar vacío</span>");
             return false;
