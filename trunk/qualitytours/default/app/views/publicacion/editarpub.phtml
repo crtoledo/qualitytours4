@@ -13,6 +13,9 @@ $(document).ready(function () {
     $(".boton").click(function (){
         $(".errorVal").remove();
         
+        //ELIMINAMOS ESPACIOS EN BLANCO AL COMIENZO/FINAL
+            $(".titulo").val($.trim($(".titulo").val()));
+        
         if( $(".calendario").val() == "" )
         {
             $(".calendario").focus().after("<span class='errorVal'>Seleccione una fecha de publicación</span>");
@@ -102,7 +105,7 @@ reemplazo se uso 'errorVal'.
         </tr>
         <tr>
             <td class="span2">Título:</td>
-            <td><?php echo Form::text('publicacion.titulo_pub',' class="titulo span3"',$titulo)?></td> 
+            <td><?php echo Form::text('publicacion.titulo_pub',' class="titulo span3 mask-alphanum"',$titulo)?></td> 
         </tr>
         <tr>
             <td colspan="2"><?php echo Form::textarea('publicacion.detalle_pub','rows=10 style="width: 100%;"',$detalle)?></td>
