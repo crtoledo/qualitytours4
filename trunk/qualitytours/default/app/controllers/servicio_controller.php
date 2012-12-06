@@ -29,8 +29,21 @@ class ServicioController extends AppController
             if ($servicio->count("conditions: id=".$id_servicio) != 0)
             {
                 $servicio->find($id_servicio);
-                $this->nombre = $servicio->nombre_ser;
-                $this->detalle = $servicio->detalle_ser;
+                
+                //para el idioma
+                if($leng == "es")
+                {
+                     $this->nombre = $servicio->nombre_ser;
+                     $this->detalle = $servicio->detalle_ser;
+                }
+                else
+                {
+                    $this->nombre = $servicio->nombre_ser_eng;
+                    $this->detalle = $servicio->detalle_ser_eng;
+                }
+               
+                
+                
                 $this->precio = $servicio->precio_ser;
 
                 //Obtenemos el id del cliente
