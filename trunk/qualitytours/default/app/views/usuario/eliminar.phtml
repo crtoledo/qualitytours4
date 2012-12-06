@@ -1,16 +1,16 @@
-<?php
-    //Código para el idioma
-    if($leng == "en")
-    {
-        include_once APP_PATH.'libs/en.php';
-    }
-    else
-    {
-        include_once APP_PATH.'libs/es.php';
-    }
-?>  
+//<?php
+//    //Código para el idioma
+//    if($leng == "en")
+//    {
+//        include_once APP_PATH.'libs/en.php';
+//    }
+//    else
+//    {
+//        include_once APP_PATH.'libs/es.php';
+//    }
+//?>  
 
-<div><?php View::content() ?></div> 
+<!--<div><?php //View::content() ?></div> 
 <script type="text/javascript">
 //Para llamar al modal    
 $(document).ready(function () {
@@ -18,18 +18,18 @@ $('#myModal').modal({
     keyboard: false
     })
 });
-</script>
+</script>-->
 
 
-<div class="modal hide" id="myModal">
+<!--<div class="modal hide" id="myModal">
     <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal">×</button>
-    <h3 style="font-family: SF"><?php echo $usuario_eliminar_titulo; ?></h3>
+    <h3 style="font-family: SF"><?php// echo $usuario_eliminar_titulo; ?></h3>
     </div>
     <div class="modal-body">
-    <p><?php echo $usuario_eliminar_cuerpo; ?></p>
+    <p><?php //echo $usuario_eliminar_cuerpo; ?></p>
     </div>
     <div class="modal-footer">
-    <?php echo Html::link("usuario/buscar/".$leng,"<button class='btn btn-primary'>".$usuario_eliminar_boton."</button>"); ?>
+    <?php //echo Html::link("usuario/buscar/".$leng,"<button class='btn btn-primary'>".$usuario_eliminar_boton."</button>"); ?>
     </div>
-</div>
+</div>-->
