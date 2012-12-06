@@ -36,6 +36,12 @@ $val_rut_string = "Ingrese un rut valido";
 $val_email_string = "Ingrese su email";
 $val_passwords_string = "Las contraseñas no coinciden"; 
 
+//variables para usuario/olvidar
+
+$usuario_olvidar_nombre = "Ingrese su nombre de usuario";
+$usuario_olvidar_titulo = "Recuprar clave";
+$usuario_olvidar_boton = "Buscar";
+
 //variables para usuario/buscar
 $usuario_buscar_titulo = "Buscar usuarios";
 $usuario_buscar_ingrese_usuario = "Ingrese Usuario";
@@ -144,6 +150,20 @@ $solicitud_administrar_telefono = "Tel&eacute;fono Comercial";
 $solicitud_administrar_tipo = "Tipo de plan";
 $solicitud_administrar_solicitud = "Fecha de solicitud";
 $solicitud_administrar_estado = "Estado";
+$solicitud_administrar_observaciones = "Observaciones de la solicitud";
+$solicitud_administrar_notiene = "No tiene opciones de administracion";
+$solicitud_administrar_aceptar_sol = "Aceptar solicitud";
+$solicitud_administrar_espera = "Aviso de espera";
+$solicitud_administrar_rechazar = "Rechazar solicitud";
+$solicitud_administrar_mensaje1 = "El usuario no ha confirmado el envio del mail";
+$solicitud_administrar_mensaje2 = "Observaciones";
+$solicitud_administrar_enviar = "Enviar observaciones";
+$solicitud_administrar_estaseguro = "¿ Esta seguro de rechazar la solicitud ?";
+$solicitud_administrar_modal1 = "El rechazo de la solicitud, es una accion que no se puede deshacer";
+$solicitud_administrar_modal2 = "Antes de rechazar la solicitud asegurece de:";
+$solicitud_administrar_modal3 = "Enviar las observaciones antes de rechazar la solicitud:";
+$solicitud_administrar_cerrar = "Cerrar";
+
 
 
 

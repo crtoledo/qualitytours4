@@ -363,8 +363,19 @@ class UsuarioController extends AppController {
                     echo "Error: " . $mail->ErrorInfo;
                     } else {
                     //echo "Mensaje enviado correctamente";
-                    Flash::success("Su contraseña se a mandado a su correo de registro");
-                    Router::redirect('/');
+                        
+                        if($leng == "es")
+                        {
+                              Flash::success("Su contraseña se a mandado a su correo de registro");
+                              Router::redirect('/');
+                        }
+                        else
+                        {
+                             Flash::success("Your password is sent to your registration e-mail");
+                             Router::redirect('/');
+                            
+                        }
+                  
                     }
     
                  
@@ -372,7 +383,18 @@ class UsuarioController extends AppController {
              }
              else
              {
-                 echo flash::info("No existe el nombre de usuario");
+                 if($leng == "es")
+                 {
+                     echo flash::info("No existe el nombre de usuario");
+                     Router::redirect("usuario/olvidar/".$leng);
+                 }
+                 else
+                 {
+                     echo flash::info("username does not exist");
+                     Router::redirect("usuario/olvidar/".$leng);
+                     
+                 }
+                 
              }
              
             
