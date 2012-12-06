@@ -72,7 +72,8 @@ class AdministradorController extends AppController {
         }
     }
 
-    public function notificaciones($tipo_consulta) {
+    public function notificaciones($tipo_consulta,$leng) {
+        $this->leng = $leng;
         if (Auth::is_valid()) {
             if (Auth::get('rol_usu') == 'administrador') {
                 if ($tipo_consulta == "pendiente") {

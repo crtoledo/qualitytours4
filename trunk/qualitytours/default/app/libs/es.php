@@ -131,6 +131,19 @@ $ubicacion_ingresar_mapa_obtener = "Obtener Direcci&oacute;n";
 $ubicacion_ingresar_mapa_check = "Verifique los datos antes de ingresar su ubicaci&oacute;n";
 $ubicacion_ingresar_mapa_confirmar = "Confirmar";
 
+//solicitud/adminisitrar
+
+$solicitud_administrar_solicitud_de = "Solicitud de:";
+$solicitud_administrar_datos = "Datos del usuario";
+$solicitud_administrar_username = "Nombre de usuario";
+$solicitud_administrar_nombre = "Nombre de centro turistico";
+$solicitud_administrar_privado = "Rut privado";
+$solicitud_administrar_comercial = "Rut comercial";
+$solicitud_administrar_giro = "Giro";
+$solicitud_administrar_telefono = "Tel&eacute;fono Comercial";
+$solicitud_administrar_tipo = "Tipo de plan";
+$solicitud_administrar_solicitud = "Fecha de solicitud";
+$solicitud_administrar_estado = "Estado";
 
 
 

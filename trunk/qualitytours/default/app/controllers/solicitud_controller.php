@@ -261,11 +261,14 @@ class SolicitudController extends AppController {
 //****************************************************//    
 ///////////////////////////////////////////////////////  
 
-    Public function buscar() {
+    Public function buscar($leng) {
+        $this->leng = $leng;
         
     }
 
-    Public function administrar($solicitud, $usuario) {
+    Public function administrar($solicitud, $usuario,$leng) {
+        $this->leng = $leng;
+        if(Auth::is_valid()){
         if (Auth::get("rol_usu") == "administrador") {
 
             $datos_solicitud = new solicitud();
@@ -319,6 +322,16 @@ class SolicitudController extends AppController {
             Flash::info('No posee los privilegios necesarios');
             Router::redirect("/");
         }
+         //fin if de rol
+        }
+        else
+        {
+             Flash::info('Error de url ');
+             Router::redirect("/");
+            
+        }
+        
+       
     }
 
     Public function ingresarobservacion($usuario, $solicitud) {

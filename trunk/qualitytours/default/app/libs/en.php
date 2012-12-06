@@ -132,5 +132,18 @@ $ubicacion_ingresar_mapa_obtener = "Get Address";
 $ubicacion_ingresar_mapa_check = "Check the data before entering your location";
 $ubicacion_ingresar_mapa_confirmar = "Confirm";
 
+//solicitud/adminisitrar
+
+$solicitud_administrar_solicitud_de = "Solicitude of: ";
+$solicitud_administrar_datos = "User Data";
+$solicitud_administrar_username = "Username";
+$solicitud_administrar_nombre = "Name tourist center";
+$solicitud_administrar_privado = "Rut private";
+$solicitud_administrar_comercial = "Rut commercial";
+$solicitud_administrar_giro = "Order";
+$solicitud_administrar_telefono = "Phone Commercial";
+$solicitud_administrar_tipo = "Type plan";
+$solicitud_administrar_solicitud = "Date of solicitude";
+$solicitud_administrar_estado = "State";
 
 ?>
