@@ -174,7 +174,7 @@ margin-left: 820px;
                                 <td><div align="right"><?php echo "<b>".$fecha2[$i]."</b>";
                                  if(Auth::is_valid())
                                  {
-                                    if(Auth::get("id") ==  $id2[$i])
+                                    if(Auth::get("id") ==  $id2[$i] || Auth::get("rol_usu") == "administrador")
                                     { ?>
                                         <a  class="delete" id="<?=$idComentario2[$i]?>"><i class="icon-remove"></i></a>  
                               <?php } 
