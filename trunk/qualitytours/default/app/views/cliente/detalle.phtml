@@ -506,7 +506,7 @@ $(document).ready(function()
                                 <td><div align="right"><?php echo "<b>".$fecha[$i]."</b>";
                                  if(Auth::is_valid())
                                  {
-                                    if(Auth::get("id") ==  $id[$i])
+                                    if(Auth::get("id") ==  $id[$i] || Auth::get("rol_usu") == "administrador")
                                     { ?>
                                         <a  class="delete" id="<?=$idComentario[$i]?>"><i class="icon-remove"></i></a>  
                               <?php } 
