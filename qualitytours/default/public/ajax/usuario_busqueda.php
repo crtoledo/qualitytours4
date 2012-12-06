@@ -12,10 +12,10 @@ else
 $usuariobuscar = $_REQUEST['string'];
 
 if ($tipo == "no_seleccionado") {
-    $res = pg_query($conn, "select * from usuario where username_usu ilike '%" . $usuariobuscar . "%'");
+    $res = pg_query($conn, "select * from usuario where username_usu ilike '%" . $usuariobuscar . "%' and estado_usu=true");
     $arr = pg_fetch_all($res);
 } else {
-    $res = pg_query($conn, "select * from usuario where username_usu ilike '%" . $usuariobuscar . "%' and rol_usu='" . $tipo . "'");
+    $res = pg_query($conn, "select * from usuario where username_usu ilike '%" . $usuariobuscar . "%' and rol_usu='" . $tipo . "' and estado_usu=true");
     $arr = pg_fetch_all($res);
 }
 
