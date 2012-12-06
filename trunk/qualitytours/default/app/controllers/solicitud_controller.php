@@ -369,7 +369,7 @@ class SolicitudController extends AppController {
                     //Se actualiza la tabla cliente con los nuevos datos del cliente
                     $sentencia = "UPDATE cliente SET id_sol=" . $id_solicitud . ", rol_usu='cliente', estado_usu= true, fecha_ini_sus='" . $fecha_inicio . "', fecha_fin_sus='" . $fecha_fin . "' WHERE id_usu=" . $id_cliente;
                     $sentencia_actualizar_rol = "UPDATE usuario SET id_sol=" . $id_solicitud . ", rol_usu='cliente' WHERE id=" . $id_cliente;
-                    $sentencia_actualizar_solicitud = "UPDATE solicitud SET estado_sol='Aceptada' WHERE id=" . $id_solicitud;
+                    $sentencia_actualizar_solicitud = "UPDATE solicitud SET estado_sol='Aceptada', adm_id_usu=". Auth::get("id") ."  WHERE id=" . $id_solicitud;
                     $sentencia_actualizar_estado_categoria = "UPDATE categoria SET estado_cat=true WHERE id_usu =". $id_cliente;
                     if ($tipo_solicitud == "Renovacion") {
                         // Se busca la antigua solicitud
