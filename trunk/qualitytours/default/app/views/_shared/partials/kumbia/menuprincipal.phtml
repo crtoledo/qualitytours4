@@ -370,7 +370,9 @@ if ($url == "en") {
                                 <?php echo $contraseña_string; ?>
                                 <?php echo Form::pass("password_usu", "class='span2 mask-alphanum login_pass'"); ?>
                                 <?php echo Form::submit('' . $ingresar_string . '', "class='btn btn-primary botonlogin'"); ?>
-                                <br><hr>
+                                <br>
+                                <?php echo Html::link("usuario/olvidar/".$leng,"¿Olvido su clave?"); ?>
+                                <hr>
 
                                 <li><?php echo Html::link('' . $enlace_registrate . '', $registrate_string . ' <i class="icon-plus-sign"></i>'); ?></li>
                             </center>
