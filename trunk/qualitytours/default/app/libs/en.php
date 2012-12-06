@@ -36,7 +36,11 @@ $val_rut_string = "Please enter your ID";
 $val_email_string = "Please enter your email";
 $val_passwords_string = "Passwords don't match"; // sacada del registro de google 
 
+//variables para usuario/olvidar
 
+$usuario_olvidar_nombre = "Enter your username";
+$usuario_olvidar_titulo = "Lost Password";
+$usuario_olvidar_boton = "Search";
 
 //variables para usuario/buscar
 $usuario_buscar_titulo = "Search users";
@@ -145,5 +149,21 @@ $solicitud_administrar_telefono = "Phone Commercial";
 $solicitud_administrar_tipo = "Type plan";
 $solicitud_administrar_solicitud = "Date of solicitude";
 $solicitud_administrar_estado = "State";
+$solicitud_administrar_observaciones = "Observations of the application";
+$solicitud_administrar_notiene = "No management options";
+$solicitud_administrar_aceptar_sol = "OK request";
+$solicitud_administrar_espera = "Please wait";
+$solicitud_administrar_rechazar = "reject request";
+$solicitud_administrar_mensaje1 = "The user has not confirmed the shipment of mail";
+$solicitud_administrar_mensaje2 = "observations";
+$solicitud_administrar_enviar = "Enviar solicitud";
+$solicitud_administrar_enviar = "Send comments";
+$solicitud_administrar_estaseguro = "Are you sure to reject the application?";
+$solicitud_administrar_modal1 = "The rejection of the application, is an action that can not be undone";
+$solicitud_administrar_modal2 = "Before rejecting the application, make sure:";
+$solicitud_administrar_modal3 = "Send comments before rejecting the request:";
+$solicitud_administrar_cerrar = "Exit";
+
+
 
 ?>
