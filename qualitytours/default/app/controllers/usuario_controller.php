@@ -15,25 +15,29 @@ class UsuarioController extends AppController {
 
     public function ingresar($leng) {
         $this->leng = $leng;
+        if (!Auth::is_valid()) {
+            if (Input::hasPost('usuario')) {
+                $usuario = new Usuario(Input::post('usuario'));
 
-        if (Input::hasPost('usuario')) {
-            $usuario = new Usuario(Input::post('usuario'));
-
-            if (!$usuario->save()) {
-                if ($leng == "es") {
-                    Flash::error('Error al agregar Usuario');
+                if (!$usuario->save()) {
+                    if ($leng == "es") {
+                        Flash::error('Error al agregar Usuario');
+                    } else {
+                        Flash::error('user add error');
+                    }
                 } else {
-                    Flash::error('user add error');
-                }
-            } else {
-                if ($leng == "es") {
-                    Flash::success('Usuario ingresado satisfactoriamente');
-                    Router::redirect("index");
-                } else {
-                    Flash::success('Add user successful');
-                    Router::redirect("index/?l=en");
+                    if ($leng == "es") {
+                        Flash::success('Usuario ingresado satisfactoriamente');
+                        Router::redirect("index");
+                    } else {
+                        Flash::success('Add user successful');
+                        Router::redirect("index/?l=en");
+                    }
                 }
             }
+        } else {
+            Flash::error('Usted ya se encuentra registrado');
+            Router::redirect("/");
         }
     }
 
