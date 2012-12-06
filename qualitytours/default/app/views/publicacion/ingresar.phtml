@@ -21,6 +21,9 @@ $(document).ready(function () {
     $(".boton").click(function (){
         $(".errorVal").remove();
         
+        //ELIMINAMOS ESPACIOS EN BLANCO AL COMIENZO/FINAL
+            $(".titulo").val($.trim($(".titulo").val()));
+        
         
          
         if( $(".titulo").val() == "" )
@@ -99,7 +102,7 @@ reemplazo se uso 'errorVal'.
     <table class="table table-bordered">
         
         <tr>
-            <td><?php echo Form::text('publicacion.titulo_pub','class="titulo" placeholder="'.$publicacion_ingresar_titulo.'"')?></td> 
+            <td><?php echo Form::text('publicacion.titulo_pub','class="titulo mask-alphanum" placeholder="'.$publicacion_ingresar_titulo.'"')?></td> 
         </tr>
         <tr>
             <?php // echo $publicacion_ingresar_detalle; ?>
