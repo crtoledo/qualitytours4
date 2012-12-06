@@ -87,7 +87,7 @@
             $cont = $i+1;
             echo "<table>
                   <tr>
-                  <td><span class='badge badge-info'>".$cont."</span>&nbsp;<font size='1'>".Html::link("cliente/detalle/".$id_cliente[$i]."/".$leng,$nombre_cli[$i],"target='_blank'")."</font></td>
+                  <td><span class='badge badge-info'>".$cont."</span>&nbsp;<font size='1'>".Html::link("cliente/detalle/".$id_cliente[$i]."/".$leng,$nombre_cli[$i],"target='_self'")."</font></td>
                   </tr>
                   </table>
                    ";
@@ -106,7 +106,7 @@
             
        <?php     echo "<table>
                   <tr>
-                  <td><span class='badge badge-info'>".$cont."</span>&nbsp;<font size='1'>".Html::link("cliente/detalle/".$id[$i]."/".$leng,$id_cli_cal[$i],"target='_blank'")." <b> ".number_format($valor_cal[$i], $decimals = 1)."</b></font>
+                  <td><span class='badge badge-info'>".$cont."</span>&nbsp;<font size='1'>".Html::link("cliente/detalle/".$id[$i]."/".$leng,$id_cli_cal[$i],"target='_self'")." <b> ".number_format($valor_cal[$i], $decimals = 1)."</b></font>
                   </td>
                  </tr>
                  <tr>
