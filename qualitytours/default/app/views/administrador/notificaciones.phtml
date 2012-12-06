@@ -24,7 +24,7 @@
                         $(".table-condensed tbody").append("<td><center>"+data[count]['fecha_sol']+"</center></td>");
                         $(".table-condensed tbody").append("<td><center>"+data[count]['estado_sol']+"</center></td>");
                         $(".table-condensed tbody").append("<td><center>"+data[count]['tipo_sol']+"</center></td>");
-                        $(".table-condensed tbody").append("<td><center><a href='/trunk/qualitytours/solicitud/administrar/"+data[count]['id'] +"/"+data[count]['id_usu'] +"'><button class='btn btn-small btn-info' type='button'>Administrar</button></a></center></td>");
+                        $(".table-condensed tbody").append("<td><center><a href='/trunk/qualitytours/solicitud/administrar/"+data[count]['id'] +"/"+data[count]['id_usu'] +"/<?php echo $leng; ?>'><button class='btn btn-small btn-info' type='button'>Administrar</button></a></center></td>");
                         $(".table-condensed tbody").prepend("</tr>");
                         count++;
                     }

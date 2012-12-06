@@ -1,3 +1,15 @@
+<?php
+//Código para el idioma
+    if($leng == "en")
+    {
+        include_once APP_PATH.'libs/en.php';
+    }
+    else
+    {
+        include_once APP_PATH.'libs/es.php';
+    }
+?>   
+
 <div><?php View::content() ?></div> 
 <script type="text/javascript">
     //activacion del modal de la cancelacion solicitud
@@ -17,7 +29,7 @@
 </style>
 
 <div align="center">
-    <h2> Solicitud de <?php echo $nombre_cli ?></h2> <br>
+    <h2>  <?php echo $solicitud_administrar_solicitud_de;  echo $nombre_cli; ?></h2> <br>
     <table>
         <tr>
             <!--    Datos usuario/cliente-->        
@@ -27,42 +39,42 @@
                     <dl>
                         <table class="table table-bordered">
                             <tr>
-                                <td colspan="2"><center><h4> Datos del usuario</h4></center></td>
+                                <td colspan="2"><center><h4><?php echo $solicitud_administrar_datos; ?> </h4></center></td>
                             </tr>  
                             <tr>
-                                <td><dt>Nombre de usuario:</dt></td>
+                                <td><dt><?php echo $solicitud_administrar_username; ?>:</dt></td>
                             <td width="250px"><dd><?php echo $nombre_usu ?></dd></td>
                             </tr>        
                             <tr>
-                                <td><dt>Nombre de centro turistico:</dt></td>
+                                <td><dt><?php echo $solicitud_administrar_nombre; ?>:</dt></td>
                             <td width="250px"><dd><?php echo $nombre_cli ?></dd></td>
                             </tr>
                             <tr>
-                                <td><dt>Rut privado:</dt></td>
+                                <td><dt><?php echo $solicitud_administrar_privado; ?>:</dt></td>
                             <td width="250px"><dd><?php echo $rut_usu ?></dd></td>
                             </tr>
                             <tr>
-                                <td><dt>Rut comercial:</dt></td>
+                                <td><dt><?php echo $solicitud_administrar_comercial; ?>:</dt></td>
                             <td width="250px"><dd><?php echo $rut_cli ?></dd></td>
                             </tr>
                             <tr>
-                                <td><dt>Giro:</dt></td>
+                                <td><dt><?php echo $solicitud_administrar_giro; ?>:</dt></td>
                             <td width="250px"><dd><?php echo $giro_cli ?></dd></td>
                             </tr>
                             <tr>
-                                <td><dt>Telefono comercial:</dt></td>
+                                <td><dt><?php echo $solicitud_administrar_telefono; ?>:</dt></td>
                             <td width="250px"><dd><?php echo $telefono_cli ?></dd></td>
                             </tr>
                             <tr>
-                                <td><dt>Tipo de plan:</dt></td>
+                                <td><dt><?php echo $solicitud_administrar_tipo; ?>:</dt></td>
                             <td width="250px"><dd><?php echo $tipo_plan ?></dd></td>
                             </tr>
                             <tr>
-                                <td><dt>Fecha solicitud:</dt></td>
+                                <td><dt><?php echo $solicitud_administrar_solicitud; ?>:</dt></td>
                             <td width="250px"><dd><?php echo $fecha_sol ?></dd></td>
                             </tr>
                             <tr>
-                                <td><dt>Estado solicitud:</dt></td>
+                                <td><dt><?php echo $solicitud_administrar_estado; ?>:</dt></td>
                             <td width="250px"><dd><?php echo $estado_sol ?></dd></td>
                             </tr>
                         </table>
