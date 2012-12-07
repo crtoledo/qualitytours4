@@ -179,14 +179,19 @@
   #map_canvas { height: 100% }
   #map_canvas_recorrido { height: 100% }
 </style>
+    <?php
+         if(Auth::is_valid())
+        {?>
+            <script type="text/javascript">
+                var id_cli = <?php echo $id_cliente?>;
+                var id_usu = <?php echo Auth::get("id"); ?>;
+                var promedio = <?php echo $calificacion;?>
+              </script>
+       
+  <?php } ?>
 
-<script type="text/javascript">
-    var id_cli = <?php echo $id_cliente?>;
-    var id_usu = <?php echo Auth::get('id')?>;
-    var promedio = <?php echo $calificacion;?>
-  
-    
-</script>
+
+
 
 <!--eliminar comentario-->
 <script type="text/javascript">
