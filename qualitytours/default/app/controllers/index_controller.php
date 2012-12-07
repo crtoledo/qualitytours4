@@ -3,6 +3,7 @@ Load::model('publicacion');
 Load::model('contenido');
 Load::model('cliente');
 Load::model('calificacion');
+Load::model('categoria');
 /**
  * Controller por defecto si no se usa el routes
  * 
@@ -107,6 +108,27 @@ class IndexController extends AppController
                 }
                 $this->contadors = $contador;
                //FIN RANKING CALIFICACION
+                
+                //COMIENZO ITEMS TAG CLOUD
+                $categoria_obj = new Categoria();
+                $leng = $_GET["l"];
+                $contador_cat = 0;
+                //$categorias_encontradas = $categoria_obj->find_all_by('estado_cat',1);
+                $categorias_encontradas = $categoria_obj->find('conditions: estado_cat=TRUE');
+                
+                    foreach ($categorias_encontradas as $cat)
+                    {
+                        //$this->cat[$contador_cat] = $cat[$contador_cat]->nombre_cat;
+                        $this->cat[$contador_cat] = $cat->nombre_cat;
+                        $contador_cat++;
+                    }
+                
+                
+                $this->contador_cat = $contador_cat;
+
+
+
+        //FIN ITEMS TAG CLOUD
 	}
         public function en()
         {

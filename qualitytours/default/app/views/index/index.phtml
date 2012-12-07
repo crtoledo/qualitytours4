@@ -1,5 +1,6 @@
 <?php
  echo Tag::js('rating'); 
+ echo Tag::js('jquery.tagcanvas.min'); 
 //Código para el idioma
     if($leng == "en")
     {
@@ -12,6 +13,22 @@
 ?>    
 <!--estilo css para estrellas de muestra-->
 
+<script type="text/javascript">
+    $(document).ready(function() { //INICIO DEL TAG-CLOUD
+        if( ! $('#myCanvas').tagcanvas({
+            textColour : '#000000',
+            outlineThickness : 1,
+            maxSpeed : 0.03,
+            depth : 0.75,
+            shape : 'hring',
+            lock : 'x'
+        })) {
+            // TagCanvas failed to load
+            $('#myCanvasContainer').hide();
+        }
+        // your other jQuery stuff here...
+    });
+</script>
 
 <div class="container-fluid">
   <div class="row-fluid">
@@ -74,9 +91,24 @@
         <div align="right">
             <table>
                 <tr>
-                    <td><h6><?php echo $index_titulo_2; ?></h6></td>
-                <tr>
-                    <td><div align="center"> <?php echo Html::img("1341096209_publish.png","publicar"); ?></div> </td>
+                    <td>
+                        <div id="myCanvasContainer">
+                            <canvas width="134" height="200" id="myCanvas">
+                                
+<!--                                <p>Anything in here will be replaced on browsers that support the canvas element</p>-->
+                                <ul>
+                                    <?php 
+                                    for ($i=0 ; $i < $contador_cat ; $i++)
+                                    {
+                                        echo "aa";
+                                        //echo "<li>".Html::link('busqueda/buscando/'.$cat[$i]."/".$leng, $cat[$i])."</li>";
+                                        echo "<li>".Html::link('busqueda/buscando/'.$leng."?string=".$cat[$i], $cat[$i])."</li>";
+                                    }
+                                    ?>
+                                </ul>
+                            </canvas>
+                        </div>
+                    </td>
                 </tr>
             </table>
         </div>
