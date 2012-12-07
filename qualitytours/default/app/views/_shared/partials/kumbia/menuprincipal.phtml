@@ -195,7 +195,8 @@ if ($url == "en") {
 <div class="navbar navbar-inverse ">
     <div class="navbar-inner">
         <div class="container">
-            <a class="brand" >Quality Tours</a>
+            <?php if (!Auth::is_valid()){ echo "<a class='brand' >Quality Tours</a>";} else if (Auth::get("rol_usu")== "turista" || Auth::get("rol_usu")== "cliente" ) {echo "<a class='brand' >Quality Tours</a>";} ?>
+
             <ul class="nav">
                 <!-- HOME -->
                 <li class="">
@@ -214,7 +215,7 @@ if ($url == "en") {
                                 <b class="caret"></b>
                             </a>
                             <ul class="dropdown-menu">
-                                <li><?php echo Html::link('usuario/automodificar/'.$leng, '<i class="icon-file"></i>' . $modificardatos_string . ''); ?></li>
+                                <li><?php echo Html::link('usuario/automodificar/' . $leng, '<i class="icon-file"></i>' . $modificardatos_string . ''); ?></li>
                                 <li><?php echo Html::link('cliente/ingresarsolicitud/', '<i class="icon-thumbs-up"></i>' . $suscripcion_string . ''); ?></li>
                                 <li><?php echo Html::link('solicitud/vertodas/' . Auth::get("id"), '<i class="icon-eye-open"></i>Solicitudes anteriores(t)'); ?></li>
                             </ul>
@@ -223,7 +224,7 @@ if ($url == "en") {
                     }
                 }
                 ?>
-                        <!--Menu del traductor-->
+                <!--Menu del traductor-->
                 <?php
                 if (Auth::is_valid()) {
                     if (Session::get('rol_usu') == 'traductor') {
@@ -235,8 +236,8 @@ if ($url == "en") {
                                 <b class="caret"></b>
                             </a>
                             <ul class="dropdown-menu">
-                                <li><?php echo Html::link('publicacion/traduct/'.$leng, '<i class="icon-file"></i>&nbsp;Traducir Publicaciones'); ?></li>
-                                <li><?php echo Html::link('servicio/traduct/'.$leng, '<i class="icon-file"></i>&nbsp;Traducir servicios'); ?></li>
+                                <li><?php echo Html::link('publicacion/traduct/' . $leng, '<i class="icon-file"></i>&nbsp;Traducir Publicaciones'); ?></li>
+                                <li><?php echo Html::link('servicio/traduct/' . $leng, '<i class="icon-file"></i>&nbsp;Traducir servicios'); ?></li>
                             </ul>
                         </li>
                         <?php
@@ -258,8 +259,8 @@ if ($url == "en") {
                             <ul class="dropdown-menu">
                                 <li><?php echo Html::link('cliente/administrarsuscripcion/', '<i class="icon-user"></i>' . "Suscripcion (T)" . ''); ?></li>
                                 <li><?php echo Html::link('servicio/ingresar/' . $leng, '<i class="icon-plus"></i>' . $publicarservicio_string . ''); ?></li>
-                                <li><?php echo Html::link('ubicacion/ingresar/'.$leng, '<i class="icon-screenshot"></i>' . $indiqueubicacion_string . ''); ?></li>
-                                <li><?php echo Html::link('contenido/ingresarcli/'.$leng, '<i class="icon-camera"></i>' . $subirfotos_string . ''); ?></li>
+                                <li><?php echo Html::link('ubicacion/ingresar/' . $leng, '<i class="icon-screenshot"></i>' . $indiqueubicacion_string . ''); ?></li>
+                                <li><?php echo Html::link('contenido/ingresarcli/' . $leng, '<i class="icon-camera"></i>' . $subirfotos_string . ''); ?></li>
                             </ul>
                         </li>
                         <?php
@@ -280,22 +281,24 @@ if ($url == "en") {
                                 <b class="caret"></b>
                             </a>
                             <ul class="dropdown-menu">
-                                <li><?php echo Html::link('solicitud/buscar/'.$leng, '<i class="icon-briefcase"></i> ' . $buscar_solicitud_string . ''); ?></li>
+                                <li><?php echo Html::link('solicitud/buscar/' . $leng, '<i class="icon-briefcase"></i> ' . $buscar_solicitud_string . ''); ?></li>
                                 <li><?php echo Html::link('' . $enlace_usuario_buscar . '', '<i class="icon-search"></i> ' . $buscarusuarios_string . ''); ?></li>
                                 <li><?php echo Html::link('' . $enlace_usuario_publicar . '', '<i class="icon-upload"></i> ' . $ingresarpublicacion_string . ''); ?></li>
-                                <li><?php echo Html::link('usuario/ingresart/'.$leng,'<i class="icon-plus"></i> ' . $ingresar_traductor_string);?></li>
+                                <li><?php echo Html::link('usuario/ingresart/' . $leng, '<i class="icon-plus"></i> ' . $ingresar_traductor_string); ?></li>
                             </ul>
                         </li>
                         <li>
-                            <?php echo Html::link('administrador/notificaciones/pendiente/'.$leng, '<i id="pen_sol" class="icon-exclamation-sign icon-white"></i>')?>
+                            <?php echo Html::link('administrador/notificaciones/pendiente/' . $leng, '<i id="pen_sol" class="icon-exclamation-sign icon-white"></i>') ?>
                         </li>
                         <li>
-                            <?php echo Html::link('administrador/notificaciones/mail', '<i id="mail_sol" class="icon-envelope icon-white"></i>')?>
+                            <?php echo Html::link('administrador/notificaciones/mail/' . $leng, '<i id="mail_sol" class="icon-envelope icon-white"></i>') ?>
                         </li>
                         <li>
-                            <?php echo Html::link('administrador/notificaciones/modificacion', '<i id="modi_sol" class="icon-edit icon-white"></i>')?>
+                            <?php echo Html::link('administrador/notificaciones/modificacion/' . $leng, '<i id="modi_sol" class="icon-edit icon-white"></i>') ?>
                         </li>
-
+                        <li>
+                            <?php echo Html::link('administrador/notificaciones/eliminacion/' . $leng, '<i id="eli_sus" class="icon-remove-sign icon-white"></i>') ?>
+                        </li>
                         <?php
                     }
                 }
@@ -334,7 +337,7 @@ if ($url == "en") {
                 <!--Fin banderas-->
 
                 <!-- CAMPO DE BUSQUEDA-->
-                <?php echo Form::open("busqueda/buscando/".$leng, 'post', 'class=navbar-search'); ?>
+                <?php echo Form::open("busqueda/buscando/" . $leng, 'post', 'class=navbar-search'); ?>
                 <i class="icon-search icon-white"></i>
                 <input id="searchinput" name="string" type="text" value="" class='search-query span2 busqueda  mask-alphanum' placeholder='<?php echo $buscardestinos_string; ?>' data-provide='typeahead' >  
                 <?php echo Form::close() ?>
@@ -373,7 +376,7 @@ if ($url == "en") {
                                 <?php echo Form::pass("password_usu", "class='span2 mask-alphanum login_pass'"); ?>
                                 <?php echo Form::submit('' . $ingresar_string . '', "class='btn btn-primary botonlogin'"); ?>
                                 <br>
-                                <?php echo Html::link("usuario/olvidar/".$leng,"<font size='1,5'>¿Olvido su clave?</font>"); ?>
+                                <?php echo Html::link("usuario/olvidar/" . $leng, "<font size='1,5'>¿Olvido su clave?</font>"); ?>
                                 <hr>
 
                                 <li><?php echo Html::link('' . $enlace_registrate . '', $registrate_string . ' <i class="icon-plus-sign"></i>'); ?></li>
