@@ -219,7 +219,7 @@ class ClienteController extends AppController {
 
             //Obtenemos la ubicacion del centro
             $ubicacion = new Ubicacion();
-            $ubicacion = $ubicacion->find_by_sql("select *  from ubicacion where id_usu = " . $id);
+            $ubicacion = $ubicacion->find_by_sql("select *  from ubicacion where id_usu = " . $id ."and estado_ubi=TRUE");
             if ($ubicacion != null) {
                 $this->region_ubi = $ubicacion->region_ubi;
                 $this->ciudad_ubi = $ubicacion->ciudad_ubi;
@@ -231,17 +231,17 @@ class ClienteController extends AppController {
             if (Session::get("id") == $id) {
                 $captura = $client->visitas_cli;
                 $actualiza = $captura + 0;
-                $client->sql("update Cliente set visitas_cli=" . $actualiza . "where id_usu=" . $id);
+                $client->sql("update Cliente set visitas_cli=" . $actualiza . "where id_usu=" . $id ."and estado_usu=TRUE");
             }
             if (Session::get("id") != $id) {
                 $captura = $client->visitas_cli;
                 $actualiza = $captura + 1;
-                $client->sql("update Cliente set visitas_cli=" . $actualiza . "where id_usu=" . $id);
+                $client->sql("update Cliente set visitas_cli=" . $actualiza . "where id_usu=" . $id ."and estado_usu=TRUE");
             }
             if (Session::get("id") == null) {
                 $captura = $client->visitas_cli;
                 $actualiza = $captura + 1;
-                $client->sql("update Cliente set visitas_cli=" . $actualiza . "where id_usu=" . $id);
+                $client->sql("update Cliente set visitas_cli=" . $actualiza . "where id_usu=" . $id ."and estado_usu=TRUE");
             }
 
 
@@ -261,12 +261,12 @@ class ClienteController extends AppController {
             $this->contimg = $contimg;
 
             $services = new Servicio();
-            $services = $services->find_all_by('id_usu', $id);
+            $services = $services->find("conditions: id_usu=" . $id . "and estado_ser='t'");
             $this->array_servicios = $services;
 
             //2- Necesario para cargar el mapa
             $ubicacion = new Ubicacion();
-            $ubicacion = $ubicacion->find_all_by('id_usu', $id);
+            $ubicacion = $ubicacion->find("conditions: id_usu=" . $id . "and estado_ubi='t'");
             if ($ubicacion != null) {
                 $this->latitud = $ubicacion[0]->latitud_ubi; //El [0] debido a que nos entrega un array
                 $this->longitud = $ubicacion[0]->longitud_ubi;
@@ -299,12 +299,12 @@ class ClienteController extends AppController {
             $this->contador = $contador;
             //CALIFICACION
             $calificacion = new Calificacion();
-            $result = $calificacion->count("conditions: cli_id_usu=" . $id);
+            $result = $calificacion->count("conditions: cli_id_usu=" . $id . "and estado_cal=TRUE");
 
 
             if ($result != 0) {
 
-                $promedio = $calificacion->average("valor_cal", "conditions: cli_id_usu=" . $id);
+                $promedio = $calificacion->average("valor_cal", "conditions: cli_id_usu=" . $id ."and estado_cal=TRUE");
                 $this->calificacion = $promedio;
                 $this->cantidad = $result;
             } else {
