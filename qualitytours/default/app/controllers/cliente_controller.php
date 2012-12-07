@@ -477,7 +477,12 @@ class ClienteController extends AppController {
                     $contenidos = new contenido;
                     $calificaciones = new calificacion;
                     $cliente = new cliente;
-
+                    
+                    
+                    
+                 $correo = $cliente_eliminar->email_usu;
+                 echo flash::info($correo);
+                    
                     //Se crean las sentencias para actualizar
                     $sentencia_ubicacion = "UPDATE ubicacion SET estado_ubi=false WHERE id_usu=" . $id;
                     $sentencia_categoria = "UPDATE categoria SET estado_cat=false WHERE id_usu=" . $id;
