@@ -389,7 +389,7 @@ $(document).ready(function()
   <div class="row-fluid">
     <div class="span8">
         <h4> <?php echo"<font color='#9F9F9F' >".$nombre_cliente."&nbsp;-&nbsp;";?><?php if (isset($ciudad_ubi)) echo $ciudad_ubi."</font> &nbsp;"; echo Html::link('contacto/contacto_cli/'.$id_cliente, Html::img('icon_mail_phone.gif'));?></h4>
-       <?php echo  "<span class='label label-info'>".$mostrar.":&nbsp;".$cliente_detalle_visitas."</span><br>"; ?>
+      
         <br>
 
              <!--        IMAGEN PRINCIPAL DEL CENTRO TURÍSTICO -->
@@ -426,11 +426,16 @@ $(document).ready(function()
                     echo "<font size='1'><b>".$cliente_detalle_mensaje1."</b></font><br>";
                 }
                 $calificacion = number_format($calificacion, $decimals = 1);
-                echo "<b>Califica tu experencia de viaje:<br></b>
-                        <b><font size='1'>".$cliente_detalle_promedio.":</font><font size='4'>".$calificacion."</font></b><br>
-                        <b><font size='1'>Total:</font><font size='4'>".$cantidad."</font></b><br>";
+                echo "<b><h4><font color='#9F9F9F'>Califica tu experiencia de viaje</h4></font></b>"?> <div id="star1" class="rating" style="margin:0px;">&nbsp;</div>
+                    <?php echo "<b><font size='1'>".$cliente_detalle_promedio.": </font><font size='3'>".$calificacion."</font></b><br>
+                        <b><font size='1'>Total: </font><font size='3'>".$cantidad."</font></b><br>";
             ?>
-                <div id="star1" class="rating">&nbsp;</div>
+                
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+             <?php echo  "<span class='label label-info'>".$mostrar.":&nbsp;".$cliente_detalle_visitas."</span><br>"; ?>
         </td>
     </tr>
 
