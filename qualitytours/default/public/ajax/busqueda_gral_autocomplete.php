@@ -15,7 +15,7 @@
     $leng = $_REQUEST['leng'];
     
     //STRINGS DE LAS DISTINSTAS BUSQUEDAS
-    $string1 = "select nombre_cli, id_usu from cliente where nombre_cli ilike '%".$_REQUEST['string']."%' and estado_usu = 'T' order by visitas_cli desc limit 5";
+    $string1 = "select nombre_cli, id_usu from cliente where nombre_cli ilike '%".$_REQUEST['string']."%' and estado_usu = TRUE order by visitas_cli desc limit 5";
     $string2 = "select DISTINCT region_ubi from ubicacion where region_ubi ilike '%".$_REQUEST['string']."%' limit 5";
     $string3 = "select DISTINCT ciudad_ubi from ubicacion where ciudad_ubi ilike '%".$_REQUEST['string']."%' limit 5";
     
@@ -23,14 +23,16 @@
     if ($leng == "es")
     {
         $string4 = "select distinct nombre_cat, count (categoria.nombre_cat) from categoria where categoria.nombre_cat ilike '%" . $_REQUEST['string'] . "%'
-    group by nombre_cat
+     and categoria.estado_cat = TRUE 
+     group by nombre_cat
     order by count desc 
     limit 5";
     }
     if ($leng == "en")
     {
         $string4 = "select distinct nombre_cat_eng, count (categoria.nombre_cat_eng) from categoria where categoria.nombre_cat_eng ilike '%" . $_REQUEST['string'] . "%'
-    group by nombre_cat_eng
+     and categoria.estado_cat = TRUE
+     group by nombre_cat_eng
     order by count desc 
     limit 5";
     }
