@@ -134,6 +134,44 @@ class IndexController extends AppController
         {
             Router::redirect("index/?l=en");
         }
+        
+        public function ranking($leng)
+        {
+            $this->leng = $leng;
+            
+             //ranking de visitas
+                $cliente =  new Cliente();
+                $client = $cliente->find("conditions: estado_usu='t'","limit: 3","order: visitas_cli desc");
+                $i = 0;
+                foreach($client as $cliente)
+                {
+                    $this->nombre_cli[$i] = $cliente->nombre_cli;
+                    $this->id_cliente[$i] = $cliente->id_usu;
+                    $i++;
+                }
+                $this->indice = $i;
+                
+                //ranking de calificacion
+                $calificacion =  new Calificacion();
+                $cal = $calificacion->find('columns: cli_id_usu,avg(valor_cal)','group: cli_id_usu','order: avg desc','limit: 3',"conditions: estado_cal='t'");
+                
+                $contador = 0;
+                $cliente = new Cliente();
+                
+                foreach($cal as $promedio)
+                {
+                 
+                    $id[$contador] = $promedio->cli_id_usu;
+                    $this->id[$contador]=$id[$contador];
+                    $nombre[$contador] = $cliente->find($id[$contador]);
+                    $this->id_cli_cal[$contador] = $nombre[$contador]->nombre_cli;
+                    $this->valor_cal[$contador] = $promedio->avg;
+                    $contador++;
+                  
+                }
+                $this->contadors = $contador;
+            
+        }
        
         
        

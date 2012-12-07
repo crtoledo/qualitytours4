@@ -1,0 +1,60 @@
+<?php
+//Código para el idioma
+    if($leng == "en")
+    {
+        include_once APP_PATH.'libs/en.php';
+    }
+    else
+    {
+        include_once APP_PATH.'libs/es.php';
+    }
+?>   
+<div><?php View::content(); ?></div>
+
+<div class="container-fluid"  style="text-align: center;">
+  <div class="row-fluid">
+    <div class="span6">
+        <h4><b>Los más visitados</b></h4>
+       
+         <?php
+         for ($i=0;$i<=$indice-1;$i++)
+         {
+            $cont = $i+1;
+            echo "<table>
+                  <tr>
+                  <div <td><span class='badge badge-important'>".$cont."</span>&nbsp;".Html::link("cliente/detalle/".$id_cliente[$i]."/".$leng,$nombre_cli[$i],"target='_self'")."</td>
+                  </tr>
+                  </table>
+                   ";
+         }
+        ?>
+       
+        
+    </div>
+    <div class="span6">
+        <h4><b> Mejores rankiados</b></h4>
+      <?php   $cont = 0; 
+         for ($i=0;$i<=$contadors-1;$i++)
+         {
+            $cont = $i+1;
+            
+          
+            
+           echo "<table>
+                  <tr>
+                  <td><span class='badge badge-important'>".$cont."</span>&nbsp;".Html::link("cliente/detalle/".$id[$i]."/".$leng,$id_cli_cal[$i],"target='_self'")." <b> ".number_format($valor_cal[$i], $decimals = 1)."</b>
+                  </td>
+                 
+                 
+                 <td><div class='stars0 stars".number_format($valor_cal[$i], $decimals = 0)."'></div> </td>
+                 </tr>
+                  </table>";
+                   
+
+         }
+        
+         ?>
+            
+    </div>
+  </div>
+</div>
