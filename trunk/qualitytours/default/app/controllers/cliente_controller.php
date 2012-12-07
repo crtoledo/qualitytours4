@@ -206,9 +206,21 @@ class ClienteController extends AppController {
 
 
         $client = new Cliente();
-        $client = $client->find($id, "conditions: estado_usu='t'");
+        $client = $client->find($id);
+    
+       
+     if($client->estado_usu == "t")
+     {
         $this->id_cliente = $id;
         $this->telefono = $client->telefono_cli;
+        $this->nombre_cliente = $client->nombre_cli;
+        $this->mostrar = $client->visitas_cli + 1;
+     }
+     else
+     {
+         echo flash::info("dirección no existe");
+         router::Redirect("/");
+     }
 
         //Obtenemos la ubicacion del centro
         $ubicacion = new Ubicacion();
@@ -238,8 +250,7 @@ class ClienteController extends AppController {
         }
 
 
-        $this->nombre_cliente = $client->nombre_cli;
-        $this->mostrar = $client->visitas_cli + 1;
+       
         $contenido = new Contenido();
         $arr2 = $contenido->find("conditions: id_usu=" . $id . "and estado_con='t'");
         $this->contenido = $arr2;
