@@ -479,9 +479,9 @@ class ClienteController extends AppController {
                     $cliente = new cliente;
                     
                     
-                    
+                  //obtenego el correo para mandarlo al cliente a eliminar  
                  $correo = $cliente_eliminar->email_usu;
-                 echo flash::info($correo);
+                
                     
                     //Se crean las sentencias para actualizar
                     $sentencia_ubicacion = "UPDATE ubicacion SET estado_ubi=false WHERE id_usu=" . $id;
@@ -497,6 +497,52 @@ class ClienteController extends AppController {
                             $contenidos->sql($sentencia_contenido) &&
                             $calificaciones->sql($sentencia_calificacion) &&
                             $cliente->sql($sentencia_cliente)) {
+                        //se manda el correo 
+                        
+                            //mandamos el correo correspondiente
+                    require(APP_PATH.'libs/PHPMailer_5.2.2-rc2/class.phpmailer.php');
+                    require(APP_PATH.'libs/PHPMailer_5.2.2-rc2/class.smtp.php');
+                    $mail = new PHPMailer();
+                    $mail->IsSMTP();
+                    //$mail->SMTPSecure = "ssl";
+                    $mail->SMTPAuth = true;
+                    $mail->SMTPDebug = 1;  // debugging: 1 = errors and messages, 2 = messages only
+                    $mail->Host = "smtp.mail.yahoo.com";
+                    $mail->Port = 25;
+                    $mail->Username = "qualitytoursadm@yahoo.com";
+                    $mail->Password = "qt123123";
+                    
+                                    //Preparar el mail
+                    //$mail->From = $_POST['email'];
+                    $mail->From = "qualitytoursadm@yahoo.com";
+                    $mail->FromName = "adminsitrador";
+                    $mail->Subject = "ASUNTO";//ASUNTO DEL CORREO
+                    $mail->Body = stripcslashes("CONTENIDO DEL CORREO");//EL CONTENIDO DEL CORREO
+                    $mail->AddAddress($correo, "Destinatario"); //Dirección a la que enviaremos el correo
+                    $mail->IsHTML(true);
+                    $mail->send();
+
+//                    if(!$mail->Send()){
+//                    echo "Error: " . $mail->ErrorInfo;
+//                    } else {
+//                    //echo "Mensaje enviado correctamente";
+//                        
+//                        if($leng == "es")
+//                        {
+//                              Flash::success("se a notificado al cliente");
+//                              Router::redirect('/');
+//                        }
+//                        else
+//                        {
+//                             Flash::success("Customer has notified");
+//                             Router::redirect('/');
+//                            
+//                        }
+//                  
+//                    }
+                        
+                        
+                        
                         Flash::info('Suscripcion cliente cancelada');
                         Router::redirect("usuario/buscar/" . $leng);
                     } else {
