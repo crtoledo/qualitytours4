@@ -90,7 +90,7 @@ class IndexController extends AppController
                 
                 //ranking de calificacion
                 $calificacion =  new Calificacion();
-                $cal = $calificacion->find('columns: cli_id_usu,avg(valor_cal)','group: cli_id_usu','order: avg desc','limit: 3');
+                $cal = $calificacion->find('columns: cli_id_usu,avg(valor_cal)','group: cli_id_usu','order: avg desc','limit: 3',"conditions: estado_cal='t'");
                 
                 $contador = 0;
                 $cliente = new Cliente();
