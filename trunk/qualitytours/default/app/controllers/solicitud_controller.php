@@ -334,7 +334,8 @@ class SolicitudController extends AppController {
        
     }
 
-    Public function ingresarobservacion($usuario, $solicitud) {
+    Public function ingresarobservacion($usuario, $solicitud,$leng) {
+        $this->leng = $leng;
         if (Auth::get("rol_usu") == "administrador") {
             if (Input::hasPost('solicitud')) {
 
@@ -342,7 +343,7 @@ class SolicitudController extends AppController {
 
                 if ($solicitud_observacion->update()) {
                     Flash::notice("Observaciones ingresadas");
-                    Router::redirect("/solicitud/administrar/" . $solicitud . "/" . $usuario);
+                    Router::redirect("/solicitud/administrar/" . $solicitud . "/" . $usuario."/".$leng);
                 } else {
                     Flash::error("Error al ingresar observaciones");
                 }
@@ -416,7 +417,7 @@ class SolicitudController extends AppController {
         }
     }
 
-    Public function rechazar($id, $usuario) {
+    Public function rechazar($id, $usuario,$leng) {
         if (Auth::get("rol_usu") == "administrador") {
             // valido que los datos obtenidos sean numericos
             if (is_numeric($id) && is_numeric($usuario)) {
@@ -427,7 +428,7 @@ class SolicitudController extends AppController {
 
                     if ($solicitud_rechazar->update()) {
                         Flash::info("Solicitud Rechazada");
-                        Router::redirect("/solicitud/administrar/" . $id . "/" . $usuario);
+                        Router::redirect("/solicitud/administrar/" . $id . "/" . $usuario."/".$leng);
                     } else {
                         Flash::error("Error al actualizar");
                     }
@@ -444,7 +445,8 @@ class SolicitudController extends AppController {
         }
     }
 
-    public function aviso($id_solicitud, $id_usuario) {
+    public function aviso($id_solicitud, $id_usuario,$leng) {
+        $this->leng = $leng;
         //Se verifica el rol
         if (Auth::get("rol_usu") == "administrador") {
             // se verifica que los datos enviados sean numericos
@@ -456,10 +458,10 @@ class SolicitudController extends AppController {
                     //Se cambian los valores de la solicitud
                     $solicitud->estado_sol = "Esperando";
                     if ($solicitud->update()) {
-                        Router::redirect("/solicitud/administrar/" . $id_solicitud . "/" . $id_usuario);
+                        Router::redirect("/solicitud/administrar/" . $id_solicitud . "/" . $id_usuario."/".$leng);
                     } else {
                         Flash::error('Error al actualizar la solicitud');
-                        Router::redirect("/solicitud/administrar/" . $id_solicitud . "/" . $id_usuario);
+                        Router::redirect("/solicitud/administrar/" . $id_solicitud . "/" . $id_usuario."/".$leng);
                     }
                 } else {
                     Flash::info('Datos no corresponden a la solicitud');
