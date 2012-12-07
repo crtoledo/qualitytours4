@@ -138,29 +138,29 @@ $ubicacion_ingresar_mapa_confirmar = "Confirm";
 
 //solicitud/adminisitrar
 
-$solicitud_administrar_solicitud_de = "Solicitude of: ";
+$solicitud_administrar_solicitud_de = "Request of: ";
 $solicitud_administrar_datos = "User Data";
 $solicitud_administrar_username = "Username";
-$solicitud_administrar_nombre = "Name tourist center";
-$solicitud_administrar_privado = "Rut private";
-$solicitud_administrar_comercial = "Rut commercial";
-$solicitud_administrar_giro = "Order";
-$solicitud_administrar_telefono = "Phone Commercial";
-$solicitud_administrar_tipo = "Type plan";
-$solicitud_administrar_solicitud = "Date of solicitude";
+$solicitud_administrar_nombre = "Tourist center name";
+$solicitud_administrar_privado = "Private RUT";
+$solicitud_administrar_comercial = "Commercial RUT";
+$solicitud_administrar_giro = "Line of Business";
+$solicitud_administrar_telefono = "Commercial Phone";
+$solicitud_administrar_tipo = "Plan type";
+$solicitud_administrar_solicitud = "Request date";
 $solicitud_administrar_estado = "State";
-$solicitud_administrar_observaciones = "Observations of the application";
+$solicitud_administrar_observaciones = "Request observations";
 $solicitud_administrar_notiene = "No management options";
-$solicitud_administrar_aceptar_sol = "OK request";
-$solicitud_administrar_espera = "Please wait";
-$solicitud_administrar_rechazar = "reject request";
-$solicitud_administrar_mensaje1 = "The user has not confirmed the shipment of mail";
-$solicitud_administrar_mensaje2 = "observations";
-$solicitud_administrar_enviar = "Enviar solicitud";
+$solicitud_administrar_aceptar_sol = "Accept request";
+$solicitud_administrar_espera = "Accept information";
+$solicitud_administrar_rechazar = "Reject request";
+$solicitud_administrar_mensaje1 = "The user has not confirmed the sending of the mail";
+$solicitud_administrar_mensaje2 = "Observations";
+$solicitud_administrar_enviar = "Send request";
 $solicitud_administrar_enviar = "Send comments";
-$solicitud_administrar_estaseguro = "Are you sure to reject the application?";
-$solicitud_administrar_modal1 = "The rejection of the application, is an action that can not be undone";
-$solicitud_administrar_modal2 = "Before rejecting the application, make sure:";
+$solicitud_administrar_estaseguro = "Are you sure to reject this request?";
+$solicitud_administrar_modal1 = "The rejection of the request, is an action that can not be undone";
+$solicitud_administrar_modal2 = "Before rejecting the request, make sure:";
 $solicitud_administrar_modal3 = "Send comments before rejecting the request:";
 $solicitud_administrar_cerrar = "Exit";
 //variables /administrar/buscar

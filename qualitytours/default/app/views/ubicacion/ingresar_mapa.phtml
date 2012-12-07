@@ -266,7 +266,10 @@ $(document).ready(function(){
             </tr> 
         </table>
         
-        <?php echo Form::hidden('ubicacion.id_usu','',$id_usu)?>
+        <?php 
+        echo Form::hidden('ubicacion.id_usu','',$id_usu);
+        echo Form::hidden('ubicacion.estado_ubi','','1');
+        ?>
         
                 
     </div>
