@@ -48,6 +48,11 @@ class BusquedaController extends AppController
         }
     }
     
+    public function buscando_tc($string, $leng) //FUNCION CREADA ESPECIALMENTE PARA EL TAGCLOUD
+    {
+        $this->leng = $leng;
+        $this->string = $string;
+    }
   
     
   

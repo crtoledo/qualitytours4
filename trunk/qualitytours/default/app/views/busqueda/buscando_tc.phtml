@@ -1,0 +1,276 @@
+<?php
+View::content();
+$string = str_replace("'", '', $string);
+?>
+
+<script type="text/javascript"> //JQUERY PARA BUSQUEDA AJAX
+    $(document).ready(function()
+    {
+        var criterios_encontrados = 0;
+        var resultados_encontrados = 0;
+        
+        //LLAMADO AJAX 1er criterio
+        $.ajax
+        ({
+            
+            type: "POST",
+            async: false,
+            data : {
+                string: <?php echo "'" . $string . "'"; ?>
+            },            
+            url: '<?php echo PUBLIC_PATH; ?>ajax/busqueda_gral_c1.php',
+            dataType: "json",
+            success: function(data)
+            {
+                if (data != null && data.length > 0)
+                {
+                    criterios_encontrados++;
+                    
+                    $(".resultados").append("<h4>Centros tur&iacute;sticos</h4>");
+                    $(".resultados").append("<table class='table table-condensed tclientes'>");
+                    $(".tclientes").append("<thead><tr></tr></thead>");
+                    $(".tclientes thead tr").append("<th class='span3'>Nombre Cliente</th>");
+                    $(".tclientes thead tr").append("<th class='span1'>Ciudad</th>");
+                    $(".tclientes thead tr").append("<th class='span3'>Regi&oacute;n</th>");
+                    $(".tclientes thead tr").append("<th class='span1'>Calificaci&oacute;n</th>");
+                    for (i=0;i<data.length;i++)
+                    {
+                        resultados_encontrados++;
+                        $(".tclientes").append("<tr class='c1res"+i+"'>");
+                        $(".c1res"+i).append("<td><a href='/trunk/qualitytours/cliente/detalle/"+data[i].id_cliente+"/es'>"+data[i].nombre_cliente+"</a></td><td>"+data[i].ciudad+"</td><td>"+data[i].region+"</td>")
+                            
+                        if (data[i].promedio == 0)
+                        {
+                            $(".c1res"+i).append("<td>Sin calificaciones</td>")
+                        }
+                        else
+                        {
+                            var calificacion = data[i].promedio;
+                            calificacion = Math.round(calificacion*100) / 100;
+                            $(".c1res"+i).append("<td>"+calificacion+"</td>");
+                        }
+                        $(".tclientes").prepend("</tr>");
+                    
+                            
+                    
+                    }  // FIN FOR
+                    $(".resultados").prepend("</table>");
+                } //FIN IF NO HAY RESULTADOS
+                else 
+                {
+                    //alert('no hay resultados');
+                }
+                
+            }  // FIN SUCCESS 
+        }); //FIN AJAX CRITERIO 1
+        
+        $.ajax //AJAX CRITERIO 2
+        ({
+            
+            type: "POST",
+            async: false,
+            data : {
+                string: <?php echo "'" . $string . "'"; ?>
+            },            
+            url: '<?php echo PUBLIC_PATH; ?>ajax/busqueda_gral_c2.php',
+            dataType: "json",
+            success: function(data)
+            {
+                if (data != null && data.length > 0)
+                {
+                    criterios_encontrados++;
+                    
+                    $(".resultados").append("<h4>Centros tur&iacute;sticos que contienen '<?php echo $string?>' en regi&oacute;n</h4>");
+                    $(".resultados").append("<table class='table table-condensed tregiones'>");
+                    $(".tregiones").append("<thead><tr></tr></thead>");
+                    $(".tregiones thead tr").append("<th class='span3'>Nombre Cliente</th>");
+                    $(".tregiones thead tr").append("<th class='span1'>Ciudad</th>");
+                    $(".tregiones thead tr").append("<th class='span3'>Regi&oacute;n</th>");
+                    $(".tregiones thead tr").append("<th class='span1'>Calificaci&oacute;n</th>");
+                    for (i=0;i<data.length;i++)
+                    {
+                        resultados_encontrados++;
+                        $(".tregiones").append("<tr class='c2res"+i+"'>");
+                        $(".c2res"+i).append("<td><a href='/trunk/qualitytours/cliente/detalle/"+data[i].id_cliente+"/es'>"+data[i].nombre_cliente+"</a></td><td>"+data[i].ciudad+"</td><td>"+data[i].region+"</td>")
+                            
+                        if (data[i].promedio == 0)
+                        {
+                            $(".c2res"+i).append("<td>Sin calificaciones</td>")
+                        }
+                        else
+                        {
+                            var calificacion = data[i].promedio;
+                            calificacion = Math.round(calificacion*100) / 100;
+                            $(".c2res"+i).append("<td>"+calificacion+"</td>");
+                        }
+                        $(".tclientes").prepend("</tr>");
+                    
+                            
+                    
+                    }  // FIN FOR
+                    $(".resultados").prepend("</table>");
+                } //FIN IF NO HAY RESULTADOS
+                else 
+                {
+                    //alert('no hay resultados');
+                }
+                
+                
+            }  // FIN SUCCESS 
+        }); //FIN AJAX CRITERIO 2
+        
+        $.ajax //AJAX CRITERIO 3
+        ({
+            
+            type: "POST",
+            async: false,
+            data : {
+                string: <?php echo "'" . $string . "'"; ?>
+            },            
+            url: '<?php echo PUBLIC_PATH; ?>ajax/busqueda_gral_c3.php',
+            dataType: "json",
+            success: function(data)
+            {
+                if (data != null && data.length > 0)
+                {
+                    criterios_encontrados++;
+                    
+                    $(".resultados").append("<h4>Centros tur&iacute;sticos que contienen '<?php echo $string?>' en ciudad</h4>");
+                    $(".resultados").append("<table class='table table-condensed tciudades'>");
+                    $(".tciudades").append("<thead><tr></tr></thead>");
+                    $(".tciudades thead tr").append("<th class='span3'>Nombre Cliente</th>");
+                    $(".tciudades thead tr").append("<th class='span1'>Ciudad</th>");
+                    $(".tciudades thead tr").append("<th class='span3'>Regi&oacute;n</th>");
+                    $(".tciudades thead tr").append("<th class='span1'>Calificaci&oacute;n</th>");
+                    for (i=0;i<data.length;i++)
+                    {
+                        resultados_encontrados++;
+                        $(".tciudades").append("<tr class='c3res"+i+"'>");
+                        $(".c3res"+i).append("<td><a href='/trunk/qualitytours/cliente/detalle/"+data[i].id_cliente+"/es'>"+data[i].nombre_cliente+"</a></td><td>"+data[i].ciudad+"</td><td>"+data[i].region+"</td>")
+                            
+                        if (data[i].promedio == 0)
+                        {
+                            $(".c3res"+i).append("<td>Sin calificaciones</td>")
+                        }
+                        else
+                        {
+                            var calificacion = data[i].promedio;
+                            calificacion = Math.round(calificacion*100) / 100;
+                            $(".c3res"+i).append("<td>"+calificacion+"</td>");
+                        }
+                        $(".tclientes").prepend("</tr>");
+                    
+                            
+                    
+                    }  // FIN FOR
+                    $(".resultados").prepend("</table>");
+                } //FIN IF NO HAY RESULTADOS
+                else 
+                {
+                    //alert('no hay resultados');
+                }
+                
+                
+            }  // FIN SUCCESS 
+        }); //FIN AJAX CRITERIO 3
+        
+        $.ajax //AJAX CRITERIO 4
+        ({
+            
+            type: "POST",
+            async: false,
+            data : {
+                string: <?php echo "'" . $string . "'"; ?>
+            },            
+            url: '<?php  
+                         if ($leng=="es") echo PUBLIC_PATH."ajax/busqueda_gral_c4.php";
+                         else echo PUBLIC_PATH."ajax/busqueda_gral_c5.php"
+                    ?>',
+            dataType: "json",
+            success: function(data)
+            {
+                
+                if (data != null && data.length > 0)
+                {
+                    criterios_encontrados++;
+                    
+                    $(".resultados").append("<h4>Centros tur&iacute;sticos que se categorizan por '<?php echo $string?>'</h4>");
+                    $(".resultados").append("<table class='table table-condensed tcategorias'>");
+                    $(".tcategorias").append("<thead><tr></tr></thead>");
+                    $(".tcategorias thead tr").append("<th class='span3'>Nombre Cliente</th>");
+                    $(".tcategorias thead tr").append("<th class='span1'>Ciudad</th>");
+                    $(".tcategorias thead tr").append("<th class='span3'>Regi&oacute;n</th>");
+                    $(".tcategorias thead tr").append("<th class='span1'>Calificaci&oacute;n</th>");
+                    for (i=0;i<data.length;i++)
+                    {
+                        resultados_encontrados++;
+                        $(".tcategorias").append("<tr class='c4res"+i+"'>");
+                        $(".c4res"+i).append("<td><a href='/trunk/qualitytours/cliente/detalle/"+data[i].id_cliente+"/es'>"+data[i].nombre_cliente+"</a></td><td>"+data[i].ciudad+"</td><td>"+data[i].region+"</td>")
+                            
+                        if (data[i].promedio == 0)
+                        {
+                            $(".c4res"+i).append("<td>Sin calificaciones</td>")
+                        }
+                        else
+                        {
+                            var calificacion = data[i].promedio;
+                            calificacion = Math.round(calificacion*100) / 100;
+                            $(".c4res"+i).append("<td>"+calificacion+"</td>");
+                        }
+                        $(".tcategorias").prepend("</tr>");
+                    
+                            
+                    
+                    }  // FIN FOR
+                    $(".resultados").prepend("</table>");
+                } //FIN IF NO HAY RESULTADOS
+                else 
+                {
+                    //alert('no hay resultados');
+                }
+                
+                
+            }  // FIN SUCCESS 
+            
+        }); //FIN AJAX CRITERIO 4
+        
+        /* ESTADISTICAS DE LA BUSQUEDA */
+        if (resultados_encontrados>0)
+        $(".info_busqueda").append('Resultados encontrados: '+resultados_encontrados);
+        else
+        $(".info_busqueda").append("<b>No se encontraron resultados, intente otra consulta</b>");
+        
+        //INGRESO DE LA BUSQUEDA (LLAMADO AJAX 5)
+        if ('<?php echo $username_usu; ?>' != 'NOREGISTRADO' && resultados_encontrados>0)
+        {
+            $.ajax
+            ({
+
+                type: "POST",
+                async: false,
+                data : {
+                    string: <?php echo "'" . $string . "'"; ?>,
+                    resultados: resultados_encontrados,
+                    id_usu: <?php echo $id_usu; ?>
+                },            
+                url: '<?php echo PUBLIC_PATH; ?>ajax/ingreso_busqueda.php',
+                dataType: "text",
+                success: function(data)
+                {
+                    //alert(data);
+                }
+            });
+        }
+        
+        
+        
+    });//FIN DOCUMENT READY JQUERY
+</script>
+
+
+<div class="resultados" style="text-align: center;" align="center">
+
+</div>
+
+<div class="info_busqueda" style="text-align: center;" align="center"></div>
+<br>

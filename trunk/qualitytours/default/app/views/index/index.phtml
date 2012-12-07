@@ -18,7 +18,7 @@
         if( ! $('#myCanvas').tagcanvas({
             textColour : '#000000',
             outlineThickness : 1,
-            maxSpeed : 0.03,
+            maxSpeed : 0.15,
             depth : 0.75,
             shape : 'hring',
             lock : 'x'
@@ -100,9 +100,8 @@
                                     <?php 
                                     for ($i=0 ; $i < $contador_cat ; $i++)
                                     {
-                                        echo "aa";
-                                        //echo "<li>".Html::link('busqueda/buscando/'.$cat[$i]."/".$leng, $cat[$i])."</li>";
-                                        echo "<li>".Html::link('busqueda/buscando/'.$leng."?string=".$cat[$i], $cat[$i])."</li>";
+                                        echo "<li>".Html::link('busqueda/buscando_tc/'.$cat[$i]."/".$leng, $cat[$i])."</li>";
+                                        //echo "<li>".Html::link('busqueda/buscando/'.$leng."?string=".$cat[$i], $cat[$i])."</li>";
                                     }
                                     ?>
                                 </ul>
