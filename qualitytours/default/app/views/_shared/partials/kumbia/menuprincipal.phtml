@@ -11,8 +11,8 @@ if ($url == "en") {
     //inglés
     //variables de menu Principal
     $modificardatos_string = "My data";
-    $suscripcion_string = "Solicitud de suscripción(T)";
-    $buscar_solicitud_string = "Administrar solicitudes(traducir)";
+    $suscripcion_string = "Suscription request";
+    $buscar_solicitud_string = "Request management";
     $inicio_string = "Home";
     $cuenta_string = "Account";
     $cliente_string = "Customer";
@@ -23,7 +23,7 @@ if ($url == "en") {
     $ingresarcliente_string = "Add customers";
     $buscarusuarios_string = "Search users";
     $enlace_home = "index/en";
-    $ingresarpublicacion_string = "Publish";
+    $ingresarpublicacion_string = "Add publication";
     $ingresaradministrador_string = "Add administrator";
     $ingresarcategorias_string = "Add category";
     $buscardestinos_string = "Search Destination";
@@ -38,10 +38,12 @@ if ($url == "en") {
     $ingresar_string = "Sign in";
     $enlace_usuario_buscar = "usuario/buscar/en";
     $enlace_usuario_publicar = "publicacion/ingresar/en";
+    $ingresar_traductor_string = "Add translator";
 } else {
     $leng = "es";
     //español
     //variables de menu Principal
+    $ingresar_traductor_string = "Agregar traductor";
     $modificardatos_string = "Mis datos";
     $buscar_solicitud_string = "Administrar solicitudes";
     $suscripcion_string = "Solicitud de suscripción";
@@ -281,7 +283,7 @@ if ($url == "en") {
                                 <li><?php echo Html::link('solicitud/buscar/'.$leng, '<i class="icon-briefcase"></i> ' . $buscar_solicitud_string . ''); ?></li>
                                 <li><?php echo Html::link('' . $enlace_usuario_buscar . '', '<i class="icon-search"></i> ' . $buscarusuarios_string . ''); ?></li>
                                 <li><?php echo Html::link('' . $enlace_usuario_publicar . '', '<i class="icon-upload"></i> ' . $ingresarpublicacion_string . ''); ?></li>
-                                <li><?php echo Html::link('usuario/ingresart/'.$leng,'<i class="icon-plus"></i>Ingresar traductor');?></li>
+                                <li><?php echo Html::link('usuario/ingresart/'.$leng,'<i class="icon-plus"></i> ' . $ingresar_traductor_string);?></li>
                             </ul>
                         </li>
                         <li>

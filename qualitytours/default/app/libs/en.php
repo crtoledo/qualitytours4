@@ -8,10 +8,10 @@ $i_contenido_string="Add contents";
 $e_publicacion_string="Edit publication";
 $con_ingresar_string="en";
 $pub_editar_string="en";
-$publicacion_index_traducir="translate";
+$publicacion_index_traducir="Translate";
 $publicacion_index_idiom="/en";
 $index_titulo_1 = "The most visited";
-$index_titulo_2 = "Publish your center tourist in Qualitytours";
+$index_titulo_2 = "Publish your tourist center in Qualitytours";
 $index_titulo_3 = "Best qualified";
 
 //variables para vista /usuario/ingresar
@@ -80,7 +80,7 @@ $publicacion_traducir_tituloes = "Spanish";
 $publicacion_ingresar_valtitulo="Add title";
 $publicacion_ingresar_titulo="Title:";
 $publicacion_ingresar_detalle = "Details:";
-$publicacion_ingresar_encabesado = "New Publish";
+$publicacion_ingresar_encabesado = "New Publication";
 $publicacion_ingresar_boton =  "Publish";
 
 //variables /cliente/detalle
@@ -166,14 +166,14 @@ $solicitud_administrar_cerrar = "Exit";
 //variables /administrar/buscar
 
 $solicitud_buscar_mensaje1 = "No results were found";
-$solicitud_buscar_titulo = "Search applications";
+$solicitud_buscar_titulo = "Search requests";
 $solicitud_buscar_mensaje2 = "Search only";
 $solicitud_buscar_mensaje3 = "Sort by";
 $solicitud_buscar_mensaje4 = "request rejected";
 $solicitud_buscar_mensaje5 = "request canceled";
 $solicitud_buscar_mensaje6 = "modification";
 $solicitud_buscar_mensaje7 = "confirmation email";
-$solicitud_buscar_mensaje8 = "application";
+$solicitud_buscar_mensaje8 = "Request";
 $solicitud_buscar_codigo = "Code";
 $solicitud_buscar_fecha = "Date";
 
