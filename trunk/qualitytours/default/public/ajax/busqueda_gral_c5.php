@@ -12,7 +12,7 @@ from categoria
 join ubicacion on categoria.id_usu = ubicacion.id_usu
 join cliente on categoria.id_usu = cliente.id_usu
 full join calificacion on categoria.id_usu = calificacion.cli_id_usu
-where categoria.nombre_cat_eng ilike '%".$_REQUEST['string']."%' 
+where categoria.nombre_cat_eng ilike '%".$_REQUEST['string']."%' and categoria.estado_cat = T
 group by id_cliente, region, ciudad, nombre_cliente, visitas
 order by categorias_encontradas desc, promedio desc, visitas desc
 limit 20;";
