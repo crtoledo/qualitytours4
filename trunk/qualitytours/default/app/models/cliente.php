@@ -16,6 +16,11 @@ class Cliente extends ActiveRecord
            return 'cancel'; 
       }
     }
+    
+    public function buscar_cliente($dato)
+    {
+        return $this->find_by_sql("select * from cliente where id_usu=".$dato. " and estado_usu = true");
+    }
 }
 ?>
 
