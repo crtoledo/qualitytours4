@@ -150,11 +150,10 @@ class ClienteController extends AppController {
                                         break;
                                     default:
                                         $categoria_ingles = $categoria;
-                                  endswitch;
-                                  //Fin traduccion de las categorias
-
+                                endswitch;
+                                //Fin traduccion de las categorias
                                 //Se inserta la categoria en la tabla categoria
-                                $sentencia_categoria->sql("INSERT INTO categoria(id_usu, nombre_cat, estado_cat, nombre_cat_eng) VALUES (" . $id . ", '" . $categoria . "', 'false', '".$categoria_ingles."')");
+                                $sentencia_categoria->sql("INSERT INTO categoria(id_usu, nombre_cat, estado_cat, nombre_cat_eng) VALUES (" . $id . ", '" . $categoria . "', 'false', '" . $categoria_ingles . "')");
                             }
                             Flash::success("Solicitud enviada correctamente");
                             Input::delete();
@@ -207,7 +206,7 @@ class ClienteController extends AppController {
 
 
         $client = new Cliente();
-        $client = $client->find($id,"conditions: estado_usu='t'");
+        $client = $client->find($id, "conditions: estado_usu='t'");
         $this->id_cliente = $id;
         $this->telefono = $client->telefono_cli;
 
@@ -452,6 +451,56 @@ class ClienteController extends AppController {
                 } else {
                     Flash::info('No tiene suscripcion activa');
                     Router::redirect("cliente/ingresarsolicitud");
+                }
+            } else {
+                Flash::info('No posee los privilegios necesarios');
+                Router::redirect("/");
+            }
+        } else {
+            Flash::info('Debe iniciar sesión');
+            Router::redirect("/");
+        }
+    }
+
+    public function eliminar($id, $leng) {
+        $this->leng = $leng;
+        if (Auth::is_valid()) {
+            if (Auth::get("rol_usu") == "administrador") {
+
+                $cliente_eliminar = new cliente ();
+
+                if ($cliente_eliminar->buscar_cliente($id)) {
+                    //Creacion objetos para eliminar los datos
+                    $ubicacion = new ubicacion;
+                    $categorias = new categoria;
+                    $servicios = new servicio;
+                    $contenidos = new contenido;
+                    $calificaciones = new calificacion;
+                    $cliente = new cliente;
+
+                    //Se crean las sentencias para actualizar
+                    $sentencia_ubicacion = "UPDATE ubicacion SET estado_ubi=false WHERE id_usu=" . $id;
+                    $sentencia_categoria = "UPDATE categoria SET estado_cat=false WHERE id_usu=" . $id;
+                    $sentencia_servicio = "UPDATE servicio SET estado_ser=false WHERE id_usu=". $id;
+                    $sentencia_contenido = "UPDATE contenido SET estado_con=false WHERE id_usu=". $id;
+                    $sentencia_calificacion = "UPDATE calificacion SET estado_cal=false WHERE id_usu=". $id;
+                    $sentencia_cliente = "UPDATE cliente SET estado_usu=false WHERE id_usu=" . $id;
+
+                    if ($ubicacion->sql($sentencia_ubicacion) &&
+                            $categorias->sql($sentencia_categoria) &&
+                            $servicios->sql($sentencia_servicio) &&
+                            $contenidos->sql($sentencia_contenido) &&
+                            $calificaciones->sql($sentencia_calificacion) &&
+                            $cliente->sql($sentencia_cliente)) {
+                        Flash::info('Suscripcion cliente cancelada');
+                        Router::redirect("usuario/buscar/" . $leng);
+                    } else {
+                        Flash::error('No se pudo cancelar la suscripcion');
+                        Router::redirect("usuario/buscar/" . $leng);
+                    }
+                } else {
+                    Flash::info('Datos incorrectos');
+                    Router::redirect("usuario/buscar/" . $leng);
                 }
             } else {
                 Flash::info('No posee los privilegios necesarios');
