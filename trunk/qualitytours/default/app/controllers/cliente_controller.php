@@ -318,7 +318,7 @@ class ClienteController extends AppController {
     /////////////////////////////////////////////////    
     //***Funciones relacionadas con la solicitud***//
     //*********************************************//
-////////////////////////////////////////////////
+    ////////////////////////////////////////////////
     //Funcion para modificar los datos del cliente una vez ingresada al solicitud.
     public function ver($id) {
         $vercliente = new cliente();
@@ -477,72 +477,51 @@ class ClienteController extends AppController {
                     $contenidos = new contenido;
                     $calificaciones = new calificacion;
                     $cliente = new cliente;
-                    
-                    
-                  //obtenego el correo para mandarlo al cliente a eliminar  
-                 $correo = $cliente_eliminar->email_usu;
-                
-                    
+                    $usuario = new usuario;
+
+                    //Se obtiene el correo para mandarlo al cliente a eliminar  
+                    $correo = $cliente_eliminar->email_usu;
+
                     //Se crean las sentencias para actualizar
                     $sentencia_ubicacion = "UPDATE ubicacion SET estado_ubi=false WHERE id_usu=" . $id;
                     $sentencia_categoria = "UPDATE categoria SET estado_cat=false WHERE id_usu=" . $id;
-                    $sentencia_servicio = "UPDATE servicio SET estado_ser=false WHERE id_usu=". $id;
-                    $sentencia_contenido = "UPDATE contenido SET estado_con=false WHERE id_usu=". $id;
-                    $sentencia_calificacion = "UPDATE calificacion SET estado_cal=false WHERE cli_id_usu=". $id;
-                    $sentencia_cliente = "UPDATE cliente SET estado_usu=false WHERE id_usu=" . $id;
+                    $sentencia_servicio = "UPDATE servicio SET estado_ser=false WHERE id_usu=" . $id;
+                    $sentencia_contenido = "UPDATE contenido SET estado_con=false WHERE id_usu=" . $id;
+                    $sentencia_calificacion = "UPDATE calificacion SET estado_cal=false WHERE cli_id_usu=" . $id;
+                    $sentencia_cliente = "UPDATE cliente SET estado_usu=false, rol_usu='turista' WHERE id_usu=" . $id;
+                    $sentencia_usuario = "UPDATE usuario SET rol_usu='turista' WHERE id=" . $id;
 
                     if ($ubicacion->sql($sentencia_ubicacion) &&
                             $categorias->sql($sentencia_categoria) &&
                             $servicios->sql($sentencia_servicio) &&
                             $contenidos->sql($sentencia_contenido) &&
                             $calificaciones->sql($sentencia_calificacion) &&
-                            $cliente->sql($sentencia_cliente)) {
-                        //se manda el correo 
-                        
-                            //mandamos el correo correspondiente
-                    require(APP_PATH.'libs/PHPMailer_5.2.2-rc2/class.phpmailer.php');
-                    require(APP_PATH.'libs/PHPMailer_5.2.2-rc2/class.smtp.php');
-                    $mail = new PHPMailer();
-                    $mail->IsSMTP();
-                    //$mail->SMTPSecure = "ssl";
-                    $mail->SMTPAuth = true;
-                    $mail->SMTPDebug = 1;  // debugging: 1 = errors and messages, 2 = messages only
-                    $mail->Host = "smtp.mail.yahoo.com";
-                    $mail->Port = 25;
-                    $mail->Username = "qualitytoursadm@yahoo.com";
-                    $mail->Password = "qt123123";
-                    
-                                    //Preparar el mail
-                    //$mail->From = $_POST['email'];
-                    $mail->From = "qualitytoursadm@yahoo.com";
-                    $mail->FromName = "adminsitrador";
-                    $mail->Subject = "ASUNTO";//ASUNTO DEL CORREO
-                    $mail->Body = stripcslashes("CONTENIDO DEL CORREO");//EL CONTENIDO DEL CORREO
-                    $mail->AddAddress($correo, "Destinatario"); //Dirección a la que enviaremos el correo
-                    $mail->IsHTML(true);
-                    $mail->send();
+                            $cliente->sql($sentencia_cliente) &&
+                            $usuario->sql($sentencia_usuario)) {
 
-//                    if(!$mail->Send()){
-//                    echo "Error: " . $mail->ErrorInfo;
-//                    } else {
-//                    //echo "Mensaje enviado correctamente";
-//                        
-//                        if($leng == "es")
-//                        {
-//                              Flash::success("se a notificado al cliente");
-//                              Router::redirect('/');
-//                        }
-//                        else
-//                        {
-//                             Flash::success("Customer has notified");
-//                             Router::redirect('/');
-//                            
-//                        }
-//                  
-//                    }
-                        
-                        
-                        
+                        // Se crea el correo electronico
+                        require(APP_PATH . 'libs/PHPMailer_5.2.2-rc2/class.phpmailer.php');
+                        require(APP_PATH . 'libs/PHPMailer_5.2.2-rc2/class.smtp.php');
+                        $mail = new PHPMailer();
+                        $mail->IsSMTP();
+                        //$mail->SMTPSecure = "ssl";
+                        $mail->SMTPAuth = true;
+                        $mail->SMTPDebug = 1;  // debugging: 1 = errors and messages, 2 = messages only
+                        $mail->Host = "smtp.mail.yahoo.com";
+                        $mail->Port = 25;
+                        $mail->Username = "qualitytoursadm@yahoo.com";
+                        $mail->Password = "qt123123";
+
+                        //Preparar el mail
+                        //$mail->From = $_POST['email'];
+                        $mail->From = "qualitytoursadm@yahoo.com";
+                        $mail->FromName = "adminsitrador";
+                        $mail->Subject = "Cancelación suscripción Qualiy tours"; //ASUNTO DEL CORREO
+                        $mail->Body = stripcslashes("Su suscripción ha sido cancelada, para saber los motivos puede contactarse al mismo email del remitente"); //EL CONTENIDO DEL CORREO
+                        $mail->AddAddress($correo, "Destinatario"); //Dirección a la que enviaremos el correo
+                        $mail->IsHTML(true);
+                        $mail->send();
+
                         Flash::info('Suscripcion cliente cancelada');
                         Router::redirect("usuario/buscar/" . $leng);
                     } else {
