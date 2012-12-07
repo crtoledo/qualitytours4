@@ -35,10 +35,11 @@ class BusquedaController extends AppController
     {
         $this->leng = $leng;
         
-        if (Input::hasPost('string'))
+        
+        if (Input::hasRequest('string'))
         {
         
-            $this->string = Input::post('string');
+            $this->string = Input::request('string');
         }
         else
         {
