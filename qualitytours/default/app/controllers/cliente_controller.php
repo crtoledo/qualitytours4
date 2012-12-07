@@ -488,7 +488,7 @@ class ClienteController extends AppController {
                     $sentencia_categoria = "UPDATE categoria SET estado_cat=false WHERE id_usu=" . $id;
                     $sentencia_servicio = "UPDATE servicio SET estado_ser=false WHERE id_usu=". $id;
                     $sentencia_contenido = "UPDATE contenido SET estado_con=false WHERE id_usu=". $id;
-                    $sentencia_calificacion = "UPDATE calificacion SET estado_cal=false WHERE id_usu=". $id;
+                    $sentencia_calificacion = "UPDATE calificacion SET estado_cal=false WHERE cli_id_usu=". $id;
                     $sentencia_cliente = "UPDATE cliente SET estado_usu=false WHERE id_usu=" . $id;
 
                     if ($ubicacion->sql($sentencia_ubicacion) &&
