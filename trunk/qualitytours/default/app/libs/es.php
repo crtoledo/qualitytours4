@@ -139,7 +139,7 @@ $ubicacion_ingresar_mapa_confirmar = "Confirmar";
 
 //solicitud/adminisitrar
 
-$solicitud_administrar_solicitud_de = "Solicitud de:";
+$solicitud_administrar_solicitud_de = "Solicitud de: ";
 $solicitud_administrar_datos = "Datos del usuario";
 $solicitud_administrar_username = "Nombre de usuario";
 $solicitud_administrar_nombre = "Nombre de centro turistico";
