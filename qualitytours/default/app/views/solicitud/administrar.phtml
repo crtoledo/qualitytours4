@@ -99,7 +99,7 @@
                 <?php } else { ?>
                     <center>
 <!--                    Se verifica que el mail fue mandado y que el estado de la solicitud sea esperando, si esto se cumple se muestra el boton de aceptar solicitud-->
-                    <?php if ($mail_sol == "t" && $estado_sol == "Esperando") {?><a href='/trunk/qualitytours/solicitud/aceptarsolicitud/<?php echo $id_usuario ?>/<?php echo $id_solicitud ?>'><button class="btn btn-small btn-success" type="button"><?php echo $solicitud_administrar_aceptar_sol; ?></button></a><?php }?>
+                    <?php if ($mail_sol == "t" && $estado_sol == "Esperando") {?><a href='/trunk/qualitytours/solicitud/aceptarsolicitud/<?php echo $id_usuario ?>/<?php echo $id_solicitud ?>/<?php echo $leng ?>'><button class="btn btn-small btn-success" type="button"><?php echo $solicitud_administrar_aceptar_sol; ?></button></a><?php }?>
 <!--                    Se verifica que el mail no este mandando y que el estado de la solicitud sea pendiente, si esto se cumple se muestra los botones de aviso y rechazo-->
                     <?php if ($mail_sol == "f" && $estado_sol == "Pendiente") {?>
                     <a href='/trunk/qualitytours/solicitud/aviso/<?php echo $id_solicitud ?>/<?php echo $id_usuario ?>/<?php echo $leng;?>'<button class="btn btn-small btn-primary" type="button"><?php echo $solicitud_administrar_espera; ?></button></a>
