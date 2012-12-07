@@ -206,129 +206,123 @@ class ClienteController extends AppController {
 
 
         $client = new Cliente();
-        $client = $client->find($id);
-    
-       
-     if($client->estado_usu == "t")
-     {
-        $this->id_cliente = $id;
-        $this->telefono = $client->telefono_cli;
-        $this->nombre_cliente = $client->nombre_cli;
-        $this->mostrar = $client->visitas_cli + 1;
-     }
-     else if($client->estado_usu == "f")
-     {
-         echo flash::info("dirección no existe");
-         router::Redirect("/");
-     }
-     else
-     {
-          echo flash::info("dirección no existe");
-         router::Redirect("/");
-         
-     }
+        //$client = $client->find($id);
+        //
+        //se pregunta si existe el cliente
+        if ($client->buscar_cliente($id)) {
+            if ($client->estado_usu == "t") {
+                $this->id_cliente = $id;
+                $this->telefono = $client->telefono_cli;
+                $this->nombre_cliente = $client->nombre_cli;
+                $this->mostrar = $client->visitas_cli + 1;
+            }
 
-        //Obtenemos la ubicacion del centro
-        $ubicacion = new Ubicacion();
-        $ubicacion = $ubicacion->find_by_sql("select *  from ubicacion where id_usu = " . $id);
-        if ($ubicacion != null) {
-            $this->region_ubi = $ubicacion->region_ubi;
-            $this->ciudad_ubi = $ubicacion->ciudad_ubi;
-            $this->direccion_ubi = $ubicacion->direccion_ubi;
-        }
+            //Obtenemos la ubicacion del centro
+            $ubicacion = new Ubicacion();
+            $ubicacion = $ubicacion->find_by_sql("select *  from ubicacion where id_usu = " . $id);
+            if ($ubicacion != null) {
+                $this->region_ubi = $ubicacion->region_ubi;
+                $this->ciudad_ubi = $ubicacion->ciudad_ubi;
+                $this->direccion_ubi = $ubicacion->direccion_ubi;
+            }
 
 
-        //Comprueba que no se actualise el contador de visita si es el mismo dueño del centro turistico
-        if (Session::get("id") == $id) {
-            $captura = $client->visitas_cli;
-            $actualiza = $captura + 0;
-            $client->sql("update Cliente set visitas_cli=" . $actualiza . "where id_usu=" . $id);
-        }
-        if (Session::get("id") != $id) {
-            $captura = $client->visitas_cli;
-            $actualiza = $captura + 1;
-            $client->sql("update Cliente set visitas_cli=" . $actualiza . "where id_usu=" . $id);
-        }
-        if (Session::get("id") == null) {
-            $captura = $client->visitas_cli;
-            $actualiza = $captura + 1;
-            $client->sql("update Cliente set visitas_cli=" . $actualiza . "where id_usu=" . $id);
-        }
+            //Comprueba que no se actualise el contador de visita si es el mismo dueño del centro turistico
+            if (Session::get("id") == $id) {
+                $captura = $client->visitas_cli;
+                $actualiza = $captura + 0;
+                $client->sql("update Cliente set visitas_cli=" . $actualiza . "where id_usu=" . $id);
+            }
+            if (Session::get("id") != $id) {
+                $captura = $client->visitas_cli;
+                $actualiza = $captura + 1;
+                $client->sql("update Cliente set visitas_cli=" . $actualiza . "where id_usu=" . $id);
+            }
+            if (Session::get("id") == null) {
+                $captura = $client->visitas_cli;
+                $actualiza = $captura + 1;
+                $client->sql("update Cliente set visitas_cli=" . $actualiza . "where id_usu=" . $id);
+            }
 
 
-       
-        $contenido = new Contenido();
-        $arr2 = $contenido->find("conditions: id_usu=" . $id . "and estado_con='t'");
-        $this->contenido = $arr2;
-        $contimg = 0;
-        foreach ($arr2 as $contenido) {
 
-            $this->ruta_con[$contimg] = $arr2[$contimg]->ruta_con;
+            $contenido = new Contenido();
+            $arr2 = $contenido->find("conditions: id_usu=" . $id . "and estado_con='t'");
+            $this->contenido = $arr2;
+            $contimg = 0;
+            foreach ($arr2 as $contenido) {
 
-
-            $contimg++;
-        }
-
-        $this->contimg = $contimg;
-
-        $services = new Servicio();
-        $services = $services->find_all_by('id_usu', $id);
-        $this->array_servicios = $services;
-
-        //2- Necesario para cargar el mapa
-        $ubicacion = new Ubicacion();
-        $ubicacion = $ubicacion->find_all_by('id_usu', $id);
-        if ($ubicacion != null) {
-            $this->latitud = $ubicacion[0]->latitud_ubi; //El [0] debido a que nos entrega un array
-            $this->longitud = $ubicacion[0]->longitud_ubi;
-        }
-
-        $comentario = new Comentario();
-        //validar si existen comentarios
-        if ($comentario->count("conditions: estado_com='t' and cli_id_usu=" . $id) == 0) {
-            $this->cont = 0;
-        }
-        if ($comentario->count("conditions: estado_com='t' and cli_id_usu=" . $id) > 0) {
-            $this->numComentarios = $comentario->count("conditions: estado_com='t' and cli_id_usu=" . $id);
-            $this->cont = 1;
-        }
-        $arr = $comentario->find("conditions: estado_com='t' and cli_id_usu=" . $id, "order: id ASC");
-        $contador = 0;
-        $user = new Usuario();
-        foreach ($arr as $comentario) {
+                $this->ruta_con[$contimg] = $arr2[$contimg]->ruta_con;
 
 
-            $this->detalle[$contador] = $arr[$contador]->detalle_com;
-            $this->fecha[$contador] = $arr[$contador]->fecha_com;
-            $nombre_usuario[$contador] = $user->find($arr[$contador]->id_usu);
-            $this->nombre[$contador] = $nombre_usuario[$contador]->nombre_usu;
-            $this->id[$contador] = $arr[$contador]->id_usu;
-            $this->idComentario[$contador] = $arr[$contador]->id;
+                $contimg++;
+            }
 
-            $contador++;
-        }
-        $this->contador = $contador;
-        //CALIFICACION
-        $calificacion = new Calificacion();
-        $result = $calificacion->count("conditions: cli_id_usu=" . $id);
+            $this->contimg = $contimg;
+
+            $services = new Servicio();
+            $services = $services->find_all_by('id_usu', $id);
+            $this->array_servicios = $services;
+
+            //2- Necesario para cargar el mapa
+            $ubicacion = new Ubicacion();
+            $ubicacion = $ubicacion->find_all_by('id_usu', $id);
+            if ($ubicacion != null) {
+                $this->latitud = $ubicacion[0]->latitud_ubi; //El [0] debido a que nos entrega un array
+                $this->longitud = $ubicacion[0]->longitud_ubi;
+            }
+
+            $comentario = new Comentario();
+            //validar si existen comentarios
+            if ($comentario->count("conditions: estado_com='t' and cli_id_usu=" . $id) == 0) {
+                $this->cont = 0;
+            }
+            if ($comentario->count("conditions: estado_com='t' and cli_id_usu=" . $id) > 0) {
+                $this->numComentarios = $comentario->count("conditions: estado_com='t' and cli_id_usu=" . $id);
+                $this->cont = 1;
+            }
+            $arr = $comentario->find("conditions: estado_com='t' and cli_id_usu=" . $id, "order: id ASC");
+            $contador = 0;
+            $user = new Usuario();
+            foreach ($arr as $comentario) {
 
 
-        if ($result != 0) {
+                $this->detalle[$contador] = $arr[$contador]->detalle_com;
+                $this->fecha[$contador] = $arr[$contador]->fecha_com;
+                $nombre_usuario[$contador] = $user->find($arr[$contador]->id_usu);
+                $this->nombre[$contador] = $nombre_usuario[$contador]->nombre_usu;
+                $this->id[$contador] = $arr[$contador]->id_usu;
+                $this->idComentario[$contador] = $arr[$contador]->id;
 
-            $promedio = $calificacion->average("valor_cal", "conditions: cli_id_usu=" . $id);
-            $this->calificacion = $promedio;
-            $this->cantidad = $result;
-        } else {
+                $contador++;
+            }
+            $this->contador = $contador;
+            //CALIFICACION
+            $calificacion = new Calificacion();
+            $result = $calificacion->count("conditions: cli_id_usu=" . $id);
 
-            $this->calificacion = 0;
-            $this->cantidad = $result;
-        }
 
-        //mandar nombre de usuario para el ajax.
-        if (Auth::is_valid()) {
-            $id_usuario = Auth::get("id");
-            $nombre = $user->find($id_usuario);
-            $this->nombre_usuario = $nombre->username_usu;
+            if ($result != 0) {
+
+                $promedio = $calificacion->average("valor_cal", "conditions: cli_id_usu=" . $id);
+                $this->calificacion = $promedio;
+                $this->cantidad = $result;
+            } else {
+
+                $this->calificacion = 0;
+                $this->cantidad = $result;
+            }
+
+            //mandar nombre de usuario para el ajax.
+            if (Auth::is_valid()) {
+                $id_usuario = Auth::get("id");
+                $nombre = $user->find($id_usuario);
+                $this->nombre_usuario = $nombre->username_usu;
+            }
+        }else
+        {
+            Flash::info("Direccion no encontrada");
+            Router::redirect("/");
         }
     }
 
