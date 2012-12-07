@@ -51,7 +51,7 @@ class ServicioController extends AppController
                 
                 //Obtenemos el nombre del centro turistico (cliente)
                 $cli = new Cliente();
-                $cli->find($id_cliente);
+                $cli->find($id_cliente,"conditions: estado_usu='t'");
                 $this->nombre_cliente = $cli->nombre_cli;
             
                 //Obtenemos la ubicacion
