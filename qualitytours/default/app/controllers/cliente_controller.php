@@ -216,10 +216,16 @@ class ClienteController extends AppController {
         $this->nombre_cliente = $client->nombre_cli;
         $this->mostrar = $client->visitas_cli + 1;
      }
-     else
+     else if($client->estado_usu == "f")
      {
          echo flash::info("dirección no existe");
          router::Redirect("/");
+     }
+     else
+     {
+          echo flash::info("dirección no existe");
+         router::Redirect("/");
+         
      }
 
         //Obtenemos la ubicacion del centro
