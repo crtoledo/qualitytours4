@@ -163,6 +163,19 @@ $solicitud_administrar_modal1 = "The rejection of the application, is an action 
 $solicitud_administrar_modal2 = "Before rejecting the application, make sure:";
 $solicitud_administrar_modal3 = "Send comments before rejecting the request:";
 $solicitud_administrar_cerrar = "Exit";
+//variables /administrar/buscar
+
+$solicitud_buscar_mensaje1 = "No results were found";
+$solicitud_buscar_titulo = "Search applications";
+$solicitud_buscar_mensaje2 = "Search only";
+$solicitud_buscar_mensaje3 = "Sort by";
+$solicitud_buscar_mensaje4 = "request rejected";
+$solicitud_buscar_mensaje5 = "request canceled";
+$solicitud_buscar_mensaje6 = "modification";
+$solicitud_buscar_mensaje7 = "confirmation email";
+$solicitud_buscar_mensaje8 = "application";
+$solicitud_buscar_codigo = "Code";
+$solicitud_buscar_fecha = "Date";
 
 
 

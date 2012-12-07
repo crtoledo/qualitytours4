@@ -312,11 +312,11 @@ class SolicitudController extends AppController {
                     $this->solicitud = $datos_solicitud;
                 } else {
                     Flash::info('Datos no corresponden a la solicitud');
-                    Router::redirect("/solicitud/buscar");
+                    Router::redirect("/solicitud/buscar/".$leng);
                 }
             } else {
                 Flash::info('Datos no corresponden a la solicitud');
-                Router::redirect("/solicitud/buscar");
+                Router::redirect("/solicitud/buscar/".$leng);
             }
         } else {
             Flash::info('No posee los privilegios necesarios');

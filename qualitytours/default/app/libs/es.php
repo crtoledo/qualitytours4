@@ -39,7 +39,7 @@ $val_passwords_string = "Las contraseñas no coinciden";
 //variables para usuario/olvidar
 
 $usuario_olvidar_nombre = "Ingrese su nombre de usuario";
-$usuario_olvidar_titulo = "Recuprar clave";
+$usuario_olvidar_titulo = "Recuperar clave";
 $usuario_olvidar_boton = "Buscar";
 
 //variables para usuario/buscar
@@ -163,6 +163,20 @@ $solicitud_administrar_modal1 = "El rechazo de la solicitud, es una accion que n
 $solicitud_administrar_modal2 = "Antes de rechazar la solicitud asegurece de:";
 $solicitud_administrar_modal3 = "Enviar las observaciones antes de rechazar la solicitud:";
 $solicitud_administrar_cerrar = "Cerrar";
+
+//variables /administrar/buscar
+
+$solicitud_buscar_mensaje1 = "NO SE ENCONTRARON RESULTADOS";
+$solicitud_buscar_titulo = "Buscar solicitudes";
+$solicitud_buscar_mensaje2 = "Buscar solo";
+$solicitud_buscar_mensaje3 = "Ordenar por";
+$solicitud_buscar_mensaje4 = "solicitud rechazada";
+$solicitud_buscar_mensaje5 = "Solicitud cancelada";
+$solicitud_buscar_mensaje6 = "Modificación";
+$solicitud_buscar_mensaje7 = "Confirmacion mail";
+$solicitud_buscar_mensaje8 = "Solicitud";
+$solicitud_buscar_codigo = "C&oacute;digo";
+$solicitud_buscar_fecha = "Fecha";
 
 
 

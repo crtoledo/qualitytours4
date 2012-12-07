@@ -1,3 +1,15 @@
+<?php
+//Código para el idioma
+    if($leng == "en")
+    {
+        include_once APP_PATH.'libs/en.php';
+    }
+    else
+    {
+        include_once APP_PATH.'libs/es.php';
+    }
+    
+ ?>   
 <div><?php View::content() ?></div> 
 
 <script type="text/javascript">
@@ -37,7 +49,7 @@
                                 $(".table-condensed tbody").append("<td>"+data[count]['estado_sol']+"</td>");
                                 $(".table-condensed tbody").append("<td>"+data[count]['tipo_sol']+"</td>");
                                 $(".table-condensed tbody").append("<td>"+data[count]['mail_sol']+"</td>");
-                                $(".table-condensed tbody").append("<td><a href='/trunk/qualitytours/solicitud/administrar/"+data[count]['id'] +"/"+data[count]['id_usu'] +"'><button class='btn btn-small btn-info' type='button'>Administrar</button></a></td>");                     
+                                $(".table-condensed tbody").append("<td><a href='/trunk/qualitytours/solicitud/administrar/"+data[count]['id'] +"/"+data[count]['id_usu'] +"/<?php echo $leng; ?>'><button class='btn btn-small btn-info' type='button'>Administrar</button></a></td>");                     
                                 
                                 $(".table-condensed tbody").prepend("</tr>");
                                 count++;
@@ -46,7 +58,7 @@
                         else 
                         {
                             $(".table-condensed tbody").empty();
-                            $(".table-condensed tbody").append('<td><b>NO SE ENCONTRARON RESULTADOS</b></td>');
+                            $(".table-condensed tbody").append('<td><b><?php echo $solicitud_buscar_mensaje1; ?></b></td>');
                         }
                     } // cierre success
             
@@ -92,11 +104,11 @@ reemplazo se uso 'errorVal'.
 
 
 <div align="center">
-    <h1 style="font-family: SF"> <?php echo "Buscar solicitudes"; ?> </h1>
+    <h1 style="font-family: SF"> <?php echo $solicitud_buscar_titulo; ?> </h1>
     <table>
         <tr> 
-            <td><?php echo "Usuario a buscar"; ?>&nbsp;&nbsp;</td>
-            <td><?php echo Form::text('usuario', "class='span3 palabra' placeholder='Ingrese usuario'") ?></td>
+            <td><?php echo $usuario_buscar_titulo; ?>&nbsp;&nbsp;</td>
+            <td><?php echo Form::text('usuario', "class='span3 palabra' placeholder='".$usuario_buscar_ingrese_usuario ."'") ?></td>
         </tr>
         <tr>
             <td colspan="2">
@@ -104,7 +116,7 @@ reemplazo se uso 'errorVal'.
                     <div class="accordion-group">
                         <div class="accordion-heading">
                             <center><a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
-                                    <?php echo "Más opciones"; ?>
+                                    <?php echo $usuario_buscar_mas_opciones; ?>
                                 </a></center>
                         </div>
                         <div id="collapseOne" class="accordion-body collapse">
@@ -112,8 +124,8 @@ reemplazo se uso 'errorVal'.
                                 <table class="table table-bordered">
                                     <thead>
                                         <tr>
-                                            <th><center>Buscar solo</center></th>
-                                    <th><center>Ordenar por</center></th>
+                                            <th><center><?php echo $solicitud_buscar_mensaje2; ?></center></th>
+                                    <th><center><?php echo $solicitud_buscar_mensaje3; ?></center></th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -121,21 +133,21 @@ reemplazo se uso 'errorVal'.
                                             <td>
                                                 <label class="radio">
                                                     <input type="radio" name="optionsRadios" id="optionsRadios2" value="Rechazada">
-                                                    <?php echo "Solicitud rechazada"; ?>
+                                                    <?php echo $solicitud_buscar_mensaje4; ?>
                                                 </label>
                                                 <label class="radio">
                                                     <input type="radio" name="optionsRadios" id="optionsRadios3" value="Cancelada">
-                                                    <?php echo "Solicitud cancelada"; ?>
+                                                    <?php echo $solicitud_buscar_mensaje5; ?>
                                                 </label>  
                                             </td>
                                             <td>
                                                 <label class="radio">
                                                     <input type="radio" name="optionsRadios" id="optionsRadios2" value="modificaciones_sol">
-                                                    <?php echo "Modificación"; ?>
+                                                    <?php echo $solicitud_buscar_mensaje6; ?>
                                                 </label>
                                                 <label class="radio">
                                                     <input type="radio" name="optionsRadios" id="optionsRadios3" value="mail_sol">
-                                                    <?php echo "Confirmacion mail"; ?>
+                                                    <?php echo $solicitud_buscar_mensaje7; ?>
                                                 </label> 
                                             </td>
                                         </tr>                                  
@@ -152,17 +164,17 @@ reemplazo se uso 'errorVal'.
     <!--Resultado de la busqueda-->
     <br>
     <br>
-    <h4> <?php echo "Solicitudes"; ?> </h4>
+    <h4> <?php echo $solicitud_buscar_mensaje8; ?> </h4>
     <br>
     <table class="table table-condensed">
         <thead>
             <tr>
                 <!-- cabecera de la tabla-->
-                <th><?php echo "Codigo"; ?></th>
+                <th><?php echo $solicitud_buscar_codigo; ?></th>
                 <th>Username</th>
-                <th><?php echo "Fecha"; ?></th>
-                <th><?php echo "Estado"; ?></th>
-                <th><?php echo "Tipo"; ?></th>
+                <th><?php echo $solicitud_buscar_fecha; ?></th>
+                <th><?php echo $solicitud_administrar_estado; ?></th>
+                <th><?php echo $servicio_ingresar_tipo; ?></th>
                 <th><?php echo "Mail"; ?></th>
                 <th> </th>
                 <th> </th>
