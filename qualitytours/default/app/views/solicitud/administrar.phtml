@@ -102,7 +102,7 @@
                     <?php if ($mail_sol == "t" && $estado_sol == "Esperando") {?><a href='/trunk/qualitytours/solicitud/aceptarsolicitud/<?php echo $id_usuario ?>/<?php echo $id_solicitud ?>'><button class="btn btn-small btn-success" type="button"><?php echo $solicitud_administrar_aceptar_sol; ?></button></a><?php }?>
 <!--                    Se verifica que el mail no este mandando y que el estado de la solicitud sea pendiente, si esto se cumple se muestra los botones de aviso y rechazo-->
                     <?php if ($mail_sol == "f" && $estado_sol == "Pendiente") {?>
-                    <a href='/trunk/qualitytours/solicitud/aviso/<?php echo $id_solicitud ?>/<?php echo $id_usuario ?>'><button class="btn btn-small btn-primary" type="button"><?php echo $solicitud_administrar_espera; ?></button></a>
+                    <a href='/trunk/qualitytours/solicitud/aviso/<?php echo $id_solicitud ?>/<?php echo $id_usuario ?>/<?php echo $leng;?>'<button class="btn btn-small btn-primary" type="button"><?php echo $solicitud_administrar_espera; ?></button></a>
                     <button class="btn btn-small btn-danger" type="button" onclick="activar_cancelacion()"><?php echo $solicitud_administrar_rechazar; ?></button><?php }?>
 <!--                    Si el usuario no ha confirmado el envio del mail se muestra el mensaje-->
                     <?php if ($mail_sol == "f" && $estado_sol == "Esperando") {echo "<b>".$solicitud_administrar_mensaje1."</b>";}?>
@@ -110,7 +110,7 @@
                     
                     <br></br>
                     <center><h4><?php echo $solicitud_administrar_mensaje2; ?></h4></center>
-                    <?php echo Form::open('solicitud/ingresarobservacion/' . $id_usuario . '/' . $id_solicitud) ?>
+                    <?php echo Form::open('solicitud/ingresarobservacion/' . $id_usuario . '/' . $id_solicitud."/".$leng) ?>
                     <center><?php echo Form::textarea('solicitud.observaciones_sol') ?></center>
 
                     <?php echo Form::hidden('solicitud.id') ?>
@@ -147,7 +147,7 @@
     </div>
     <div class="modal-footer">
         <button class="btn" data-dismiss="modal" aria-hidden="true"><?php echo $solicitud_administrar_cerrar; ?></button>
-        <a href="/trunk/qualitytours/solicitud/rechazar/<?php echo $id_solicitud ?>/<?php echo $id_usuario ?>"><button class="btn btn-primary"><?php echo $solicitud_administrar_rechazar; ?></button></a>
+        <a href="/trunk/qualitytours/solicitud/rechazar/<?php echo $id_solicitud ?>/<?php echo $id_usuario."/".$leng ?>"><button class="btn btn-primary"><?php echo $solicitud_administrar_rechazar; ?></button></a>
     </div>
 </div>
 
