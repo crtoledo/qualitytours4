@@ -18,8 +18,8 @@
  {
         $validar = pg_num_rows(pg_query("select * from calificacion where id_usu=" . $id_usu."and cli_id_usu=".$id_cli));
     if ($validar == 0) {
-        $res = pg_query("INSERT INTO calificacion(id_usu, cli_id_usu, valor_cal, fecha_cal)
-        VALUES (" . $_POST['id_usu'] . "," . $_POST['id_cli'] . "," . $votacion . ",'" . $fecha . "')");
+        $res = pg_query("INSERT INTO calificacion(id_usu, cli_id_usu, valor_cal, fecha_cal,estado_cal)
+        VALUES (" . $_POST['id_usu'] . "," . $_POST['id_cli'] . "," . $votacion . ",'" . $fecha . "','true')");
       
         
         

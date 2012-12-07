@@ -357,7 +357,8 @@ class SolicitudController extends AppController {
         }
     }
 
-    Public function aceptarsolicitud($id_cliente, $id_solicitud) {
+    Public function aceptarsolicitud($id_cliente, $id_solicitud,$leng) {
+        $this->leng = $leng;
         if (Auth::get("rol_usu") == "administrador") {
             // valido que los datos obtenidos sean numericos
             if (is_numeric($id_cliente) && ($id_solicitud)) {
@@ -399,7 +400,7 @@ class SolicitudController extends AppController {
                         //se procede a eliminar la antigua solicitud, solo si esta existe.
 
                         Flash::info('Solicitud aceptada, cliente ingresado');
-                        Router::redirect("/solicitud/administrar/" . $id_solicitud . "/" . $id_cliente);
+                        Router::redirect("/solicitud/administrar/" . $id_solicitud . "/" . $id_cliente."/".$leng);
                     } else {
                         
                     }
