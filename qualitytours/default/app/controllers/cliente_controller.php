@@ -207,7 +207,7 @@ class ClienteController extends AppController {
 
 
         $client = new Cliente();
-        $client = $client->find($id);
+        $client = $client->find($id,"conditions: estado_usu='t'");
         $this->id_cliente = $id;
         $this->telefono = $client->telefono_cli;
 
