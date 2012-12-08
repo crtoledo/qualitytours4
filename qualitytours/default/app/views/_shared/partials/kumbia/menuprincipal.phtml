@@ -169,6 +169,8 @@ if ($url == "en") {
                     {$("#mail_sol").after("<span class='notifi'>" + data[0]['datos'] +"</span>");}
                     if(data[1]['datos'] != 0)
                     {$("#modi_sol").after("<span class='notifi'>" + data[1]['datos'] +"</span>");}
+                    if(data[3]['datos'] != 0)
+                    {$("#eli_sus").after("<span class='notifi'>" + data[3]['datos'] +"</span>");}
                 }
                 else 
                 {
@@ -195,7 +197,7 @@ if ($url == "en") {
 <div class="navbar navbar-inverse ">
     <div class="navbar-inner">
         <div class="container">
-            <?php if (!Auth::is_valid()){ echo "<a class='brand' >Quality Tours</a>";} else if (Auth::get("rol_usu")== "turista" || Auth::get("rol_usu")== "cliente" ) {echo "<a class='brand' >Quality Tours</a>";} ?>
+            <?php if (!Auth::is_valid()){ echo "<a class='brand' >Quality Tours</a>";} else if (Auth::get("rol_usu")== "turista" || Auth::get("rol_usu")== "cliente" || Auth::get("rol_usu")== "traductor" ) {echo "<a class='brand' >Quality Tours</a>";} ?>
 
             <ul class="nav">
                 <!-- HOME -->
