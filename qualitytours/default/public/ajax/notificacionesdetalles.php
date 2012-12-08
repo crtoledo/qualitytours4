@@ -4,6 +4,7 @@
  * 1: Solicitud que esta pendiente de revision
  * 2: Indica que el cliente ya mando el mail
  * 3: La solicitud fue modificada
+ * 4: Suscripcion terminada
  */
 
 require_once 'connection.php';
@@ -26,6 +27,10 @@ where mail_sol= true and activo_sol= true and estado_sol ='Esperando'");
     $resu = pg_query($conn, "select solicitud.id, cliente.id_usu, cliente.username_usu, solicitud.fecha_sol, solicitud.estado_sol, solicitud.tipo_sol 
 from solicitud join cliente on solicitud.id_usu= cliente.id_usu
 where modificaciones_sol=true and activo_sol= true and estado_sol ='Pendiente'");
+    $res = pg_fetch_all($resu);
+} else if ($tipo == "4") {
+    $resu = pg_query($conn, "select cliente.id_usu, solicitud.id, cliente.nombre_usu, cliente.username_usu, cliente.nombre_cli, cliente.email_usu,cliente.telefono_cli, cliente.tipo_plan
+from cliente join solicitud on cliente.id_usu = solicitud.id_usu where fecha_fin_sus= CURRENT_DATE  and estado_usu= true and activo_sol=true");
     $res = pg_fetch_all($resu);
 }
 

@@ -1,0 +1,61 @@
+<script type="text/javascript">    
+    $(document).ready(function()
+    {        
+        $.ajax
+        ({
+            
+            type: "POST", 
+            data : {
+                opcion: <?php echo $codigo ?>
+            },
+            url: '<?php echo PUBLIC_PATH; ?>ajax/notificacionesdetalles.php',
+            dataType: "json",
+            success: function(data)
+            {
+                if (data != null && data.length > 0)
+                {
+                    var count = 0;
+                    //console.log(data);
+                    $(".table-condensed tbody").empty();
+                    while (count < data.length)
+                    {
+                        $(".table-condensed tbody").append("<tr>");
+                        $(".table-condensed tbody").append("<td><center>"+data[count]['nombre_usu']+"</center></td>");
+                        $(".table-condensed tbody").append("<td><center>"+data[count]['username_usu']+"</center></td>");
+                        $(".table-condensed tbody").append("<td><center>"+data[count]['nombre_cli']+"</center></td>");
+                        $(".table-condensed tbody").append("<td><center>"+data[count]['email_usu']+"</center></td>");
+                        $(".table-condensed tbody").append("<td><center>"+data[count]['telefono_cli']+"</center></td>");
+                        $(".table-condensed tbody").append("<td><center>"+data[count]['tipo_plan']+"</center></td>");
+                        $(".table-condensed tbody").prepend("</tr>");
+                        count++;
+                    }
+                }
+                else 
+                {
+                    $(".table-condensed tbody").empty();
+                    $(".table-condensed tbody").append('<td><b>NO SE ENCONTRARON RESULTADOS</b></td>');
+                }
+            } // cierre success
+            
+            //DESCOMENTAR LA SIGUIENTE LINEA SI QUEREEMOS VER ALERTS SI HAY ERROR EN LA SOLICITUD AJAX
+            //,error: function (xhr, ajaxOptions, thrownError){alert(xhr.status+' '+thrownError);}
+        });
+    });
+</script>
+
+<table class="table table-condensed">
+    <thead>
+        <tr>
+            <!-- cabecera de la tabla-->
+            <th><center><?php echo "Nombre"; ?></center></th>
+            <th><center><?php echo "username"; ?></center></th>
+            <th><center><?php echo "Centro turistico"; ?></center></th>
+            <th><center><?php echo "Email" ?></center></th>
+            <th><center><?php echo "Telefono" ?></center></th>
+            <th><center><?php echo "Tipo plan" ?></center></th>  
+            <th> </th>
+        </tr>
+    </thead>
+    <tbody>
+    </tbody>
+</table>
