@@ -72,7 +72,7 @@ class AdministradorController extends AppController {
         }
     }
 
-    public function notificaciones($tipo_consulta,$leng) {
+    public function notificaciones($tipo_consulta, $leng) {
         $this->leng = $leng;
         if (Auth::is_valid()) {
             if (Auth::get('rol_usu') == 'administrador') {
@@ -82,6 +82,24 @@ class AdministradorController extends AppController {
                     $this->codigo = 2;
                 } else if ($tipo_consulta == "modificacion") {
                     $this->codigo = 3;
+                }
+            } else {
+                Flash::info('No posee los privilegios necesarios');
+                Router::redirect("/");
+            }
+        } else {
+            Flash::error("Pagina no encontrada");
+            Router::redirect("/");
+        }
+    }
+
+//eliminar suscripcion
+    public function revocar($tipo_consulta, $leng) {
+        $this->leng = $leng;
+        if (Auth::is_valid()) {
+            if (Auth::get('rol_usu') == 'administrador') {
+                if ($tipo_consulta == "eliminacion") {
+                    $this->codigo = 4;
                 }
             } else {
                 Flash::info('No posee los privilegios necesarios');
