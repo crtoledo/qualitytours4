@@ -376,40 +376,61 @@ class UsuarioController extends AppController {
 
                 $nombre = $usuario->nombre_usu;
                 $correo = $usuario->email_usu;
-                $clave = $usuario->password_usu;
+                //$clave = $usuario->password_usu;
 
-                //mandamos el correo correspondiente
-                require(APP_PATH . 'libs/PHPMailer_5.2.2-rc2/class.phpmailer.php');
-                require(APP_PATH . 'libs/PHPMailer_5.2.2-rc2/class.smtp.php');
-                $mail = new PHPMailer();
-                $mail->IsSMTP();
-                //$mail->SMTPSecure = "ssl";
-                $mail->SMTPAuth = true;
-                $mail->SMTPDebug = 1;  // debugging: 1 = errors and messages, 2 = messages only
-                $mail->Host = "smtp.mail.yahoo.com";
-                $mail->Port = 25;
-                $mail->Username = "qualitytoursadm@yahoo.com";
-                $mail->Password = "qt123123";
+                $nuevaclave = rand(50000, 100000);
 
-                //Preparar el mail
-                //$mail->From = $_POST['email'];
-                $mail->From = "qualitytoursadm@yahoo.com";
-                $mail->FromName = "Administrador";
-                $mail->Subject = "Restablecer clave";
-                $mail->Body = stripcslashes("Su clave es: " . $clave . " y su nombre de usuario es: " . $user);
-                $mail->AddAddress($correo, "Destinatario"); //Dirección a la que enviaremos el correo
-                $mail->IsHTML(true);
+                $en1 = md5($nuevaclave);
+                $en2 = sha1($en1);
+                unset($en1);
+                $en3 = hash('sha512', $en2);
+                unset($en2);
 
-                if (!$mail->Send()) {
-                    echo "Error: " . $mail->ErrorInfo;
+                $usuario->password_usu = $en3;
+                unset($en3);
+
+                if ($usuario->update()) {
+                    //mandamos el correo correspondiente
+                    require(APP_PATH . 'libs/PHPMailer_5.2.2-rc2/class.phpmailer.php');
+                    require(APP_PATH . 'libs/PHPMailer_5.2.2-rc2/class.smtp.php');
+                    $mail = new PHPMailer();
+                    $mail->IsSMTP();
+                    //$mail->SMTPSecure = "ssl";
+                    $mail->SMTPAuth = true;
+                    $mail->SMTPDebug = 1;  // debugging: 1 = errors and messages, 2 = messages only
+                    $mail->Host = "smtp.mail.yahoo.com";
+                    $mail->Port = 25;
+                    $mail->Username = "qualitytoursadm@yahoo.com";
+                    $mail->Password = "qt123123";
+
+                    //Preparar el mail
+                    //$mail->From = $_POST['email'];
+                    $mail->From = "qualitytoursadm@yahoo.com";
+                    $mail->FromName = "Administrador";
+                    $mail->Subject = "Restablecer contraseña";
+                    $mail->Body = stripcslashes("Su nueva clave es: " . $nuevaclave . " y su nombre de usuario es: " . $user);
+                    $mail->AddAddress($correo, "Destinatario"); //Dirección a la que enviaremos el correo
+                    $mail->IsHTML(true);
+
+                    if (!$mail->Send()) {
+                        echo "Error: " . $mail->ErrorInfo;
+                    } else {
+                        //echo "Mensaje enviado correctamente";
+
+                        if ($leng == "es") {
+                            Flash::success("Su contraseña se ha mandado a su correo de registro ");
+                            Router::redirect('/');
+                        } else {
+                            Flash::success("Your password is sent to your registration e-mail");
+                            Router::redirect('/');
+                        }
+                    }
                 } else {
-                    //echo "Mensaje enviado correctamente";
-
                     if ($leng == "es") {
-                        Flash::success("Su contraseña se ha mandado a su correo de registro");
+                        Flash::error("Su contraseña no se ha cambiado");
                         Router::redirect('/');
                     } else {
-                        Flash::success("Your password is sent to your registration e-mail");
+                        Flash::error("Password not changed");
                         Router::redirect('/');
                     }
                 }

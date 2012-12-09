@@ -39,7 +39,7 @@ $val_passwords_string = "Passwords don't match"; // sacada del registro de googl
 //variables para usuario/olvidar
 
 $usuario_olvidar_nombre = "Enter your username";
-$usuario_olvidar_titulo = "Lost Password";
+$usuario_olvidar_titulo = "Reset password";
 $usuario_olvidar_boton = "Search";
 
 //variables para usuario/buscar
