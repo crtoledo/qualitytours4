@@ -117,17 +117,31 @@ class UsuarioController extends AppController {
         if (Auth::is_valid()) {
             $this->leng = $leng;
             if (Auth::get('rol_usu') == 'turista') {
-                $usuarioaeditar = new Usuario();
-
+                $usuarioaeditar = new usuario();
                 if (Input::hasPost('usuario')) {
-                    if ($usuarioaeditar->update(Input::post('usuario'))) {
+                    $usuarioupdate = new Usuario(Input::post('usuario'));
+
+                    $contraseña = $usuarioupdate->password_usu;
+
+                    $en1 = md5($contraseña);
+                    unset($contraseña);
+                    $en2 = sha1($en1);
+                    unset($en1);
+                    $en3 = hash('sha512', $en2);
+                    unset($en2);
+                    $usuarioupdate->password_usu = $en3;
+                    unset($en3);
+
+                    if ($usuarioupdate->update()) {
                         Flash::valid('Tus datos fueron actualizados');
                         Router::redirect('/');
                     } else {
                         Flash::error('Error al actualizar tus datos');
                     }
                 } else {
-                    $this->usuario = $usuarioaeditar->find((int) Auth::get('id'));
+                    $usuario = $usuarioaeditar->find((int) Auth::get('id'));
+                    $usuario->password_usu = "";
+                    $this->usuario = $usuario;
                 }
             } else {
                 Flash::info('No posee los privilegios necesarios');
@@ -216,7 +230,7 @@ class UsuarioController extends AppController {
         if (Input::hasPost("username_usu", "password_usu")) {
             $user = Input::post('username_usu');
             $pass = Input::post('password_usu');
-            
+
             $en1 = md5($pass);
             unset($pass);
             $en2 = sha1($en1);

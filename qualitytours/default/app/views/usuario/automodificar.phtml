@@ -40,10 +40,7 @@ $(document).ready(function () {
         }else if($(".email").val() == "" || !emailreg.test($(".email").val()) ){
            $(".email").focus().after("<span class='errorVal'><?php echo $val_email_string; ?></span>");
            return false;
-       }else if($('#acepta').is(':checked') == false){
-           $("#acepta").focus().after("<span class='errorVal'><?php echo "Debe aceptar los terminos de uso"; ?></span>");
-           return false;
-        }
+       }
     });
     
     //Borrar mensaje de error si el usuario a llenado el campo
@@ -116,7 +113,7 @@ $(document).ready(function () {
 </style>
 
 <fieldset>
-<?php echo Form::open('usuario/automodificar/') ?>
+<?php echo Form::open('usuario/automodificar/'.$leng) ?>
     <div align="center">
         <h1 style="font-family: SF"> <?php echo $usuario_automodificar_titulo; ?> </h1>
         <table>
@@ -156,7 +153,6 @@ $(document).ready(function () {
         </tr>         
     </table>
    </div>
-    <?php echo Form::hidden('usuario.rut_usu',null , "1.111.111-1"); ?>
     <?php echo Form::hidden('usuario.id'); ?>
     <?php echo Form::close() ?> 
 </fieldset>
