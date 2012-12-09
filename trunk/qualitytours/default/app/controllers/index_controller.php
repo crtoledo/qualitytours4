@@ -114,13 +114,13 @@ class IndexController extends AppController
                 $leng = $this->leng;
                 $contador_cat = 0;
                 //$categorias_encontradas = $categoria_obj->find_all_by('estado_cat',1);
-                $categorias_encontradas = $categoria_obj->find('conditions: estado_cat=TRUE','limit: 10');
+                $categorias_encontradas = $categoria_obj->find('conditions: estado_cat=TRUE','limit: 7');
                 
                     foreach ($categorias_encontradas as $cat)
                     {
                         //$this->cat[$contador_cat] = $cat[$contador_cat]->nombre_cat;
-                        if ($leng == "es") $this->cat[$contador_cat] = $cat->nombre_cat;
-                        else $this->cat[$contador_cat] = $cat->nombre_cat_eng;
+                        if ($leng == "en") $this->cat[$contador_cat] = $cat->nombre_cat_eng;
+                        else $this->cat[$contador_cat] = $cat->nombre_cat;
                         $contador_cat++;
                     }
                 
