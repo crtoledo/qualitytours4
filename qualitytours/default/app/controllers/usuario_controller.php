@@ -18,6 +18,16 @@ class UsuarioController extends AppController {
         if (!Auth::is_valid()) {
             if (Input::hasPost('usuario')) {
                 $usuario = new Usuario(Input::post('usuario'));
+                $contraseña = $usuario->password_usu;
+
+                $en1 = md5($contraseña);
+                unset($contraseña);
+                $en2 = sha1($en1);
+                unset($en1);
+                $en3 = hash('sha512', $en2);
+                unset($en2);
+                $usuario->password_usu = $en3;
+                unset($en3);
 
                 if (!$usuario->save()) {
                     if ($leng == "es") {
@@ -206,7 +216,16 @@ class UsuarioController extends AppController {
         if (Input::hasPost("username_usu", "password_usu")) {
             $user = Input::post('username_usu');
             $pass = Input::post('password_usu');
-            $auth = new Auth("model", "class: usuario", "username_usu: $user", "password_usu: $pass", "estado_usu: true");
+            
+            $en1 = md5($pass);
+            unset($pass);
+            $en2 = sha1($en1);
+            unset($en1);
+            $en3 = hash('sha512', $en2);
+            unset($en2);
+
+            $auth = new Auth("model", "class: usuario", "username_usu: $user", "password_usu: $en3", "estado_usu: true");
+            unset($en3);
 
             if ($auth->authenticate()) {
                 //captura el rol del usuario para futuros usos
@@ -304,8 +323,7 @@ class UsuarioController extends AppController {
         }
     }
 
-    public function ingresart($leng)
-    {
+    public function ingresart($leng) {
         $this->leng = $leng;
         if (Auth::is_valid()) {
             if (Input::hasPost('usuario')) {
@@ -328,12 +346,10 @@ class UsuarioController extends AppController {
                 }
             }
         } else {
-          
+
             Router::redirect("/");
         }
-   
     }
-
 
     public function olvidar($leng) {
         $this->leng = $leng;
@@ -366,7 +382,7 @@ class UsuarioController extends AppController {
                 $mail->From = "qualitytoursadm@yahoo.com";
                 $mail->FromName = "Administrador";
                 $mail->Subject = "Restablecer clave";
-                $mail->Body = stripcslashes("Su clave es: ".$clave . " y su nombre de usuario es: ".$user);
+                $mail->Body = stripcslashes("Su clave es: " . $clave . " y su nombre de usuario es: " . $user);
                 $mail->AddAddress($correo, "Destinatario"); //Dirección a la que enviaremos el correo
                 $mail->IsHTML(true);
 
