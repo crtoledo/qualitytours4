@@ -1,6 +1,37 @@
 <script type="text/javascript">    
+    var cats;
+    
     $(document).ready(function()
-    {        
+    {   
+        //deselecciona todos los clientes
+        $(".deseleccionar").click(function(){
+           $(".stringg").removeClass('active'); 
+        })
+        
+        //selecciona todos los clientes
+        $(".seleccion").click(function(){
+           $(".stringg").addClass('active'); 
+        })
+
+        //Si se hace click en eliminar suscripcion se crea la variable string con los id
+        $(".boton").click(function (){
+            
+            //SE LIMPIA ARRAY
+            cats=' ';
+        
+            //CAPTURA
+            $(".stringg.active").each(function()
+            {           
+                //array_categorias.push($(this).val());
+                cats = cats+"."+$(this).val();
+                
+            });
+            //enviar al controlador
+
+            $(".clientes_string").val(cats);
+        });
+        
+        
         $.ajax
         ({
             
@@ -20,6 +51,7 @@
                     while (count < data.length)
                     {
                         $(".table-condensed tbody").append("<tr>");
+                        $(".table-condensed tbody").append("<td><center><button type='button' class='btn btn-mini stringg' data-toggle='button' value='"+data[count]['id_usu']+"'>X</button></center></td>");
                         $(".table-condensed tbody").append("<td><center>"+data[count]['nombre_usu']+"</center></td>");
                         $(".table-condensed tbody").append("<td><center>"+data[count]['username_usu']+"</center></td>");
                         $(".table-condensed tbody").append("<td><center>"+data[count]['nombre_cli']+"</center></td>");
@@ -29,6 +61,7 @@
                         $(".table-condensed tbody").prepend("</tr>");
                         count++;
                     }
+                    //$(".table-condensed tbody").append("</label>");
                 }
                 else 
                 {
@@ -42,11 +75,25 @@
         });
     });
 </script>
+<center>
+    <table>
+        <tr>
+            <?php echo form::open('administrador/proceso_revocar/'.$leng); ?>
+            <td><?php echo form::button('Desmarcar todos', 'class="btn btn-small btn-primary deseleccionar"'); ?> &nbsp</td>
+            <td><?php echo form::button('Marcar todos', 'class="btn btn-small btn-primary seleccion"'); ?>&nbsp</td>
+            <td><?php echo form::submit('Terminar suscripción', 'class="btn btn-small btn-submit btn-danger boton"'); ?></td>
+            <?php echo Form::hidden('clientes', 'class="clientes_string"'); ?>
+            <?php echo Form::close(); ?>
 
+        </tr>
+    </table>
+</center>
+<br></br>
 <table class="table table-condensed">
     <thead>
         <tr>
             <!-- cabecera de la tabla-->
+            <th><center><?php echo "Seleccione"; ?></center></th>
             <th><center><?php echo "Nombre"; ?></center></th>
             <th><center><?php echo "username"; ?></center></th>
             <th><center><?php echo "Centro turistico"; ?></center></th>
@@ -59,3 +106,4 @@
     <tbody>
     </tbody>
 </table>
+

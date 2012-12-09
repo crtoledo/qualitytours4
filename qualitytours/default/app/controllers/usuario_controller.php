@@ -11,10 +11,6 @@ class UsuarioController extends AppController {
 
     public function index() {
         
-         
-    
-            
-        
     }
 
     public function ingresar($leng) {
@@ -321,89 +317,65 @@ class UsuarioController extends AppController {
             Router::redirect("/");
         }
     }
-    public function olvidar($leng)
-    {
-        $this->leng = $leng;
-        if (Input::hasPost('buscar'))
-        {
-             $user = Input::post('buscar');
-             //buscar si existe el nombre de usuario en la bd
-             $usuario = new Usuario();
-             if($usuario->find_by_sql("select * from usuario where username_usu='".$user."'"))
-             {
-                 //capuramos el correo y el nombre.. para enviarlo en el mail correspondiente.
-                 
-                 $nombre = $usuario->nombre_usu;
-                 $correo = $usuario->email_usu;
-                 $clave =  $usuario->password_usu;
-                 
-                 //mandamos el correo correspondiente
-                    require(APP_PATH.'libs/PHPMailer_5.2.2-rc2/class.phpmailer.php');
-                    require(APP_PATH.'libs/PHPMailer_5.2.2-rc2/class.smtp.php');
-                    $mail = new PHPMailer();
-                    $mail->IsSMTP();
-                    //$mail->SMTPSecure = "ssl";
-                    $mail->SMTPAuth = true;
-                    $mail->SMTPDebug = 1;  // debugging: 1 = errors and messages, 2 = messages only
-                    $mail->Host = "smtp.mail.yahoo.com";
-                    $mail->Port = 25;
-                    $mail->Username = "qualitytoursadm@yahoo.com";
-                    $mail->Password = "qt123123";
-                    
-                                    //Preparar el mail
-                    //$mail->From = $_POST['email'];
-                    $mail->From = "qualitytoursadm@yahoo.com";
-                    $mail->FromName = "adminsitrador";
-                    $mail->Subject = "Restablecer clave";
-                    $mail->Body = stripcslashes("su clave es:".$clave." y su nombre de usuario es:".$user);
-                    $mail->AddAddress($correo, "Destinatario"); //Dirección a la que enviaremos el correo
-                    $mail->IsHTML(true);
 
-                    if(!$mail->Send()){
+    public function olvidar($leng) {
+        $this->leng = $leng;
+        if (Input::hasPost('buscar')) {
+            $user = Input::post('buscar');
+            //buscar si existe el nombre de usuario en la bd
+            $usuario = new Usuario();
+            if ($usuario->find_by_sql("select * from usuario where username_usu='" . $user . "'")) {
+                //capuramos el correo y el nombre.. para enviarlo en el mail correspondiente.
+
+                $nombre = $usuario->nombre_usu;
+                $correo = $usuario->email_usu;
+                $clave = $usuario->password_usu;
+
+                //mandamos el correo correspondiente
+                require(APP_PATH . 'libs/PHPMailer_5.2.2-rc2/class.phpmailer.php');
+                require(APP_PATH . 'libs/PHPMailer_5.2.2-rc2/class.smtp.php');
+                $mail = new PHPMailer();
+                $mail->IsSMTP();
+                //$mail->SMTPSecure = "ssl";
+                $mail->SMTPAuth = true;
+                $mail->SMTPDebug = 1;  // debugging: 1 = errors and messages, 2 = messages only
+                $mail->Host = "smtp.mail.yahoo.com";
+                $mail->Port = 25;
+                $mail->Username = "qualitytoursadm@yahoo.com";
+                $mail->Password = "qt123123";
+
+                //Preparar el mail
+                //$mail->From = $_POST['email'];
+                $mail->From = "qualitytoursadm@yahoo.com";
+                $mail->FromName = "Administrador";
+                $mail->Subject = "Restablecer clave";
+                $mail->Body = stripcslashes("Su clave es: ".$clave . " y su nombre de usuario es: ".$user);
+                $mail->AddAddress($correo, "Destinatario"); //Dirección a la que enviaremos el correo
+                $mail->IsHTML(true);
+
+                if (!$mail->Send()) {
                     echo "Error: " . $mail->ErrorInfo;
-                    } else {
+                } else {
                     //echo "Mensaje enviado correctamente";
-                        
-                        if($leng == "es")
-                        {
-                              Flash::success("Su contraseña se a mandado a su correo de registro");
-                              Router::redirect('/');
-                        }
-                        else
-                        {
-                             Flash::success("Your password is sent to your registration e-mail");
-                             Router::redirect('/');
-                            
-                        }
-                  
+
+                    if ($leng == "es") {
+                        Flash::success("Su contraseña se ha mandado a su correo de registro");
+                        Router::redirect('/');
+                    } else {
+                        Flash::success("Your password is sent to your registration e-mail");
+                        Router::redirect('/');
                     }
-    
-                 
-                 
-             }
-             else
-             {
-                 if($leng == "es")
-                 {
-                     echo flash::info("No existe el nombre de usuario");
-                     Router::redirect("usuario/olvidar/".$leng);
-                 }
-                 else
-                 {
-                     echo flash::info("username does not exist");
-                     Router::redirect("usuario/olvidar/".$leng);
-                     
-                 }
-                 
-             }
-             
-            
-               
-               
-        
+                }
+            } else {
+                if ($leng == "es") {
+                    echo flash::info("No existe el nombre de usuario");
+                    Router::redirect("usuario/olvidar/" . $leng);
+                } else {
+                    echo flash::info("username does not exist");
+                    Router::redirect("usuario/olvidar/" . $leng);
+                }
+            }
         }
     }
-    
-    
-   
+
 }
