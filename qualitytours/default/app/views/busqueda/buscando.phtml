@@ -97,7 +97,7 @@ $string = str_replace("'", '', $string);
                     $(".tregiones thead tr").append("<th class='span3'><?php echo $busqueda_buscando_cliente; ?></th>");
                     $(".tregiones thead tr").append("<th class='span1'><?php echo $busqueda_buscando_ciudad; ?></th>");
                     $(".tregiones thead tr").append("<th class='span3'><?php echo $busqueda_buscando_region; ?></th>");
-                    $(".tregiones thead tr").append("<th class='span1'><?php echo $busuqueda_buscando_calificacion; ?></th>");
+                    $(".tregiones thead tr").append("<th class='span1'><?php echo $busqueda_buscando_calificacion; ?></th>");
                     for (i=0;i<data.length;i++)
                     {
                         resultados_encontrados++;
@@ -249,7 +249,7 @@ $string = str_replace("'", '', $string);
         if (resultados_encontrados>0)
         $(".info_busqueda").append('<?php echo $busqueda_buscando_resultados; ?>: '+resultados_encontrados);
         else
-        $(".info_busqueda").append("<b>No se encontraron resultados, intente otra consulta</b>");
+        $(".info_busqueda").append("<b><?php echo $busqueda_buscando_nofound; ?></b>");
         
         //INGRESO DE LA BUSQUEDA (LLAMADO AJAX 5)
         if ('<?php echo $username_usu; ?>' != 'NOREGISTRADO' && resultados_encontrados>0)

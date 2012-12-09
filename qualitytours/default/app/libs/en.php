@@ -189,6 +189,7 @@ $busqueda_buscando_enregion =  "in region";
 $busqueda_buscando_enciudad = "in city";
 $busqueda_buscando_centroscat = "Resorts that are categorized by";
 $busqueda_buscando_resultados = "Found";
+$busqueda_buscando_nofound = "No results were found, try another query";
 
 
 
