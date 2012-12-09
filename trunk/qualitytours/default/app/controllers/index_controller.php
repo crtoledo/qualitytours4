@@ -114,7 +114,7 @@ class IndexController extends AppController
                 $leng = $_GET["l"];
                 $contador_cat = 0;
                 //$categorias_encontradas = $categoria_obj->find_all_by('estado_cat',1);
-                $categorias_encontradas = $categoria_obj->find('conditions: estado_cat=TRUE');
+                $categorias_encontradas = $categoria_obj->find("conditions: estado_cat=TRUE","limit: 10");
                 
                     foreach ($categorias_encontradas as $cat)
                     {
