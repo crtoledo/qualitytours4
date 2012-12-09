@@ -15,12 +15,6 @@
             if( $(".nombre").val() == "" ){
                 $(".nombre").focus().after("<span class='errorVal'>Ingrese su nombre</span>");
                 return false;
-            }else if( $(".rut").val() == ""){
-                $(".rut").focus().after("<span class='errorVal'>Ingrese un rut con puntos y guión</span>");
-                return false;
-            }else if(!$.Rut.validar($(".rut").val()) ){
-                $(".rut").focus().after("<span class='errorVal'>Ingrese un rut valido</span>");
-                return false;
             }else if( $(".giro").val() == ""){
                 $(".giro").focus().after("<span class='errorVal'>Ingrese un giro</span>");
                 return false;
@@ -51,30 +45,6 @@
 //  }
 //});
 
-        //Borrar el mensaje de error si el usuario ingresa un rut con formato válido
-        $(".rut").keyup(function()
-        {   
-            if( $(this).val() != "" && rutreg.test($(this).val()))
-            {
-                $(".errorVal").fadeOut();
-                return false;
-            }
-        });
-        
-      //Borrar el mensaje de error si el usuario ingresa un rut con formato válido 
-    $(".rut").Rut({
-       on_error: function(){  $(".rut").focus().after("<span class='errorVal'>Rut invalido</span>"); return false; },
-        format_on: 'keyup'
-    });
-
-    $(".rut").keyup(function()
-    {
-        if( $(".rut").val() != "" && rutreg.test($(".rut").val()))
-        {
-            $(".errorVal").fadeOut();
-            return false;
-        }
-    });
 });
 </script>
 
@@ -118,7 +88,7 @@ reemplazo se uso 'errorVal'.
         <table>
     <tr>
         <td>Nombre de usuario:&nbsp;</td>
-        <td><?php echo Auth::get('username_usu') ?></td>
+        <td><center><strong><?php echo Auth::get('username_usu') ?></strong></center></td>
     </tr>        
     <tr>
         <td>Nombre centro turistico:&nbsp;</td>
@@ -126,7 +96,11 @@ reemplazo se uso 'errorVal'.
     </tr>
     <tr>
         <td>Rut comercial:&nbsp;</td>
-        <td><?php echo Form::text('cliente.rut_cli',"class='input-medium rut' placeholder='ej: 6.765.223-1' rut") ?></td>
+        <td><?php echo Form::text('cliente.rut_cli',"class='input-medium disabled rut' disabled=''") ?></td>
+    </tr>
+        <tr>
+        <td>Rut privado:&nbsp;</td>
+        <td><?php echo Form::text('cliente.rut_usu',"class='input-medium disabled rutt' disabled=''") ?></td>
     </tr>
     <tr>
         <td>Giro:&nbsp;</td>
@@ -138,7 +112,7 @@ reemplazo se uso 'errorVal'.
     </tr>
     <tr>
         <td>Seleccione el plan:&nbsp;</td>
-        <td><?php echo Form::select('cliente.tipo_plan', $data, null, $qq ) ?></td>
+        <td><?php echo Form::select('cliente.tipo_plan', $data, "class='input-medium'", $qq ) ?></td>
     </tr>
    
 </table>
