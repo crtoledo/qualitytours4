@@ -347,16 +347,16 @@ class ClienteController extends AppController {
             $password_usu = $cliente->password_usu;
             $nombre_usu = $cliente->nombre_usu;
             $apellido_usu = $cliente->apellido_usu;
-            $rut_usu = $cliente->rut_usu;
+            //$rut_usu = $cliente->rut_usu;
             $email_usu = $cliente->email_usu;
             $nombre_cli = $cliente->nombre_cli;
-            $rut_cli = $cliente->rut_cli;
+            //$rut_cli = $cliente->rut_cli;
             $giro = $cliente->giro_cli;
             $telefono = $cliente->telefono_cli;
             $plan = $cliente->tipo_plan;
 
 
-            if ($cliente->sql("UPDATE cliente SET nombre_cli='" . $nombre_cli . "', rut_cli='" . $rut_cli . "', giro_cli='" . $giro . "', telefono_cli='" . $telefono . "', tipo_plan='" . $plan . "' WHERE id_usu =" . $id . ";") && $solicitud_modificacion->update()) {
+            if ($cliente->sql("UPDATE cliente SET nombre_cli='" . $nombre_cli . "', giro_cli='" . $giro . "', telefono_cli='" . $telefono . "', tipo_plan='" . $plan . "' WHERE id_usu =" . $id . ";") && $solicitud_modificacion->update()) {
                 Flash::success("Solicitud modificada correctamente");
                 Input::delete();
                 Router::redirect("solicitud/ver/" . $id);
