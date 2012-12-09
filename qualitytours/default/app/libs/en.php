@@ -96,6 +96,8 @@ $cliente_detalle_ubicacion = "Location";
 $cliente_detalle_nuevocom = "Add a new comment";
 $cliente_detalle_boton = "Comment";
 $cliente_detalle_mensaje2 = "Login to post comments";
+$cliente_detalle_califica = "Rate your travel experience";
+$cliente_detalle_recorrido = "Calculate route";
 
 //variales /servicio/ingresar
 $servicio_ingresar_titulo = "Publish service";
