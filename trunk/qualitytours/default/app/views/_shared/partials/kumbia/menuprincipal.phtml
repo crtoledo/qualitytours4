@@ -39,6 +39,7 @@ if ($url == "en") {
     $enlace_usuario_buscar = "usuario/buscar/en";
     $enlace_usuario_publicar = "publicacion/ingresar/en";
     $ingresar_traductor_string = "Add translator";
+    $tu_pagina = "You page";
 } else {
     $leng = "es";
     //español
@@ -72,6 +73,7 @@ if ($url == "en") {
     $ingresar_string = "Ingresar";
     $enlace_usuario_buscar = "usuario/buscar/es";
     $enlace_usuario_publicar = "publicacion/ingresar/es";
+    $tu_pagina = "Tu p&aacute;gina";
 }
 ?>
 
@@ -259,12 +261,13 @@ if ($url == "en") {
                                 <b class="caret"></b>
                             </a>
                             <ul class="dropdown-menu">
-                                <li><?php echo Html::link('cliente/administrarsuscripcion/', '<i class="icon-user"></i>' . "Suscripcion (T)" . ''); ?></li>
+                                <li><?php echo Html::link('cliente/administrarsuscripcion/', '<i class="icon-user"></i>' . "Suscripcion" . ''); ?></li>
                                 <li><?php echo Html::link('servicio/ingresar/' . $leng, '<i class="icon-plus"></i>' . $publicarservicio_string . ''); ?></li>
                                 <li><?php echo Html::link('ubicacion/ingresar/' . $leng, '<i class="icon-screenshot"></i>' . $indiqueubicacion_string . ''); ?></li>
                                 <li><?php echo Html::link('contenido/ingresarcli/' . $leng, '<i class="icon-camera"></i>' . $subirfotos_string . ''); ?></li>
                             </ul>
                         </li>
+                        <li><?php echo Html::link('cliente/detalle/'.Auth::get("id").'/'. $leng, '<i class="icon-globe icon-white"></i>&nbsp;'.$tu_pagina); ?></li>
                         <?php
                     }
                 }

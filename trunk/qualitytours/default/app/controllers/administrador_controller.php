@@ -2,6 +2,7 @@
 
 load::model('administrador');
 load::model('usuario');
+load::model('cliente');
 
 class AdministradorController extends AppController {
 
@@ -93,13 +94,64 @@ class AdministradorController extends AppController {
         }
     }
 
-//eliminar suscripcion
+//Lista todas las suscripciones para eliminar
     public function revocar($tipo_consulta, $leng) {
         $this->leng = $leng;
         if (Auth::is_valid()) {
             if (Auth::get('rol_usu') == 'administrador') {
                 if ($tipo_consulta == "eliminacion") {
                     $this->codigo = 4;
+                }
+            } else {
+                Flash::info('No posee los privilegios necesarios');
+                Router::redirect("/");
+            }
+        } else {
+            Flash::error("Pagina no encontrada");
+            Router::redirect("/");
+        }
+    }
+
+    public function proceso_revocar($leng) {
+        $this->leng = $leng;
+        if (Auth::is_valid()) {
+            if (Auth::get('rol_usu') == 'administrador') {
+                //Se valida de que este marcado almenos un cliente
+                if ($_REQUEST["clientes"] != " ") {
+                    //Se obtienen la lista de id
+                    $string_clientes_enviados = $_REQUEST["clientes"];
+
+                    //Se crea el array con el id de los clientes
+                    $array_clientes = explode(".", $string_clientes_enviados);
+
+                    //Se le elimina el espacio al principio del array
+                    unset($array_clientes[0]);
+
+                    //Se obtiene la cantidad de elementos del array
+                    $total_id = count($array_clientes);
+
+                    $eliminacion_clientes = new cliente;
+
+                    //Se crea variable que cuenta los update realizados
+                    $cantidad = 0;
+                    
+                    //Se realiza los update a plan free
+                    foreach ($array_clientes as &$id_cliente) {
+                        $eliminacion_clientes->sql("Update cliente set tipo_plan='free' where id_usu=" . $id_cliente);
+                        $cantidad++;
+                    }
+
+                    //Se valida de que la operacion de revocar suscripcion fue existosa
+                    if ($total_id == $cantidad) {
+                        Flash::info("Se ha revocado la suscripcion a ".$cantidad." clientes");
+                        Router::redirect("/administrador/revocar/eliminacion/" . $leng);
+                    } else {
+                        Flash::error("No se ha revocado la suscripcion");
+                        Router::redirect("/administrador/revocar/eliminacion/" . $leng);                        
+                    }
+                } else {
+                    Flash::info("Seleccione un cliente");
+                    Router::redirect("/administrador/revocar/eliminacion/" . $leng);
                 }
             } else {
                 Flash::info('No posee los privilegios necesarios');

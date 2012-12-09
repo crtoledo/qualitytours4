@@ -526,9 +526,9 @@ class ClienteController extends AppController {
                         //Preparar el mail
                         //$mail->From = $_POST['email'];
                         $mail->From = "qualitytoursadm@yahoo.com";
-                        $mail->FromName = "adminsitrador";
-                        $mail->Subject = "Cancelación suscripción Qualiy tours"; //ASUNTO DEL CORREO
-                        $mail->Body = stripcslashes("Su suscripción ha sido cancelada, para saber los motivos puede contactarse al mismo email del remitente"); //EL CONTENIDO DEL CORREO
+                        $mail->FromName = "Administrador";
+                        $mail->Subject = "Cancelaci&oacute;n suscripci&oacute;n Qualiy tours"; //ASUNTO DEL CORREO
+                        $mail->Body = stripcslashes("Su suscripci&oacute;n ha sido cancelada, para saber los motivos puede contactarse al mismo email del remitente"); //EL CONTENIDO DEL CORREO
                         $mail->AddAddress($correo, "Destinatario"); //Dirección a la que enviaremos el correo
                         $mail->IsHTML(true);
                         $mail->send();

@@ -35,6 +35,7 @@ class CategoriaController extends AppController {
         }
     }
 
+    //esta funcion parece que ya no se usa! de todas manera no borrar!
     public function ingresar()
         { 
             $this->id_usu = Auth::get('id');
