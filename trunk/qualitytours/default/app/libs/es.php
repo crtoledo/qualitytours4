@@ -178,6 +178,18 @@ $solicitud_buscar_mensaje8 = "Solicitud";
 $solicitud_buscar_codigo = "C&oacute;digo";
 $solicitud_buscar_fecha = "Fecha";
 
+//variables la búsqueda principal:
+$busqueda_buscando_titulo = "Centros tur&iacute;sticos";
+$busqueda_buscando_cliente = "Nombre Cliente";
+$busqueda_buscando_ciudad = "Ciudad";
+$busqueda_buscando_region = "Regi&oacute;n";
+$busqueda_buscando_calificacion = "Calificaci&oacute;n";
+$busqueda_buscando_sincali = "Sin calificaciones";
+$busqueda_buscando_centros = "Centros tur&iacute;sticos que contienen";
+$busqueda_buscando_enregion =  "en regi&oacute;n";
+$busqueda_buscando_enciudad = "en ciudad";
+$busqueda_buscando_centroscat = "Centros tur&iacute;sticos que se categorizan por ";
+$busqueda_buscando_resultados = "Resultados encontrados";
 
 
 

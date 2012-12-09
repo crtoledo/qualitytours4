@@ -177,6 +177,22 @@ $solicitud_buscar_mensaje8 = "Request";
 $solicitud_buscar_codigo = "Code";
 $solicitud_buscar_fecha = "Date";
 
+//variables la búsqueda principal:
+$busqueda_buscando_titulo = "Tourist center";
+$busqueda_buscando_cliente = "Customer name";
+$busqueda_buscando_ciudad = "City";
+$busqueda_buscando_region = "Region";
+$busqueda_buscando_calificacion = "Qualification";
+$busqueda_buscando_sincali = "Not rated";
+$busqueda_buscando_centros = "Resorts containing";
+$busqueda_buscando_enregion =  "in region";
+$busqueda_buscando_enciudad = "in city";
+$busqueda_buscando_centroscat = "Resorts that are categorized by";
+$busqueda_buscando_resultados = "Found";
+
+
+
+
 
 
 ?>
