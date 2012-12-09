@@ -190,6 +190,7 @@ $busqueda_buscando_enregion =  "en regi&oacute;n";
 $busqueda_buscando_enciudad = "en ciudad";
 $busqueda_buscando_centroscat = "Centros tur&iacute;sticos que se categorizan por ";
 $busqueda_buscando_resultados = "Resultados encontrados";
+$busqueda_buscando_nofound = "No se encontraron resultados, intente otra consulta";
 
 
 

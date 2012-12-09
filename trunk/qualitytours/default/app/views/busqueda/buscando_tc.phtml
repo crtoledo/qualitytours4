@@ -2,6 +2,17 @@
 View::content();
 $string = str_replace("'", '', $string);
 ?>
+<?php
+//Código para el idioma
+    if($leng == "en")
+    {
+        include_once APP_PATH.'libs/en.php';
+    }
+    else
+    {
+        include_once APP_PATH.'libs/es.php';
+    }
+?>  
 
 <script type="text/javascript"> //JQUERY PARA BUSQUEDA AJAX
     $(document).ready(function()
@@ -26,13 +37,13 @@ $string = str_replace("'", '', $string);
                 {
                     criterios_encontrados++;
                     
-                    $(".resultados").append("<h4>Centros tur&iacute;sticos</h4>");
+                    $(".resultados").append("<h4><?php echo $busqueda_buscando_titulo; ?></h4>");
                     $(".resultados").append("<table class='table table-condensed tclientes'>");
                     $(".tclientes").append("<thead><tr></tr></thead>");
-                    $(".tclientes thead tr").append("<th class='span3'>Nombre Cliente</th>");
-                    $(".tclientes thead tr").append("<th class='span1'>Ciudad</th>");
-                    $(".tclientes thead tr").append("<th class='span3'>Regi&oacute;n</th>");
-                    $(".tclientes thead tr").append("<th class='span1'>Calificaci&oacute;n</th>");
+                    $(".tclientes thead tr").append("<th class='span3'><?php echo $busqueda_buscando_cliente; ?></th>");
+                    $(".tclientes thead tr").append("<th class='span1'><?php echo $busqueda_buscando_ciudad; ?></th>");
+                    $(".tclientes thead tr").append("<th class='span3'><?php echo $busqueda_buscando_region; ?></th>");
+                    $(".tclientes thead tr").append("<th class='span1'><?php echo $busqueda_buscando_calificacion; ?></th>");
                     for (i=0;i<data.length;i++)
                     {
                         resultados_encontrados++;
@@ -41,7 +52,7 @@ $string = str_replace("'", '', $string);
                             
                         if (data[i].promedio == 0)
                         {
-                            $(".c1res"+i).append("<td>Sin calificaciones</td>")
+                            $(".c1res"+i).append("<td><?php echo $busqueda_buscando_sincali; ?></td>")
                         }
                         else
                         {
@@ -80,13 +91,13 @@ $string = str_replace("'", '', $string);
                 {
                     criterios_encontrados++;
                     
-                    $(".resultados").append("<h4>Centros tur&iacute;sticos que contienen '<?php echo $string?>' en regi&oacute;n</h4>");
+                    $(".resultados").append("<h4><?php echo $busqueda_buscando_centros; ?>'<?php echo $string?>'<?php echo $busqueda_buscando_enregion; ?></h4>");
                     $(".resultados").append("<table class='table table-condensed tregiones'>");
                     $(".tregiones").append("<thead><tr></tr></thead>");
-                    $(".tregiones thead tr").append("<th class='span3'>Nombre Cliente</th>");
-                    $(".tregiones thead tr").append("<th class='span1'>Ciudad</th>");
-                    $(".tregiones thead tr").append("<th class='span3'>Regi&oacute;n</th>");
-                    $(".tregiones thead tr").append("<th class='span1'>Calificaci&oacute;n</th>");
+                    $(".tregiones thead tr").append("<th class='span3'><?php echo $busqueda_buscando_cliente; ?></th>");
+                    $(".tregiones thead tr").append("<th class='span1'><?php echo $busqueda_buscando_ciudad; ?></th>");
+                    $(".tregiones thead tr").append("<th class='span3'><?php echo $busqueda_buscando_region; ?></th>");
+                    $(".tregiones thead tr").append("<th class='span1'><?php echo $busqueda_buscando_calificacion; ?></th>");
                     for (i=0;i<data.length;i++)
                     {
                         resultados_encontrados++;
@@ -95,7 +106,7 @@ $string = str_replace("'", '', $string);
                             
                         if (data[i].promedio == 0)
                         {
-                            $(".c2res"+i).append("<td>Sin calificaciones</td>")
+                            $(".c2res"+i).append("<td><?php echo $busqueda_buscando_sincali; ?></td>")
                         }
                         else
                         {
@@ -135,13 +146,13 @@ $string = str_replace("'", '', $string);
                 {
                     criterios_encontrados++;
                     
-                    $(".resultados").append("<h4>Centros tur&iacute;sticos que contienen '<?php echo $string?>' en ciudad</h4>");
+                    $(".resultados").append("<h4><?php echo $busqueda_buscando_centroscat; ?> '<?php echo $string?>' <?php echo $busqueda_buscando_enciudad; ?></h4>");
                     $(".resultados").append("<table class='table table-condensed tciudades'>");
                     $(".tciudades").append("<thead><tr></tr></thead>");
-                    $(".tciudades thead tr").append("<th class='span3'>Nombre Cliente</th>");
-                    $(".tciudades thead tr").append("<th class='span1'>Ciudad</th>");
-                    $(".tciudades thead tr").append("<th class='span3'>Regi&oacute;n</th>");
-                    $(".tciudades thead tr").append("<th class='span1'>Calificaci&oacute;n</th>");
+                    $(".tciudades thead tr").append("<th class='span3'><?php echo $busqueda_buscando_cliente; ?></th>");
+                    $(".tciudades thead tr").append("<th class='span1'><?php echo $busqueda_buscando_ciudad; ?></th>");
+                    $(".tciudades thead tr").append("<th class='span3'><?php echo $busqueda_buscando_region; ?></th>");
+                    $(".tciudades thead tr").append("<th class='span1'><?php echo $busqueda_buscando_calificacion; ?></th>");
                     for (i=0;i<data.length;i++)
                     {
                         resultados_encontrados++;
@@ -150,7 +161,7 @@ $string = str_replace("'", '', $string);
                             
                         if (data[i].promedio == 0)
                         {
-                            $(".c3res"+i).append("<td>Sin calificaciones</td>")
+                            $(".c3res"+i).append("<td><?php echo $busqueda_buscando_sincali; ?></td>")
                         }
                         else
                         {
@@ -194,13 +205,13 @@ $string = str_replace("'", '', $string);
                 {
                     criterios_encontrados++;
                     
-                    $(".resultados").append("<h4>Centros tur&iacute;sticos que se categorizan por '<?php echo $string?>'</h4>");
+                    $(".resultados").append("<h4><?php echo $busqueda_buscando_centroscat; ?>'<?php echo $string?>'</h4>");
                     $(".resultados").append("<table class='table table-condensed tcategorias'>");
                     $(".tcategorias").append("<thead><tr></tr></thead>");
-                    $(".tcategorias thead tr").append("<th class='span3'>Nombre Cliente</th>");
-                    $(".tcategorias thead tr").append("<th class='span1'>Ciudad</th>");
-                    $(".tcategorias thead tr").append("<th class='span3'>Regi&oacute;n</th>");
-                    $(".tcategorias thead tr").append("<th class='span1'>Calificaci&oacute;n</th>");
+                    $(".tcategorias thead tr").append("<th class='span3'><?php echo $busqueda_buscando_cliente; ?></th>");
+                    $(".tcategorias thead tr").append("<th class='span1'><?php echo $busqueda_buscando_ciudad; ?></th>");
+                    $(".tcategorias thead tr").append("<th class='span3'><?php echo $busqueda_buscando_region; ?></th>");
+                    $(".tcategorias thead tr").append("<th class='span1'><?php echo $busqueda_buscando_calificacion; ?></th>");
                     for (i=0;i<data.length;i++)
                     {
                         resultados_encontrados++;
@@ -209,7 +220,7 @@ $string = str_replace("'", '', $string);
                             
                         if (data[i].promedio == 0)
                         {
-                            $(".c4res"+i).append("<td>Sin calificaciones</td>")
+                            $(".c4res"+i).append("<td><?php echo $busqueda_buscando_sincali; ?></td>")
                         }
                         else
                         {
@@ -236,9 +247,9 @@ $string = str_replace("'", '', $string);
         
         /* ESTADISTICAS DE LA BUSQUEDA */
         if (resultados_encontrados>0)
-        $(".info_busqueda").append('Resultados encontrados: '+resultados_encontrados);
+        $(".info_busqueda").append('<?php echo $busqueda_buscando_resultados; ?>: '+resultados_encontrados);
         else
-        $(".info_busqueda").append("<b>No se encontraron resultados, intente otra consulta</b>");
+        $(".info_busqueda").append("<b><?php echo $busqueda_buscando_nofound; ?></b>");
         
         //INGRESO DE LA BUSQUEDA (LLAMADO AJAX 5)
         if ('<?php echo $username_usu; ?>' != 'NOREGISTRADO' && resultados_encontrados>0)
