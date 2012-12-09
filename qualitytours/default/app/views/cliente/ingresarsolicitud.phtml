@@ -56,6 +56,57 @@
                 $("#acepta").focus().after("<span class='errorVal'><?php echo "Debe aceptar los terminos del servicio"; ?></span>");
                 return false;
             }
+            
+            //VALIDAMOS LOS RUTS
+            var rut_repetido=0;
+            
+            $.ajax //VALIDACION RUT PRIVADO
+            ({
+
+                type: "POST",
+                async: false,
+                data : {
+                    tipo_rut: 'privado',
+                    rut: $(".rutp").val()
+                },            
+                url: '<?php echo PUBLIC_PATH; ?>ajax/validar_rut.php',
+                dataType: "text",
+                success: function(data)
+                {
+                    if (data == "repetido")
+                    {
+                        $(".rutp").focus().after("<span class='errorVal'>Rut ya ingresado</span>");
+                        rut_repetido=1;
+                    }
+                    
+                }
+            })
+            
+            $.ajax //VALIDACION RUT PRIVADO
+            ({
+
+                type: "POST",
+                async: false,
+                data : {
+                    tipo_rut: 'comercial',
+                    rut: $(".rut").val()
+                },            
+                url: '<?php echo PUBLIC_PATH; ?>ajax/validar_rut.php',
+                dataType: "text",
+                success: function(data)
+                {
+                    if (data == "repetido")
+                    {
+                        $(".rut").focus().after("<span class='errorVal'>Rut ya ingresado</span>");
+                        rut_repetido=1;
+                    }
+                    
+                }
+            })
+            
+            if (rut_repetido==1) return false;
+            //FIN VALIDCION RUTS
+            
         });
 
         //Borrar mensaje de error si el usuario a llenado el campo
@@ -177,7 +228,7 @@ reemplazo se uso 'errorVal'.
                         </tr>        
                         <tr>
                             <td>Nombre centro turistico:&nbsp;</td>
-                            <td><?php echo Form::text('cliente.nombre_cli', "class='input-medium nombre' placeholder='Nombre cliente'") ?></td>
+                            <td><?php echo Form::text('cliente.nombre_cli', "class='input-medium nombre mask-alphanum' placeholder='Nombre cliente'") ?></td>
                         </tr>
                         <tr>
                             <td>Rut privado:&nbsp;</td>
@@ -189,11 +240,11 @@ reemplazo se uso 'errorVal'.
                         </tr>
                         <tr>
                             <td>Giro:&nbsp;</td>
-                            <td><?php echo Form::text('cliente.giro_cli', "class='input-medium giro' ") ?></td>
+                            <td><?php echo Form::text('cliente.giro_cli', "class='input-medium giro mask-alphanum' ") ?></td>
                         </tr>
                         <tr>
                             <td>Telefono comercial:&nbsp;</td>
-                            <td><?php echo Form::text('cliente.telefono_cli', "class='input-medium telefono'") ?></td>
+                            <td><?php echo Form::text('cliente.telefono_cli', "class='input-medium telefono mask-alphanum'") ?></td>
                         </tr>
                         <tr>
                             <td>Seleccione el plan:&nbsp;</td>

@@ -12,7 +12,12 @@ class Cliente extends ActiveRecord
        //valida que solo exista un rut
       if($this->exists("rut_cli='".$this->rut_cli."'"))
       { 
-          Flash::error('El rut ingresado ya se encuentra en nuestros registros.'); 
+          Flash::error('El rut comercial ingresado ya se encuentra en nuestros registros.'); 
+           return 'cancel'; 
+      }
+      if($this->exists("rut_usu='".$this->rut_usu."'"))
+      { 
+          Flash::error('El rut privado ingresado ya se encuentra en nuestros registros.'); 
            return 'cancel'; 
       }
     }
