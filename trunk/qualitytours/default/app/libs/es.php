@@ -97,6 +97,8 @@ $cliente_detalle_ubicacion = "Ubicaci&oacute;n";
 $cliente_detalle_nuevocom = "Agrega un nuevo comentario";
 $cliente_detalle_boton = "Comentar";
 $cliente_detalle_mensaje2 = "Iniciar sesi&oacute;n para comentar";
+$cliente_detalle_califica = "Califica tu experiencia de viaje";
+$cliente_detalle_recorrido = "Calcular recorrido";
 
 //variables /servicio/ingresar
 
