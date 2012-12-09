@@ -43,7 +43,7 @@
              {
      ?>
         <div align="center" >
-            <table class="well." style="background-color: #f9ffff; ">
+            <table class="well span12" style="background-color: #f9ffff; ">
                 <tr>
                     <td><?php echo "<br><div align='center' class='titulo_pub1'><h4>".$titulo[$i]."</h4></div><br>"  ?></td>
                 </tr>
@@ -79,7 +79,7 @@
                             if (Session::get('rol_usu') == 'administrador')
                                 { ?>
                                     <tr>
-                                        <td><div align="right"> <?php  echo Html::link("publicacion/editar/".$id_pub[$i].'/'.$e_editar_string,''.$editar_string.'');?> </div>  </td>
+                                        <td><div align="right"> <?php  echo Html::link("publicacion/editar/".$id_pub[$i].'/'.$e_editar_string,''.$editar_string.'');?> - <?php echo Html::link("publicacion/eliminar/".$id_pub[$i],''.$eliminar_string.''); ?> - <?php echo Html::link("publicacion/traducir/".$id_pub[$i].''.$publicacion_index_idiom.'',''.$publicacion_index_traducir.'')?></div>  </td>
                                     </tr>
                                 <?php
                                 }
