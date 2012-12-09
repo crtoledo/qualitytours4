@@ -39,7 +39,7 @@ $val_passwords_string = "Las contraseñas no coinciden";
 //variables para usuario/olvidar
 
 $usuario_olvidar_nombre = "Ingrese su nombre de usuario";
-$usuario_olvidar_titulo = "Recuperar clave";
+$usuario_olvidar_titulo = "Restablecer contraseña";
 $usuario_olvidar_boton = "Buscar";
 
 //variables para usuario/buscar
