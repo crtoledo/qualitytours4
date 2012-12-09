@@ -111,7 +111,7 @@ class IndexController extends AppController
                 
                 //COMIENZO ITEMS TAG CLOUD
                 $categoria_obj = new Categoria();
-                $leng = $_GET["l"];
+                $leng = $this->leng;
                 $contador_cat = 0;
                 //$categorias_encontradas = $categoria_obj->find_all_by('estado_cat',1);
                 $categorias_encontradas = $categoria_obj->find('conditions: estado_cat=TRUE','limit: 10');
@@ -119,7 +119,8 @@ class IndexController extends AppController
                     foreach ($categorias_encontradas as $cat)
                     {
                         //$this->cat[$contador_cat] = $cat[$contador_cat]->nombre_cat;
-                        $this->cat[$contador_cat] = $cat->nombre_cat;
+                        if ($leng == "es") $this->cat[$contador_cat] = $cat->nombre_cat;
+                        else $this->cat[$contador_cat] = $cat->nombre_cat_eng;
                         $contador_cat++;
                     }
                 
