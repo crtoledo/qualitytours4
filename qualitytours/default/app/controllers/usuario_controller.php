@@ -304,19 +304,36 @@ class UsuarioController extends AppController {
         }
     }
 
-    public function ingresart($leng) {
+    public function ingresart($leng)
+    {
+        $this->leng = $leng;
         if (Auth::is_valid()) {
-            if (Auth::get("rol_usu") == "administrador") {
-                $this->leng = $leng;
-            } else {
-                echo Flash::info("No posee los privilegios necesarios");
-                Router::redirect("/");
+            if (Input::hasPost('usuario')) {
+                $usuario = new Usuario(Input::post('usuario'));
+
+                if (!$usuario->save()) {
+                    if ($leng == "es") {
+                        Flash::error('Error al agregar Usuario');
+                    } else {
+                        Flash::error('user add error');
+                    }
+                } else {
+                    if ($leng == "es") {
+                        Flash::success('Usuario ingresado satisfactoriamente');
+                        Router::redirect("index");
+                    } else {
+                        Flash::success('Add user successful');
+                        Router::redirect("index/?l=en");
+                    }
+                }
             }
         } else {
-            echo Flash::info("Debe iniciar Sesión");
+          
             Router::redirect("/");
         }
+   
     }
+
 
     public function olvidar($leng) {
         $this->leng = $leng;
