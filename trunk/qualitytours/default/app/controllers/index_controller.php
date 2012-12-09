@@ -148,6 +148,7 @@ class IndexController extends AppController
                 {
                     $this->nombre_cli[$i] = $cliente->nombre_cli;
                     $this->id_cliente[$i] = $cliente->id_usu;
+                    $this->visitas[$i] = $cliente->visitas_cli;
                     $i++;
                 }
                 $this->indice = $i;
