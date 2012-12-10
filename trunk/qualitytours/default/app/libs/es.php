@@ -8,7 +8,7 @@ $i_contenido_string="Ingresar Contenido";
 $e_publicacion_string="Editar Publicaci&oacute;n";
 $con_ingresar_string="es";
 $pub_editar_string="es";
-$publicacion_index_traducir="traducir";
+$publicacion_index_traducir="Traducir";
 $publicacion_index_idiom="/es";
 $index_titulo_1 = "Los m&aacute;s visitados";
 $index_titulo_2= "Publica tus centros tur&iacute;sticos en Qualitytours";
@@ -27,28 +27,28 @@ $usuario_ingresar_condiciones_link = "Condiciones de uso";
 $usuario_ingreso_minimo = "Ingresa una contraseña de al menos 5 caracteres";
 $usuario_username_minimo = "Ingresa un nombre de usuario de al menos 3 caracteres";
 $usuario_ingresar_obligatorios = "*Todos los campos son obligatorios";
-$usuario_ingresar_traductor = "Ingresar Traductor";
+$usuario_ingresar_traductor = "Ingresar traductor";
 $val_username_string = "Ingrese username";
 $val_password_string = "Ingrese password";
 $val_nombre_string = "Ingrese nombre";
 $val_apellido_string = "Ingrese apellido";
-$val_rut_string = "Ingrese un rut valido";
+$val_rut_string = "Ingrese un rut v&aacute;lido";
 $val_email_string = "Ingrese su email";
 $val_passwords_string = "Las contraseñas no coinciden"; 
 
 //variables para usuario/olvidar
 
 $usuario_olvidar_nombre = "Ingrese su nombre de usuario";
-$usuario_olvidar_titulo = "Restablecer contraseña";
+$usuario_olvidar_titulo = "Reestablecer contraseña";
 $usuario_olvidar_boton = "Buscar";
 
 //variables para usuario/buscar
 $usuario_buscar_titulo = "Buscar usuarios";
 $usuario_buscar_ingrese_usuario = "Ingrese Usuario";
-$usuario_buscar_mas_opciones = "Más opciones de busqueda";
+$usuario_buscar_mas_opciones = "Más opciones de b&uacute;squeda";
 $usuario_buscar_turista ="Turista";
-$usuario_buscar_centro ="Centro turistico";
-$usuario_buscar_resultado = "Resultado de la busqueda";
+$usuario_buscar_centro ="Centro tur&iacute;stico";
+$usuario_buscar_resultado = "Resultado de la b&uacute;squeda";
 $usuario_buscar_nombre = "Nombre";
 $usuario_buscar_apellido = "Apellido";
 $usuario_buscar_email = "Email";
@@ -56,12 +56,11 @@ $usuario_buscar_rol = "Rol";
 $usuario_buscar_opciones = "Opciones";
 $usuario_buscar_editar = "Editar";
 $usuario_buscar_convertir = "Convertir en administrador";
-$usuario_buscar_suscripcion = "Cancelar suscripción";
+$usuario_buscar_suscripcion = "Cancelar suscripci&oacute;n";
 $usuario_buscar_administrador= "Eliminar administrador";
 $usuario_buscar_eliminar = "Eliminar";
 
 //variales para usuario/automodificar
-
 $usuario_automodificar_titulo = "Modificación de datos";
 $usuario_automodificar_nombre = "Nombre";
 $usuario_automodificar_apellido = "Apellido";
@@ -69,7 +68,7 @@ $usuario_automodificar_modcontraseña = "Modifica tu contraseña";
 $usuario_automodificar_botonatras = "Volver";
 
 //variables para publicacion/traducir
-$publicacion_traducir_titulo="Traducir Publicaci&oacute;n";
+$publicacion_traducir_titulo="Traducir publicaci&oacute;n";
 $publicacion_traducir_titulopub="T&iacutetulo";
 $publicacion_traducir_detalle = "Detalle";
 $publicacion_traducir_submit = "Traducir";
@@ -81,7 +80,7 @@ $publicacion_traducir_tituloes = "Español";
 $publicacion_ingresar_valtitulo="Seleccione título para la publicación";
 $publicacion_ingresar_titulo="T&iacute;tulo:";
 $publicacion_ingresar_detalle = "Detalle:";
-$publicacion_ingresar_encabesado = "Ingresar una nueva publicación";
+$publicacion_ingresar_encabesado = "Ingresar una nueva publicaci&oacute;n";
 $publicacion_ingresar_boton =  "Publicar";
 
 //variables /cliente/detalle
@@ -104,7 +103,7 @@ $cliente_detalle_recorrido = "Calcular recorrido";
 
 $servicio_ingresar_titulo = "Publicar servicio";
 $servicio_ingresar_nombre_cli = "Centro tu&iacute;stico";
-$servicio_ingresar_name = "nombre";
+$servicio_ingresar_name = "Nombre";
 $servicio_ingresar_detalle = "Detalle";
 $servicio_ingresar_precio = "Precio";
 $servicio_ingresar_tipo = "Tipo";
@@ -117,11 +116,11 @@ $servicio_ingresarvalpre = "Ingrese precio unitario del servicio";
 //variables de ubicacion/ingresar
 $ubicacion_ingresar_valcalle = "Ingrese una calle";
 $ubicacion_ingresar_valciudad = "Ingrese una ciudad";
-$ubicacion_ingresar_titulo1 = "Indique una dirección del su centro turístico";
-$ubicacion_ingresar_titulo2 = "Indique la ubicación de su destino turístico";
-$ubicacion_ingresar_ubi = "Ingrese una ubicación...";
-$ubicacion_ingresar_submit = "Ingresar Ubicación";
-$ubicacion_ingresar_link = "Ingrese su ubicación indicando un punto geográfico";
+$ubicacion_ingresar_titulo1 = "Indique una dirección de su centro turístico";
+$ubicacion_ingresar_titulo2 = "Indique la ubicaci&oacute;n de su destino tur&iacute;stico";
+$ubicacion_ingresar_ubi = "Ingrese una ubicaci&oacute;n...";
+$ubicacion_ingresar_submit = "Ingresar ubicaci&oacute;n";
+$ubicacion_ingresar_link = "Ingrese su ubicaci&oacute;n indicando un punto geogr&aacute;fico";
 //usuario/eliminar
 
 $usuario_eliminar_titulo = "Usuario Eliminado";
@@ -144,7 +143,7 @@ $ubicacion_ingresar_mapa_confirmar = "Confirmar";
 $solicitud_administrar_solicitud_de = "Solicitud de: ";
 $solicitud_administrar_datos = "Datos del usuario";
 $solicitud_administrar_username = "Nombre de usuario";
-$solicitud_administrar_nombre = "Nombre de centro turistico";
+$solicitud_administrar_nombre = "Nombre de centro tur&iacute;stico";
 $solicitud_administrar_privado = "Rut privado";
 $solicitud_administrar_comercial = "Rut comercial";
 $solicitud_administrar_giro = "Giro";
@@ -157,12 +156,12 @@ $solicitud_administrar_notiene = "No tiene opciones de administracion";
 $solicitud_administrar_aceptar_sol = "Aceptar solicitud";
 $solicitud_administrar_espera = "Aceptar informaci&oacute;n";
 $solicitud_administrar_rechazar = "Rechazar solicitud";
-$solicitud_administrar_mensaje1 = "El usuario no ha confirmado el envío del mail";
+$solicitud_administrar_mensaje1 = "El usuario no ha confirmado el env&iacute;o del mail";
 $solicitud_administrar_mensaje2 = "Observaciones";
 $solicitud_administrar_enviar = "Enviar observaciones";
 $solicitud_administrar_estaseguro = "¿ Est&aacute; seguro de rechazar la solicitud ?";
-$solicitud_administrar_modal1 = "El rechazo de la solicitud, es una accion que no se puede deshacer";
-$solicitud_administrar_modal2 = "Antes de rechazar la solicitud asegurece de:";
+$solicitud_administrar_modal1 = "El rechazo de la solicitud, es una acci&oacute;n que no se puede deshacer";
+$solicitud_administrar_modal2 = "Antes de rechazar la solicitud aseg&uacute;rese de:";
 $solicitud_administrar_modal3 = "Enviar las observaciones antes de rechazar la solicitud:";
 $solicitud_administrar_cerrar = "Cerrar";
 
@@ -172,10 +171,10 @@ $solicitud_buscar_mensaje1 = "NO SE ENCONTRARON RESULTADOS";
 $solicitud_buscar_titulo = "Buscar solicitudes";
 $solicitud_buscar_mensaje2 = "Buscar solo";
 $solicitud_buscar_mensaje3 = "Ordenar por";
-$solicitud_buscar_mensaje4 = "solicitud rechazada";
+$solicitud_buscar_mensaje4 = "Solicitud rechazada";
 $solicitud_buscar_mensaje5 = "Solicitud cancelada";
-$solicitud_buscar_mensaje6 = "Modificación";
-$solicitud_buscar_mensaje7 = "Confirmacion mail";
+$solicitud_buscar_mensaje6 = "Modificaci&oacute;n";
+$solicitud_buscar_mensaje7 = "Confirmaci&oacute;n mail";
 $solicitud_buscar_mensaje8 = "Solicitud";
 $solicitud_buscar_codigo = "C&oacute;digo";
 $solicitud_buscar_fecha = "Fecha";

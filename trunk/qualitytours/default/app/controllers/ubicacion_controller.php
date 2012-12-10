@@ -22,7 +22,7 @@ class UbicacionController extends AppController
                 $this->id_usu = Auth::get('id');
                 
                 $v_ubi = new Ubicacion();
-                if($v_ubi->count("conditions: id_usu=".Auth::get('id')) == 0) //Verificamos que no exista ya la ubicacion
+                if($v_ubi->count("conditions: id_usu=".Auth::get('id')." and estado_ubi=TRUE") == 0) //Verificamos que no exista ya la ubicacion
                 {
 
                     if (Input::hasPost('ubicacion'))
@@ -37,7 +37,7 @@ class UbicacionController extends AppController
                         if ($ubicacion->save())
                         {
                             //Actualizamos el id_ubi en cliente
-                            $cliente->sql("update Cliente set id_ubi=(select id from Ubicacion where id_usu=".$this->id_usu.") where id_usu=".$this->id_usu);
+                            $cliente->sql("update Cliente set id_ubi=(select id from Ubicacion where id_usu=".$this->id_usu." and estado_ubi=TRUE) where id_usu=".$this->id_usu);
                             
                             Flash::success('Su ubicación fue registrada');
                             Input::delete();
@@ -83,7 +83,7 @@ class UbicacionController extends AppController
                 $this->id_usu = Auth::get('id');
                 
                 $v_ubi = new Ubicacion();
-                if($v_ubi->count("conditions: id_usu=".Auth::get('id')) == 0) //Verificamos que no exista ya la ubicacion
+                if($v_ubi->count("conditions: id_usu=".Auth::get('id')." and estado_ubi=TRUE") == 0) //Verificamos que no exista ya la ubicacion
                 {
 
                     if (Input::hasPost('ubicacion'))
@@ -98,7 +98,7 @@ class UbicacionController extends AppController
                         if ($ubicacion->save())
                         {
                             //Actualizamos el id_ubi en cliente
-                            $cliente->sql("update Cliente set id_ubi=(select id from Ubicacion where id_usu=".$this->id_usu.") where id_usu=".$this->id_usu);
+                            $cliente->sql("update Cliente set id_ubi=(select id from Ubicacion where id_usu=".$this->id_usu." and estado_ubi=TRUE) where id_usu=".$this->id_usu);
                             
                             Flash::success('Su ubicación fue registrada');
                             Input::delete();
