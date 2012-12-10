@@ -195,7 +195,7 @@ class ServicioController extends AppController
                             }
                             if($servicio->tipo_ser == "Hostal")
                             {
-                                $servicio->tipo_ser_eng = "hostel";
+                                $servicio->tipo_ser_eng = "hostal";
                             }
                             if($servicio->tipo_ser == "Hosteria")
                             {
@@ -209,7 +209,7 @@ class ServicioController extends AppController
                             {
                                $servicio->tipo_ser_eng = "other";
                             }
-                            if($servicio->tipo_ser == "Hotel" || $servicio->tipo_ser == "Bed & Breakfast" || $servicio->tipo_ser == "Apart hotel"|| $servicio->tipo_ser =="Camping"|| $servicio->tipo_ser == "Lodge" || $servicio->tipo_ser == "Resort")
+                            if($servicio->tipo_ser == "Hotel" || $servicio->tipo_ser == "Bed & Breakfast" || $servicio->tipo_ser == "Apart hotel"|| $servicio->tipo_ser =="Camping"|| $servicio->tipo_ser == "Lodge" || $servicio->tipo_ser == "Resort" || $servicio->tipo_ser == "Hostel")
                             {
                                 $servicio->tipo_ser_eng = $servicio->tipo_ser;
                             }
