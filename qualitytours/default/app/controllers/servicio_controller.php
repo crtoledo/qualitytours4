@@ -256,18 +256,14 @@ class ServicioController extends AppController
                 if ($servicio->count("conditions: estado_ser='t'") > 0)
                 {
                     //buscando servicios:
-                    $arr = $servicio->find("conditions: estado_ser='t'");
+                    $arr = $servicio->find_all_by_sql("select * from servicio where estado_ser=true and detalle_ser_eng is null");
                     $contador = 0;
                     foreach ($arr as $servicio) {
 
-                        if ($arr[$contador]->detalle_ser_eng == null && $arr[$contador]->nombre_ser_eng == null) {
                             $this->idser[$contador] = $arr[$contador]->id;
                             $this->titulo[$contador] = $arr[$contador]->nombre_ser;
                             $this->tipo[$contador] = $arr[$contador]->tipo_ser;
                             $contador++;
-                        } else {
-                            
-                        }
                     }
                     $this->contador = $contador;
                     $this->cont = 1;
