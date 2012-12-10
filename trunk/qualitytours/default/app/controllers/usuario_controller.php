@@ -343,6 +343,16 @@ class UsuarioController extends AppController {
             if (Input::hasPost('usuario')) {
                 $usuario = new Usuario(Input::post('usuario'));
 
+                $contraseña = $usuario->password_usu;
+
+                $en1 = md5($contraseña);
+                unset($contraseña);
+                $en2 = sha1($en1);
+                unset($en1);
+                $en3 = hash('sha512', $en2);
+                unset($en2);
+                $usuario->password_usu = $en3;
+                unset($en3);
                 if (!$usuario->save()) {
                     if ($leng == "es") {
                         Flash::error('Error al agregar Usuario');
