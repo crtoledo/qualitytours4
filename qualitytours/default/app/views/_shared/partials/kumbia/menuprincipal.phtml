@@ -40,6 +40,7 @@ if ($url == "en") {
     $enlace_usuario_publicar = "publicacion/ingresar/en";
     $ingresar_traductor_string = "Add translator";
     $tu_pagina = "You page";
+    $enlace_olvido = "Forgot your password?";
 } else {
     $leng = "es";
     //español
@@ -74,6 +75,7 @@ if ($url == "en") {
     $enlace_usuario_buscar = "usuario/buscar/es";
     $enlace_usuario_publicar = "publicacion/ingresar/es";
     $tu_pagina = "Tu p&aacute;gina";
+    $enlace_olvido = "¿Olvid&oacute; su clave?";
 }
 ?>
 
@@ -381,7 +383,7 @@ if ($url == "en") {
                                 <?php echo Form::pass("password_usu", "class='span2 mask-alphanum login_pass'"); ?>
                                 <?php echo Form::submit('' . $ingresar_string . '', "class='btn btn-primary botonlogin'"); ?>
                                 <br>
-                                <?php echo Html::link("usuario/olvidar/" . $leng, "<font size='1,5'>¿Olvido su clave?</font>"); ?>
+                                <?php echo Html::link("usuario/olvidar/" . $leng, "<font size='1,5'>".$enlace_olvido."</font>"); ?>
                                 <hr>
 
                                 <li><?php echo Html::link('' . $enlace_registrate . '', $registrate_string . ' <i class="icon-plus-sign"></i>'); ?></li>
