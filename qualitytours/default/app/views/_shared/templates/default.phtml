@@ -47,19 +47,19 @@
 <body>
    <div class="container" >
     <div id='content' style=" background-color: #fbffff; height: 100%; min-height: 100%;">
-        <div class="div-logo" align="center" >
+        <div class="div-logo" style="text-align: center;" >
     <?php 
     $url =  $_SERVER['REQUEST_URI'];
     //devuelve los 2 ultimos caracteres de la url si es igual a en se utiliza las variables en inglés
     $url = substr( $url,-2);
         if($url == "es" || $url == "s/" || $url =="ex" )
         {?>
- <?php   echo Html::img('logoes.png','logo','width="500px" height="150px"'); ?>
+ <?php   echo Html::img('logoes.png','logo','width="500" height="150"'); ?>
         </div> 
  <?php  }
  else
         {
-            echo Html::img('logoen.png','logo2','width="500px" height="150px"');
+            echo Html::img('logoen.png','logo2','width="500" height="150"');
             echo "</div>";
         }
  ?>

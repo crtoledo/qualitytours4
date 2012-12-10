@@ -151,6 +151,44 @@ hr, .hrcolor {
 }
 
 
+/*Notificaciones*/
+.notifi{
+    background-color: #BC1010;
+    padding: 1px 1px; /* tamaño */
+    border-radius: 4px;
+    color: white; /* Color del texto */
+    font-weight: bold; /* grosor del texto */
+    margin-left: 0px; /* Distancia al icono de izquierda a derecha*/
+    margin-top: -18px; /* Distancia al icono de arriba a abajo */
+    position: absolute;
+}
+
+/*Footer*/
+footer {
+    position: relative;
+    /*      margin-top: 150px;  ponga en negativo el alto de su pie de página para nuestro    ejemplo usamos 63, usted debe remplazarlo según su diseño   */
+    height: 63px;
+    clear:both;
+    width:100%;
+    background-color: #fbffff;
+}
+
+#toTop{
+    width: 50px;
+    border: 1px solid #ccc;
+    background: #f7f7f7;
+    text-align: center;
+    padding:    5px;
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    cursor: pointer;
+    display: none;
+    color: #333;
+    font-family: verdana;
+    font-size: 11px;
+}
+
 /*FUENTES*/
 @font-face {
 	font-family: SF;

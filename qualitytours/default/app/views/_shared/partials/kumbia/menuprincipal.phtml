@@ -189,18 +189,7 @@ if ($url == "en") {
         });
     });
 </script>
-<style>
-    .notifi{
-        background-color: #BC1010;
-        padding: 1px 1px; /* tamaño */
-        border-radius: 4px;
-        color: white; /* Color del texto */
-        font-weight: bold; /* grosor del texto */
-        margin-left: 0px; /* Distancia al icono de izquierda a derecha*/
-        margin-top: -18px; /* Distancia al icono de arriba a abajo */
-        position: absolute;
-    }
-</style>
+
 <div class="navbar navbar-inverse ">
     <div class="navbar-inner">
         <div class="container">
@@ -326,22 +315,22 @@ if ($url == "en") {
                     <?php
                     if (!Auth::is_valid()) {
                         ?>
-                        <li> <?php echo Html::link('index', "<img src='/trunk/qualitytours/img/1351461465_es.png'>"); ?></li>
-                        <li> <?php echo Html::link('index/en', "<img src='/trunk/qualitytours/img/1351461500_gb.png'>"); ?></li>
+                        <li> <?php echo Html::link('index', "<img src='/trunk/qualitytours/img/1351461465_es.png' alt='Spanish'>"); ?></li>
+                        <li> <?php echo Html::link('index/en', "<img src='/trunk/qualitytours/img/1351461500_gb.png' alt='English'>"); ?></li>
 
                         <?php
                     } else {
                         ?>
-                        <li> <?php echo Html::link('usuario/leng/es', "<img src='/trunk/qualitytours/img/1351461465_es.png'>"); ?></li>
-                        <li> <?php echo Html::link('usuario/leng/en', "<img src='/trunk/qualitytours/img/1351461500_gb.png'>"); ?></li>
+                        <li> <?php echo Html::link('usuario/leng/es', "<img src='/trunk/qualitytours/img/1351461465_es.png' alt='Spanish'>"); ?></li>
+                        <li> <?php echo Html::link('usuario/leng/en', "<img src='/trunk/qualitytours/img/1351461500_gb.png' alt='English'>"); ?></li>
                     <?php } ?>
 
                     <?php
                 } else {
                     ?>
                     <?php $url = substr($url, 0, -2); ?>
-                    <li> <?php echo "<a href='" . $url . "es'><img src='/trunk/qualitytours/img/1351461465_es.png'></a>"; ?> </li>
-                    <li> <?php echo "<a href='" . $url . "en'><img src='/trunk/qualitytours/img/1351461500_gb.png'></a>"; ?></li>
+                    <li> <?php echo "<a href='" . $url . "es'><img src='/trunk/qualitytours/img/1351461465_es.png' alt='Spanish'></a>"; ?> </li>
+                    <li> <?php echo "<a href='" . $url . "en'><img src='/trunk/qualitytours/img/1351461500_gb.png' alt='English'></a>"; ?></li>
                 <?php } ?>
 
                 <!--Fin banderas-->
@@ -369,32 +358,33 @@ if ($url == "en") {
                     </a>
                     <ul class="dropdown-menu">
 
-                        <li>
+                        <li style="text-align: center; ">
                             <?php
 //Si el user esta loguedao se mostrará la opción para cerrar sesión en el menu desplegable
                             if (Auth::is_valid()) {
                                 echo "<li>";
                                 echo Html::link('' . $enlace_cerrarsesion . '', '<i class="icon-off"></i> ' . $cerrarsesion_string);
-                                echo "</li>";
+                                //echo "</li>";
                             } else { //Si no esta logueado se mostrará el form para iniciar sesión
                                 ?>
                                 <?php echo Form::open('' . $enlace_form_login . '', 'post', 'class=navbar-form'); ?>
-                            <center>
+                            
                                 <?php echo $usuario_string; ?>
                                 <?php echo Form::text("username_usu", "class='span2 mask-alphanum login_usu'"); ?>
                                 <?php echo $contraseña_string; ?>
                                 <?php echo Form::pass("password_usu", "class='span2 mask-alphanum login_pass'"); ?>
                                 <?php echo Form::submit('' . $ingresar_string . '', "class='btn btn-primary botonlogin'"); ?>
-                                <br>
-                                <?php echo Html::link("usuario/olvidar/" . $leng, "<font size='1,5'>".$enlace_olvido."</font>"); ?>
+                            </form>     
+                            <br>
+                                <?php echo Html::link("usuario/olvidar/" . $leng, $enlace_olvido,"style='font-size: 10px;'"); ?>
                                 <hr>
-
-                                <li><?php echo Html::link('' . $enlace_registrate . '', $registrate_string . ' <i class="icon-plus-sign"></i>'); ?></li>
-                            </center>
-                            </form> 
+                                    
+                                <li style="text-align: center; "><?php echo Html::link('' . $enlace_registrate . '', $registrate_string . ' <i class="icon-plus-sign"></i>'); ?></li>
+                            
+                            
                         <?php } ?>
 
-                </li>
+                
             </ul>
             </li>
             </ul>
