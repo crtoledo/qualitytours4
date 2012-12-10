@@ -11,7 +11,7 @@ $string =
 from cliente
 join ubicacion on cliente.id_usu = ubicacion.id_usu
 full join calificacion on cliente.id_usu = calificacion.cli_id_usu
-WHERE cliente.nombre_cli ilike '%".$_REQUEST['string']."%'  and estado_usu = TRUE
+WHERE cliente.nombre_cli ilike '%".$_REQUEST['string']."%'  and ubicacion.estado_ubi = TRUE 
 GROUP BY cliente.id_usu, ubicacion.region_ubi, ubicacion.ciudad_ubi, cliente.visitas_cli 
 ORDER BY promedio desc, visitas
 limit 20";

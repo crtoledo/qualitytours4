@@ -4,7 +4,7 @@
 $eliminar_string = "Delete";
 $editar_string="Edit";
 $e_editar_string="en";
-$i_contenido_string="Add contents";
+$i_contenido_string="Add content";
 $e_publicacion_string="Edit publication";
 $con_ingresar_string="en";
 $pub_editar_string="en";
@@ -24,12 +24,12 @@ $usuario_ingresar_confirmar = "Confirm your password";
 $usuario_ingresar_contraseña = "Create your password";
 $usuario_ingresar_condiciones = "I accept ";
 $usuario_ingresar_condiciones_link="The terms of use";
-$usuario_ingreso_minimo = "Enter a password of at least 5 characters";
-$usuario_username_minimo = "Enter a username of at least 3 characters";
+$usuario_ingreso_minimo = "Password must have at least 5 characters";
+$usuario_username_minimo = "Username must have at least 3 characters";
 $usuario_ingresar_obligatorios = "*All fields are required";
-$usuario_ingresar_traductor = "Add Translator";
-$val_username_string = "Please enter username";
-$val_password_string = "Please enter password";
+$usuario_ingresar_traductor = "Add translator";
+$val_username_string = "Please enter a username";
+$val_password_string = "Please enter a password";
 $val_nombre_string = "Please enter your first name";
 $val_apellido_string = "Please enter your last name";
 $val_rut_string = "Please enter your ID";
@@ -55,7 +55,7 @@ $usuario_buscar_email = "Email";
 $usuario_buscar_rol = "Role";
 $usuario_buscar_opciones = "Options";
 $usuario_buscar_editar = "Edit";
-$usuario_buscar_convertir = "Convert an administrator";
+$usuario_buscar_convertir = "Convert to administrator";
 $usuario_buscar_suscripcion = "Unsubscribe";
 $usuario_buscar_administrador = "Delete administrator";
 $usuario_buscar_eliminar = "Delete";
@@ -84,7 +84,7 @@ $publicacion_ingresar_encabesado = "New Publication";
 $publicacion_ingresar_boton =  "Publish";
 
 //variables /cliente/detalle
-$cliente_detalle_valcoment = "Add comentary";
+$cliente_detalle_valcoment = "Add comment";
 $cliente_detalle_visitas = "Views";
 $cliente_detalle_servicios = "Services";
 $cliente_detalle_mensaje1 = "Login to rate";
@@ -115,16 +115,16 @@ $servicio_ingresarvalpre = "Please enter your price";
 //variables de ubicacion/ingresar
 $ubicacion_ingresar_valcalle = "Please enter your street";
 $ubicacion_ingresar_valciudad = "Please enter your city";
-$ubicacion_ingresar_titulo1 = "Add your direction ";
-$ubicacion_ingresar_titulo2 = "Indicate the location of your destination";
+$ubicacion_ingresar_titulo1 = "Add location by giving a direction ";
+$ubicacion_ingresar_titulo2 = "Indicate address";
 $ubicacion_ingresar_ubi = "Enter a location...";
-$ubicacion_ingresar_submit = "Add Ubication";
-$ubicacion_ingresar_link = "Enter your location by entering a geographic";
+$ubicacion_ingresar_submit = "Add location";
+$ubicacion_ingresar_link = "Enter your location by selecting a map point";
 
 //usuario/eliminar
 
 $usuario_eliminar_titulo = "Delete user";
-$usuario_eliminar_cuerpo = "The elimination of the user has been successfully";
+$usuario_eliminar_cuerpo = "The elimination of the user has been successfull";
 $usuario_eliminar_boton = "Accept";
 
 //usuario/modificar
@@ -133,7 +133,7 @@ $usuario_modificar_titulo1 = "Modify your data";
 //ubicacacion/ingresar_mapa
 $ubicacion_ingresar_mapa_valpais = "Select a location in Chile";
 $ubicacion_ingresar_mapa_ciudad = "City";
-$ubicacion_ingresar_mapa_advertencia = "Get the address of his marker on the map";
+$ubicacion_ingresar_mapa_advertencia = "Get the address of the marker on the map";
 $ubicacion_ingresar_mapa_obtener = "Get Address";
 $ubicacion_ingresar_mapa_check = "Check the data before entering your location";
 $ubicacion_ingresar_mapa_confirmar = "Confirm";
@@ -158,12 +158,11 @@ $solicitud_administrar_espera = "Accept information";
 $solicitud_administrar_rechazar = "Reject request";
 $solicitud_administrar_mensaje1 = "The user has not confirmed the sending of the mail";
 $solicitud_administrar_mensaje2 = "Observations";
-$solicitud_administrar_enviar = "Send request";
-$solicitud_administrar_enviar = "Send comments";
+$solicitud_administrar_enviar = "Send observations";
 $solicitud_administrar_estaseguro = "Are you sure to reject this request?";
 $solicitud_administrar_modal1 = "The rejection of the request, is an action that can not be undone";
 $solicitud_administrar_modal2 = "Before rejecting the request, make sure:";
-$solicitud_administrar_modal3 = "Send comments before rejecting the request:";
+$solicitud_administrar_modal3 = "Send observations before rejecting the request:";
 $solicitud_administrar_cerrar = "Exit";
 //variables /administrar/buscar
 
@@ -171,10 +170,10 @@ $solicitud_buscar_mensaje1 = "No results were found";
 $solicitud_buscar_titulo = "Search requests";
 $solicitud_buscar_mensaje2 = "Search only";
 $solicitud_buscar_mensaje3 = "Sort by";
-$solicitud_buscar_mensaje4 = "request rejected";
-$solicitud_buscar_mensaje5 = "request canceled";
-$solicitud_buscar_mensaje6 = "modification";
-$solicitud_buscar_mensaje7 = "confirmation email";
+$solicitud_buscar_mensaje4 = "Request rejected";
+$solicitud_buscar_mensaje5 = "Request canceled";
+$solicitud_buscar_mensaje6 = "Modification";
+$solicitud_buscar_mensaje7 = "Confirmation email";
 $solicitud_buscar_mensaje8 = "Request";
 $solicitud_buscar_codigo = "Code";
 $solicitud_buscar_fecha = "Date";
@@ -184,12 +183,12 @@ $busqueda_buscando_titulo = "Tourist center";
 $busqueda_buscando_cliente = "Customer name";
 $busqueda_buscando_ciudad = "City";
 $busqueda_buscando_region = "Region";
-$busqueda_buscando_calificacion = "Qualification";
+$busqueda_buscando_calificacion = "Rating";
 $busqueda_buscando_sincali = "Not rated";
-$busqueda_buscando_centros = "Resorts containing";
+$busqueda_buscando_centros = "Places containing";
 $busqueda_buscando_enregion =  "in region";
 $busqueda_buscando_enciudad = "in city";
-$busqueda_buscando_centroscat = "Resorts that are categorized by";
+$busqueda_buscando_centroscat = "Places categorized by";
 $busqueda_buscando_resultados = "Found";
 $busqueda_buscando_nofound = "No results were found, try another query";
 
