@@ -12,7 +12,7 @@ if ($leng == "en") {
     <div class="row-fluid">
         <div class="span6" style="text-align: center;">
             <h4><b><?php echo $index_titulo_1; ?></b></h4>
-<table class="table table-hover">
+<table class="table table-hover table-bordered">
 <?php
 for ($i = 0; $i <= $indice - 1; $i++) {
     $cont = $i + 1;
@@ -36,7 +36,7 @@ for ($i = 0; $i <= $indice - 1; $i++) {
             <h4><b><?php echo $index_titulo_3; ?></b></h4>
 <?php
 $cont = 0;
-echo "<table class='table table-hover'>";
+echo "<table class='table table-hover table-bordered'>";
 for ($i = 0; $i <= $contadors - 1; $i++) {
     $cont = $i + 1;
 
@@ -48,7 +48,8 @@ for ($i = 0; $i <= $contadors - 1; $i++) {
                   </td>
                  
                  
-                 <td><div class='stars0 stars" . number_format($valor_cal[$i], $decimals = 0) . "'></div> </td>
+                 <td><div class='stars0 stars" . number_format($valor_cal[$i], $decimals = 0) . "' 
+                     title='" . number_format($valor_cal[$i], $decimals = 2) . "'></div> </td>
                  </tr>";
                   
 }
