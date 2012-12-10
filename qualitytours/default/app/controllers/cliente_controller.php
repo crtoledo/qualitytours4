@@ -371,9 +371,10 @@ class ClienteController extends AppController {
 
     //Funcion para poder renovar la solicitud o poder ver los datos del cliente y de la solicitud
 
-    public function administrarsuscripcion() {
+    public function administrarsuscripcion($leng) {
         if (Auth::is_valid()) {
             if (Auth::get("rol_usu") == "cliente") {
+                $this->leng = $leng;
 
                 $datos_cliente = new cliente();
                 $id_cliente = Auth::get("id");
