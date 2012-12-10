@@ -17,11 +17,12 @@
     $(document).ready(function() { //INICIO DEL TAG-CLOUD
         if( ! $('#myCanvas').tagcanvas({
             textColour : '#000000',
-            outlineThickness : 1,
+            outlineThickness : 3,
             maxSpeed : 0.15,
             depth : 0.75,
             shape : 'hring',
-            lock : 'x'
+            lock : 'x',
+            zoom : 1.3
         })) {
             // TagCanvas failed to load
             $('#myCanvasContainer').hide();
