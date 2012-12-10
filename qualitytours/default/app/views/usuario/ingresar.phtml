@@ -196,7 +196,7 @@ reemplazo se uso 'errorVal'.
         <td><?php echo Form::text('usuario.email_usu',"class='input-medium email mask-email'") ?></td>
     </tr>
     <tr>
-        <td align="right" colspan="2"><?php echo $usuario_ingresar_condiciones. Html::link('pages/condiciones', $usuario_ingresar_condiciones_link); ?>&nbsp;<?php echo Form::check('acepta', 'checkValue')?></td>
+        <td align="right" colspan="2"><?php echo $usuario_ingresar_condiciones."&nbsp;".Html::link('pages/condiciones', $usuario_ingresar_condiciones_link); ?>&nbsp;<?php echo Form::check('acepta', 'checkValue')?></td>
     </tr>
 
 </table>
