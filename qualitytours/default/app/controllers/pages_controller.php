@@ -44,5 +44,8 @@ class PagesController extends AppController {
     public function condiciones() {
         
     }
+    public function terms_of_use() {
+        
+    }
 
 }
