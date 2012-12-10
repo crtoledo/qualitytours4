@@ -54,7 +54,16 @@
             <div class="row-fluid">
                 <div class="span6"> 
                     <blockquote>
-                        <p><span style="font-size: 10px"><?php echo Html::link('pages/condiciones', 'Condiciones de uso'); ?> | Condiciones del servicio | Pol&iacute;tica de privacidad | <?php echo Html::link('contacto/contacto', 'Contactenos'); ?> </span></p>
+                        <p><span style="font-size: 10px">
+                            <?php
+                       $url = $_SERVER['REQUEST_URI'];
+                        //devuelve los 2 ultimos caracteres de la url si es igual a en se utiliza las variables en inglés
+                        $url = substr($url, -2);
+                        if ($url == "en") echo Html::link('pages/terms_of_use', 'Terms of use'); 
+
+                        else echo Html::link('pages/condiciones', 'Condiciones de uso');
+                        ?>
+                                | Condiciones del servicio | Pol&iacute;tica de privacidad | <?php echo Html::link('contacto/contacto', 'Contactenos'); ?> </span></p>
                         <small style="font-size: 8px">Actualizado al 9 de Diciembre</small>
                     </blockquote>
                 </div>
