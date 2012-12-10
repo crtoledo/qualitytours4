@@ -20,13 +20,15 @@
          for ($i=0;$i<=$indice-1;$i++)
          {
             $cont = $i+1;?>
-            <table  style="margin: auto;"">
+       
+            <table>
                   <tr>
-                  <td><span class='badge badge-important'><?php echo $cont ?></span>&nbsp</td>
-                  <td><?php echo Html::link("cliente/detalle/".$id_cliente[$i]."/".$leng,$nombre_cli[$i],"target='_self'")?></td>
-                  <td><?php echo "&nbsp;-&nbsp;".$visitas[$i]; ?></td>
+                  <td><span class='badge badge-important'><?php echo $cont ?></span>&nbsp  <?php echo Html::link("cliente/detalle/".$id_cliente[$i]."/".$leng,$nombre_cli[$i],"target='_self'")?> <?php echo "&nbsp;-&nbsp;".$visitas[$i]; ?></td>
+                
+                
                   </tr>
             </table>
+       
                    
       <?php   }
         ?>
@@ -42,7 +44,7 @@
             
           
             
-           echo "<table style='margin: auto;'>
+           echo "<table >
                   <tr>
                   <td><span class='badge badge-important'>".$cont."</span>&nbsp;".Html::link("cliente/detalle/".$id[$i]."/".$leng,$id_cli_cal[$i],"target='_self'")." <b> ".number_format($valor_cal[$i], $decimals = 1)."</b>
                   </td>
