@@ -246,6 +246,7 @@ class UsuarioController extends AppController {
                 Session::set("rol_usu", Auth::get('rol_usu'));
                 Session::set("id", Auth::get('id'));
                 Session::set("username_usu", Auth::get('username_usu'));
+                Session::set("lenguaje_usu","lenguaje_usu");
 
                 if (Session::get('rol_usu') == 'administrador') {
                     $usuario = new Usuario();
@@ -307,10 +308,13 @@ class UsuarioController extends AppController {
         }
     }
 
-    public function leng($leng) {
+    public function leng($leng) //BUSCA EL LENGUAJE EN LA BD
+    {
         $usuario = new Usuario();
         $buscar = $usuario->find(Session::get("id"));
         $idiom = $buscar->lenguaje_usu;
+        
+        
 
         if ($idiom == "en") {
             $this->lenguaje_usu = "en";
@@ -321,9 +325,12 @@ class UsuarioController extends AppController {
         $this->lengselect = $leng;
     }
 
-    public function leng2($leng) {
+    public function leng2($leng) //UPDATE DEL LENGUAJE EN CASO DE QUE EL USUARIO LO CAMBIE 
+            { 
         $id = Session::get("id");
-
+        
+        
+        
         if ($leng == "es") {
             $usuario = new Usuario();
             $usuario->sql("UPDATE usuario set lenguaje_usu='es' WHERE id=" . $id);
