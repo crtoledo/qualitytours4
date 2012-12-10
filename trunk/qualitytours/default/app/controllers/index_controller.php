@@ -142,7 +142,7 @@ class IndexController extends AppController
             
              //ranking de visitas
                 $cliente =  new Cliente();
-                $client = $cliente->find("conditions: estado_usu='t'","limit: 3","order: visitas_cli desc");
+                $client = $cliente->find("conditions: estado_usu='t'","limit: 30","order: visitas_cli desc");
                 $i = 0;
                 foreach($client as $cliente)
                 {
@@ -155,7 +155,7 @@ class IndexController extends AppController
                 
                 //ranking de calificacion
                 $calificacion =  new Calificacion();
-                $cal = $calificacion->find('columns: cli_id_usu,avg(valor_cal)','group: cli_id_usu','order: avg desc','limit: 3',"conditions: estado_cal='t'");
+                $cal = $calificacion->find('columns: cli_id_usu,avg(valor_cal)','group: cli_id_usu','order: avg desc','limit: 30',"conditions: estado_cal='t'");
                 
                 $contador = 0;
                 $cliente = new Cliente();
