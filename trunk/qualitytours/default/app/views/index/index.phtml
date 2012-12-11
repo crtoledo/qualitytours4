@@ -92,11 +92,9 @@
     </div>
     <div class="span3 well" style="background-color: #f9ffff;">
        
-            <table>
-                <tr>
-                    <td>
+            
                         <div id="myCanvasContainer">
-                            <canvas width="210" height="200" id="myCanvas">
+                            <canvas width="170" height="200" id="myCanvas">
                                 
 <!--                                <p>Anything in here will be replaced on browsers that support the canvas element</p>-->
                                 <ul>
@@ -110,11 +108,9 @@
                                 </ul>
                             </canvas>
                         </div>
-                    </td>
-                </tr>
-            </table>
+                    
         
-        <hr>
+        <hr style=" border-top: 1px dashed; background-color: #f9ffff;">
         <h6>  <?php echo Html::link("index/ranking/".$leng,$index_titulo_1) ?> </h6>
         <?php
          for ($i=0;$i<=$indice-1;$i++)
@@ -129,8 +125,8 @@
          }
          echo "</table>";
         ?>
-       <hr>
-        <h6> <?php echo Html::link("index/ranking/".$leng,$index_titulo_3) ?></h6>
+       <hr style=" border-top: 1px dashed; background-color: #f9ffff;">
+        <h6> <?php echo Html::link("index/ranking/".$leng,$index_titulo_3,'style=""') ?></h6>
         <?php
         
          $cont = 0; 
