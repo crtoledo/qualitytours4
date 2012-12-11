@@ -194,3 +194,8 @@ footer {
 	font-family: SF;
 	src: url('../fonts/SF.ttf');
 }
+
+@font-face {
+	font-family: junegull;
+	src: url('../fonts/junegull.ttf');
+}
