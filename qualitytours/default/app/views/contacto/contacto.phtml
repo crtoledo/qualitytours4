@@ -1,27 +1,22 @@
 <?php
-    View::content();
-    require(APP_PATH.'libs/PHPMailer_5.2.2-rc2/class.phpmailer.php');
-    require(APP_PATH.'libs/PHPMailer_5.2.2-rc2/class.smtp.php');
-    $mail = new PHPMailer();
-    $mail->IsSMTP();
-    //$mail->SMTPSecure = "ssl";
-    $mail->SMTPAuth = true;
-    $mail->SMTPDebug = 1;  // debugging: 1 = errors and messages, 2 = messages only
-    $mail->Host = "smtp.mail.yahoo.com";
-    $mail->Port = 25;
-    $mail->Username = "qualitytoursadm@yahoo.com";
-    $mail->Password = "qt123123";
-    
-    
-    
-    
+
+View::content();
+require(APP_PATH . 'libs/PHPMailer_5.2.2-rc2/class.phpmailer.php');
+require(APP_PATH . 'libs/PHPMailer_5.2.2-rc2/class.smtp.php');
+$mail = new PHPMailer();
+$mail->IsSMTP();
+//$mail->SMTPSecure = "ssl";
+$mail->SMTPAuth = true;
+$mail->SMTPDebug = 1;  // debugging: 1 = errors and messages, 2 = messages only
+$mail->Host = "smtp.mail.yahoo.com";
+$mail->Port = 25;
+$mail->Username = "qualitytoursadm@yahoo.com";
+$mail->Password = "qt123123";
 ?>
 
 <?php
 
-
-if (isset($_POST['enviar'])) 
-{
+if (isset($_POST['enviar'])) {
     //Preparar el mail
     //$mail->From = $_POST['email'];
     $mail->From = "qualitytoursadm@yahoo.com";
@@ -30,15 +25,15 @@ if (isset($_POST['enviar']))
     $mail->Body = stripcslashes($_POST['mensaje']);
     $mail->AddAddress("qualitytoursadm@yahoo.com", "Destinatario"); //Dirección a la que enviaremos el correo
     $mail->IsHTML(true);
-    
-    if(!$mail->Send()){
-    echo "Error: " . $mail->ErrorInfo;
+
+    if (!$mail->Send()) {
+        //echo "Error: " . $mail->ErrorInfo;
+        Flash::error("No se pudo enviar el mensaje");
     } else {
-    //echo "Mensaje enviado correctamente";
-    Flash::success("Mensaje enviado correctamente");
-    Router::redirect('/');
+        //echo "Mensaje enviado correctamente";
+        Flash::success("Mensaje enviado correctamente");
+        Router::redirect('/');
     }
-  
 }
 ?> 
 <style>
@@ -51,38 +46,41 @@ if (isset($_POST['enviar']))
 
 <script type="text/javascript">
     //Validación con jquery
-$(document).ready(function () {
-   
-    $(".boton").click(function (){
-        $(".errorVal").remove();
+    $(document).ready(function () {
+        var emailreg = /^[_a-z0-9-]+(.[_a-z0-9-]+)*@[a-z0-9-]+(.[a-z0-9-]+)*(.[a-z]{2,3})$/;
+        $(".boton").click(function (){
+            $(".errorVal").remove();
         
-        //ELIMINAMOS ESPACIOS EN BLANCO AL COMIENZO/FINAL
+            //ELIMINAMOS ESPACIOS EN BLANCO AL COMIENZO/FINAL
             $(".asunto").val($.trim($(".asunto").val()));
         
-         if( $(".asunto").val() == "" ){
-            $(".asunto").focus().after("<span class='errorVal'>El asunto no puede estar vacío</span>");
-            return false;
-        }else if( $(".asunto").val().length<3){
-            $(".asunto").focus().after("<span class='errorVal'>El asunto debe tener al menos 3 letras</span>");
-            return false;
-        }else if( $(".body").val() == ""){
-            $(".body").focus().after("<span class='errorVal'>El mensaje no puede estar vacío</span>");
-            return false;
-        }else if( $(".body").val().length<10){
-            $(".body").focus().after("<span class='errorVal'>El mensaje debe tener al menos 10 letras</span>");
-            return false;
-        }
-    });
+            if( $(".email").val() == "" || !emailreg.test($(".email").val()) ){
+                $(".email").focus().after("<span class='errorVal'>Ingrese un email valido</span>");
+                return false;
+            }else if( $(".asunto").val().length<3){
+                $(".asunto").focus().after("<span class='errorVal'>El asunto debe tener al menos 3 letras</span>");
+                return false;
+            }else if( $(".asunto").val().length<3){
+                $(".asunto").focus().after("<span class='errorVal'>El asunto debe tener al menos 3 letras</span>");
+                return false;
+            }else if( $(".body").val() == ""){
+                $(".body").focus().after("<span class='errorVal'>El mensaje no puede estar vacío</span>");
+                return false;
+            }else if( $(".body").val().length<10){
+                $(".body").focus().after("<span class='errorVal'>El mensaje debe tener al menos 10 letras</span>");
+                return false;
+            }
+        });
     
-    //Borrar mensaje de error si el usuario a llenado el campo
-    $(".asunto, .body").keyup(function()
-    {
-        if( $(this).val() != "" )
+        //Borrar mensaje de error si el usuario a llenado el campo
+        $(".asunto, .body").keyup(function()
         {
-            $(".errorVal").fadeOut();
-            return false;
-        }
-    });
+            if( $(this).val() != "" )
+            {
+                $(".errorVal").fadeOut();
+                return false;
+            }
+        });
     
     });
     
@@ -90,31 +88,31 @@ $(document).ready(function () {
 
 <style>
     .errorVal{
-    background-color: #BC1010;
-    padding: 6px 12px;
-    border-radius: 4px;
-    color: white;
-    font-weight: bold;
-    margin-left: 16px;
-    margin-top: 6px;
-    position: absolute;
-}
-.errorVal:before{ /* Este es un truco para crear una flechita */
-    content: '';
-    border-top: 8px solid transparent;
-    border-bottom: 8px solid transparent;
-    border-right: 8px solid #BC1010;
-    border-left: 8px solid transparent;
-    left: -16px;
-    position: absolute;
-    top: 5px;
-    
-}
-textarea {
-    resize: none;
-    width: 300px;
-    height: 200px;   
-}
+        background-color: #BC1010;
+        padding: 6px 12px;
+        border-radius: 4px;
+        color: white;
+        font-weight: bold;
+        margin-left: 16px;
+        margin-top: 6px;
+        position: absolute;
+    }
+    .errorVal:before{ /* Este es un truco para crear una flechita */
+        content: '';
+        border-top: 8px solid transparent;
+        border-bottom: 8px solid transparent;
+        border-right: 8px solid #BC1010;
+        border-left: 8px solid transparent;
+        left: -16px;
+        position: absolute;
+        top: 5px;
+
+    }
+    textarea {
+        resize: none;
+        width: 300px;
+        height: 200px;   
+    }
 </style>
 
 <style>

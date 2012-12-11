@@ -1,135 +1,132 @@
 
 <?php
 //Código para el idioma
-    if($leng == "en")
-    {
-        include_once APP_PATH.'libs/en.php';
-    }
-    else
-    {
-        include_once APP_PATH.'libs/es.php';
-    }
+if ($leng == "en") {
+    include_once APP_PATH . 'libs/en.php';
+} else {
+    include_once APP_PATH . 'libs/es.php';
+}
 ?>   
 
 <div>
 <?php
-    View::content();
-    echo Tag::js('jquery.keyfilter');
-    echo Tag::js("jquery/jquery.Rut.min");
+View::content();
+echo Tag::js('jquery.keyfilter');
+echo Tag::js("jquery/jquery.Rut.min");
 ?>
 </div> 
 
 <script type="text/javascript">
     //Validación con jquery
     //El siguiente script valida que los campos no estén vacios y el formato del RUT
-$(document).ready(function () {
+    $(document).ready(function () {
    
-    var emailreg = /^[_a-z0-9-]+(.[_a-z0-9-]+)*@[a-z0-9-]+(.[a-z0-9-]+)*(.[a-z]{2,3})$/;
+        var emailreg = /^[_a-z0-9-]+(.[_a-z0-9-]+)*@[a-z0-9-]+(.[a-z0-9-]+)*(.[a-z]{2,3})$/;
     
-    $(".boton").click(function (){
-        $(".errorVal").remove();
+        $(".boton").click(function (){
+            $(".errorVal").remove();
         
-        //ELIMINAMOS ESPACIOS EN BLANCO AL COMIENZO/FINAL
+            //ELIMINAMOS ESPACIOS EN BLANCO AL COMIENZO/FINAL
             $(".username").val($.trim($(".username").val()));
             $(".nombre").val($.trim($(".nombre").val()));
             $(".apellido").val($.trim($(".apellido").val()));
         
-         if( $(".username").val() == "" ){
-            $(".username").focus().after("<span class='errorVal'><?php echo $val_username_string;?></span>");
-            return false;
-        }else if( $(".username").val().length<3){
-            $(".username").focus().after("<span class='errorVal'><?php echo $usuario_username_minimo; ?></span>");
-            return false;
-          }else if( $(".username").keyCode == 241){
+            if( $(".username").val() == "" ){
+                $(".username").focus().after("<span class='errorVal'><?php echo $val_username_string; ?></span>");
+                return false;
+            }else if( $(".username").val().length<3){
+                $(".username").focus().after("<span class='errorVal'><?php echo $usuario_username_minimo; ?></span>");
+                return false;
+            }else if( $(".username").keyCode == 241){
             
             
-            return false; 
-        }else if( $(".password").val() == ""){
-            $(".password").focus().after("<span class='errorVal'><?php echo $val_password_string; ?></span>");
-            return false;
-        }else if( $(".password").val().length<5){
-            $(".password").focus().after("<span class='errorVal'><?php echo $usuario_ingreso_minimo; ?></span>");
-            return false;
-        }else if( $(".password").val() != $(".passworddos").val()){
-            $(".passworddos").focus().after("<span class='errorVal'><?php echo $val_passwords_string; ?></span>");
-            return false;
-        }else if( $(".nombre").val() == ""){
-            $(".nombre").focus().after("<span class='errorVal'><?php echo $val_nombre_string; ?></span>");
-            return false;
-        }else if( $(".apellido").val() == "" ){
-            $(".apellido").focus().after("<span class='errorVal'><?php echo $val_apellido_string; ?></span>");
-            return false;
-        }else if($(".email").val() == "" || !emailreg.test($(".email").val()) ){
-           $(".email").focus().after("<span class='errorVal'><?php echo $val_email_string; ?></span>");
-           return false;
-       }else if($('#acepta').is(':checked') == false){
-           $("#acepta").focus().after("<span class='errorVal'><?php echo $usuario_ingresar_condiciones; ?></span>");
-           return false;
-        }
-    });
+                return false; 
+            }else if( $(".password").val() == ""){
+                $(".password").focus().after("<span class='errorVal'><?php echo $val_password_string; ?></span>");
+                return false;
+            }else if( $(".password").val().length<5){
+                $(".password").focus().after("<span class='errorVal'><?php echo $usuario_ingreso_minimo; ?></span>");
+                return false;
+            }else if( $(".password").val() != $(".passworddos").val()){
+                $(".passworddos").focus().after("<span class='errorVal'><?php echo $val_passwords_string; ?></span>");
+                return false;
+            }else if( $(".nombre").val() == ""){
+                $(".nombre").focus().after("<span class='errorVal'><?php echo $val_nombre_string; ?></span>");
+                return false;
+            }else if( $(".apellido").val() == "" ){
+                $(".apellido").focus().after("<span class='errorVal'><?php echo $val_apellido_string; ?></span>");
+                return false;
+            }else if($(".email").val() == "" || !emailreg.test($(".email").val()) ){
+                $(".email").focus().after("<span class='errorVal'><?php echo $val_email_string; ?></span>");
+                return false;
+            }else if($('#acepta').is(':checked') == false){
+                $("#acepta").focus().after("<span class='errorVal'><?php echo $usuario_ingresar_condiciones; ?></span>");
+                return false;
+            }
+        });
     
-    //Borrar mensaje de error si el usuario a llenado el campo
-    $(".nombre, .username, .password, .apellido, .email, .passworddos").keyup(function()
-    {
-        if( $(this).val() != "" )
+        //Borrar mensaje de error si el usuario a llenado el campo
+        $(".nombre, .username, .password, .apellido, .email, .passworddos").keyup(function()
         {
-            $(".errorVal").fadeOut();
-            return false;
-        }
-    });
+            if( $(this).val() != "" )
+            {
+                $(".errorVal").fadeOut();
+                return false;
+            }
+        });
     
-    //borrar el mensaje de error si se ingresa un email valido
-    $(".email").keyup(function()
-    {
-        if( $(this).val() != "" && emailreg.test($(this).val()))
+        //borrar el mensaje de error si se ingresa un email valido
+        $(".email").keyup(function()
         {
-            $(".errorVal").fadeOut();
-            return false;
-        }
-    });    
+            if( $(this).val() != "" && emailreg.test($(this).val()))
+            {
+                $(".errorVal").fadeOut();
+                return false;
+            }
+        });    
    
-//funcion que valida que las dos contraseñas esten ingresadas correctamente
-       function coincidePassword(){
-        var valor1 = $(".password").val();
-        var valor2 = $(".passworddos").val();
-        $(".errorVal").remove();
+        //funcion que valida que las dos contraseñas esten ingresadas correctamente
+        function coincidePassword(){
+            var valor1 = $(".password").val();
+            var valor2 = $(".passworddos").val();
+            $(".errorVal").remove();
         
-        if(valor1.length<5){
-            $(".password").focus().after("<span class='errorVal'><?php echo $usuario_ingreso_minimo; ?></span>");
-            return false;
-        }
-        if(valor1 != valor2){
-            $(".passworddos").focus().after("<span class='errorVal'><?php echo $val_passwords_string; ?></span>");
-            return false;
-        }
-        if(valor1.length==0 || valor1==""){
-            $(".passworddos").focus().after("<span class='errorVal'><?php echo $val_passwords_string; ?></span>");
-            return false;
-        }
-       }   
-    $(".passworddos").keyup(function()
-    {
-        coincidePassword();
-    });  
+            if(valor1.length<5){
+                $(".password").focus().after("<span class='errorVal'><?php echo $usuario_ingreso_minimo; ?></span>");
+                return false;
+            }
+            if(valor1 != valor2){
+                $(".passworddos").focus().after("<span class='errorVal'><?php echo $val_passwords_string; ?></span>");
+                return false;
+            }
+            if(valor1.length==0 || valor1==""){
+                $(".passworddos").focus().after("<span class='errorVal'><?php echo $val_passwords_string; ?></span>");
+                return false;
+            }
+        }   
+        $(".passworddos").keyup(function()
+        {
+            coincidePassword();
+        });  
     
-    //Todo este codigo comentado no se utiliza para el ingreso
-    //Borrar el mensaje de error si el usuario ingresa un rut con formato válido YA NO SE UTILIZA
-//    $(".rut").Rut({
-//        on_error: function(){  $(".rut").focus().after("<span class='errorVal'><?php //echo $val_rut_string; ?></span>"); return false; },
-//        format_on: 'keyup'
-//        
-//       
-//    });
+        //Todo este codigo comentado no se utiliza para el ingreso
+        //Borrar el mensaje de error si el usuario ingresa un rut con formato válido YA NO SE UTILIZA
+        //    $(".rut").Rut({
+        //        on_error: function(){  $(".rut").focus().after("<span class='errorVal'><?php //echo $val_rut_string;  ?></span>"); return false; },
+        //        format_on: 'keyup'
+        //        
+        //       
+        //    });
 
-//    $(".rut").keyup(function()
-//    {
-//        if( $(".rut").val() != "" && rutreg.test($(".rut").val()))
-//        {
-//            $(".errorVal").fadeOut();
-//            return false;
-//        }
-//    });    
-});
+        //    $(".rut").keyup(function()
+        //    {
+        //        if( $(".rut").val() != "" && rutreg.test($(".rut").val()))
+        //        {
+        //            $(".errorVal").fadeOut();
+        //            return false;
+        //        }
+        //    });    
+    });
 </script>
 
 <!--
@@ -140,93 +137,89 @@ reemplazo se uso 'errorVal'.
 
 <style>
     .errorVal{
-    background-color: #BC1010;
-    padding: 6px 12px;
-    border-radius: 4px;
-    color: white;
-    font-weight: bold;
-    margin-left: 16px;
-    margin-top: 6px;
-    position: absolute;
-}
-.errorVal:before{ /* Este es un truco para crear una flechita */
-    content: '';
-    border-top: 8px solid transparent;
-    border-bottom: 8px solid transparent;
-    border-right: 8px solid #BC1010;
-    border-left: 8px solid transparent;
-    left: -16px;
-    position: absolute;
-    top: 5px;
-}
+        background-color: #BC1010;
+        padding: 6px 12px;
+        border-radius: 4px;
+        color: white;
+        font-weight: bold;
+        margin-left: 16px;
+        margin-top: 6px;
+        position: absolute;
+    }
+    .errorVal:before{ /* Este es un truco para crear una flechita */
+        content: '';
+        border-top: 8px solid transparent;
+        border-bottom: 8px solid transparent;
+        border-right: 8px solid #BC1010;
+        border-left: 8px solid transparent;
+        left: -16px;
+        position: absolute;
+        top: 5px;
+    }
 </style>
 
 
 <br>
 <fieldset>
-<?php echo Form::open('usuario/ingresar/'.$leng) ?>
+<?php echo Form::open('usuario/ingresar/' . $leng) ?>
     <div align="center">
         <h1 style="font-family: SF"> <?php echo $titulo_ingresar_string; ?> </h1>
         <h6 style="font-family: SF"> <?php echo $usuario_ingresar_obligatorios; ?> </h6>
         <table>
-    <tr>
-        <td align="right"><?php echo $usuario_ingresar_usuario ?>:&nbsp;</td>
-        <td><?php echo Form::text('usuario.username_usu', "class='input-medium username mask-alphanum' placeholder='Username'") ?></td>
-    </tr>
-    <tr>
-        <td align="right"><?php echo $usuario_ingresar_contraseña ?>:&nbsp;</td>
-        <td><?php echo Form::pass('usuario.password_usu', "class='input-medium password mask-alphanum' placeholder='Password'") ?></td>
-    </tr>
-        <tr>
-        <td align="right"><?php echo $usuario_ingresar_confirmar ?>:&nbsp;</td>
-        <td><?php echo Form::pass('',"class='input-medium passworddos mask-alphanum' placeholder='Confirmar password'") ?></td>
-    </tr>
+            <tr>
+                <td align="right"><?php echo $usuario_ingresar_usuario ?>:&nbsp;</td>
+                <td><?php echo Form::text('usuario.username_usu', "class='input-medium username mask-alphanum' placeholder='Username'") ?></td>
+            </tr>
+            <tr>
+                <td align="right"><?php echo $usuario_ingresar_contraseña ?>:&nbsp;</td>
+                <td><?php echo Form::pass('usuario.password_usu', "class='input-medium password mask-alphanum' placeholder='Password'") ?></td>
+            </tr>
+            <tr>
+                <td align="right"><?php echo $usuario_ingresar_confirmar ?>:&nbsp;</td>
+                <td><?php echo Form::pass('', "class='input-medium passworddos mask-alphanum' placeholder='Confirmar password'") ?></td>
+            </tr>
 
-    <tr>
-        <td align="right"><?php echo $nombre_ingresar_string;?>:&nbsp;</td>
-        <td><?php echo Form::text('usuario.nombre_usu',"class='input-medium nombre mask-alpha'") ?></td>
-    </tr>
-    <tr>
-        <td align="right"><?php echo $apellido_ingresar_string;?>:&nbsp;</td>
-        <td><?php echo Form::text('usuario.apellido_usu',"class='input-medium apellido mask-alpha'") ?></td>
-    </tr>
+            <tr>
+                <td align="right"><?php echo $nombre_ingresar_string; ?>:&nbsp;</td>
+                <td><?php echo Form::text('usuario.nombre_usu', "class='input-medium nombre mask-alpha'") ?></td>
+            </tr>
+            <tr>
+                <td align="right"><?php echo $apellido_ingresar_string; ?>:&nbsp;</td>
+                <td><?php echo Form::text('usuario.apellido_usu', "class='input-medium apellido mask-alpha'") ?></td>
+            </tr>
 
-    <tr>
-        <td align="right">E-mail:&nbsp;</td>
-        <td><?php echo Form::text('usuario.email_usu',"class='input-medium email mask-email'") ?></td>
-    </tr>
-    <tr>
-        <td align="right" colspan="2"><?php echo $usuario_ingresar_condiciones."&nbsp;".Html::link('pages/condiciones', $usuario_ingresar_condiciones_link); ?>&nbsp;<?php echo Form::check('acepta', 'checkValue')?></td>
-    </tr>
+            <tr>
+                <td align="right">E-mail:&nbsp;</td>
+                <td><?php echo Form::text('usuario.email_usu', "class='input-medium email mask-email'") ?></td>
+            </tr>
+            <tr>
+                <td align="right" colspan="2"><?php echo $usuario_ingresar_condiciones . "&nbsp;" . Html::link('pages/condiciones', $usuario_ingresar_condiciones_link); ?>&nbsp;<?php echo Form::check('acepta', 'checkValue') ?></td>
+            </tr>
 
-</table>
+        </table>
     </div>
     <div align="center">
-    <table>
-        <tr><br>
-            <td><?php echo Form::submit(''.$ingresar_usuario_string.'','class="btn btn-submit boton"') ?>&nbsp;</td>
-           
-        </tr>         
-    </table>
-   </div>
+        <table>
+            <tr><br>
+            <td><?php echo Form::submit('' . $ingresar_usuario_string . '', 'class="btn btn-submit boton"') ?>&nbsp;</td>
 
- 
-<?php echo Form::hidden('usuario.estado_usu',null , 1); ?>
+            </tr>         
+        </table>
+    </div>
 
-<?php 
-   if($leng == "es")
-   {
-    echo Form::hidden('usuario.lenguaje_usu',null , "es"); 
-   }
-   else
-   {
-      echo Form::hidden('usuario.lenguaje_usu',null , "en");  
-   }
 
-?>
-<?php echo Form::hidden('usuario.rol_usu',null,'turista'); ?>
+<?php echo Form::hidden('usuario.estado_usu', null, 1); ?>
 
-<?php echo Form::close() ?> 
-    </fieldset>
+    <?php
+    if ($leng == "es") {
+        echo Form::hidden('usuario.lenguaje_usu', null, "es");
+    } else {
+        echo Form::hidden('usuario.lenguaje_usu', null, "en");
+    }
+    ?>
+    <?php echo Form::hidden('usuario.rol_usu', null, 'turista'); ?>
+
+    <?php echo Form::close() ?> 
+</fieldset>
 
 
