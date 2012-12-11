@@ -20,7 +20,7 @@ for ($i = 0; $i <= $indice - 1; $i++) {
 
                 
                     <tr>
-                        <td><span class='badge badge-important'><?php echo $cont ?></span>&nbsp  <?php echo Html::link("cliente/detalle/" . $id_cliente[$i] . "/" . $leng, $nombre_cli[$i], "target='_self'") ?> <?php echo "&nbsp;-&nbsp;" . $visitas[$i]; ?></td>
+                        <td style="height: 30px;"><span class='badge badge-info'><?php echo $cont ?></span>&nbsp  <?php echo Html::link("cliente/detalle/" . $id_cliente[$i] . "/" . $leng, $nombre_cli[$i], "target='_self'") ?> <?php echo "&nbsp;-&nbsp;" . $visitas[$i]."&nbsp; ".$cliente_detalle_visitas; ?></td>
 
 
                     </tr>
@@ -44,7 +44,7 @@ for ($i = 0; $i <= $contadors - 1; $i++) {
 
     
                   echo "<tr>
-                  <td><span class='badge badge-important'>" . $cont . "</span>&nbsp;" . Html::link("cliente/detalle/" . $id[$i] . "/" . $leng, $id_cli_cal[$i], "target='_self'") . " <b> " . number_format($valor_cal[$i], $decimals = 1) . "</b>
+                  <td><span class='badge badge-info'>" . $cont . "</span>&nbsp;" . Html::link("cliente/detalle/" . $id[$i] . "/" . $leng, $id_cli_cal[$i], "target='_self'") . " <b> " . number_format($valor_cal[$i], $decimals = 1) . "</b>
                   </td>
                  
                  
