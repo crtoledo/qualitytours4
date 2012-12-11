@@ -30,10 +30,10 @@
                     <blockquote>
                         <p><span style="font-size: 10px">
                             <?php
-                       $url = $_SERVER['REQUEST_URI'];
+                        $url2 = $_SERVER['REQUEST_URI'];
                         //devuelve los 2 ultimos caracteres de la url si es igual a en se utiliza las variables en inglés
-                        $url = substr($url, -2);
-                        if ($url == "en") echo Html::link('pages/terms_of_use', 'Terms of use'); 
+                        $url = substr($url2, -2);
+                        if ($url == "en" || $url2 == "/trunk/qualitytours/pages/terms_of_use" ) echo Html::link('pages/terms_of_use', 'Terms of use'); 
 
                         else echo Html::link('pages/condiciones', 'Condiciones de uso');
                         ?>
