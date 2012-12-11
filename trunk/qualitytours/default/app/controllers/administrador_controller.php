@@ -28,7 +28,7 @@ class AdministradorController extends AppController {
                 if (!$administrador_confirmar->buscar_adm_eliminado($id)) {
                     //Obtenemos los datos del usuario mediante su id
                     $datos_user = $user->find($id_usuario);
-                    if ($datos_user->rol_usu != "administrador" && $datos_user->rol_usu != "cliente") {
+                    if ($datos_user->rol_usu == "turista") {
                         //Paso de datos desde usuario encontrado a administrador a ingresar
                         $id = $datos_user->id;
                         $username_usu = $datos_user->username_usu;
