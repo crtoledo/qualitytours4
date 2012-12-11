@@ -3,10 +3,10 @@
 <?php
 echo Tag::js('jquery.keyfilter');
 
-$url = $_SERVER['REQUEST_URI'];
+$url2 = $_SERVER['REQUEST_URI'];
 //devuelve los 2 ultimos caracteres de la url si es igual a en se utiliza las variables en inglés
-$url = substr($url, -2);
-if ($url == "en") {
+$url = substr($url2, -2);
+if ($url == "en" || $url2 == "/trunk/qualitytours/pages/terms_of_use") {
     $leng = "en";
     //inglés
     //variables de menu Principal
@@ -43,7 +43,7 @@ if ($url == "en") {
     $enlace_olvido = "Forgot your password?";
     $administrar_suscripcion_string = "Suscription info";
     
-    } else {
+    } else if($url == "es" || $url2 == "/pages/condiciones") {
     $leng = "es";
     //español
     //variables de menu Principal
@@ -326,7 +326,18 @@ if ($url == "en") {
                     <?php } ?>
 
                     <?php
-                } else {
+                } 
+               else if($url == "/trunk/qualitytours/pages/condiciones" || $url == "/trunk/qualitytours/pages/terms_of_use")
+                    {?>
+                    
+                     <li> <?php echo "<a href='/trunk/qualitytours/pages/condiciones'><img src='/trunk/qualitytours/img/1351461465_es.png' alt='Spanish'></a>"; ?> </li>
+                     <li> <?php echo "<a href='/trunk/qualitytours/pages/terms_of_use'><img src='/trunk/qualitytours/img/1351461500_gb.png' alt='English'></a>"; ?></li>
+                    
+         <?php  }
+              
+              
+                else {
+                      
                     ?>
                     <?php $url = substr($url, 0, -2); ?>
                     <li> <?php echo "<a href='" . $url . "es'><img src='/trunk/qualitytours/img/1351461465_es.png' alt='Spanish'></a>"; ?> </li>
