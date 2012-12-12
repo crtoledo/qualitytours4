@@ -13,6 +13,8 @@ $publicacion_index_idiom="/es";
 $index_titulo_1 = "Los m&aacute;s visitados";
 $index_titulo_2= "Publica tus centros tur&iacute;sticos en Qualitytours";
 $index_titulo_3 = "Mejores calificados";
+$index_vermas = "Ver m&aacute;s";
+$index_vermenos = "Ver menos";
 
 //variables para vista /usuario/ingresar
 $titulo_ingresar_string = "Reg&iacute;strate";
