@@ -1,6 +1,7 @@
 <?php
  echo Tag::js('rating'); 
  echo Tag::js('jquery.tagcanvas.min'); 
+ echo Tag::js('jquery.truncator'); 
 //Código para el idioma
     if($leng == "en")
     {
@@ -34,41 +35,16 @@
  /***Limitar tamaño texto***/
  
 jQuery(document).ready(function(){
- 
-    $('.texto-cortado').each(function(){
- 
-    var longitud=180; //esta sección es donde se limita el texto a mostrar...
- 
-    if($(this).text().length > longitud){
- 
-        var texto=$(this).text().substring(0,longitud);
-        var indiceUltimoEspacio= texto.lastIndexOf(' ');
-        texto=texto.substring(0,indiceUltimoEspacio) +'<span class="puntos">...</span>';
- 
-        var primeraParte = '<span class="texto-mostrado">' + texto + '</span>';
-        var segundaParte = '<span class="texto-ocultado" style="display: none;">' + $(this).text().substring(indiceUltimoEspacio,$(this).text().length - 1) + '</span>';
- 
-        $(this).html(primeraParte + segundaParte);
-        $(this).after('<span class="boton_mas_info label label-info"><?php echo $index_vermas; ?></span>');
- 
-    };
- 
+
+$(function() {
+      $('.texto-cortado').truncate({
+          max_length: 180,
+          more: '<?php echo $index_vermas; ?>',
+          less: '<?php echo $index_vermenos; ?>'
+      });
     });
- 
-    $('.boton_mas_info').live('click',function(){
- 
-        if($(this).prev().find('.texto-ocultado').css('display') == 'none'){
-            $(this).prev().find('.texto-ocultado').css('display','inline');
-            $(this).prev().find('.puntos').css('display','none');
-            $(this).text('<?php echo $index_vermenos; ?>');
-        }
- 
-        else{
-            $(this).prev().find('.texto-ocultado').css('display','none');
-            $(this).prev().find('.puntos').css('display','inline');
-            $(this).html('<?php echo $index_vermas; ?>');
-        };
-    });
+
+
 });
 
 </script>    
@@ -90,7 +66,7 @@ jQuery(document).ready(function(){
                     <td><?php echo "<br><div style='text-align:center;' class='titulo_pub1'><h4>".$titulo[$i]."</h4></div><br>"  ?></td>
                 </tr>
                 <tr>
-                    <td><?php echo "<div class='detalle_pub1 texto-cortado' > <p  style='text-align:left;'>".$detalle[$i]."</p></div>"  ?></p></td>
+                    <td><?php echo "<div class='detalle_pub1 texto-cortado' > <p  style='text-align:justify;'>".$detalle[$i]."</p></div>"  ?></p></td>
                 </tr>
                 <tr>
                     <td></td>

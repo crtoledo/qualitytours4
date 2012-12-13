@@ -13,7 +13,7 @@ $publicacion_index_idiom="/en";
 $index_titulo_1 = "The most visited";
 $index_titulo_2 = "Publish your tourist center in Qualitytours";
 $index_titulo_3 = "Best qualified";
-$index_vermas = "See more";
+$index_vermas = "Show more";
 $index_vermenos = "Show less";
 
 //variables para vista /usuario/ingresar
