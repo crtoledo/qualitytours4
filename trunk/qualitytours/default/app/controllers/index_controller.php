@@ -114,18 +114,18 @@ class IndexController extends AppController
                 $leng = $this->leng;
                 $contador_cat = 0;
                 //$categorias_encontradas = $categoria_obj->find_all_by('estado_cat',1);
-                $categorias_encontradas = $categoria_obj->find('conditions: estado_cat=TRUE','limit: 7');
+                //$categorias_encontradas = $categoria_obj->find('conditions: estado_cat=TRUE','limit: 7');
                 
-                /*
+                
                   $categorias_encontradas = $categoria_obj->find_all_by_sql("
                     select * from 
                     (select distinct nombre_cat, nombre_cat_eng
                     from categoria where estado_cat=TRUE) s
 
                     order by random()
-                    limit 7");
+                    limit 10");
                   
-                 */
+                 
                 
                     foreach ($categorias_encontradas as $cat)
                     {
