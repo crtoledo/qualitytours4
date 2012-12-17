@@ -2,6 +2,7 @@
  echo Tag::js('rating'); 
  echo Tag::js('jquery.tagcanvas.min'); 
  echo Tag::js('jquery.truncator'); 
+ echo Tag::js('excanvas');
 //Código para el idioma
     if($leng == "en")
     {
@@ -113,6 +114,9 @@ $(function() {
        
             
                         <div id="myCanvasContainer">
+                            <?php
+                            
+                            ?>
                             <canvas width="170" height="200" id="myCanvas">
                                 
 <!--                                <p>Anything in here will be replaced on browsers that support the canvas element</p>-->
