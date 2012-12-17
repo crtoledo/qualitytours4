@@ -145,8 +145,15 @@ $number = $precio;
                             </div>
                             <div id="precio" style="text-align: left;">
                 <span class="badge badge-info" style=" font-size: 24px; font-family:Verdana;">
-                    <?php echo "$" . $precio ?>
-                </span>
+                    <?php
+                    $precio_conv = $precio;
+                    $precio = number_format($precio, 0, ',', '.');
+                    echo "$" . $precio; 
+                  ?> </span><?php  
+                    if ($leng == "en") 
+                    echo "<a target='_blank' href='http://www.xe.com/ucc/convert/?Amount=".$precio_conv."&From=CLP&To=USD'>".Html::img('dollar_icon.png')."</a>";
+                        ?>
+                
             </div>
                         </td>
                     </tr>
