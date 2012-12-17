@@ -35,11 +35,13 @@ class ServicioController extends AppController
                 {
                      $this->nombre = $servicio->nombre_ser;
                      $this->detalle = $servicio->detalle_ser;
+                     $this->tipo = $servicio->tipo_ser;
                 }
                 else
                 {
                     $this->nombre = $servicio->nombre_ser_eng;
                     $this->detalle = $servicio->detalle_ser_eng;
+                    $this->tipo = $servicio->tipo_ser_eng;
                 }
                
                 
@@ -53,6 +55,8 @@ class ServicioController extends AppController
                 $cli = new Cliente();
                 $cli->find($id_cliente);
                 $this->nombre_cliente = $cli->nombre_cli;
+                
+                
             
                 //Obtenemos la ubicacion
                 $ubicacion->find_by_sql("select *  from ubicacion where   id_usu = ".$id_cliente);
