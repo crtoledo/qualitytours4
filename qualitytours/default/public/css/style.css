@@ -6,9 +6,20 @@
 	padding:3px 10px 3px 50px;
 	background-repeat: no-repeat;
 	background-position: 10px center;
-        border-radius: 102px;
+
+         /* Bordes inferiores */
+        -webkit-border-bottom-right-radius: 30px;
+        -webkit-border-bottom-left-radius: 30px;
+        -moz-border-radius-bottomleft: 30px;
+        -moz-border-radius-bottomright: 30px;
+        border-bottom-right-radius: 30px;
+        border-bottom-left-radius: 30px;
+        
+        
         font-weight: bold;
      
+        margin-top: -20px; /* Para que se muestre pegado al menu */
+        margin-bottom: 10px; /* Para que se distancie de la pagina */
 }
 
 .error {

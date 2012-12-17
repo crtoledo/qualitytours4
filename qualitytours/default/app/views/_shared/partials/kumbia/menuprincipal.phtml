@@ -230,7 +230,7 @@ else
     });
 </script>
 
-<div class="navbar navbar-inverse ">
+<div class="navbar navbar-inverse " style="margin-bottom: 20px;">
     <div class="navbar-inner">
         <div class="container">
             <?php if (!Auth::is_valid()){ echo "<a class='brand' >Quality Tours</a>";} else if (Auth::get("rol_usu")== "turista" || Auth::get("rol_usu")== "cliente" || Auth::get("rol_usu")== "traductor" ) {echo "<a class='brand' >Quality Tours</a>";} ?>

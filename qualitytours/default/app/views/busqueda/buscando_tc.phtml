@@ -252,7 +252,7 @@ $string = str_replace("'", '', $string);
         $(".info_busqueda").append("<b><?php echo $busqueda_buscando_nofound; ?></b>");
         
         //INGRESO DE LA BUSQUEDA (LLAMADO AJAX 5)
-        if ('<?php echo $username_usu; ?>' != 'NOREGISTRADO' && resultados_encontrados>0)
+        if ('<?php echo $no_registrado; ?>' != true && resultados_encontrados>0)
         {
             $.ajax
             ({
@@ -279,9 +279,18 @@ $string = str_replace("'", '', $string);
 </script>
 
 
-<div class="resultados" style="text-align: center;" align="center">
+
+
+<div class="container-fluid">
+    <div class="row-fluid">
+<?php View::partial('publicidad_vertical'); ?>
+        <div class="span10 well"  style="background-color: #f9ffff; ">
+            <div class="resultados" style="text-align: center;" align="center">
 
 </div>
 
 <div class="info_busqueda" style="text-align: center;" align="center"></div>
 <br>
+        </div>
+    </div>
+</div>

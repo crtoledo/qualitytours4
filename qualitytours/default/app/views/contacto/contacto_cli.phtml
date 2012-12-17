@@ -111,16 +111,25 @@ $(document).ready(function () {
 }
 </style>
 
-
-<?php
-
-echo '<div class="div_contacto">
-<h1 style="font-family: SF"> Contactar: '.$nombre_cli.'</h1>    
-<form action="" method="post">  
-<input type="hidden" value="'.$username_usu.'" name="username" size="50" maxlength="80">
-<input type="hidden" value="'.$email_usu.'"  name="email" size="50" maxlength="60"> <label for="asunto">Asunto : </label>
-<input type="text" name="asunto" size="50" class="asunto mask-alphanum" maxlength="60"><br> <label for="mensaje">Mensaje : </label>  <textarea name="mensaje" class="body" cols="31" rows="5"></textarea> <br>
-<label for="enviar">
-<input type="submit" class="boton" name="enviar" value="Enviar consulta"></label>
- </form></div>';
-?>
+    
+    
+    
+<div class="container-fluid">
+    <div class="row-fluid">
+        <?php View::partial('publicidad_vertical'); ?>
+        <div class="span10 well"  style="background-color: #f9ffff; ">
+            <?php
+            echo '<div class="div_contacto">
+            <h1 style="font-family: SF"> Contactar: ' . $nombre_cli . '</h1>    
+            <form action="" method="post">  
+            <input type="hidden" value="' . $username_usu . '" name="username" size="50" maxlength="80">
+            <input type="hidden" value="' . $email_usu . '"  name="email" size="50" maxlength="60"> <label for="asunto">Asunto : </label>
+            <input type="text" name="asunto" size="50" class="asunto mask-alphanum" maxlength="60"><br> <label for="mensaje">Mensaje : </label>  
+            <textarea name="mensaje" class="body span10" style="resize:none;" cols="31" rows="5"></textarea> <br>
+            <label for="enviar">
+            <input type="submit" class="boton btn btn-info" name="enviar" value="Enviar consulta"></label>
+            </form></div>';
+                        ?>
+        </div>
+    </div>
+</div>

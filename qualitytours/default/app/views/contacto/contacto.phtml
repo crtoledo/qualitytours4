@@ -7,7 +7,7 @@ $mail = new PHPMailer();
 $mail->IsSMTP();
 //$mail->SMTPSecure = "ssl";
 $mail->SMTPAuth = true;
-$mail->SMTPDebug = 1;  // debugging: 1 = errors and messages, 2 = messages only
+$mail->SMTPDebug = 0;  // debugging: 1 = errors and messages, 2 = messages only
 $mail->Host = "smtp.mail.yahoo.com";
 $mail->Port = 25;
 $mail->Username = "qualitytoursadm@yahoo.com";
@@ -119,14 +119,23 @@ if (isset($_POST['enviar'])) {
 
 </style>
 
-<?php
 
-echo '<div class="div_contacto">
-<h1 style="font-family: SF"> Contacto</h1>    
-<form action="" method="post">  <label for="email">E-mail :</label>
-<input type="text" value=""  class="email mask-email" name="email" size="50" maxlength="60"> <label for="asunto">Asunto : </label>
-<input type="text" name="asunto" class="asunto mask-alphanum" size="50" maxlength="60"><br> <label for="mensaje">Mensaje : </label>  <textarea name="mensaje" class="body" cols="31" rows="5"></textarea> <br>
-<label for="enviar">
-<input type="submit" class="btn btn-success boton" name="enviar" value="Enviar mensaje"></label>
- </form></div>';
-?>
+
+<div class="container-fluid">
+    <div class="row-fluid">
+        <?php View::partial('publicidad_vertical'); ?>
+        <div class="span10 well"  style="background-color: #f9ffff; ">
+            <?php
+            echo '<div class="div_contacto">
+            <h1 style="font-family: SF"> Contacto</h1>    
+            <form action="" method="post">  <label for="email">E-mail :</label>
+            <input type="text" value=""  class="email mask-email" name="email" size="50" maxlength="60"> <label for="asunto">Asunto : </label>
+            <input type="text" name="asunto" class="asunto mask-alphanum" size="50" maxlength="60"><br> <label for="mensaje">Mensaje : </label>
+            <textarea name="mensaje" class="body span10" style="resize:none;" cols="31" rows="5"></textarea> <br>
+            <label for="enviar">
+            <input type="submit" class="btn btn-info boton" name="enviar" value="Enviar mensaje"></label>
+            </form></div>';
+            ?>
+        </div>
+    </div>
+</div>
