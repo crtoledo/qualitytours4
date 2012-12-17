@@ -9,9 +9,9 @@ class ContactoController extends AppController {
     
     }
 
-    public function contacto()
+    public function contacto($leng)
     {
-       
+       $this->leng = $leng;
     }
     
     public function contacto_cli($id_cli)
