@@ -25,7 +25,7 @@
             shape : 'hring',
             lock : 'x',
             zoom : 1.1
-        })) {
+        },'tags')) {
             // TagCanvas failed to load
             $('#myCanvasContainer').hide();
         }
@@ -120,7 +120,11 @@ $(function() {
                             <canvas width="170" height="200" id="myCanvas">
                                 
 <!--                                <p>Anything in here will be replaced on browsers that support the canvas element</p>-->
-                                <ul>
+                                
+                            </canvas>
+                            
+                            <div id="tags">
+                            <ul>
                                     <?php 
                                     for ($i=0 ; $i < $contador_cat ; $i++)
                                     {
@@ -129,7 +133,8 @@ $(function() {
                                     }
                                     ?>
                                 </ul>
-                            </canvas>
+                            </div>
+                            
                         </div>
                     
         
