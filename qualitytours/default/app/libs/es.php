@@ -195,6 +195,13 @@ $busqueda_buscando_centroscat = "Centros tur&iacute;sticos que se categorizan po
 $busqueda_buscando_resultados = "Resultados encontrados";
 $busqueda_buscando_nofound = "No se encontraron resultados, intente otra consulta";
 
+//contacto 
+
+$contacto_contacto_titulo = "Contacto";
+$contacto_contacto_asunto = "Asunto";
+$contacto_contacto_mensaje = "Mensaje";
+$contacto_contacto_boton = "Enviar mensaje";
+
 
 
 ?>

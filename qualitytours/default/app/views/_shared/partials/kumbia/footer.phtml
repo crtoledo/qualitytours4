@@ -33,11 +33,18 @@
                         $url2 = $_SERVER['REQUEST_URI'];
                         //devuelve los 2 ultimos caracteres de la url si es igual a en se utiliza las variables en inglés
                         $url = substr($url2, -2);
-                        if ($url == "en" || $url2 == "/trunk/qualitytours/pages/terms_of_use" ) echo Html::link('pages/terms_of_use', 'Terms of use'); 
-
-                        else echo Html::link('pages/condiciones', 'Condiciones de uso');
+                        if ($url == "en" || $url2 == "/trunk/qualitytours/pages/terms_of_use" )  
+                        {  
+                            echo Html::link('pages/terms_of_use', 'Terms of use'); 
+                            $leng = "en";
+                        }
+                        else
+                        {  
+                            $leng = "es";
+                            echo Html::link('pages/condiciones', 'Condiciones de uso');
+                        }
                         ?>
-                                | Condiciones del servicio | Pol&iacute;tica de privacidad | <?php echo Html::link('contacto/contacto', 'Contactenos'); ?> </span></p>
+                                | Condiciones del servicio | Pol&iacute;tica de privacidad | <?php echo Html::link('contacto/contacto/'.$leng, 'Contactenos'); ?> </span></p>
                         <small style="font-size: 8px">Actualizado al 9 de Diciembre</small>
                     </blockquote>
                 </div>
@@ -45,7 +52,7 @@
                     <blockquote class="pull-right">
 <!--                        <p><span style="font-size: 10px"><a href="http://qualitytours.no-ip.org">Quality Tours 2012</a></span></p>
                         <span style="font-size: 10px">Algunos derechos reservados</span>-->
-                        <p><span style="font-size: 10px"><a href="http://qualitytours.no-ip.org">Quality Tours 2012</a> </span></p>
+                        <p><span style="font-size: 10px">Quality Tours 2012 </span></p>
                         <small style="font-size: 10px">Algunos derechos reservados</small>
                     </blockquote>
                 </div>

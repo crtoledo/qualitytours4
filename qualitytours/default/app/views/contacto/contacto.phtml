@@ -1,4 +1,12 @@
 <?php
+//Código para el idioma
+if ($leng == "en") {
+    include_once APP_PATH . 'libs/en.php';
+} else {
+    include_once APP_PATH . 'libs/es.php';
+}
+?>   
+<?php
 
 View::content();
 require(APP_PATH . 'libs/PHPMailer_5.2.2-rc2/class.phpmailer.php');
@@ -127,13 +135,13 @@ if (isset($_POST['enviar'])) {
         <div class="span10 well"  style="background-color: #f9ffff; ">
             <?php
             echo '<div class="div_contacto">
-            <h1 style="font-family: SF"> Contacto</h1>    
+            <h1 style="font-family: SF">'.$contacto_contacto_titulo.'</h1>    
             <form action="" method="post">  <label for="email">E-mail :</label>
-            <input type="text" value=""  class="email mask-email" name="email" size="50" maxlength="60"> <label for="asunto">Asunto : </label>
-            <input type="text" name="asunto" class="asunto mask-alphanum" size="50" maxlength="60"><br> <label for="mensaje">Mensaje : </label>
+            <input type="text" value=""  class="email mask-email" name="email" size="50" maxlength="60"> <label for="asunto">'.$contacto_contacto_asunto.' : </label>
+            <input type="text" name="asunto" class="asunto mask-alphanum" size="50" maxlength="60"><br> <label for="mensaje">'.$contacto_contacto_mensaje.' : </label>
             <textarea name="mensaje" class="body span10" style="resize:none;" cols="31" rows="5"></textarea> <br>
             <label for="enviar">
-            <input type="submit" class="btn btn-info boton" name="enviar" value="Enviar mensaje"></label>
+            <input type="submit" class="btn btn-info boton" name="enviar" value="'.$contacto_contacto_boton.'"></label>
             </form></div>';
             ?>
         </div>

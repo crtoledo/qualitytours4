@@ -194,6 +194,14 @@ $busqueda_buscando_centroscat = "Places categorized by";
 $busqueda_buscando_resultados = "Found";
 $busqueda_buscando_nofound = "No results were found, try another query";
 
+//contacto 
+
+$contacto_contacto_titulo = "Contact form";
+$contacto_contacto_asunto = "Subject";
+$contacto_contacto_mensaje = "Message";
+$contacto_contacto_boton = "Submit";
+
+
 
 
 
