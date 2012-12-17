@@ -14,10 +14,11 @@ class BusquedaController extends AppController
             $usuario->find(Auth::get('id'));
             $this->username_usu = $usuario->username_usu;
             $this->id_usu = $usuario->id;
+            $this->no_registrado = false;
         }
         else
         {
-            $this->username_usu = "NOREGISTRADO";
+            $this->no_registrado = true;
             $this->id_usu = 0;
         }
     }

@@ -1,23 +1,29 @@
 <?php
-    //Código para el idioma
-    if($leng == "en")
-    {
-        include_once APP_PATH.'libs/en.php';
-    }
-    else
-    {
-        include_once APP_PATH.'libs/es.php';
-    }
+//Código para el idioma
+if ($leng == "en") {
+    include_once APP_PATH . 'libs/en.php';
+} else {
+    include_once APP_PATH . 'libs/es.php';
+}
 ?>
 
 <div><?php View::content() ?></div> 
-<h1 style="text-align: center;"><?php echo $usuario_olvidar_titulo; ?></h1>
-<?php echo Form::open(); ?>
-<table class="table">
-    <tr>
-        <td style="text-align: right;"><b><?php echo $usuario_olvidar_nombre; ?>:</b></td>
-        <td style="text-align: left;"><?php echo Form::text("buscar","class='mask-alphanum text'"); ?></td>
-    </tr>
-</table>
-<div style="text-align: center;"><?php echo Form::submit("".$usuario_olvidar_boton."","class='btn btn-info  boton'"); ?></div>
-<?php echo Form::close();?>
+
+<div class="container-fluid">
+    <div class="row-fluid">
+<?php View::partial('publicidad_vertical'); ?>
+        <div class="span10 well"  style="background-color: #f9ffff; ">
+
+            <h1 style="text-align: center;"><?php echo $usuario_olvidar_titulo; ?></h1>
+            <?php echo Form::open(); ?>
+            <table class="table">
+                <tr>
+                    <td style="text-align: right;"><b><?php echo $usuario_olvidar_nombre; ?>:</b></td>
+                    <td style="text-align: left;"><?php echo Form::text("buscar", "class='mask-alphanum text'"); ?></td>
+                </tr>
+            </table>
+            <div style="text-align: center;"><?php echo Form::submit("" . $usuario_olvidar_boton . "", "class='btn btn-info  boton'"); ?></div>
+            <?php echo Form::close(); ?>
+        </div>
+    </div>
+</div>
