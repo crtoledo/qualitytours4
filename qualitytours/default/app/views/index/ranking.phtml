@@ -10,7 +10,8 @@ if ($leng == "en") {
 
 <div class="container-fluid">
     <div class="row-fluid">
-        <div class="span6" style="text-align: center;">
+      <?php View::partial('publicidad_vertical'); ?>
+        <div class="span5" style="text-align: center;">
             <h4><b><?php echo $index_titulo_1; ?></b></h4>
 <table class="table table-hover table-bordered">
 <?php
@@ -32,17 +33,13 @@ for ($i = 0; $i <= $indice - 1; $i++) {
 
 
         </div>
-        <div class="span6" style="text-align: center;">
+        <div class="span5" style="text-align: center;">
             <h4><b><?php echo $index_titulo_3; ?></b></h4>
 <?php
 $cont = 0;
 echo "<table class='table table-hover table-bordered'>";
 for ($i = 0; $i <= $contadors - 1; $i++) {
     $cont = $i + 1;
-
-
-
-    
                   echo "<tr>
                   <td><span class='badge badge-info'>" . $cont . "</span>&nbsp;" . Html::link("cliente/detalle/" . $id[$i] . "/" . $leng, $id_cli_cal[$i], "target='_self'") . " <b> " . number_format($valor_cal[$i], $decimals = 1) . "</b>
                   </td>
