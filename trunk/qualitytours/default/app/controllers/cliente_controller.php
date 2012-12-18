@@ -219,7 +219,7 @@ class ClienteController extends AppController {
 
             //Obtenemos la ubicacion del centro
             $ubicacion = new Ubicacion();
-            $ubicacion = $ubicacion->find_by_sql("select *  from ubicacion where id_usu = " . $id ."and estado_ubi=TRUE");
+            $ubicacion = $ubicacion->find_by_sql("select *  from ubicacion where id_usu = " . $id . "and estado_ubi=TRUE");
             if ($ubicacion != null) {
                 $this->region_ubi = $ubicacion->region_ubi;
                 $this->ciudad_ubi = $ubicacion->ciudad_ubi;
@@ -231,17 +231,17 @@ class ClienteController extends AppController {
             if (Session::get("id") == $id) {
                 $captura = $client->visitas_cli;
                 $actualiza = $captura + 0;
-                $client->sql("update Cliente set visitas_cli=" . $actualiza . "where id_usu=" . $id ."and estado_usu=TRUE");
+                $client->sql("update Cliente set visitas_cli=" . $actualiza . "where id_usu=" . $id . "and estado_usu=TRUE");
             }
             if (Session::get("id") != $id) {
                 $captura = $client->visitas_cli;
                 $actualiza = $captura + 1;
-                $client->sql("update Cliente set visitas_cli=" . $actualiza . "where id_usu=" . $id ."and estado_usu=TRUE");
+                $client->sql("update Cliente set visitas_cli=" . $actualiza . "where id_usu=" . $id . "and estado_usu=TRUE");
             }
             if (Session::get("id") == null) {
                 $captura = $client->visitas_cli;
                 $actualiza = $captura + 1;
-                $client->sql("update Cliente set visitas_cli=" . $actualiza . "where id_usu=" . $id ."and estado_usu=TRUE");
+                $client->sql("update Cliente set visitas_cli=" . $actualiza . "where id_usu=" . $id . "and estado_usu=TRUE");
             }
 
 
@@ -304,7 +304,7 @@ class ClienteController extends AppController {
 
             if ($result != 0) {
 
-                $promedio = $calificacion->average("valor_cal", "conditions: cli_id_usu=" . $id ."and estado_cal=TRUE");
+                $promedio = $calificacion->average("valor_cal", "conditions: cli_id_usu=" . $id . "and estado_cal=TRUE");
                 $this->calificacion = $promedio;
                 $this->cantidad = $result;
             } else {
@@ -319,8 +319,7 @@ class ClienteController extends AppController {
                 $nombre = $user->find($id_usuario);
                 $this->nombre_usuario = $nombre->username_usu;
             }
-        }else
-        {
+        } else {
             Flash::info("Direccion no encontrada");
             Router::redirect("/");
         }
@@ -392,7 +391,15 @@ class ClienteController extends AppController {
                     $this->telefono_cli = $datos_cliente->telefono_cli;
                     $this->tipo_plan = $datos_cliente->tipo_plan;
                     $this->ini_sus = $datos_cliente->fecha_ini_sus;
-                    $this->fin_sus = $datos_cliente->fecha_fin_sus;
+                    //$this->fin_sus = $datos_cliente->fecha_fin_sus;
+
+                    $fin = $datos_cliente->fecha_fin_sus;
+                    if ($fin == "") {
+                        $this->fin_sus = "Indefinido";
+                    } else {
+                        $this->fin_sus = $datos_cliente->fecha_fin_sus;
+                    }
+                    $tipo_plan = $datos_cliente->tipo_plan;
                     //*********************************
                     //Fin obtencion datos del cliente
                     //*********************************
@@ -413,27 +420,28 @@ class ClienteController extends AppController {
                     //**************************************
                     //Para poder mostar el boton de renovar
                     //**************************************
+                    if ($tipo_plan != "free") {
+                        date_default_timezone_set('America/Santiago');
+                        //Se obtiene la fecha actual
+                        $dia_actual = date("d");
+                        $mes_actual = date("m");
+                        $ano_actual = date("Y");
+                        $comprobar = new solicitud(); // sirve para validar que no exista otra solicitud de renovacion
+                        //Se obtiene la fecha del fin suscripcion
+                        $fecha_fin_suscripcion = $datos_cliente->fecha_fin_sus;
 
-                    date_default_timezone_set('America/Santiago');
-                    //Se obtiene la fecha actual
-                    $dia_actual = date("d");
-                    $mes_actual = date("m");
-                    $ano_actual = date("Y");
-                    $comprobar = new solicitud(); // sirve para validar que no exista otra solicitud de renovacion
-                    //Se obtiene la fecha del fin suscripcion
-                    $fecha_fin_suscripcion = $datos_cliente->fecha_fin_sus;
+                        //Paso el dia, mes y año para poder comprarlos despues
+                        list($ano, $mes, $dia) = explode('-', $fecha_fin_suscripcion);
 
-                    //Paso el dia, mes y año para poder comprarlos despues
-                    list($ano, $mes, $dia) = explode('-', $fecha_fin_suscripcion);
-
-                    //Se valida de que se cumpla las condiciones de fecha y de que no exista otra solicitud de renovacion
-                    if ($ano == $ano_actual && $mes == $mes_actual && $dia_actual >= $dia && !$comprobar->solicitud_renovacion($id_cliente)) {
-                        // se se cumple las condiciones el boton puede ser mostrado
-                        $this->muestra_boton = "Si";
-                        $this->estado_sol = "1";
-                    } else {
-                        $this->noexiste = "<center><b>Todavia  no cumple los requisitos</b></center>";
-                        $this->estado_sol = "1";
+                        //Se valida de que se cumpla las condiciones de fecha y de que no exista otra solicitud de renovacion
+                        if ($ano == $ano_actual && $mes == $mes_actual && $dia_actual >= $dia && !$comprobar->solicitud_renovacion($id_cliente)) {
+                            // se se cumple las condiciones el boton puede ser mostrado
+                            $this->muestra_boton = "Si";
+                            $this->estado_sol = "1";
+                        } else {
+                            $this->noexiste = "<center><b>Todavia  no cumple los requisitos</b></center>";
+                            $this->estado_sol = "1";
+                        }
                     }
                     //******************
                     //Fin boton renovar
@@ -456,6 +464,7 @@ class ClienteController extends AppController {
                         $this->mail_sol = $leyendas->mail_sol;
                     } else {
                         //$this->existe ="<center><b>Ya tiene una solicitud de renovacion pendiente</b></center>";
+                        $this->estado_sol = "1";
                     }
                     //************************************************
                     //Fin leyendas cuando el boton renovar no aparece
