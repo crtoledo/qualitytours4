@@ -282,9 +282,7 @@ reemplazo se uso 'errorVal'.
 }
 .delete {
 cursor: pointer;
-font-size: 16px;
-font-weight: bold;
-margin-left: 820px;
+
 }
 </style>
 
@@ -504,34 +502,35 @@ $(document).ready(function()
                 }
                 if($cont == 1)
                 {?>
-     
-                         
-                        <?php  for($i=0; $i<=$contador-1 ; $i++) 
-                        {?>
+     <table class="table table-hover  span12"  style="margin-left: 0px;">
 
-                    <div class="service_list" id="service<?=$idComentario[$i]?>" data="<?=$idComentario[$i]?>">    
-                        <table class="table table-hover">
-                            <tr>
-                                <td><?php echo "<b>".$nombre[$i]."</b>"; ?></td>
-                                <td><div align="right"><?php echo "<b>".$fecha[$i]."</b>";
-                                 if(Auth::is_valid())
-                                 {
-                                    if(Auth::get("id") ==  $id[$i] || Auth::get("rol_usu") == "administrador")
-                                    { ?>
-                                        <a  class="delete" id="<?=$idComentario[$i]?>"><i class="icon-remove"></i></a>  
-                              <?php } 
-                              
-                                 }?>
-                                 </div></td>
-                            </tr>
-                        </table>
-                        <table>
-                            <tr>
-                                <td> <div align="left"> <?php echo $detalle[$i];?> </div></td>
-                            </tr> 
-                        </table> 
-                    </div>  
-                    <?php  } //fin for?>
+    <?php for ($i = 0; $i <= $contador - 1; $i++) {
+        ?>
+
+          
+            
+                <tr id="service<?= $idComentario[$i] ?>">
+                    <td><?php echo "<b>" . $nombre[$i] . "</b>"; ?>
+                        <br><div style="text-align: left;"> <?php echo $detalle[$i]; ?> </div>
+                    </td>
+                    <td style="text-align: right;"><?php
+        echo "<b>" . $fecha[$i] . "</b>";
+        if (Auth::is_valid()) {
+            if (Auth::get("id") == $id[$i] || Auth::get("rol_usu") == "administrador") {
+                ?>
+                                    <a  class="delete" id="<?= $idComentario[$i] ?>"><i class="icon-remove"></i></a>  
+                                <?php }
+                            }
+                            ?>
+                        </td>
+                </tr>
+           
+            
+         
+    <?php } //fin for ?>
+</table>
+                         
+                
 
                 <?php  }?>        
                 <?php 
