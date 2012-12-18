@@ -26,6 +26,11 @@ class Cliente extends ActiveRecord
     {
         return $this->find_by_sql("select * from cliente where id_usu=".$dato. " and estado_usu = true");
     }
+    
+    public function buscar_cliente_inactivo($dato)
+    {
+        return $this->find_by_sql("select * from cliente where id_usu=".$dato. " and estado_usu = false");
+    }    
 }
 ?>
 

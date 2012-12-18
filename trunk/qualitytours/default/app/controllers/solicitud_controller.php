@@ -369,20 +369,31 @@ class SolicitudController extends AppController {
                     //Se obtiene el tipo de solicitud, si esta es de renovacion se debera buscar y actualizar 
                     //la anterior solicitud para cambiar el activo_sol a false
                     $tipo_solicitud = $comprobar_solicitud->tipo_sol;
+                    
 
                     date_default_timezone_set('America/Santiago');
 
                     $datos_actualizacion_cliente = new cliente;
+                    
+                    $datos_actualizacion_cliente->buscar_cliente_inactivo($id_cliente);
+                    $tipo_plan = $datos_actualizacion_cliente->tipo_plan;
+                    
                     $datos_actualizacion_usuario = new usuario;
                     $datos_actualizacion_solicitud = new solicitud;
                     $datos_actualizacion_categoria = new categoria;
 
                     //Se asignas las fechas de inicio y fin de la suscripcion
                     $fecha_inicio = date("d-m-Y");
-                    $fecha_fin = date('d-m-Y', strtotime('+1 Year'));
-
+                    if ($tipo_plan != "free"){
+                        $fecha_fin = date('d-m-Y', strtotime('+1 Year'));
+                        $sentencia = "UPDATE cliente SET id_sol=" . $id_solicitud . ", rol_usu='cliente', estado_usu= true, fecha_ini_sus='" . $fecha_inicio . "', fecha_fin_sus='" . $fecha_fin . "' WHERE id_usu=" . $id_cliente;
+                    }
+                    else{
+                        $sentencia = "UPDATE cliente SET id_sol=" . $id_solicitud . ", rol_usu='cliente', estado_usu= true, fecha_ini_sus='" . $fecha_inicio . "' WHERE id_usu=" . $id_cliente;
+                    }
+                    
                     //Se actualiza la tabla cliente con los nuevos datos del cliente
-                    $sentencia = "UPDATE cliente SET id_sol=" . $id_solicitud . ", rol_usu='cliente', estado_usu= true, fecha_ini_sus='" . $fecha_inicio . "', fecha_fin_sus='" . $fecha_fin . "' WHERE id_usu=" . $id_cliente;
+                    
                     $sentencia_actualizar_rol = "UPDATE usuario SET id_sol=" . $id_solicitud . ", rol_usu='cliente' WHERE id=" . $id_cliente;
                     $sentencia_actualizar_solicitud = "UPDATE solicitud SET estado_sol='Aceptada', adm_id_usu=". Auth::get("id") ."  WHERE id=" . $id_solicitud;
                     $sentencia_actualizar_estado_categoria = "UPDATE categoria SET estado_cat=true WHERE id_usu =". $id_cliente;
