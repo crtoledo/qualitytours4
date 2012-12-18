@@ -26,23 +26,15 @@ $Db->close($conn);
 
 ?>
 
-  
-   
-
-   
-        <div class="service_list" id="service<?=$ultimoid ?>" data="<?=$ultimoid ?>">  
+<div class="service_list" id="service<?=$ultimoid ?>" data="<?=$ultimoid ?>">  
             <table class="table table-hover">
                 <tr>
-                    <td><?php echo "<b>".$nombre."</b>"; ?></td>
+                    <td><?php echo "<b>".$nombre."</b>"; ?>
+                <br>
+                <div align="left"> <?php echo $comentario; ?> </div></td>
                     <td><div align="right"><?php echo "<b>".$fecha."</b>";?> <a  class="delete" id="<?=$ultimoid ?>"><i class="icon-remove"></i></a> </div></td>
                 </tr>
-            </table>
-            <table>
-            <tr>
-                <td> <div align="left"> <?php echo $comentario; ?> </div></td>
-            </tr>
+            
            </table> 
-        </div>
-
-
+ </div>
 
