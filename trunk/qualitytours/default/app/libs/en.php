@@ -200,6 +200,9 @@ $contacto_contacto_titulo = "Contact form";
 $contacto_contacto_asunto = "Subject";
 $contacto_contacto_mensaje = "Message";
 $contacto_contacto_boton = "Submit";
+$contacto_contacto_asuntoval = "The subject must be at least 3 characters";
+$contacto_contacto_mensajeval = "The message can not be empty";
+$contacto_contacto_mensajeval2= "The message must be at least 10 characters";
 
 
 

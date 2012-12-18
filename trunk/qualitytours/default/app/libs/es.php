@@ -201,6 +201,10 @@ $contacto_contacto_titulo = "Contacto";
 $contacto_contacto_asunto = "Asunto";
 $contacto_contacto_mensaje = "Mensaje";
 $contacto_contacto_boton = "Enviar mensaje";
+$contacto_contacto_asuntoval = "El asunto debe tener al menos 3 letras";
+$contacto_contacto_mensajeval = "El mensaje no puede estar vac&iacute;o";
+$contacto_contacto_mensajeval2= "El mensaje debe tener al menos 10 letras";
+
 
 
 
