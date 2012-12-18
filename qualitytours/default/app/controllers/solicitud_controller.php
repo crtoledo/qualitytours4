@@ -95,9 +95,10 @@ class SolicitudController extends AppController {
         }
     }
 
-    public function cancela($id) {
+    public function cancela($id,$leng) {
         // se comprueba que el usuario quien cancela sea el mismo de la solicitud
         if (Auth::get("id") == $id) {
+            $this->leng = $leng;
             $cancelacion = new solicitud();
             // se verifica que la solicitud exista
             if ($cancelacion->buscar_solicitud($id)) {
@@ -125,12 +126,11 @@ class SolicitudController extends AppController {
         }
     }
 
-
-    Public function confirmacionmail_renovacion($id) {
+    Public function confirmacionmail($id) {
         //se confirma que el que ingresa sea el usuario y no otro
         if (Auth::get("id") == $id) {
             $confirmacionmail = new solicitud();
-            $confirmacionmail->confirmar_mail_renovacion($id);
+            $confirmacionmail->confirmar_mail($id);
 
             // Se verifica que no haya confirmado anteriormente
             if ($confirmacionmail->mail_sol != "t") {
@@ -138,18 +138,20 @@ class SolicitudController extends AppController {
 
                 if ($confirmacionmail->update()) {
                     Flash::info('Ha confirmado el envio del mail');
-                    Router::redirect("/cliente/administrarsuscripcion/");
+                    Router::redirect("/solicitud/ver/" . $id);
                 } else {
                     Flash::info("error al confirmar envio mail");
                 }
             } else {
                 Flash::info('Usted ya ha confirmado el envio del mail');
-                //Router::redirect("/solicitud/ver/" . $id);
+                Router::redirect("/solicitud/ver/" . $id);
             }
         } else {
-            //Router::redirect("/");
+            Router::redirect("/");
         }
     }
+    
+
 
 ///////////////////////////////////////////////////////////
 //******************************************************//    
@@ -163,8 +165,9 @@ class SolicitudController extends AppController {
 //****************************************************//    
 /////////////////////////////////////////////////////// 
 
-    public function renovarsuscripcion() {
+    public function renovarsuscripcion($leng) {
         if (Auth::get("rol_usu") == "cliente") {
+            $this->leng = $leng;
             $id_cliente = Auth::get("id");
             $solicitud_renovacion = new solicitud ();
             $cantidad_Renovacion = $solicitud_renovacion->count("conditions: id_usu=" . $id_cliente . "and activo_sol= true and estado_sol= 'Renovacion'");
@@ -202,7 +205,7 @@ class SolicitudController extends AppController {
                         $nueva_solicitud->activo_sol = "true";
                         if ($nueva_solicitud->save()) {
                             Flash::success('Solicitud ingresada correctamente');
-                            Router::redirect("/cliente/administrarsuscripcion/");
+                            Router::redirect("/cliente/administrarsuscripcion/".$leng);
                         } else {
                             Flash::error('Solicitud no ingresada');
                             Router::redirect("/");
@@ -225,11 +228,12 @@ class SolicitudController extends AppController {
         }
     }
     
-    Public function confirmacionmail($id) {
+    Public function confirmacionmail_renovacion($id,$leng) {
         //se confirma que el que ingresa sea el usuario y no otro
         if (Auth::get("id") == $id) {
+            $this->leng = $leng;
             $confirmacionmail = new solicitud();
-            $confirmacionmail->confirmar_mail($id);
+            $confirmacionmail->confirmar_mail_renovacion($id);
 
             // Se verifica que no haya confirmado anteriormente
             if ($confirmacionmail->mail_sol != "t") {
@@ -237,13 +241,44 @@ class SolicitudController extends AppController {
 
                 if ($confirmacionmail->update()) {
                     Flash::info('Ha confirmado el envio del mail');
-                    Router::redirect("/solicitud/ver/" . $id);
+                    Router::redirect("/cliente/administrarsuscripcion/".$leng);
                 } else {
                     Flash::info("error al confirmar envio mail");
                 }
             } else {
                 Flash::info('Usted ya ha confirmado el envio del mail');
-                Router::redirect("/solicitud/ver/" . $id);
+                //Router::redirect("/solicitud/ver/" . $id);
+            }
+        } else {
+            //Router::redirect("/");
+        }
+    }
+    
+        public function cancela_renovacion($id,$leng) {
+        // se comprueba que el usuario quien cancela sea el mismo de la solicitud
+        if (Auth::get("id") == $id) {
+            $this->leng = $leng;
+            $cancelacion = new solicitud();
+            // se verifica que la solicitud exista
+            if ($cancelacion->cancela_solicitud_renovacion($id)) {
+                // se valida que no pueda cancelar la solicitud si es que ya confirmo el envio del mail
+                if ($cancelacion->mail_sol == "f") {
+                    $cancelacion->estado_sol = "Cancelada";
+                    $cancelacion->activo_sol = "false";
+
+                    if ($cancelacion->update()) {
+                        Flash::info('Ha cancelado su solicitud');
+                        Router::redirect("/cliente/administrarsuscripcion/".$leng);
+                    } else {
+                        Flash::info("Error al cancelar la solicitud");
+                    }
+                } else {
+                    Flash::info("No puede cancelar su solicitud");
+                    Router::redirect("/");
+                }
+            } else {
+                Flash::info("Solicitud no encontrada");
+                Router::redirect("/");
             }
         } else {
             Router::redirect("/");

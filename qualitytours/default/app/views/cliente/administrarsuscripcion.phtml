@@ -200,7 +200,7 @@ Seccion de modal
             </div>
             <div class="modal-footer">
                 <button class="btn" data-dismiss="modal" aria-hidden="true">Cerrar</button>
-                <a href="/trunk/qualitytours/solicitud/renovarsuscripcion"><button class="btn btn-primary">Renovar suscripción</button></a>
+                <a href="/trunk/qualitytours/solicitud/renovarsuscripcion/<?php echo $leng ?>"><button class="btn btn-primary">Renovar suscripción</button></a>
             </div>
         </div>
     <?php }
@@ -218,7 +218,7 @@ Seccion de modal
             </div>
             <div class="modal-footer">
                 <button class="btn" data-dismiss="modal" aria-hidden="true">Cerrar</button>
-                <a href="/trunk/qualitytours/solicitud/cancela/<?php echo Auth::get("id") ?>"><button class="btn btn-primary">Cancelar solicitud</button></a>
+                <a href="/trunk/qualitytours/solicitud/cancela_renovacion/<?php echo Auth::get("id")."/".$leng ?>"><button class="btn btn-primary">Cancelar solicitud</button></a>
             </div>
     <?php } else if ($estado_sol == "Esperando") { ?>
             <!--   Modal de confirmacion de envio mail-->   
@@ -234,7 +234,7 @@ Seccion de modal
                 </div>
                 <div class="modal-footer">
                     <button class="btn" data-dismiss="modal" aria-hidden="true">Cerrar</button>
-                    <a href="/trunk/qualitytours/solicitud/confirmacionmail_renovacion/<?php echo Auth::get("id") ?>"><button class="btn btn-primary">Aceptar</button></a>
+                    <a href="/trunk/qualitytours/solicitud/confirmacionmail_renovacion/<?php echo Auth::get("id")."/".$leng ?>"><button class="btn btn-primary">Aceptar</button></a>
                 </div>  
             <?php }
         } ?>

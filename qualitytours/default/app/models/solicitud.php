@@ -31,5 +31,9 @@ class Solicitud extends ActiveRecord
        return $this->find_by_sql("select * from solicitud where id_usu = " . $dato . " and activo_sol ='true' and tipo_sol='Renovacion'");
     }    
     
+    Public function cancela_solicitud_renovacion($dato)
+    {
+       return $this->find_by_sql("select * from solicitud where id_usu=".$dato. " and activo_sol ='true' and tipo_sol='Renovacion'");
+    }
 }
 ?>
