@@ -63,19 +63,19 @@ if (isset($_POST['enviar'])) {
             $(".asunto").val($.trim($(".asunto").val()));
         
             if( $(".email").val() == "" || !emailreg.test($(".email").val()) ){
-                $(".email").focus().after("<span class='errorVal'>Ingrese un email valido</span>");
+                $(".email").focus().after("<span class='errorVal'><?php echo $val_email_string; ?></span>");
                 return false;
             }else if( $(".asunto").val().length<3){
-                $(".asunto").focus().after("<span class='errorVal'>El asunto debe tener al menos 3 letras</span>");
+                $(".asunto").focus().after("<span class='errorVal'><?php echo $contacto_contacto_asuntoval; ?></span>");
                 return false;
             }else if( $(".asunto").val().length<3){
-                $(".asunto").focus().after("<span class='errorVal'>El asunto debe tener al menos 3 letras</span>");
+                $(".asunto").focus().after("<span class='errorVal'><?php echo $contacto_contacto_asuntoval; ?></span>");
                 return false;
             }else if( $(".body").val() == ""){
-                $(".body").focus().after("<span class='errorVal'>El mensaje no puede estar vacío</span>");
+                $(".body").focus().after("<span class='errorVal'><?php echo $contacto_contacto_mensajeval; ?></span>");
                 return false;
             }else if( $(".body").val().length<10){
-                $(".body").focus().after("<span class='errorVal'>El mensaje debe tener al menos 10 letras</span>");
+                $(".body").focus().after("<span class='errorVal'><?php echo $contacto_contacto_mensajeval2; ?></span>");
                 return false;
             }
         });
