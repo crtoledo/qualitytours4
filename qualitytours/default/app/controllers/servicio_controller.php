@@ -43,13 +43,36 @@ class ServicioController extends AppController
                     $this->detalle = $servicio->detalle_ser_eng;
                     $this->tipo = $servicio->tipo_ser_eng;
                 }
-               
+                $this->mostrar = $servicio->visitas_ser + 1;
+             
+              
+                //Obtenemos el id del cliente
+                $id_cliente = $servicio->id_usu;
+                //Comprueba que no se actualise el contador de visita si es el mismo dueño del centro turistico
+            if (Session::get("id") == $id_cliente) {
+                echo flash::info("1");
+                $captura = $servicio->visitas_ser;
+                $actualiza = $captura + 0;
+                $servicio->sql("update Servicio set visitas_ser=" . $actualiza . "where id_usu=" . $id_cliente ."and estado_ser=TRUE");
+            }
+            if (Session::get("id") != $id_cliente) {
+                 echo flash::info("2");
+                $captura = $servicio->visitas_ser;
+                $actualiza = $captura + 1;
+                $servicio->sql("update Servicio set visitas_ser=" . $actualiza . "where id_usu=" . $id_cliente ."and estado_ser=TRUE");
+            }
+            if (Session::get("id") == null) {
+                 echo flash::info("3");
+                $captura = $servicio->visitas_ser;
+                $actualiza = $captura + 1;
+                $servicio->sql("update Servicio set visitas_ser=" . $actualiza . "where id_usu=" . $id_cliente ."and estado_ser=TRUE");
+            }
+
                 
                 
                 $this->precio = $servicio->precio_ser;
 
-                //Obtenemos el id del cliente
-                $id_cliente = $servicio->id_usu;
+               
                 
                 //Obtenemos el nombre del centro turistico (cliente)
                 $cli = new Cliente();
