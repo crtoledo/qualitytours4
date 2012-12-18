@@ -14,7 +14,7 @@ class ContactoController extends AppController {
        $this->leng = $leng;
     }
     
-    public function contacto_cli($id_cli)
+    public function contacto_cli($id_cli,$leng)
     {
         //verifica si se encuentra logueado
         if (!Auth::is_valid()) {
@@ -22,6 +22,7 @@ class ContactoController extends AppController {
             Router::redirect("/");
         }
         
+        $this->leng = $leng;
         $usuario = new Usuario();
         $usuario->find(Auth::get('id'));
         $this->username_usu = $usuario->username_usu;

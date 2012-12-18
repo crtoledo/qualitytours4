@@ -1,4 +1,15 @@
 <?php
+//Código para el idioma
+    if($leng == "en")
+    {
+        include_once APP_PATH.'libs/en.php';
+    }
+    else
+    {
+        include_once APP_PATH.'libs/es.php';
+    }
+?>
+<?php
     View::content();
     require(APP_PATH.'libs/PHPMailer_5.2.2-rc2/class.phpmailer.php');
     require(APP_PATH.'libs/PHPMailer_5.2.2-rc2/class.smtp.php');
@@ -59,16 +70,16 @@ $(document).ready(function () {
         $(".asunto").val($.trim($(".asunto").val()));
         
          if( $(".asunto").val() == "" ){
-            $(".asunto").focus().after("<span class='errorVal'>El asunto no puede estar vacío</span>");
+            $(".asunto").focus().after("<span class='errorVal'><?php echo $contacto_contacto_asuntoval; ?></span>");
             return false;
         }else if( $(".asunto").val().length<3){
-            $(".asunto").focus().after("<span class='errorVal'>El asunto debe tener al menos 3 letras</span>");
+            $(".asunto").focus().after("<span class='errorVal'><?php echo $contacto_contacto_asuntoval; ?></span>");
             return false;
         }else if( $(".body").val() == ""){
-            $(".body").focus().after("<span class='errorVal'>El mensaje no puede estar vacío</span>");
+            $(".body").focus().after("<span class='errorVal'><?php echo $contacto_contacto_mensajeval; ?></span>");
             return false;
         }else if( $(".body").val().length<10){
-            $(".body").focus().after("<span class='errorVal'>El mensaje debe tener al menos 10 letras</span>");
+            $(".body").focus().after("<span class='errorVal'><?php echo $contacto_contacto_mensajeval2;?></span>");
             return false;
         }
         
@@ -123,11 +134,11 @@ $(document).ready(function () {
             <h1 style="font-family: SF"> Contactar: ' . $nombre_cli . '</h1>    
             <form action="" method="post">  
             <input type="hidden" value="' . $username_usu . '" name="username" size="50" maxlength="80">
-            <input type="hidden" value="' . $email_usu . '"  name="email" size="50" maxlength="60"> <label for="asunto">Asunto : </label>
-            <input type="text" name="asunto" size="50" class="asunto mask-alphanum" maxlength="60"><br> <label for="mensaje">Mensaje : </label>  
+            <input type="hidden" value="' . $email_usu . '"  name="email" size="50" maxlength="60"> <label for="asunto">'.$contacto_contacto_asunto.' : </label>
+            <input type="text" name="asunto" size="50" class="asunto mask-alphanum" maxlength="60"><br> <label for="mensaje">'.$contacto_contacto_mensaje.' : </label>  
             <textarea name="mensaje" class="body span10" style="resize:none;" cols="31" rows="5"></textarea> <br>
             <label for="enviar">
-            <input type="submit" class="boton btn btn-info" name="enviar" value="Enviar consulta"></label>
+            <input type="submit" class="boton btn btn-info" name="enviar" value="'.$contacto_contacto_boton.'"></label>
             </form></div>';
                         ?>
         </div>
