@@ -78,6 +78,7 @@ class ServicioController extends AppController
                 $cli = new Cliente();
                 $cli->find($id_cliente);
                 $this->nombre_cliente = $cli->nombre_cli;
+                $this->id_cli = $cli->id_usu;
                 
                 
             
