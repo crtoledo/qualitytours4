@@ -374,7 +374,7 @@ class ClienteController extends AppController {
         if (Auth::is_valid()) {
             if (Auth::get("rol_usu") == "cliente") {
                 $this->leng = $leng;
-
+                $this->estado_sol = "1";
                 $datos_cliente = new cliente();
                 $id_cliente = Auth::get("id");
 
@@ -391,20 +391,22 @@ class ClienteController extends AppController {
                     $this->telefono_cli = $datos_cliente->telefono_cli;
                     $this->tipo_plan = $datos_cliente->tipo_plan;
                     $this->ini_sus = $datos_cliente->fecha_ini_sus;
-                    //$this->fin_sus = $datos_cliente->fecha_fin_sus;
 
+                    $tipo_plan = $datos_cliente->tipo_plan;
+                    //$this->fin_sus = $datos_cliente->fecha_fin_sus;
+                    //En caso de que el plan sea free se muestra el mensaje indefinido
                     $fin = $datos_cliente->fecha_fin_sus;
                     if ($fin == "") {
                         $this->fin_sus = "Indefinido";
                     } else {
                         $this->fin_sus = $datos_cliente->fecha_fin_sus;
                     }
-                    $tipo_plan = $datos_cliente->tipo_plan;
+                    //Fin mensaje indefinido
                     //*********************************
                     //Fin obtencion datos del cliente
                     //*********************************
                     //
-                //******************************************************************
+                    //******************************************************************
                     //Se obtienen los datos de la solicitud aceptada asociada al cliente
                     //******************************************************************
                     $datos_solicitud = new solicitud();
@@ -416,10 +418,17 @@ class ClienteController extends AppController {
                     //******************************************************************
                     //Fin obtencion datos de la solicitud aceptada asociada al cliente
                     //******************************************************************     
-                    //           
+                    // 
+                    ////////////////////////////////////////////////////////////////////////////////////////      
+                    ///////////////////////////////////////////////////////////////////////////////////////           
+                    /////////////////////////////////MODULO DE RENOVACIÓN///////////////////////////////// 
+                    /////////////////////////////////////////////////////////////////////////////////////
+                    ////////////////////////////////////////////////////////////////////////////////////
+                    //    
                     //**************************************
                     //Para poder mostar el boton de renovar
                     //**************************************
+                    //Se revisa que el tipo de plan sea normal o plus
                     if ($tipo_plan != "free") {
                         date_default_timezone_set('America/Santiago');
                         //Se obtiene la fecha actual
@@ -442,33 +451,42 @@ class ClienteController extends AppController {
                             $this->noexiste = "<center><b>Todavia  no cumple los requisitos</b></center>";
                             $this->estado_sol = "1";
                         }
-                    }
-                    //******************
-                    //Fin boton renovar
-                    //******************
-                    //
-                //************************************************************
-                    //Leyendas y panel de administracion de la nueva solicitud de 
-                    //administracion, cuando el boton renovar no aparece
+
+                        //******************
+                        //Fin boton renovar
+                        //******************
+                        //
                     //************************************************************
+                        //Leyendas y panel de administracion de la nueva solicitud de 
+                        //administracion, cuando el boton renovar no aparece despues de haber 
+                        //mandado la solicitud de renovacion
+                        //************************************************************
 
-                    $leyendas = new solicitud();
-                    if ($leyendas->solicitud_renovacion($id_cliente)) {
-                        //Se obtienen los datos de la solicitud renovacion, para poder mostrar el panel de administracion de la misma
+                        $leyendas = new solicitud();
+                        if ($leyendas->solicitud_renovacion($id_cliente)) {
+                            //Se obtienen los datos de la solicitud renovacion, para poder mostrar el panel de administracion de la misma
 
-                        $this->panel_suscripcion_renovacion = $leyendas->tipo_sol;
-                        $this->estado_sol = $leyendas->estado_sol;
-                        $this->fecha_sol = $leyendas->fecha_sol;
-                        $this->observaciones_sol = $leyendas->observaciones_sol;
-                        $this->id_usu = $leyendas->id_usu;
-                        $this->mail_sol = $leyendas->mail_sol;
-                    } else {
-                        //$this->existe ="<center><b>Ya tiene una solicitud de renovacion pendiente</b></center>";
-                        $this->estado_sol = "1";
-                    }
-                    //************************************************
-                    //Fin leyendas cuando el boton renovar no aparece
-                    //************************************************
+                            $this->panel_suscripcion_renovacion = $leyendas->tipo_sol;
+                            $this->estado_sol = $leyendas->estado_sol;
+                            $this->fecha_sol = $leyendas->fecha_sol;
+                            $this->observaciones_sol = $leyendas->observaciones_sol;
+                            $this->id_usu = $leyendas->id_usu;
+                            $this->mail_sol = $leyendas->mail_sol;
+                        } else {
+                            //$this->existe ="<center><b>Ya tiene una solicitud de renovacion pendiente</b></center>";
+                            $this->estado_sol = "1";
+                        }
+                        //************************************************
+                        //Fin leyendas cuando el boton renovar no aparece
+                        //************************************************
+                        ////////////////////////////////////////////////////////////////////////////////////////      
+                        ///////////////////////////////////////////////////////////////////////////////////////           
+                        ///////////////////////////////FIN MODULO DE RENOVACIÓN/////////////////////////////// 
+                        /////////////////////////////////////////////////////////////////////////////////////
+                        ////////////////////////////////////////////////////////////////////////////////////  
+                    } //else if ($tipo_plan == "free") {
+//                        $this->activacion_panel_cambio_plan= "1";
+//                    }
                 } else {
                     Flash::info('No tiene suscripcion activa');
                     Router::redirect("cliente/ingresarsolicitud");
