@@ -170,7 +170,7 @@ class SolicitudController extends AppController {
             $this->leng = $leng;
             $id_cliente = Auth::get("id");
             $solicitud_renovacion = new solicitud ();
-            $cantidad_Renovacion = $solicitud_renovacion->count("conditions: id_usu=" . $id_cliente . "and activo_sol= true and estado_sol= 'Renovacion'");
+            $cantidad_Renovacion = $solicitud_renovacion->count("conditions: id_usu=" . $id_cliente . "and activo_sol= true and tipo_sol= 'Renovacion' and (estado_sol ='Pendiente' or estado_sol= 'Esperando')");
 
             $this->ah = $cantidad_Renovacion;
             if ($cantidad_Renovacion == 0) {
@@ -220,7 +220,7 @@ class SolicitudController extends AppController {
                 }
             } else {
                 Flash::error('No puede ingresar más de dos solicitudes de renovacion');
-                Router::redirect("/cliente/administrarsuscripcion/");
+                Router::redirect("/cliente/administrarsuscripcion/".$leng);
             }
         } else {
             Flash::error('No posee los privilegios necesarios');
