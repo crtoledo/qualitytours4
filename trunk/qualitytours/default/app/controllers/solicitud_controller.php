@@ -459,25 +459,23 @@ class SolicitudController extends AppController {
             // valido que los datos obtenidos sean numericos
             if (is_numeric($id_cliente) && ($id_solicitud)) {
                 $comprobar_solicitud = new solicitud();
-                // se valida que al solicitud corresponda al usuario
-                if ($comprobar_solicitud->find_by_sql("select * from solicitud where id=" . $id_solicitud . " and id_usu = " . $id_cliente . "and activo_sol = 't'")) {
-
-                    //Se obtiene el tipo de solicitud, si esta es de renovacion o de cambio
-                    //se debera buscar y actualizar la anterior solicitud para cambiar el activo_sol a false
-                    $tipo_solicitud = $comprobar_solicitud->tipo_sol;
-
+                // se valida que al solicitud corresponda al usuario y que este lista para ser aceptada
+                if ($comprobar_solicitud->find_by_sql("select * from solicitud where id=" . $id_solicitud . " and id_usu = " . $id_cliente . "and activo_sol = 't' and estado_sol='Esperando' and mail_sol='true'")) {
+                    
                     date_default_timezone_set('America/Santiago');
-
+                    
                     $datos_actualizacion_cliente = new cliente;
-
-                    $datos_actualizacion_cliente->buscar_cliente_inactivo($id_cliente);
-                    $tipo_plan = $datos_actualizacion_cliente->tipo_plan;
-
                     $datos_actualizacion_usuario = new usuario;
                     $datos_actualizacion_solicitud = new solicitud;
                     $datos_actualizacion_categoria = new categoria;
-                    //Se asignas las fechas de inicio y fin de la suscripcion
+
+                    $datos_actualizacion_cliente->buscar_cliente_inactivo($id_cliente);
+
+                    //Se asigna la fechas de inicio
                     $fecha_inicio = date("d-m-Y");
+                    
+                    $tipo_plan = $datos_actualizacion_cliente->tipo_plan;
+                    
                     //en caso de que el plan no sea free, se le asigna fecha de fin
                     if ($tipo_plan != "free") {
                         $fecha_fin = date('d-m-Y', strtotime('+1 Year'));
@@ -485,6 +483,10 @@ class SolicitudController extends AppController {
                     } else {
                         $sentencia = "UPDATE cliente SET id_sol=" . $id_solicitud . ", rol_usu='cliente', estado_usu= true, fecha_ini_sus='" . $fecha_inicio . "' WHERE id_usu=" . $id_cliente;
                     }
+ 
+                    //Se obtiene el tipo de solicitud, si esta es de renovacion o de cambio
+                    //se debera buscar y actualizar la anterior solicitud para cambiar el activo_sol a false
+                    $tipo_solicitud = $comprobar_solicitud->tipo_sol;     
                     
                     //se actualiza el plan
                      if ($tipo_solicitud == "Cambio 1" || $tipo_solicitud == "Cambio 2") {
