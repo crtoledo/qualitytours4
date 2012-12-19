@@ -484,9 +484,9 @@ class ClienteController extends AppController {
                         ///////////////////////////////FIN MODULO DE RENOVACIÓN/////////////////////////////// 
                         /////////////////////////////////////////////////////////////////////////////////////
                         ////////////////////////////////////////////////////////////////////////////////////  
-                    } //else if ($tipo_plan == "free") {
-//                        $this->activacion_panel_cambio_plan= "1";
-//                    }
+                    }else if ($tipo_plan == "free") {
+                        $this->activacion_panel_cambio_plan= "1";
+                    }
                 } else {
                     Flash::info('No tiene suscripcion activa');
                     Router::redirect("cliente/ingresarsolicitud");
