@@ -431,9 +431,21 @@ $(document).ready(function()
                 
         </td>
     </tr>
-    <tr>
+    <tr span="8">
         <td colspan="2">
-             <?php echo  "<span class='label label-info'>".$mostrar.":&nbsp;".$cliente_detalle_visitas."</span><br>"; ?>
+             
+            <div style="text-align: justify">
+                 <?php 
+             foreach ($array_categorias as $cat)
+             {
+                if ($leng=="es") echo "<span class='badge badge-success'>".$cat->nombre_cat."</span> ";
+                if ($leng=="en") echo "<span class='badge badge-success'>".$cat->nombre_cat_eng."</span> ";
+             }  
+             ?>
+            </div>
+            <div style="text-align: right">
+            <?php echo  "<span class='label label-info'>".$mostrar.":&nbsp;".$cliente_detalle_visitas."</span><br>"; ?>
+            </div>
         </td>
     </tr>
 
