@@ -225,7 +225,12 @@ class ClienteController extends AppController {
                 $this->ciudad_ubi = $ubicacion->ciudad_ubi;
                 $this->direccion_ubi = $ubicacion->direccion_ubi;
             }
-
+            
+            
+            $categoria_cli = new Categoria();
+            $this->array_categorias = $categoria_cli->find("conditions: id_usu=" . $id . "and estado_cat='t'");
+            
+            
 
             //Comprueba que no se actualise el contador de visita si es el mismo dueño del centro turistico
             if (Session::get("id") == $id) {
