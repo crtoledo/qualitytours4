@@ -437,18 +437,17 @@ class ClienteController extends AppController {
                     if ($tipo_plan != "free") {
                         date_default_timezone_set('America/Santiago');
                         //Se obtiene la fecha actual
-                        $dia_actual = date("d");
-                        $mes_actual = date("m");
-                        $ano_actual = date("Y");
+                        $fecha_actual = date("Y-m-d");
+                        
                         $comprobar = new solicitud(); // sirve para validar que no exista otra solicitud de renovacion
                         //Se obtiene la fecha del fin suscripcion
                         $fecha_fin_suscripcion = $datos_cliente->fecha_fin_sus;
-
+                        //Flash::info($fecha_actual."    ".$fecha_fin_suscripcion);
                         //Paso el dia, mes y año para poder comprarlos despues
-                        list($ano, $mes, $dia) = explode('-', $fecha_fin_suscripcion);
+                        //list($ano, $mes, $dia) = explode('-', $fecha_fin_suscripcion);
 
                         //Se valida de que se cumpla las condiciones de fecha y de que no exista otra solicitud de renovacion
-                        if ($ano == $ano_actual && $mes == $mes_actual && $dia_actual >= $dia && !$comprobar->solicitud_renovacion($id_cliente)) {
+                        if ($fecha_fin_suscripcion <= $fecha_actual && !$comprobar->solicitud_renovacion($id_cliente)) {
                             // se se cumple las condiciones el boton puede ser mostrado
                             $this->muestra_boton = "Si";
                             $this->estado_sol = "1";
@@ -490,6 +489,9 @@ class ClienteController extends AppController {
                         /////////////////////////////////////////////////////////////////////////////////////
                         ////////////////////////////////////////////////////////////////////////////////////  
                     }else if ($tipo_plan == "free") {
+                        //////////////////////////////
+                        //////MODULO CAMBIO PLAN/////
+                        ////////////////////////////
                         $solicitud_cambio_existe = new solicitud;
                         
                         if ($solicitud_cambio_existe->verifica_solicitud_cambio(Auth::get("id")))
@@ -502,6 +504,9 @@ class ClienteController extends AppController {
                         {
                             $this->activacion_panel_cambio_plan= "Mostrar";
                         }
+                        //////////////////////////////////
+                        //////FIN MODULO CAMBIO PLAN/////
+                        ////////////////////////////////
                     }
                 } else {
                     Flash::info('No tiene suscripcion activa');
