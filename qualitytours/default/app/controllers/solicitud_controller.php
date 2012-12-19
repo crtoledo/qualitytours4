@@ -87,11 +87,15 @@ class SolicitudController extends AppController {
 
     public function vertodas($id) {
         // se comprueba que el usuario quien consulta sea el mismo de las solicitudes
+        if (Auth::is_valid()) {
         if (Auth::get('id') == $id) {
             $this->id_usuario_solicitud = $id;
         } else {
             Flash::error("Acceso denegado");
             Router::redirect("/");
+        }
+        }else{
+        Router::redirect("/");
         }
     }
 
@@ -248,7 +252,7 @@ class SolicitudController extends AppController {
                 //Router::redirect("/solicitud/ver/" . $id);
             }
         } else {
-            //Router::redirect("/");
+            Router::redirect("/");
         }
     }
 
@@ -279,6 +283,7 @@ class SolicitudController extends AppController {
                 Router::redirect("/");
             }
         } else {
+            Flash::error("Página no encontrada");
             Router::redirect("/");
         }
     }
@@ -351,6 +356,39 @@ class SolicitudController extends AppController {
             //Router::redirect("/");
         }
     }
+    
+    public function cancela_cambio($id, $leng) {
+        // se comprueba que el usuario quien cancela sea el mismo de la solicitud
+        if (Auth::get("id") == $id) {
+            $this->leng = $leng;
+            $cancelacion = new solicitud();
+            // se verifica que la solicitud exista
+            if ($cancelacion->cancela_solicitud_cambio($id)) {
+                // se valida que no pueda cancelar la solicitud si es que ya confirmo el envio del mail
+                if ($cancelacion->mail_sol == "f") {
+                    $cancelacion->estado_sol = "Cancelada";
+                    $cancelacion->activo_sol = "false";
+
+                    if ($cancelacion->update()) {
+                        Flash::info('Ha cancelado su solicitud');
+                        Router::redirect("/cliente/administrarsuscripcion/" . $leng);
+                    } else {
+                        Flash::info("Error al cancelar la solicitud");
+                    }
+                } else {
+                    Flash::info("No puede cancelar su solicitud");
+                    Router::redirect("/");
+                }
+            } else {
+                Flash::info("Solicitud no encontrada");
+                Router::redirect("/");
+            }
+        } else {
+            Flash::error("Página no encontrada");
+            Router::redirect("/");
+        }
+    }
+
 
 ///////////////////////////////////////////////////////////
 //******************************************************//    

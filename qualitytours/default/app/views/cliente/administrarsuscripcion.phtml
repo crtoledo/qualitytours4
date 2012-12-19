@@ -18,6 +18,11 @@
     function confirmar_cambio () {
         $('#email_cambio').modal('toggle');
     }
+    
+    function cancelar_solicitud_cambio () {
+        $('#solicitud_cambio_cancelar').modal('toggle');
+    }    
+    
 </script>
 
 <style>
@@ -166,7 +171,6 @@
             if (isset($muestra_boton)) {
                 if ($muestra_boton == "Si") {
                     ?>
-
                     <center><button class="btn btn-success" type="submit" onclick="activar_renovar()">Renovar suscripción</button></center>
                     <p align="center">Si desea cambiar los datos de la suscripcion, debe esperar<br>
                         a que la actual termine para mandar una nueva solicitud</p>
@@ -201,7 +205,7 @@
     <?php } else if ($activacion_panel_cambio_plan == "No mostrar") { ?>
         <h5><center>Cambio de plan</center></h5>
 
-        <?php if ($estado == "Pendiente") { ?><td><button class="btn btn-danger btn-small" type="submit" onclick="cancelar ();">Cancelar solicitud</button><?php } ?>
+        <?php if ($estado == "Pendiente") { ?><td><button class="btn btn-danger btn-small" type="submit" onclick="cancelar_solicitud_cambio ();">Cancelar solicitud</button><?php } ?>
 
         <?php if ($estado == "Esperando" && $mail == "f") { ?><td><button class="btn btn-primary btn-small" type="submit" onclick="confirmar_cambio ();">Confirmacion mail</button><?php } ?>
 
@@ -234,8 +238,10 @@ Seccion de modal
         </div>
     <?php }
 } ?> 
-<?php if (isset($estado_sol)) {
-    if ($estado_sol == "Pendiente") { ?>
+<?php
+if (isset($estado_sol)) {
+    if ($estado_sol == "Pendiente") {
+        ?>
         <!--   Modal de confirmacion de cancelacion de la solicitud-->   
         <div id="cancela" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-header">
@@ -290,6 +296,23 @@ Seccion de modal
                         </div>                  
 
                         <?php
+                    } else if ($estado == "Pendiente") {
+                        ?>
+<!--                        Modal para cancelar el cambio de plan-->
+                        <div id="solicitud_cambio_cancelar" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                <h3 id="myModalLabel">¿Esta seguro de cancelar el cambio de plan?</h3>
+                            </div>
+                            <div class="modal-body">
+                                <p>Esta acción no se puede revertir, para cambiar el plan con posteridad debe mandar otra solicitud</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button class="btn" data-dismiss="modal" aria-hidden="true">Cerrar</button>
+                                <a href="/trunk/qualitytours/solicitud/cancela_cambio/<?php echo Auth::get("id") . "/" . $leng ?>"><button class="btn btn-primary">Aceptar</button></a>
+                            </div>
+                        </div>  
+                    <?php
                     }
                 }
             }
