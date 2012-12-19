@@ -137,7 +137,7 @@ class AdministradorController extends AppController {
                     
                     //Se realiza los update a plan free
                     foreach ($array_clientes as &$id_cliente) {
-                        $eliminacion_clientes->sql("Update cliente set tipo_plan='free' where id_usu=" . $id_cliente);
+                        $eliminacion_clientes->sql("Update cliente set tipo_plan='free', fecha_fin_sus=null where id_usu=" . $id_cliente);
                         $cantidad++;
                     }
 

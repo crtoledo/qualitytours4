@@ -13,6 +13,11 @@
     function confirmar () {
         $('#email').modal('toggle');
     }
+    
+    //activacion del modal confirmacion mail relacionado con solicitud cambio plan
+    function confirmar_cambio () {
+        $('#email_cambio').modal('toggle');
+    }
 </script>
 
 <style>
@@ -115,7 +120,7 @@
                 <tr>
                     <?php if ($estado_sol == "Pendiente") { ?><td><button class="btn btn-danger btn-small" type="submit" onclick="cancelar ();">Cancelar renovacion</button></td> <?php } ?>
                     <?php if ($estado_sol == "Esperando" && $mail_sol == "f") { ?><td><button class="btn btn-primary btn-small" type="submit" onclick="confirmar ();">Confirmacion mail</button>&nbsp</td>
-                    <?php
+                        <?php
                     } else if ($estado_sol == "Esperando" && $mail_sol == "t") {
                         echo "<b>Usted ya envio la confirmacion del envio del mail <b>";
                     }
@@ -177,7 +182,31 @@
     </td>  
 <?php } ?>
 </tr>
+
 </table>
+
+<?php if (isset($activacion_panel_cambio_plan)) { ?>
+    <?php if ($activacion_panel_cambio_plan == "Mostrar") { ?>
+        <?php echo Form::open("solicitud/cambio_plan/$leng") ?>
+        <?php $data = array('normal' => 'Normal', 'plus' => 'Plus'); ?>
+        <h5><center>Cambio de plan</center></h5>
+        <table class="table table-bordered" width="120px">
+            <tr>
+                <td>Seleccione el plan:&nbsp;</td>
+                <td><?php echo Form::select('tipo_plan', $data, "class='span2'") ?></td>
+            </tr>
+        </table>
+        <?php echo Form::submit('Cambiar plan', 'class="btn btn-submit btn-success boton"') ?>
+        <?php echo Form::close(); ?>
+    <?php } else if ($activacion_panel_cambio_plan == "No mostrar") { ?>
+        <h5><center>Cambio de plan</center></h5>
+
+        <?php if ($estado == "Pendiente") { ?><td><button class="btn btn-danger btn-small" type="submit" onclick="cancelar ();">Cancelar solicitud</button><?php } ?>
+
+        <?php if ($estado == "Esperando" && $mail == "f") { ?><td><button class="btn btn-primary btn-small" type="submit" onclick="confirmar_cambio ();">Confirmacion mail</button><?php } ?>
+
+        <?php } ?>
+    <?php } ?>
 </div>
 <!--
 ****************
@@ -218,14 +247,14 @@ Seccion de modal
             </div>
             <div class="modal-footer">
                 <button class="btn" data-dismiss="modal" aria-hidden="true">Cerrar</button>
-                <a href="/trunk/qualitytours/solicitud/cancela_renovacion/<?php echo Auth::get("id")."/".$leng ?>"><button class="btn btn-primary">Cancelar solicitud</button></a>
+                <a href="/trunk/qualitytours/solicitud/cancela_renovacion/<?php echo Auth::get("id") . "/" . $leng ?>"><button class="btn btn-primary">Cancelar solicitud</button></a>
             </div>
-    <?php } else if ($estado_sol == "Esperando") { ?>
+        <?php } else if ($estado_sol == "Esperando") { ?>
             <!--   Modal de confirmacion de envio mail-->   
             <div id="email" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                    <h3 id="myModalLabel">¿ ha enviado el correo correspondiente?</h3>
+                    <h3 id="myModalLabel">¿ha enviado el correo correspondiente?</h3>
                 </div>
                 <div class="modal-body">
                     <p>Si usted ha enviado el mail con los datos solicitados: </p>
@@ -234,8 +263,35 @@ Seccion de modal
                 </div>
                 <div class="modal-footer">
                     <button class="btn" data-dismiss="modal" aria-hidden="true">Cerrar</button>
-                    <a href="/trunk/qualitytours/solicitud/confirmacionmail_renovacion/<?php echo Auth::get("id")."/".$leng ?>"><button class="btn btn-primary">Aceptar</button></a>
+                    <a href="/trunk/qualitytours/solicitud/confirmacionmail_renovacion/<?php echo Auth::get("id") . "/" . $leng ?>"><button class="btn btn-primary">Aceptar</button></a>
                 </div>  
             <?php }
         } ?>
+
+        <?php
+        if (isset($activacion_panel_cambio_plan)) {
+            if (isset($estado)) {
+                if ($estado == "Esperando" && $mail == "f") {
+                    ?>
+
+                    <div id="email_cambio" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                            <h3 id="myModalLabel">¿ha enviado el correo correspondiente?</h3>
+                        </div>
+                        <div class="modal-body">
+                            <p>Si usted ha enviado el mail con los datos solicitados: </p>
+                            <p>  - Imagen del deposito bancario</p>
+                            <p>  - Datos solicitados</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn" data-dismiss="modal" aria-hidden="true">Cerrar</button>
+                            <a href="/trunk/qualitytours/solicitud/confirmacionmail_cambio/<?php echo Auth::get("id") . "/" . $leng ?>"><button class="btn btn-primary">Aceptar</button></a>
+                        </div>                  
+
+                        <?php
+                    }
+                }
+            }
+            ?>
 
