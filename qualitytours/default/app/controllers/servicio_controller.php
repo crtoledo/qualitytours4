@@ -242,6 +242,8 @@ class ServicioController extends AppController
                                 $servicio->tipo_ser_eng = $servicio->tipo_ser;
                             }
                             
+                            //ELIMINACION DE APOSTROFES
+                            $servicio->detalle_ser = str_replace("'", '', $servicio->detalle_ser);
                             
                             if($servicio->save())
                             {
