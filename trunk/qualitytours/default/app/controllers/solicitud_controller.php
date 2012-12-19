@@ -95,7 +95,7 @@ class SolicitudController extends AppController {
         }
     }
 
-    public function cancela($id,$leng) {
+    public function cancela($id, $leng) {
         // se comprueba que el usuario quien cancela sea el mismo de la solicitud
         if (Auth::get("id") == $id) {
             $this->leng = $leng;
@@ -150,8 +150,6 @@ class SolicitudController extends AppController {
             Router::redirect("/");
         }
     }
-    
-
 
 ///////////////////////////////////////////////////////////
 //******************************************************//    
@@ -205,7 +203,7 @@ class SolicitudController extends AppController {
                         $nueva_solicitud->activo_sol = "true";
                         if ($nueva_solicitud->save()) {
                             Flash::success('Solicitud ingresada correctamente');
-                            Router::redirect("/cliente/administrarsuscripcion/".$leng);
+                            Router::redirect("/cliente/administrarsuscripcion/" . $leng);
                         } else {
                             Flash::error('Solicitud no ingresada');
                             Router::redirect("/");
@@ -220,15 +218,15 @@ class SolicitudController extends AppController {
                 }
             } else {
                 Flash::error('No puede ingresar más de dos solicitudes de renovacion');
-                Router::redirect("/cliente/administrarsuscripcion/".$leng);
+                Router::redirect("/cliente/administrarsuscripcion/" . $leng);
             }
         } else {
             Flash::error('No posee los privilegios necesarios');
             Router::redirect("/");
         }
     }
-    
-    Public function confirmacionmail_renovacion($id,$leng) {
+
+    Public function confirmacionmail_renovacion($id, $leng) {
         //se confirma que el que ingresa sea el usuario y no otro
         if (Auth::get("id") == $id) {
             $this->leng = $leng;
@@ -241,7 +239,7 @@ class SolicitudController extends AppController {
 
                 if ($confirmacionmail->update()) {
                     Flash::info('Ha confirmado el envio del mail');
-                    Router::redirect("/cliente/administrarsuscripcion/".$leng);
+                    Router::redirect("/cliente/administrarsuscripcion/" . $leng);
                 } else {
                     Flash::info("error al confirmar envio mail");
                 }
@@ -253,8 +251,8 @@ class SolicitudController extends AppController {
             //Router::redirect("/");
         }
     }
-    
-        public function cancela_renovacion($id,$leng) {
+
+    public function cancela_renovacion($id, $leng) {
         // se comprueba que el usuario quien cancela sea el mismo de la solicitud
         if (Auth::get("id") == $id) {
             $this->leng = $leng;
@@ -268,7 +266,7 @@ class SolicitudController extends AppController {
 
                     if ($cancelacion->update()) {
                         Flash::info('Ha cancelado su solicitud');
-                        Router::redirect("/cliente/administrarsuscripcion/".$leng);
+                        Router::redirect("/cliente/administrarsuscripcion/" . $leng);
                     } else {
                         Flash::info("Error al cancelar la solicitud");
                     }
@@ -285,6 +283,75 @@ class SolicitudController extends AppController {
         }
     }
 
+    public function cambio_plan($leng) {
+        $this->leng = $leng;
+        if (Auth::get("rol_usu") == "cliente") {
+            if (isset($_REQUEST["tipo_plan"])) {
+                $plan_elegido = $_REQUEST["tipo_plan"];
+                if ($plan_elegido == "normal") {
+                    $codigo = 1;
+                } else if ($plan_elegido == "plus") {
+                    $codigo = 2;
+                } else {
+                    $codigo = 0;
+                }
+
+                date_default_timezone_set('America/Santiago');
+
+                $nueva_solicitud = new Solicitud();
+
+                //se crean los valores
+                $nueva_solicitud->id_usu = Auth::get("id");
+                $nueva_solicitud->fecha_sol = date("d-m-Y");
+                $nueva_solicitud->estado_sol = "Pendiente";
+                $nueva_solicitud->tipo_sol = "Cambio " . $codigo;
+                $nueva_solicitud->observaciones_sol = "No presenta observaciones";
+                $nueva_solicitud->mail_sol = "false";
+                $nueva_solicitud->modificaciones_sol = "false";
+                $nueva_solicitud->activo_sol = "true";
+
+                if ($nueva_solicitud->save()) {
+                    Flash::info('Solicitud ingresada correctamente');
+                    Router::redirect("/cliente/administrarsuscripcion/" . $leng);
+                } else {
+                    Flash::info('No se ingreso');
+                }
+            } else {
+                Flash::error('Acceso denegado');
+                Router::redirect("/");
+            }
+        } else {
+            Flash::error('No posee los privilegios necesarios');
+            Router::redirect("/");
+        }
+    }
+
+    Public function confirmacionmail_cambio($id, $leng) {
+        //se confirma que el que ingresa sea el usuario y no otro
+        if (Auth::get("id") == $id) {
+            $this->leng = $leng;
+            $confirmacionmail = new solicitud();
+            $confirmacionmail->confirmar_mail_cambio($id);
+
+            // Se verifica que no haya confirmado anteriormente
+            if ($confirmacionmail->mail_sol != "t") {
+                $confirmacionmail->mail_sol = "true";
+
+                if ($confirmacionmail->update()) {
+                    Flash::info('Ha confirmado el envio del mail');
+                    Router::redirect("/cliente/administrarsuscripcion/" . $leng);
+                } else {
+                    Flash::info("error al confirmar envio mail");
+                }
+            } else {
+                Flash::info('Usted ya ha confirmado el envio del mail');
+                //Router::redirect("/solicitud/ver/" . $id);
+            }
+        } else {
+            //Router::redirect("/");
+        }
+    }
+
 ///////////////////////////////////////////////////////////
 //******************************************************//    
 //**********  Fin funciones para el cliente  **********//
@@ -298,78 +365,72 @@ class SolicitudController extends AppController {
 
     Public function buscar($leng) {
         $this->leng = $leng;
-        
     }
 
-    Public function administrar($solicitud, $usuario,$leng) {
+    Public function administrar($solicitud, $usuario, $leng) {
         $this->leng = $leng;
-        if(Auth::is_valid()){
-        if (Auth::get("rol_usu") == "administrador") {
+        if (Auth::is_valid()) {
+            if (Auth::get("rol_usu") == "administrador") {
 
-            $datos_solicitud = new solicitud();
+                $datos_solicitud = new solicitud();
 
-            // valido que los datos obtenidos sean numericos
-            if (is_numeric($solicitud) && is_numeric($usuario)) {
-                // se valida que al solicitud corresponda al usuario
-                if ($datos_solicitud->find_by_sql("select * from solicitud where id=" . $solicitud . " and id_usu = " . $usuario)) {
+                // valido que los datos obtenidos sean numericos
+                if (is_numeric($solicitud) && is_numeric($usuario)) {
+                    // se valida que al solicitud corresponda al usuario
+                    if ($datos_solicitud->find_by_sql("select * from solicitud where id=" . $solicitud . " and id_usu = " . $usuario)) {
 
-                    //Se pregunta si la solicitud fue modificada
-                    if ($datos_solicitud->modificaciones_sol == "t") {
-                        // So la solicitud tenia modificaciones, se pasa el campo de true a false
-                        $datos_solicitud->modificaciones_sol = "false";
-                        $datos_solicitud->update();
+                        //Se pregunta si la solicitud fue modificada
+                        if ($datos_solicitud->modificaciones_sol == "t") {
+                            // So la solicitud tenia modificaciones, se pasa el campo de true a false
+                            $datos_solicitud->modificaciones_sol = "false";
+                            $datos_solicitud->update();
+                        }
+
+                        //Se obtienen los datos del usuario que quiere ser cliente
+                        $datos_cliente = New Cliente;
+                        $datos_cliente = $datos_cliente->find($usuario);
+
+                        $this->id_usuario = $usuario;
+                        $this->id_solicitud = $solicitud;
+                        $this->nombre_cli = $datos_cliente->nombre_cli;
+                        $this->nombre_usu = $datos_cliente->nombre_usu;
+                        $this->rut_usu = $datos_cliente->rut_usu;
+                        $this->rut_cli = $datos_cliente->rut_cli;
+                        $this->nombre_usu = $datos_cliente->nombre_usu;
+                        $this->giro_cli = $datos_cliente->giro_cli;
+                        $this->telefono_cli = $datos_cliente->telefono_cli;
+                        $this->tipo_plan = $datos_cliente->tipo_plan;
+
+                        //datos de la solicitud para mostrar en la vista
+                        $this->estado_sol = $datos_solicitud->estado_sol;
+                        $this->observaciones = $datos_solicitud->observaciones_sol;
+                        $this->fecha_sol = $datos_solicitud->fecha_sol;
+
+                        //Se obtienen los datos de la solicitud para administrar los botones
+                        $this->mail_sol = $datos_solicitud->mail_sol;
+
+                        // se cargan los datos de la solicitud en especifico para observaciones
+                        $this->solicitud = $datos_solicitud;
+                    } else {
+                        Flash::info('Datos no corresponden a la solicitud');
+                        Router::redirect("/solicitud/buscar/" . $leng);
                     }
-
-                    //Se obtienen los datos del usuario que quiere ser cliente
-                    $datos_cliente = New Cliente;
-                    $datos_cliente = $datos_cliente->find($usuario);
-
-                    $this->id_usuario = $usuario;
-                    $this->id_solicitud = $solicitud;
-                    $this->nombre_cli = $datos_cliente->nombre_cli;
-                    $this->nombre_usu = $datos_cliente->nombre_usu;
-                    $this->rut_usu = $datos_cliente->rut_usu;
-                    $this->rut_cli = $datos_cliente->rut_cli;
-                    $this->nombre_usu = $datos_cliente->nombre_usu;
-                    $this->giro_cli = $datos_cliente->giro_cli;
-                    $this->telefono_cli = $datos_cliente->telefono_cli;
-                    $this->tipo_plan = $datos_cliente->tipo_plan;
-
-                    //datos de la solicitud para mostrar en la vista
-                    $this->estado_sol = $datos_solicitud->estado_sol;
-                    $this->observaciones = $datos_solicitud->observaciones_sol;
-                    $this->fecha_sol = $datos_solicitud->fecha_sol;
-
-                    //Se obtienen los datos de la solicitud para administrar los botones
-                    $this->mail_sol = $datos_solicitud->mail_sol;
-
-                    // se cargan los datos de la solicitud en especifico para observaciones
-                    $this->solicitud = $datos_solicitud;
                 } else {
                     Flash::info('Datos no corresponden a la solicitud');
-                    Router::redirect("/solicitud/buscar/".$leng);
+                    Router::redirect("/solicitud/buscar/" . $leng);
                 }
             } else {
-                Flash::info('Datos no corresponden a la solicitud');
-                Router::redirect("/solicitud/buscar/".$leng);
+                Flash::info('No posee los privilegios necesarios');
+                Router::redirect("/");
             }
+            //fin if de rol
         } else {
-            Flash::info('No posee los privilegios necesarios');
+            Flash::info('Error de url ');
             Router::redirect("/");
         }
-         //fin if de rol
-        }
-        else
-        {
-             Flash::info('Error de url ');
-             Router::redirect("/");
-            
-        }
-        
-       
     }
 
-    Public function ingresarobservacion($usuario, $solicitud,$leng) {
+    Public function ingresarobservacion($usuario, $solicitud, $leng) {
         $this->leng = $leng;
         if (Auth::get("rol_usu") == "administrador") {
             if (Input::hasPost('solicitud')) {
@@ -378,7 +439,7 @@ class SolicitudController extends AppController {
 
                 if ($solicitud_observacion->update()) {
                     Flash::notice("Observaciones ingresadas");
-                    Router::redirect("/solicitud/administrar/" . $solicitud . "/" . $usuario."/".$leng);
+                    Router::redirect("/solicitud/administrar/" . $solicitud . "/" . $usuario . "/" . $leng);
                 } else {
                     Flash::error("Error al ingresar observaciones");
                 }
@@ -392,7 +453,7 @@ class SolicitudController extends AppController {
         }
     }
 
-    Public function aceptarsolicitud($id_cliente, $id_solicitud,$leng) {
+    Public function aceptarsolicitud($id_cliente, $id_solicitud, $leng) {
         $this->leng = $leng;
         if (Auth::get("rol_usu") == "administrador") {
             // valido que los datos obtenidos sean numericos
@@ -401,38 +462,54 @@ class SolicitudController extends AppController {
                 // se valida que al solicitud corresponda al usuario
                 if ($comprobar_solicitud->find_by_sql("select * from solicitud where id=" . $id_solicitud . " and id_usu = " . $id_cliente . "and activo_sol = 't'")) {
 
-                    //Se obtiene el tipo de solicitud, si esta es de renovacion se debera buscar y actualizar 
-                    //la anterior solicitud para cambiar el activo_sol a false
+                    //Se obtiene el tipo de solicitud, si esta es de renovacion o de cambio
+                    //se debera buscar y actualizar la anterior solicitud para cambiar el activo_sol a false
                     $tipo_solicitud = $comprobar_solicitud->tipo_sol;
-                    
 
                     date_default_timezone_set('America/Santiago');
 
                     $datos_actualizacion_cliente = new cliente;
-                    
+
                     $datos_actualizacion_cliente->buscar_cliente_inactivo($id_cliente);
                     $tipo_plan = $datos_actualizacion_cliente->tipo_plan;
-                    
+
                     $datos_actualizacion_usuario = new usuario;
                     $datos_actualizacion_solicitud = new solicitud;
                     $datos_actualizacion_categoria = new categoria;
-
                     //Se asignas las fechas de inicio y fin de la suscripcion
                     $fecha_inicio = date("d-m-Y");
-                    if ($tipo_plan != "free"){
+                    //en caso de que el plan no sea free, se le asigna fecha de fin
+                    if ($tipo_plan != "free") {
                         $fecha_fin = date('d-m-Y', strtotime('+1 Year'));
                         $sentencia = "UPDATE cliente SET id_sol=" . $id_solicitud . ", rol_usu='cliente', estado_usu= true, fecha_ini_sus='" . $fecha_inicio . "', fecha_fin_sus='" . $fecha_fin . "' WHERE id_usu=" . $id_cliente;
-                    }
-                    else{
+                    } else {
                         $sentencia = "UPDATE cliente SET id_sol=" . $id_solicitud . ", rol_usu='cliente', estado_usu= true, fecha_ini_sus='" . $fecha_inicio . "' WHERE id_usu=" . $id_cliente;
                     }
                     
+                    //se actualiza el plan
+                     if ($tipo_solicitud == "Cambio 1" || $tipo_solicitud == "Cambio 2") {
+                        //obtencion del tipo plan
+                        list($tipo, $plan) = explode(' ', $tipo_solicitud);
+                        if ($plan == "1") {
+                            $plan_final = "normal";
+                        } else if ($plan == "2") {
+                            $plan_final = "plus";
+                        }
+                        $fecha_fin = date('d-m-Y', strtotime('+1 Year'));
+                        $sentencia_dos = "UPDATE cliente SET id_sol=" . $id_solicitud . ", fecha_ini_sus='" . $fecha_inicio . "', fecha_fin_sus='" . $fecha_fin . "' ,tipo_plan='" . $plan_final . "' WHERE id_usu=" . $id_cliente;
+                        
+                        $cliente_plan = new cliente ();
+                        $cliente_plan->sql($sentencia_dos);  
+                    }
+
                     //Se actualiza la tabla cliente con los nuevos datos del cliente
-                    
+
                     $sentencia_actualizar_rol = "UPDATE usuario SET id_sol=" . $id_solicitud . ", rol_usu='cliente' WHERE id=" . $id_cliente;
-                    $sentencia_actualizar_solicitud = "UPDATE solicitud SET estado_sol='Aceptada', adm_id_usu=". Auth::get("id") ."  WHERE id=" . $id_solicitud;
-                    $sentencia_actualizar_estado_categoria = "UPDATE categoria SET estado_cat=true WHERE id_usu =". $id_cliente;
-                    if ($tipo_solicitud == "Renovacion") {
+                    $sentencia_actualizar_solicitud = "UPDATE solicitud SET estado_sol='Aceptada', adm_id_usu=" . Auth::get("id") . "  WHERE id=" . $id_solicitud;
+                    $sentencia_actualizar_estado_categoria = "UPDATE categoria SET estado_cat=true WHERE id_usu =" . $id_cliente;
+
+                    //se actualiza la antigua solicitud, es decir, activo_sol para false
+                    if ($tipo_solicitud == "Renovacion" || $tipo_solicitud == "Cambio 1" || $tipo_solicitud == "Cambio 2") {
                         // Se busca la antigua solicitud
                         $solicitud_antigua = new solicitud;
                         $solicitud_antigua->solicitud_aceptada($id_cliente);
@@ -441,12 +518,12 @@ class SolicitudController extends AppController {
                         $solicitud_antigua->update();
                     }
 
-                    if ($datos_actualizacion_cliente->sql($sentencia) && $datos_actualizacion_usuario->sql($sentencia_actualizar_rol) && $datos_actualizacion_solicitud->sql($sentencia_actualizar_solicitud) && $datos_actualizacion_categoria->sql($sentencia_actualizar_estado_categoria) ) {
+                    if ($datos_actualizacion_cliente->sql($sentencia) && $datos_actualizacion_usuario->sql($sentencia_actualizar_rol) && $datos_actualizacion_solicitud->sql($sentencia_actualizar_solicitud) && $datos_actualizacion_categoria->sql($sentencia_actualizar_estado_categoria)) {
                         // Si la aceptacion de la solicitud de renovacion fue exitosa,
                         //se procede a eliminar la antigua solicitud, solo si esta existe.
 
                         Flash::info('Solicitud aceptada, cliente ingresado');
-                        Router::redirect("/solicitud/administrar/" . $id_solicitud . "/" . $id_cliente."/".$leng);
+                        Router::redirect("/solicitud/administrar/" . $id_solicitud . "/" . $id_cliente . "/" . $leng);
                     } else {
                         
                     }
@@ -464,7 +541,7 @@ class SolicitudController extends AppController {
         }
     }
 
-    Public function rechazar($id, $usuario,$leng) {
+    Public function rechazar($id, $usuario, $leng) {
         if (Auth::get("rol_usu") == "administrador") {
             // valido que los datos obtenidos sean numericos
             if (is_numeric($id) && is_numeric($usuario)) {
@@ -475,7 +552,7 @@ class SolicitudController extends AppController {
 
                     if ($solicitud_rechazar->update()) {
                         Flash::info("Solicitud Rechazada");
-                        Router::redirect("/solicitud/administrar/" . $id . "/" . $usuario."/".$leng);
+                        Router::redirect("/solicitud/administrar/" . $id . "/" . $usuario . "/" . $leng);
                     } else {
                         Flash::error("Error al actualizar");
                     }
@@ -492,7 +569,7 @@ class SolicitudController extends AppController {
         }
     }
 
-    public function aviso($id_solicitud, $id_usuario,$leng) {
+    public function aviso($id_solicitud, $id_usuario, $leng) {
         $this->leng = $leng;
         //Se verifica el rol
         if (Auth::get("rol_usu") == "administrador") {
@@ -505,10 +582,10 @@ class SolicitudController extends AppController {
                     //Se cambian los valores de la solicitud
                     $solicitud->estado_sol = "Esperando";
                     if ($solicitud->update()) {
-                        Router::redirect("/solicitud/administrar/" . $id_solicitud . "/" . $id_usuario."/".$leng);
+                        Router::redirect("/solicitud/administrar/" . $id_solicitud . "/" . $id_usuario . "/" . $leng);
                     } else {
                         Flash::error('Error al actualizar la solicitud');
-                        Router::redirect("/solicitud/administrar/" . $id_solicitud . "/" . $id_usuario."/".$leng);
+                        Router::redirect("/solicitud/administrar/" . $id_solicitud . "/" . $id_usuario . "/" . $leng);
                     }
                 } else {
                     Flash::info('Datos no corresponden a la solicitud');

@@ -35,5 +35,20 @@ class Solicitud extends ActiveRecord
     {
        return $this->find_by_sql("select * from solicitud where id_usu=".$dato. " and activo_sol ='true' and tipo_sol='Renovacion' and estado_sol='Pendiente'");
     }
+    
+    Public function verifica_solicitud_cambio($dato)
+    {
+       return $this->find_by_sql("select * from solicitud where id_usu=".$dato. " and activo_sol ='true' and tipo_sol ILIKE '%Cambio%' and (estado_sol='Pendiente' or estado_sol='Esperando')");
+    }
+    
+    Public function busca_solicitud_cambio($dato)
+    {
+       return $this->find_by_sql("select * from solicitud where id_usu=".$dato. " and activo_sol ='true' and tipo_sol ILIKE '%Cambio%'");
+    } 
+    
+    Public function confirmar_mail_cambio($dato)
+    {
+       return $this->find_by_sql("select * from solicitud where id_usu = " . $dato . " and activo_sol ='true' and tipo_sol ILIKE '%Cambio%'");
+    }        
 }
 ?>

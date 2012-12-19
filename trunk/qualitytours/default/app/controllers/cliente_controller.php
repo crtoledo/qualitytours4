@@ -490,7 +490,18 @@ class ClienteController extends AppController {
                         /////////////////////////////////////////////////////////////////////////////////////
                         ////////////////////////////////////////////////////////////////////////////////////  
                     }else if ($tipo_plan == "free") {
-                        $this->activacion_panel_cambio_plan= "1";
+                        $solicitud_cambio_existe = new solicitud;
+                        
+                        if ($solicitud_cambio_existe->verifica_solicitud_cambio(Auth::get("id")))
+                        {
+                            $this->activacion_panel_cambio_plan= "No mostrar";
+                            $this->estado = $solicitud_cambio_existe->estado_sol;
+                            $this->mail = $solicitud_cambio_existe->mail_sol;
+                        }
+                        else
+                        {
+                            $this->activacion_panel_cambio_plan= "Mostrar";
+                        }
                     }
                 } else {
                     Flash::info('No tiene suscripcion activa');
