@@ -3,6 +3,7 @@
 load::model('administrador');
 load::model('usuario');
 load::model('cliente');
+load::model('solicitud');
 
 class AdministradorController extends AppController {
 
@@ -68,7 +69,7 @@ class AdministradorController extends AppController {
                 Router::redirect("/");
             }
         } else {
-            Flash::error("Pagina no encontrada");
+            Flash::error("P&aacute;gina no encontrada");
             Router::redirect("/");
         }
     }
@@ -89,7 +90,7 @@ class AdministradorController extends AppController {
                 Router::redirect("/");
             }
         } else {
-            Flash::error("Pagina no encontrada");
+            Flash::error("P&aacute;gina no encontrada");
             Router::redirect("/");
         }
     }
@@ -107,7 +108,7 @@ class AdministradorController extends AppController {
                 Router::redirect("/");
             }
         } else {
-            Flash::error("Pagina no encontrada");
+            Flash::error("P&aacute;gina no encontrada");
             Router::redirect("/");
         }
     }
@@ -117,48 +118,62 @@ class AdministradorController extends AppController {
         if (Auth::is_valid()) {
             if (Auth::get('rol_usu') == 'administrador') {
                 //Se valida de que este marcado almenos un cliente
-                if ($_REQUEST["clientes"] != " ") {
-                    //Se obtienen la lista de id
-                    $string_clientes_enviados = $_REQUEST["clientes"];
+                if (isset($_REQUEST["clientes"])) {
+                    if ($_REQUEST["clientes"] != " ") {
+                        //Se obtienen la lista de id
+                        $string_clientes_enviados = $_REQUEST["clientes"];
 
-                    //Se crea el array con el id de los clientes
-                    $array_clientes = explode(".", $string_clientes_enviados);
+                        //Se crea el array con el id de los clientes
+                        $array_clientes = explode(".", $string_clientes_enviados);
 
-                    //Se le elimina el espacio al principio del array
-                    unset($array_clientes[0]);
+                        //Se le elimina el espacio al principio del array
+                        unset($array_clientes[0]);
 
-                    //Se obtiene la cantidad de elementos del array
-                    $total_id = count($array_clientes);
+                        //Se obtiene la cantidad de elementos del array
+                        $total_id = count($array_clientes);
 
-                    $eliminacion_clientes = new cliente;
+                        $eliminacion_clientes = new cliente;
 
-                    //Se crea variable que cuenta los update realizados
-                    $cantidad = 0;
-                    
-                    //Se realiza los update a plan free
-                    foreach ($array_clientes as &$id_cliente) {
-                        $eliminacion_clientes->sql("Update cliente set tipo_plan='free', fecha_fin_sus=null where id_usu=" . $id_cliente);
-                        $cantidad++;
-                    }
+                        //Se crea variable que cuenta los update realizados
+                        $cantidad = 0;
+                        $cantidad_no_revocada = 0;
 
-                    //Se valida de que la operacion de revocar suscripcion fue existosa
-                    if ($total_id == $cantidad) {
-                        Flash::info("Se ha revocado la suscripcion a ".$cantidad." clientes");
-                        Router::redirect("/administrador/revocar/eliminacion/" . $leng);
+                        //Se realiza los update a plan free
+                        $solicitud = new solicitud ();
+                        foreach ($array_clientes as &$id_cliente) {
+                            if (!$solicitud->confirmar_mail_renovacion($id_cliente)) {
+                                $eliminacion_clientes->sql("Update cliente set tipo_plan='free', fecha_fin_sus=null where id_usu=" . $id_cliente);
+                                $cantidad++;
+                            } else {
+                                $cantidad_no_revocada++;
+                            }
+                        }
+
+                        //Se valida de que la operacion de revocar suscripcion fue existosa
+                        if ($total_id == $cantidad) {
+                            Flash::success("Se ha revocado la suscripci&oacute;n a " . $cantidad . " cliente(s)");
+                            Router::redirect("/administrador/revocar/eliminacion/" . $leng);
+                        } else if ($cantidad > 0) {
+                            Flash::info("Se ha revocado la suscripci&oacute;n a " . $cantidad . " clientes y no se pudo revocar la suscripci&oacute;n a " . $cantidad_no_revocada. " cliente(s)");
+                            Router::redirect("/administrador/revocar/eliminacion/" . $leng);
+                        } else if ($cantidad == 0) {
+                            Flash::error("No se ha revocado la suscripci&oacute;n a " . $cantidad_no_revocada . " cliente(s)");
+                            Router::redirect("/administrador/revocar/eliminacion/" . $leng);
+                        }
                     } else {
-                        Flash::error("No se ha revocado la suscripcion");
-                        Router::redirect("/administrador/revocar/eliminacion/" . $leng);                        
+                        Flash::info("Seleccione un cliente(s)");
+                        Router::redirect("/administrador/revocar/eliminacion/" . $leng);
                     }
                 } else {
-                    Flash::info("Seleccione un cliente");
-                    Router::redirect("/administrador/revocar/eliminacion/" . $leng);
+                    Flash::error("P&aacute;gina no encontrada");
+                    Router::redirect("/");
                 }
             } else {
                 Flash::info('No posee los privilegios necesarios');
                 Router::redirect("/");
             }
         } else {
-            Flash::error("Pagina no encontrada");
+            Flash::error("P&aacute;gina no encontrada");
             Router::redirect("/");
         }
     }
@@ -201,7 +216,7 @@ class AdministradorController extends AppController {
                 Router::redirect("/");
             }
         } else {
-            Flash::error("Pagina no encontrada");
+            Flash::error("P&aacute;gina no encontrada");
             Router::redirect("/");
         }
     }

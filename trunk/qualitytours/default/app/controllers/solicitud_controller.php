@@ -42,15 +42,15 @@ class SolicitudController extends AppController {
                 Flash::info('Solicitud ingresada correctamente');
                 Router::redirect("/");
             } else {
-                Flash::info('No se ingreso');
+                Flash::info('Solicitud no ingresada');
             }
         } else {
-            Flash::error('Acceso denegado');
+            Flash::error("P&aacute;gina no encontrada");
             Router::redirect("/");
         }
     }
 
-    public function ver($id,$leng) {
+    public function ver($id, $leng) {
         $this->leng = $leng;
         $solicitud = new solicitud();
         //Se verifica que el turista sea el turista que consulta su solicitud
@@ -75,28 +75,30 @@ class SolicitudController extends AppController {
                         $this->colortabla = "info";
                     }
                 } else {
-                    Router::redirect("/solicitud/vertodas/" . Auth::get("id")."/".$leng);
+                    Router::redirect("/solicitud/vertodas/" . Auth::get("id") . "/" . $leng);
                 }
             } else {
                 Flash::error('Acceso denegado');
                 Router::redirect("/");
             }
         } else {
+            Flash::error("P&aacute;gina no encontrada");
             Router::redirect("/");
         }
     }
 
-    public function vertodas($id,$leng) {
+    public function vertodas($id, $leng) {
         // se comprueba que el usuario quien consulta sea el mismo de las solicitudes
         if (Auth::is_valid()) {
-        if (Auth::get('id') == $id) {
-            $this->id_usuario_solicitud = $id;
+            if (Auth::get('id') == $id) {
+                $this->id_usuario_solicitud = $id;
+            } else {
+                Flash::error("Acceso denegado");
+                Router::redirect("/");
+            }
         } else {
-            Flash::error("Acceso denegado");
+            Flash::error("P&aacute;gina no encontrada");
             Router::redirect("/");
-        }
-        }else{
-        Router::redirect("/");
         }
     }
 
@@ -127,6 +129,7 @@ class SolicitudController extends AppController {
                 Router::redirect("/");
             }
         } else {
+            Flash::error("P&aacute;gina no encontrada");
             Router::redirect("/");
         }
     }
@@ -145,13 +148,14 @@ class SolicitudController extends AppController {
                     Flash::info('Ha confirmado el envio del mail');
                     Router::redirect("/solicitud/ver/" . $id);
                 } else {
-                    Flash::info("error al confirmar envio mail");
+                    Flash::info("Error al confirmar envio mail");
                 }
             } else {
                 Flash::info('Usted ya ha confirmado el envio del mail');
-                Router::redirect("/solicitud/ver/" . $id."/".$leng);
+                Router::redirect("/solicitud/ver/" . $id . "/" . $leng);
             }
         } else {
+            Flash::error("P&aacute;gina no encontrada");
             Router::redirect("/");
         }
     }
@@ -181,19 +185,19 @@ class SolicitudController extends AppController {
                 if ($cantidad_aceptada == 1) {
                     //Se valida que se cumpla el requisito de un mes
                     date_default_timezone_set('America/Santiago');
-                    $dia_actual = date("d");
-                    $mes_actual = date("m");
-                    $ano_actual = date("Y");
-
+//                    $dia_actual = date("d");
+//                    $mes_actual = date("m");
+//                    $ano_actual = date("Y");
+                    $fecha_actual = date("Y-m-d");
                     //Se obtiene la fecha del fin suscripcion
                     $datos_cliente = new cliente();
                     $datos_cliente->find_by_sql("select * from cliente where id_usu=" . $id_cliente);
                     $fecha_fin_suscripcion = $datos_cliente->fecha_fin_sus;
 
                     //Paso el dia, mes y año para poder comprarlos despues
-                    list($ano, $mes, $dia) = explode('-', $fecha_fin_suscripcion);
+//                    list($ano, $mes, $dia) = explode('-', $fecha_fin_suscripcion);
 
-                    if ($ano == $ano_actual && $mes == $mes_actual && $dia_actual >= $dia) {
+                    if ($fecha_fin_suscripcion <= $fecha_actual) {
                         // si se cumple el requisito se ingresa la solicitud de renovacion
                         $nueva_solicitud = new solicitud();
 
@@ -222,7 +226,7 @@ class SolicitudController extends AppController {
                     Router::redirect("/");
                 }
             } else {
-                Flash::error('No puede ingresar más de dos solicitudes de renovacion');
+                Flash::error('No puede ingresar m&aacute;s de dos solicitudes de renovaci&oacute;n');
                 Router::redirect("/cliente/administrarsuscripcion/" . $leng);
             }
         } else {
@@ -246,13 +250,14 @@ class SolicitudController extends AppController {
                     Flash::info('Ha confirmado el envio del mail');
                     Router::redirect("/cliente/administrarsuscripcion/" . $leng);
                 } else {
-                    Flash::info("error al confirmar envio mail");
+                    Flash::info("Error al confirmar envio mail");
                 }
             } else {
                 Flash::info('Usted ya ha confirmado el envio del mail');
                 //Router::redirect("/solicitud/ver/" . $id);
             }
         } else {
+            Flash::error("P&aacute;gina no encontrada");
             Router::redirect("/");
         }
     }
@@ -284,7 +289,7 @@ class SolicitudController extends AppController {
                 Router::redirect("/");
             }
         } else {
-            Flash::error("Página no encontrada");
+            Flash::error("P&aacute;gina no encontrada");
             Router::redirect("/");
         }
     }
@@ -320,7 +325,7 @@ class SolicitudController extends AppController {
                     Flash::info('Solicitud ingresada correctamente');
                     Router::redirect("/cliente/administrarsuscripcion/" . $leng);
                 } else {
-                    Flash::info('No se ingreso');
+                    Flash::info('Solicitud no ingresada');
                 }
             } else {
                 Flash::error('Acceso denegado');
@@ -351,13 +356,14 @@ class SolicitudController extends AppController {
                 }
             } else {
                 Flash::info('Usted ya ha confirmado el envio del mail');
-                //Router::redirect("/solicitud/ver/" . $id);
+                Router::redirect("/solicitud/ver/" . $id);
             }
         } else {
-            //Router::redirect("/");
+            Flash::error("P&aacute;gina no encontrada");
+            Router::redirect("/");
         }
     }
-    
+
     public function cancela_cambio($id, $leng) {
         // se comprueba que el usuario quien cancela sea el mismo de la solicitud
         if (Auth::get("id") == $id) {
@@ -389,7 +395,6 @@ class SolicitudController extends AppController {
             Router::redirect("/");
         }
     }
-
 
 ///////////////////////////////////////////////////////////
 //******************************************************//    
@@ -464,7 +469,7 @@ class SolicitudController extends AppController {
             }
             //fin if de rol
         } else {
-            Flash::info('Error de url ');
+            Flash::info('P&aacute;gina no encontrada ');
             Router::redirect("/");
         }
     }
@@ -500,9 +505,9 @@ class SolicitudController extends AppController {
                 $comprobar_solicitud = new solicitud();
                 // se valida que al solicitud corresponda al usuario y que este lista para ser aceptada
                 if ($comprobar_solicitud->find_by_sql("select * from solicitud where id=" . $id_solicitud . " and id_usu = " . $id_cliente . "and activo_sol = 't' and estado_sol='Esperando' and mail_sol='true'")) {
-                    
+
                     date_default_timezone_set('America/Santiago');
-                    
+
                     $datos_actualizacion_cliente = new cliente;
                     $datos_actualizacion_usuario = new usuario;
                     $datos_actualizacion_solicitud = new solicitud;
@@ -512,9 +517,9 @@ class SolicitudController extends AppController {
 
                     //Se asigna la fechas de inicio
                     $fecha_inicio = date("d-m-Y");
-                    
+
                     $tipo_plan = $datos_actualizacion_cliente->tipo_plan;
-                    
+
                     //en caso de que el plan no sea free, se le asigna fecha de fin
                     if ($tipo_plan != "free") {
                         $fecha_fin = date('d-m-Y', strtotime('+1 Year'));
@@ -522,13 +527,13 @@ class SolicitudController extends AppController {
                     } else {
                         $sentencia = "UPDATE cliente SET id_sol=" . $id_solicitud . ", rol_usu='cliente', estado_usu= true, fecha_ini_sus='" . $fecha_inicio . "' WHERE id_usu=" . $id_cliente;
                     }
- 
+
                     //Se obtiene el tipo de solicitud, si esta es de renovacion o de cambio
                     //se debera buscar y actualizar la anterior solicitud para cambiar el activo_sol a false
-                    $tipo_solicitud = $comprobar_solicitud->tipo_sol;     
-                    
+                    $tipo_solicitud = $comprobar_solicitud->tipo_sol;
+
                     //se actualiza el plan
-                     if ($tipo_solicitud == "Cambio 1" || $tipo_solicitud == "Cambio 2") {
+                    if ($tipo_solicitud == "Cambio 1" || $tipo_solicitud == "Cambio 2") {
                         //obtencion del tipo plan
                         list($tipo, $plan) = explode(' ', $tipo_solicitud);
                         if ($plan == "1") {
@@ -538,9 +543,9 @@ class SolicitudController extends AppController {
                         }
                         $fecha_fin = date('d-m-Y', strtotime('+1 Year'));
                         $sentencia_dos = "UPDATE cliente SET id_sol=" . $id_solicitud . ", fecha_ini_sus='" . $fecha_inicio . "', fecha_fin_sus='" . $fecha_fin . "' ,tipo_plan='" . $plan_final . "' WHERE id_usu=" . $id_cliente;
-                        
+
                         $cliente_plan = new cliente ();
-                        $cliente_plan->sql($sentencia_dos);  
+                        $cliente_plan->sql($sentencia_dos);
                     }
 
                     //Se actualiza la tabla cliente con los nuevos datos del cliente

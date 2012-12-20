@@ -110,14 +110,11 @@ class ClienteController extends AppController {
                                     case "Juvenil":
                                         $categoria_ingles = "Youth";
                                         break;
-                                    case "Familiar":
-                                        $categoria_ingles = "Juvenile";
-                                        break;
                                     case "Terrestres":
                                         $categoria_ingles = "Terrestrial";
                                         break;
                                     case "Extremos":
-                                        $categoria_ingles = "Extremes";
+                                        $categoria_ingles = "Extreme";
                                         break;
                                     case "Acuáticos":
                                         $categoria_ingles = "Aquatic";
@@ -140,7 +137,7 @@ class ClienteController extends AppController {
                                     case "Calefacción":
                                         $categoria_ingles = "Heating";
                                         break;
-                                    case "Baños individuale":
+                                    case "Baños individuales":
                                         $categoria_ingles = "Individual bathrooms";
                                         break;
                                     case "Duchas":
@@ -163,7 +160,7 @@ class ClienteController extends AppController {
                             Flash::error("Error en el ingreso del cliente");
                         }
                     } else {
-                        Flash::error("Debe ingresar a lo menos una categoria");
+                        Flash::error("Debe ingresar a lo menos una categor&iacute;a");
                     }
                 }
             } else {
