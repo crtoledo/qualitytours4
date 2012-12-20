@@ -673,7 +673,6 @@ class ClienteController extends AppController {
                         $mail->Body = stripcslashes("Su suscripci&oacute;n ha sido cancelada, para saber los motivos puede contactarse al mismo email del remitente"); //EL CONTENIDO DEL CORREO
                         $mail->AddAddress($correo, "Destinatario"); //Dirección a la que enviaremos el correo
                         $mail->IsHTML(true);
-                        $mail->send();
 
                          if (!$mail->Send()) {
                             //echo "Error: " . $mail->ErrorInfo;
