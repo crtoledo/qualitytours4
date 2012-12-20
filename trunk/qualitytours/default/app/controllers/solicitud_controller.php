@@ -66,7 +66,7 @@ class SolicitudController extends AppController {
         $this->leng = $leng;
         $solicitud = new solicitud();
         //Se verifica que el turista sea el turista que consulta su solicitud
-        if (Auth::get('id') == $id) {
+        if (Auth::is_valid() && Auth::get('id') == $id) {
             // se valida que sea turista
             if (Auth::get('rol_usu') == "turista") {
                 if ($solicitud->buscar_solicitud($id)) {
