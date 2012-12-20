@@ -254,6 +254,15 @@ $cliente_ingresarsol_catduchasindividuales = "Individual showers";
 $cliente_ingresarsol_botenviarsolicitud = "Send request";
 $cliente_ingresarsol_botreiniciar = "Reset form";
 
-
-
+//SOLICITUD-vertodas
+$solicitud_vertodas_msjpresenta = "PREVIOUS";
+$solicitud_vertodas_msjsolicitudes = "REQUESTS";
+$solicitud_vertodas_msjanteriores = "FOUND";
+$solicitud_vertodas_titulo = "Previous requests";
+$solicitud_vertodas_numerosolicitud = "Request number";
+$solicitud_vertodas_fechasolicitud = "Request date";
+$solicitud_vertodas_situacionfinal = "Situation";
+$solicitud_vertodas_tiposolicitud = "Request type";
+$solicitud_vertodas_ = "Send request";
+$solicitud_vertodas_ = "Go back";
 ?>
