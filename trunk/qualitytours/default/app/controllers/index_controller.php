@@ -24,7 +24,7 @@ class IndexController extends AppController
             //Creamos objetos que necesitaremos
             $publicacion = new Publicacion();
             //validar si existen publicaciones
-            if($publicacion->count("conditions: estado_pub='t'") == 0)
+            if($publicacion->count("conditions: estado_pub='t' and detalle_pub_eng != ''") == 0)
             {
               $this->cont = 0;
             }
@@ -33,7 +33,7 @@ class IndexController extends AppController
               $this->cont = 1;
             }
             //Capturan los valores de la publicación
-             $arr= $publicacion->find("conditions: estado_pub='t'","order: id DESC");
+             $arr= $publicacion->find("conditions: estado_pub='t' and detalle_pub_eng != ''","order: id DESC");
              //recorre el arreglo de publicacion
              $contador = 0;
              foreach ($arr as $publicacion )
