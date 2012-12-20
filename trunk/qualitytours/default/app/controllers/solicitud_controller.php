@@ -191,13 +191,13 @@ class SolicitudController extends AppController {
                 $confirmacionmail->mail_sol = "true";
 
                 if ($confirmacionmail->update()) {
-                    Flash::info('Ha confirmado el envio del mail');
+                    Flash::info('Ha confirmado el env&iacute;o del mail');
                     Router::redirect("/solicitud/ver/" . $id . "/" . $leng);
                 } else {
-                    Flash::info("Error al confirmar envio mail");
+                    Flash::info("Error al confirmar env&iacute;o mail");
                 }
             } else {
-                Flash::info('Usted ya ha confirmado el envio del mail');
+                Flash::info('Usted ya ha confirmado el env&iacute;o del mail');
                 Router::redirect("/solicitud/ver/" . $id . "/" . $leng);
             }
         } else {
