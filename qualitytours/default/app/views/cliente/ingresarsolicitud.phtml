@@ -44,28 +44,28 @@
       
             $(".errorVal").remove();
             if( $(".nombre").val() == "" ){
-                $(".nombre").focus().after("<span class='errorVal'><?php echo $solicitud_ingresarsol_valnombre; ?></span>");
+                $(".nombre").focus().after("<span class='errorVal'><?php echo $cliente_ingresarsol_valnombre; ?></span>");
                 return false;
             }else if( $(".rutp").val() == ""){
-                $(".rutp").focus().after("<span class='errorVal'><?php echo $solicitud_ingresarsol_valrut; ?></span>");
+                $(".rutp").focus().after("<span class='errorVal'><?php echo $cliente_ingresarsol_valrut; ?></span>");
                 return false;
             }else if( $(".rut").val() == ""){
-                $(".rut").focus().after("<span class='errorVal'><?php echo $solicitud_ingresarsol_valrutvalido; ?></span>");
+                $(".rut").focus().after("<span class='errorVal'><?php echo $cliente_ingresarsol_valrutvalido; ?></span>");
                 return false;
             }else if(!$.Rut.validar($(".rut").val()) ){
-                $(".rut").focus().after("<span class='errorVal'><?php echo $solicitud_ingresarsol_valrutvalido; ?></span>");
+                $(".rut").focus().after("<span class='errorVal'><?php echo $cliente_ingresarsol_valrutvalido; ?></span>");
                 return false;
             }else if(!$.Rut.validar($(".rutp").val()) ){
-                $(".rutp").focus().after("<span class='errorVal'><?php echo $solicitud_ingresarsol_valrutvalido; ?></span>");
+                $(".rutp").focus().after("<span class='errorVal'><?php echo $cliente_ingresarsol_valrutvalido; ?></span>");
                 return false;
             }else if( $(".giro").val() == ""){
-                $(".giro").focus().after("<span class='errorVal'><?php echo $solicitud_ingresarsol_valgiro; ?></span>");
+                $(".giro").focus().after("<span class='errorVal'><?php echo $cliente_ingresarsol_valgiro; ?></span>");
                 return false;
             }else if( $(".telefono").val() == "" ){
-                $(".telefono").focus().after("<span class='errorVal'><?php echo $solicitud_ingresarsol_valtelefono; ?></span>");
+                $(".telefono").focus().after("<span class='errorVal'><?php echo $cliente_ingresarsol_valtelefono; ?></span>");
                 return false;
             }else if($('#acepta').is(':checked') == false){
-                $("#acepta").focus().after("<span class='errorVal'><?php echo $solicitud_ingresarsol_valterminos; ?></span>");
+                $("#acepta").focus().after("<span class='errorVal'><?php echo $cliente_ingresarsol_valterminos; ?></span>");
                 return false;
             }
             
@@ -87,7 +87,7 @@
                 {
                     if (data == "repetido")
                     {
-                        $(".rutp").focus().after("<span class='errorVal'><?php echo $solicitud_ingresarsol_valrutrepetido; ?></span>");
+                        $(".rutp").focus().after("<span class='errorVal'><?php echo $cliente_ingresarsol_valrutrepetido; ?></span>");
                         rut_repetido=1;
                     }
                     
@@ -109,7 +109,7 @@
                 {
                     if (data == "repetido")
                     {
-                        $(".rut").focus().after("<span class='errorVal'><?php echo $solicitud_ingresarsol_valrutrepetido; ?></span>");
+                        $(".rut").focus().after("<span class='errorVal'><?php echo $cliente_ingresarsol_valrutrepetido; ?></span>");
                         rut_repetido=1;
                     }
                     
@@ -163,12 +163,12 @@
         
         //Borrar el mensaje de error si el usuario ingresa un rut con formato válido 
         $(".rutp").Rut({
-            on_error: function(){  $(".rutp").focus().after("<span class='errorVal'><?php echo $solicitud_ingresarsol_valrutinvalido; ?></span>"); return false; },
+            on_error: function(){  $(".rutp").focus().after("<span class='errorVal'><?php echo $cliente_ingresarsol_valrutinvalido; ?></span>"); return false; },
             format_on: 'keyup'
         });
     
         $(".rut").Rut({
-            on_error: function(){  $(".rut").focus().after("<span class='errorVal'><?php echo $solicitud_ingresarsol_valrutinvalido; ?></span>"); return false; },
+            on_error: function(){  $(".rut").focus().after("<span class='errorVal'><?php echo $cliente_ingresarsol_valrutinvalido; ?></span>"); return false; },
             format_on: 'keyup'
         });
 
@@ -225,7 +225,7 @@ reemplazo se uso 'errorVal'.
 <fieldset>
 
     <div align="center">
-        <h2><?php echo $solicitud_ingresarsol_titulo;  ?></h2>
+        <h2><?php echo $cliente_ingresarsol_titulo;  ?></h2>
         <table>
             <tr>
                 <td>
@@ -239,31 +239,31 @@ reemplazo se uso 'errorVal'.
                             <td><?php echo Auth::get('username_usu') ?></td>
                         </tr>        
                         <tr>
-                            <td><?php echo $solicitud_ingresarsol_nomcentroturistico; ?>:&nbsp;</td>
-                            <td><?php echo Form::text('cliente.nombre_cli', "class='input-medium nombre mask-alphanum' placeholder='".$solicitud_ingresarsol_phnombrecliente ."'") ?></td>
+                            <td><?php echo $cliente_ingresarsol_nomcentroturistico; ?>:&nbsp;</td>
+                            <td><?php echo Form::text('cliente.nombre_cli', "class='input-medium nombre mask-alphanum' placeholder='".$cliente_ingresarsol_phnombrecliente ."'") ?></td>
                         </tr>
                         <tr>
-                            <td><?php echo  $solicitud_ingresarsol_rutprivado;  ?>:&nbsp;</td>
+                            <td><?php echo  $cliente_ingresarsol_rutprivado;  ?>:&nbsp;</td>
                             <td><?php echo Form::text('cliente.rut_usu', "class='input-medium rutp' placeholder='ej: 6.765.223-1' rutp") ?></td>
                         </tr>
                         <tr>
-                            <td><?php echo $solicitud_ingresarsol_rutcomercial;  ?>:&nbsp;</td>
+                            <td><?php echo $cliente_ingresarsol_rutcomercial;  ?>:&nbsp;</td>
                             <td><?php echo Form::text('cliente.rut_cli', "class='input-medium rut' placeholder='ej: 6.765.223-1' rut") ?></td>
                         </tr>
                         <tr>
-                            <td><?php echo $solicitud_ingresarsol_giro;  ?>:&nbsp;</td>
+                            <td><?php echo $cliente_ingresarsol_giro;  ?>:&nbsp;</td>
                             <td><?php echo Form::text('cliente.giro_cli', "class='input-medium giro mask-alphanum' ") ?></td>
                         </tr>
                         <tr>
-                            <td><?php  echo $solicitud_ingresarsol_telefonocomercial;  ?>:&nbsp;</td>
+                            <td><?php  echo $cliente_ingresarsol_telefonocomercial;  ?>:&nbsp;</td>
                             <td><?php echo Form::text('cliente.telefono_cli', "class='input-medium telefono mask-alphanum'") ?></td>
                         </tr>
                         <tr>
-                            <td><?php echo $solicitud_ingresarsol_selecioneplan;  ?>:&nbsp;</td>
+                            <td><?php echo $cliente_ingresarsol_seleccioneplan;  ?>:&nbsp;</td>
                             <td><?php echo Form::select('cliente.tipo_plan', $data, "class='span2'") ?></td>
                         </tr>
                         <tr>
-                            <td align="right" colspan="2"><?php echo $solicitud_ingresarsol_leidocondiciones;  ?>&nbsp;<?php echo Form::check('acepta', 'checkValue') ?></td>
+                            <td align="right" colspan="2"><?php echo $cliente_ingresarsol_leidocondiciones;  ?>&nbsp;<?php echo Form::check('acepta', 'checkValue') ?></td>
                         </tr>
                     </table>
                 </td>
@@ -272,16 +272,16 @@ reemplazo se uso 'errorVal'.
                 </td>
 
                 <td>
-                    <h4> <center> <?php echo $solicitud_ingresarsol_seleccioncat;  ?> </center> </h4>
+                    <h4> <center> <?php echo $cliente_ingresarsol_seleccioncat;  ?> </center> </h4>
                     <table>
                         <tr>
-                            <td><?php echo $solicitud_ingresarsol_lugarescat;  ?>: &nbsp;</td>
+                            <td><?php echo $cliente_ingresarsol_lugarescat;  ?>: &nbsp;</td>
                             <td>
                                 <div  class="btn-group" data-toggle="buttons-checkbox">
-                                    <button type="button" class="btn btn-info btn-mini categoria" name="Playa" value="Playa"><?php echo $solicitud_ingresarsol_catplaya;  ?></button>
-                                    <button type="button" class="btn btn-info btn-mini categoria" name="Lago" value="Lago"><?php echo $solicitud_ingresarsol_catlago;  ?></button>
-                                    <button type="button" class="btn btn-info btn-mini categoria" name="Rio" value="Río"><?php echo $solicitud_ingresarsol_catrio;  ?></button>
-                                    <button type="button" class="btn btn-info btn-mini categoria" name="Piscina" value="Piscina"><?php echo $solicitud_ingresarsol_catpicina;  ?></button>
+                                    <button type="button" class="btn btn-info btn-mini categoria" name="Playa" value="Playa"><?php echo $cliente_ingresarsol_catplaya;  ?></button>
+                                    <button type="button" class="btn btn-info btn-mini categoria" name="Lago" value="Lago"><?php echo $cliente_ingresarsol_catlago;  ?></button>
+                                    <button type="button" class="btn btn-info btn-mini categoria" name="Rio" value="Río"><?php echo $cliente_ingresarsol_catrio;  ?></button>
+                                    <button type="button" class="btn btn-info btn-mini categoria" name="Piscina" value="Piscina"><?php echo $cliente_ingresarsol_catpiscina;  ?></button>
                                 </div>    
                             </td>
                         </tr>
@@ -289,13 +289,13 @@ reemplazo se uso 'errorVal'.
                             <td>&nbsp;</td>
                         </tr>
                         <tr>
-                            <td><?php echo $solicitud_ingresarsol_climacat; ?> &nbsp;</td>
+                            <td><?php echo $cliente_ingresarsol_climacat; ?> &nbsp;</td>
                             <td>
                                 <div  class="btn-group" data-toggle="buttons-checkbox">
-                                    <button type="button" class="btn btn-info btn-mini categoria" name="Calido" value="Calido"><?php echo $solicitud_ingresarsol_catcalido;  ?></button>
-                                    <button type="button" class="btn btn-info btn-mini categoria" name="Nieve" value="Nieve"><?php echo $solicitud_ingresarsol_catnieve;  ?></button>
-                                    <button type="button" class="btn btn-info btn-mini categoria" name="Lluvioso" value="Lluvioso"><?php echo $solicitud_ingresarsol_catlluvioso;  ?></button>
-                                    <button type="button" class="btn btn-info btn-mini categoria" name="Templado" value="Piscina"><?php echo $solicitud_ingresarsol_cattemplado;  ?></button>
+                                    <button type="button" class="btn btn-info btn-mini categoria" name="Calido" value="Calido"><?php echo $cliente_ingresarsol_catcalido;  ?></button>
+                                    <button type="button" class="btn btn-info btn-mini categoria" name="Nieve" value="Nieve"><?php echo $cliente_ingresarsol_catnieve;  ?></button>
+                                    <button type="button" class="btn btn-info btn-mini categoria" name="Lluvioso" value="Lluvioso"><?php echo $cliente_ingresarsol_catlluvioso;  ?></button>
+                                    <button type="button" class="btn btn-info btn-mini categoria" name="Templado" value="Piscina"><?php echo $cliente_ingresarsol_cattemplado;  ?></button>
                                 </div>    
                             </td>
                         </tr>
@@ -306,8 +306,8 @@ reemplazo se uso 'errorVal'.
                             <td>Social: &nbsp;</td>
                             <td>
                                 <div  class="btn-group" data-toggle="buttons-checkbox">
-                                    <button type="button" class="btn btn-info btn-mini categoria" name="Tercera edad" value="Tercera edad"><?php echo $solicitud_ingresarsol_catterceraedad; ?></button>
-                                    <button type="button" class="btn btn-info btn-mini categoria" name="Juvenil" value="Juvenil"><?php echo $solicitud_ingresarsol_catjuvenil;  ?></button>
+                                    <button type="button" class="btn btn-info btn-mini categoria" name="Tercera edad" value="Tercera edad"><?php echo $cliente_ingresarsol_catterceraedad; ?></button>
+                                    <button type="button" class="btn btn-info btn-mini categoria" name="Juvenil" value="Juvenil"><?php echo $cliente_ingresarsol_catjuvenil;  ?></button>
                                     <button type="button" class="btn btn-info btn-mini categoria" name="Familiar" value="Familiar">Familiar</button>
                                 </div>    
                             </td>
@@ -316,13 +316,13 @@ reemplazo se uso 'errorVal'.
                             <td>&nbsp;</td>
                         </tr>
                         <tr>
-                            <td><?php echo $solicitud_ingresarsol_deportescat;  ?>: &nbsp;</td>
+                            <td><?php echo $cliente_ingresarsol_deportescat;  ?>: &nbsp;</td>
                             <td>
                                 <div  class="btn-group" data-toggle="buttons-checkbox">
-                                    <button type="button" class="btn btn-info btn-mini categoria" name="Terrestres" value="Terrestres"><?php echo $solicitud_ingresarsol_catterrestres;  ?></button>
-                                    <button type="button" class="btn btn-info btn-mini categoria" name="Extremos" value="Extremos"><?php echo $solicitud_ingresarsol_catextremos;   ?></button>
-                                    <button type="button" class="btn btn-info btn-mini categoria" name="Acuaticos" value="Acuáticos"><?php echo $solicitud_ingresarsol_catacuaticos;  ?></button>
-                                    <button type="button" class="btn btn-info btn-mini categoria" name="Aventura" value="Aventura"><?php echo $solicitud_ingresarsol_cataventura;  ?></button>
+                                    <button type="button" class="btn btn-info btn-mini categoria" name="Terrestres" value="Terrestres"><?php echo $cliente_ingresarsol_catterrestres;  ?></button>
+                                    <button type="button" class="btn btn-info btn-mini categoria" name="Extremos" value="Extremos"><?php echo $cliente_ingresarsol_catextremos;   ?></button>
+                                    <button type="button" class="btn btn-info btn-mini categoria" name="Acuaticos" value="Acuáticos"><?php echo $cliente_ingresarsol_catacuaticos;  ?></button>
+                                    <button type="button" class="btn btn-info btn-mini categoria" name="Aventura" value="Aventura"><?php echo $cliente_ingresarsol_cataventura;  ?></button>
                                     <button type="button" class="btn btn-info btn-mini categoria" name="Fitness" value="Fitness">Fitness</button>
                                 </div>    
                             </td>
@@ -331,12 +331,12 @@ reemplazo se uso 'errorVal'.
                             <td>&nbsp;</td>
                         </tr>
                         <tr>
-                            <td><?php echo $solicitud_ingresarsol_culturalcat;  ?>: &nbsp;</td>
+                            <td><?php echo $cliente_ingresarsol_culturalcat;  ?>: &nbsp;</td>
                             <td>
                                 <div  class="btn-group" data-toggle="buttons-checkbox">
-                                    <button type="button" class="btn btn-info btn-mini categoria" name="Historico" value="Histórico"><?php echo $solicitud_ingresarsol_cathistorico;  ?></button>
-                                    <button type="button" class="btn btn-info btn-mini categoria" name="Festivo" value="Festivo"><?php  echo $solicitud_ingresarsol_catfestivo; ?></button>
-                                    <button type="button" class="btn btn-info btn-mini categoria" name="Gastronomico" value="Gastronómico"><?php echo $solicitud_ingresarsol_catgastronomico;  ?></button>
+                                    <button type="button" class="btn btn-info btn-mini categoria" name="Historico" value="Histórico"><?php echo $cliente_ingresarsol_cathistorico;  ?></button>
+                                    <button type="button" class="btn btn-info btn-mini categoria" name="Festivo" value="Festivo"><?php  echo $cliente_ingresarsol_catfestivo; ?></button>
+                                    <button type="button" class="btn btn-info btn-mini categoria" name="Gastronomico" value="Gastronómico"><?php echo $cliente_ingresarsol_catgastronomico;  ?></button>
                                     <button type="button" class="btn btn-info btn-mini categoria" name="Shopping" value="Shopping">Shopping</button>
                                     <button type="button" class="btn btn-info btn-mini categoria" name="Folklore" value="Folklore">Folklore</button>
                                 </div>    
@@ -346,7 +346,7 @@ reemplazo se uso 'errorVal'.
                             <td>&nbsp;</td>
                         </tr>
                         <tr>
-                            <td><?php echo $solicitud_ingresarsol_tecnologiacat;  ?>: &nbsp;</td>
+                            <td><?php echo $cliente_ingresarsol_tecnologiacat;  ?>: &nbsp;</td>
                             <td>
                                 <div  class="btn-group" data-toggle="buttons-checkbox">
                                     <button type="button" class="btn btn-info btn-mini categoria" name="WiFi" value="WiFi">WiFi</button>
@@ -360,13 +360,13 @@ reemplazo se uso 'errorVal'.
                             <td>&nbsp;</td>
                         </tr>
                         <tr>
-                            <td><?php echo $solicitud_ingresarsol_servicioscat;  ?>: &nbsp;</td>
+                            <td><?php echo $cliente_ingresarsol_servicioscat;  ?>: &nbsp;</td>
                             <td>
                                 <div  class="btn-group" data-toggle="buttons-checkbox">
-                                    <button type="button" class="btn btn-info btn-mini categoria" name="Calefaccion" value="Calefacción"><?php echo $solicitud_ingresarsol_catcalefaccion;  ?></button>
-                                    <button type="button" class="btn btn-info btn-mini categoria" name="Baños" value="Baños individuales"><?php $solicitud_ingresarsol_banosindividuales;  ?></button>
-                                    <button type="button" class="btn btn-info btn-mini categoria" name="Duchas" value="Duchas"><?php echo $solicitud_ingresarsol_catduchas;  ?></button>
-                                    <button type="button" class="btn btn-info btn-mini categoria" name="DuchasI" value="Duchas individuales"><?php echo $solicitud_ingresarsol_catduchasindividuales;  ?></button>
+                                    <button type="button" class="btn btn-info btn-mini categoria" name="Calefaccion" value="Calefacción"><?php echo $cliente_ingresarsol_catcalefaccion;  ?></button>
+                                    <button type="button" class="btn btn-info btn-mini categoria" name="Baños" value="Baños individuales"><?php echo $cliente_ingresarsol_catbanosindividuales;  ?></button>
+                                    <button type="button" class="btn btn-info btn-mini categoria" name="Duchas" value="Duchas"><?php echo $cliente_ingresarsol_catduchas;  ?></button>
+                                    <button type="button" class="btn btn-info btn-mini categoria" name="DuchasI" value="Duchas individuales"><?php echo $cliente_ingresarsol_catduchasindividuales;  ?></button>
                                 </div>    
                             </td>
                         </tr>
@@ -400,8 +400,8 @@ reemplazo se uso 'errorVal'.
         <table>
             <tr>
 
-                <td><?php echo Form::submit($solicitud_ingresarsol_botenviarsolicitud, 'class="btn btn-submit btn-success boton"') ?>&nbsp;</td>
-                <td><?php echo Form::reset($solicitud_ingresarsol_botreiniciar, 'class="btn btn-danger"') ?></td>
+                <td><?php echo Form::submit($cliente_ingresarsol_botenviarsolicitud, 'class="btn btn-submit btn-success boton"') ?>&nbsp;</td>
+                <td><?php echo Form::reset($cliente_ingresarsol_botreiniciar, 'class="btn btn-danger"') ?></td>
             </tr>         
         </table>
     </div>
