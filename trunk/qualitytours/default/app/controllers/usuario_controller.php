@@ -138,8 +138,17 @@ class UsuarioController extends AppController {
                     unset($en3);
 
                     if ($usuarioupdate->update()) {
-                        Flash::valid('Tus datos fueron actualizados');
-                        Router::redirect('/');
+                        if($leng == "es")
+                        {
+                            Flash::valid('Tus datos fueron actualizados');
+                            Router::redirect('/');
+                        }
+                        else
+                        {
+                             Flash::valid('Data was updated');
+                             Router::redirect('index/?l=en');
+                        }
+                        
                     } else {
                         Flash::error('Error al actualizar tus datos');
                     }
