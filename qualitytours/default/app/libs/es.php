@@ -253,7 +253,7 @@ $cliente_ingresarsol_catduchas = "Duchas";
 $cliente_ingresarsol_catduchasindividuales = "Duchas individuales";
 $cliente_ingresarsol_botenviarsolicitud = "Enviar solicitud";
 $cliente_ingresarsol_botreiniciar = "Reiniciar";
-
+$cliente_ingresarsol_titulo2 = "Informaci&oacute;n del Cliente";
 //SOLICITUD-vertodas
 $solicitud_vertodas_msjpresenta = "PRESENTA";
 $solicitud_vertodas_msjsolicitudes = "SOLICITUDES";

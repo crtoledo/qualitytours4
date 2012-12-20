@@ -253,6 +253,7 @@ $cliente_ingresarsol_catduchas = "Showers";
 $cliente_ingresarsol_catduchasindividuales = "Individual showers";
 $cliente_ingresarsol_botenviarsolicitud = "Send request";
 $cliente_ingresarsol_botreiniciar = "Reset form";
+$cliente_ingresarsol_titulo2 = "Customer&#39;s info";
 
 //SOLICITUD-vertodas
 $solicitud_vertodas_msjpresenta = "PREVIOUS";
