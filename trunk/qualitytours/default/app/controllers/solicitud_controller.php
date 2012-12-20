@@ -10,7 +10,7 @@ class SolicitudController extends AppController {
     public function before_filter() {
         if (!Auth::is_valid()) {
             Flash::info('Debe iniciar sesión');
-            Router::redirect("/");
+            Router::redirect("index/".$leng);
         }
     }
 
@@ -20,7 +20,7 @@ class SolicitudController extends AppController {
 //****************************************************//    
 ///////////////////////////////////////////////////////      
 
-    public function ingresar($id) {
+    public function ingresar($id,$leng) {
         // se comprueba que sea turista el que ingresa la solicitud
         if (Auth::get('rol_usu') != "cliente") {
 
@@ -40,13 +40,13 @@ class SolicitudController extends AppController {
 
             if ($nueva_solicitud->save()) {
                 Flash::info('Solicitud ingresada correctamente');
-                Router::redirect("/");
+                Router::redirect("index/".$leng);
             } else {
                 Flash::info('Solicitud no ingresada');
             }
         } else {
             Flash::error("P&aacute;gina no encontrada");
-            Router::redirect("/");
+            Router::redirect("index/".$leng);
         }
     }
 
@@ -79,7 +79,7 @@ class SolicitudController extends AppController {
                 }
             } else {
                 Flash::error('Acceso denegado');
-                Router::redirect("/");
+                Router::redirect("index/".$leng);
             }
         } else {
             Flash::error("P&aacute;gina no encontrada");
@@ -94,11 +94,11 @@ class SolicitudController extends AppController {
                 $this->id_usuario_solicitud = $id;
             } else {
                 Flash::error("Acceso denegado");
-                Router::redirect("/");
+                Router::redirect("index/".$leng);
             }
         } else {
             Flash::error("P&aacute;gina no encontrada");
-            Router::redirect("/");
+            Router::redirect("index/".$leng);
         }
     }
 
@@ -122,15 +122,15 @@ class SolicitudController extends AppController {
                     }
                 } else {
                     Flash::info("No puede cancelar su solicitud");
-                    Router::redirect("/");
+                    Router::redirect("index/".$leng);
                 }
             } else {
                 Flash::info("Solicitud no encontrada");
-                Router::redirect("/");
+                Router::redirect("index/".$leng);
             }
         } else {
             Flash::error("P&aacute;gina no encontrada");
-            Router::redirect("/");
+            Router::redirect("index/".$leng);
         }
     }
 
@@ -156,7 +156,7 @@ class SolicitudController extends AppController {
             }
         } else {
             Flash::error("P&aacute;gina no encontrada");
-            Router::redirect("/");
+            Router::redirect("index/".$leng);
         }
     }
 
@@ -219,11 +219,11 @@ class SolicitudController extends AppController {
                         }
                     } else {
                         Flash::info('No cumple los requisitos');
-                        Router::redirect("/");
+                        Router::redirect("index/".$leng);
                     }
                 } else {
                     Flash::notice('No tiene solicitudes aceptadas');
-                    Router::redirect("/");
+                    Router::redirect("index/".$leng);
                 }
             } else {
                 Flash::error('No puede ingresar m&aacute;s de dos solicitudes de renovaci&oacute;n');
@@ -231,7 +231,7 @@ class SolicitudController extends AppController {
             }
         } else {
             Flash::error('No posee los privilegios necesarios');
-            Router::redirect("/");
+            Router::redirect("index/".$leng);
         }
     }
 
@@ -258,7 +258,7 @@ class SolicitudController extends AppController {
             }
         } else {
             Flash::error("P&aacute;gina no encontrada");
-            Router::redirect("/");
+            Router::redirect("index/".$leng);
         }
     }
 
@@ -279,18 +279,19 @@ class SolicitudController extends AppController {
                         Router::redirect("/cliente/administrarsuscripcion/" . $leng);
                     } else {
                         Flash::info("Error al cancelar la solicitud");
+                        Router::redirect("/cliente/administrarsuscripcion/" . $leng);
                     }
                 } else {
                     Flash::info("No puede cancelar su solicitud");
-                    Router::redirect("/");
+                    Router::redirect("index/".$leng);
                 }
             } else {
                 Flash::info("Solicitud no encontrada");
-                Router::redirect("/");
+                Router::redirect("index/".$leng);
             }
         } else {
             Flash::error("P&aacute;gina no encontrada");
-            Router::redirect("/");
+            Router::redirect("index/".$leng);
         }
     }
 
@@ -326,14 +327,15 @@ class SolicitudController extends AppController {
                     Router::redirect("/cliente/administrarsuscripcion/" . $leng);
                 } else {
                     Flash::info('Solicitud no ingresada');
+                    Router::redirect("/cliente/administrarsuscripcion/" . $leng);
                 }
             } else {
                 Flash::error('Acceso denegado');
-                Router::redirect("/");
+                Router::redirect("index/".$leng);
             }
         } else {
             Flash::error('No posee los privilegios necesarios');
-            Router::redirect("/");
+            Router::redirect("index/".$leng);
         }
     }
 
@@ -360,7 +362,7 @@ class SolicitudController extends AppController {
             }
         } else {
             Flash::error("P&aacute;gina no encontrada");
-            Router::redirect("/");
+            Router::redirect("index/".$leng);
         }
     }
 
@@ -381,18 +383,19 @@ class SolicitudController extends AppController {
                         Router::redirect("/cliente/administrarsuscripcion/" . $leng);
                     } else {
                         Flash::info("Error al cancelar la solicitud");
+                        Router::redirect("/cliente/administrarsuscripcion/" . $leng);
                     }
                 } else {
                     Flash::info("No puede cancelar su solicitud");
-                    Router::redirect("/");
+                    Router::redirect("index/".$leng);
                 }
             } else {
                 Flash::info("Solicitud no encontrada");
-                Router::redirect("/");
+                Router::redirect("index/".$leng);
             }
         } else {
             Flash::error("Página no encontrada");
-            Router::redirect("/");
+            Router::redirect("index/".$leng);
         }
     }
 
@@ -465,12 +468,12 @@ class SolicitudController extends AppController {
                 }
             } else {
                 Flash::info('No posee los privilegios necesarios');
-                Router::redirect("/");
+                Router::redirect("index/".$leng);
             }
             //fin if de rol
         } else {
             Flash::info('P&aacute;gina no encontrada ');
-            Router::redirect("/");
+            Router::redirect("index/".$leng);
         }
     }
 
@@ -489,11 +492,11 @@ class SolicitudController extends AppController {
                 }
             } else {
                 Flash::error("Acceso denegado");
-                Router::redirect("/");
+                Router::redirect("index/".$leng);
             }
         } else {
             Flash::info('No tiene los privilegios necesarios');
-            Router::redirect("/");
+            Router::redirect("index/".$leng);
         }
     }
 
@@ -575,15 +578,15 @@ class SolicitudController extends AppController {
                     }
                 } else {
                     Flash::info('Datos no corresponden a la solicitud');
-                    Router::redirect("/");
+                    Router::redirect("index/".$leng);
                 }
             } else {
                 Flash::info('Datos no corresponden a la solicitud');
-                Router::redirect("/");
+                Router::redirect("index/".$leng);;
             }
         } else {
             Flash::info('No tiene los privilegios necesarios');
-            Router::redirect("/");
+            Router::redirect("index/".$leng);
         }
     }
 
@@ -607,11 +610,11 @@ class SolicitudController extends AppController {
                 }
             } else {
                 Flash::info('Datos no son correctos');
-                Router::redirect("/");
+                Router::redirect("index/".$leng);
             }
         } else {
             Flash::info('No tiene los privilegios necesarios');
-            Router::redirect("/");
+            Router::redirect("index/".$leng);
         }
     }
 
@@ -635,15 +638,15 @@ class SolicitudController extends AppController {
                     }
                 } else {
                     Flash::info('Datos no corresponden a la solicitud');
-                    Router::redirect("/");
+                    Router::redirect("index/".$leng);
                 }
             } else {
                 Flash::info('Datos no son correctos');
-                Router::redirect("/");
+                Router::redirect("index/".$leng);
             }
         } else {
             Flash::info('No tiene los privilegios necesarios');
-            Router::redirect("/");
+            Router::redirect("index/".$leng);
         }
     }
 
