@@ -92,7 +92,7 @@ class ClienteController extends AppController {
                                     case "Piscina":
                                         $categoria_ingles = "Pool";
                                         break;
-                                    case "Calido":
+                                    case "Cálido":
                                         $categoria_ingles = "Warm";
                                         break;
                                     case "Nieve":
@@ -211,7 +211,7 @@ class ClienteController extends AppController {
                                             case "Piscina":
                                                 $categoria_ingles = "Pool";
                                                 break;
-                                            case "Calido":
+                                            case "Cálido":
                                                 $categoria_ingles = "Warm";
                                                 break;
                                             case "Nieve":
