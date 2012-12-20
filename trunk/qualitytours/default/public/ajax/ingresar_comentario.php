@@ -27,7 +27,7 @@ $Db->close($conn);
 ?>
 
 <div class="service_list" id="service<?=$ultimoid ?>" data="<?=$ultimoid ?>">  
-            <table class="table table-hover">
+            <table class="table table-hover span12" style="margin-left: 0px;">
                 <tr>
                     <td><?php echo "<b>".$nombre."</b>"; ?>
                 <br>
