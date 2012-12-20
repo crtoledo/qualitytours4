@@ -22,7 +22,7 @@ class ContactoController extends AppController {
            
             if($leng == "es")
             {
-               Flash::info('Debe iniciar sesiónjskajskasj');
+               Flash::info('Debe iniciar sesión');
                 Router::redirect("/");
             }
            if ($leng == "en")
