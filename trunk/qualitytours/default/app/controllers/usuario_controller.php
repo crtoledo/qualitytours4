@@ -339,7 +339,7 @@ class UsuarioController extends AppController {
         } else {
             $usuario = new Usuario();
             $usuario->sql("UPDATE usuario set lenguaje_usu='en' WHERE id=" . $id);
-            flash::info("changed the default language to English");
+            flash::info("Changed the default language to English");
             router::redirect("index/?l=en");
         }
     }
