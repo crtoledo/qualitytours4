@@ -22,7 +22,7 @@ class SolicitudController extends AppController {
 
     public function ingresar($id, $leng) {
         // se comprueba que sea turista el que ingresa la solicitud
-        if (Auth::get('rol_usu') != "cliente") {
+        if (Auth::is_valid() && Auth::get('rol_usu') != "cliente") {
             $this->leng = $leng;
 
             date_default_timezone_set('America/Santiago');
@@ -133,7 +133,7 @@ class SolicitudController extends AppController {
 
     public function cancela($id, $leng) {
         // se comprueba que el usuario quien cancela sea el mismo de la solicitud
-        if (Auth::get("id") == $id) {
+        if (Auth::is_valid() && Auth::get("id") == $id) {
             $this->leng = $leng;
             $cancelacion = new solicitud();
             // se verifica que la solicitud exista
@@ -181,7 +181,7 @@ class SolicitudController extends AppController {
 
     Public function confirmacionmail($id, $leng) {
         //se confirma que el que ingresa sea el usuario y no otro
-        if (Auth::get("id") == $id) {
+        if (Auth::is_valid() && Auth::get("id") == $id) {
             $this->leng = $leng;
             $confirmacionmail = new solicitud();
             $confirmacionmail->confirmar_mail($id);
@@ -223,7 +223,7 @@ class SolicitudController extends AppController {
 /////////////////////////////////////////////////////// 
 
     public function renovarsuscripcion($leng) {
-        if (Auth::get("rol_usu") == "cliente") {
+        if (Auth::is_valid() && Auth::get("rol_usu") == "cliente") {
             $this->leng = $leng;
             $id_cliente = Auth::get("id");
             $solicitud_renovacion = new solicitud ();
@@ -303,7 +303,7 @@ class SolicitudController extends AppController {
 
     Public function confirmacionmail_renovacion($id, $leng) {
         //se confirma que el que ingresa sea el usuario y no otro
-        if (Auth::get("id") == $id) {
+        if (Auth::is_valid() && Auth::get("id") == $id) {
             $this->leng = $leng;
             $confirmacionmail = new solicitud();
             $confirmacionmail->confirmar_mail_renovacion($id);
@@ -334,7 +334,7 @@ class SolicitudController extends AppController {
 
     public function cancela_renovacion($id, $leng) {
         // se comprueba que el usuario quien cancela sea el mismo de la solicitud
-        if (Auth::get("id") == $id) {
+        if (Auth::is_valid() && Auth::get("id") == $id) {
             $this->leng = $leng;
             $cancelacion = new solicitud();
             // se verifica que la solicitud exista
@@ -379,7 +379,7 @@ class SolicitudController extends AppController {
 
     public function cambio_plan($leng) {
         $this->leng = $leng;
-        if (Auth::get("rol_usu") == "cliente") {
+        if (Auth::is_valid() && Auth::get("rol_usu") == "cliente") {
             if (isset($_REQUEST["tipo_plan"])) {
                 $plan_elegido = $_REQUEST["tipo_plan"];
                 if ($plan_elegido == "normal") {
@@ -431,7 +431,7 @@ class SolicitudController extends AppController {
 
     Public function confirmacionmail_cambio($id, $leng) {
         //se confirma que el que ingresa sea el usuario y no otro
-        if (Auth::get("id") == $id) {
+        if (Auth::is_valid() && Auth::get("id") == $id) {
             $this->leng = $leng;
             $confirmacionmail = new solicitud();
             $confirmacionmail->confirmar_mail_cambio($id);
@@ -462,7 +462,7 @@ class SolicitudController extends AppController {
 
     public function cancela_cambio($id, $leng) {
         // se comprueba que el usuario quien cancela sea el mismo de la solicitud
-        if (Auth::get("id") == $id) {
+        if (Auth::is_valid() && Auth::get("id") == $id) {
             $this->leng = $leng;
             $cancelacion = new solicitud();
             // se verifica que la solicitud exista
@@ -593,7 +593,7 @@ class SolicitudController extends AppController {
 
     Public function ingresarobservacion($usuario, $solicitud, $leng) {
         $this->leng = $leng;
-        if (Auth::get("rol_usu") == "administrador") {
+        if (Auth::is_valid() && Auth::get("rol_usu") == "administrador") {
             if (Input::hasPost('solicitud')) {
 
                 $solicitud_observacion = new solicitud(Input::post('solicitud'));
@@ -624,7 +624,7 @@ class SolicitudController extends AppController {
 
     Public function aceptarsolicitud($id_cliente, $id_solicitud, $leng) {
         $this->leng = $leng;
-        if (Auth::get("rol_usu") == "administrador") {
+        if (Auth::is_valid() && Auth::get("rol_usu") == "administrador") {
             // valido que los datos obtenidos sean numericos
             if (is_numeric($id_cliente) && ($id_solicitud)) {
                 $comprobar_solicitud = new solicitud();
@@ -725,7 +725,7 @@ class SolicitudController extends AppController {
     }
 
     Public function rechazar($id, $usuario, $leng) {
-        if (Auth::get("rol_usu") == "administrador") {
+        if (Auth::is_valid() && Auth::get("rol_usu") == "administrador") {
             $this->leng = $leng;
             // valido que los datos obtenidos sean numericos
             if (is_numeric($id) && is_numeric($usuario)) {
@@ -764,7 +764,7 @@ class SolicitudController extends AppController {
     public function aviso($id_solicitud, $id_usuario, $leng) {
         $this->leng = $leng;
         //Se verifica el rol
-        if (Auth::get("rol_usu") == "administrador") {
+        if (Auth::is_valid() && Auth::get("rol_usu") == "administrador") {
             // se verifica que los datos enviados sean numericos
             if (is_numeric($id_solicitud) && is_numeric($id_usuario)) {
                 $solicitud = new solicitud;
