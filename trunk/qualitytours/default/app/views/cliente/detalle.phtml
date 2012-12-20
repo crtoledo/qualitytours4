@@ -188,6 +188,15 @@
                 var promedio = <?php echo $calificacion;?>
               </script>
        
+  <?php } 
+  else //ESTO EN CASO QUE NO ESTE LOGUEADO
+     {?>
+            <script type="text/javascript">
+                var id_cli = -1;
+                var id_usu = -1;
+                var promedio = <?php echo $calificacion;?>
+              </script>
+       
   <?php } ?>
 
 
@@ -341,7 +350,6 @@ $(document).ready(function()
         maxvalue: 5,
         curvalue: <?php echo $calificacion;?>, 
         id:0
-        
     });
 });
  
