@@ -42,6 +42,7 @@ if ($url == "en" || $url2 == "/trunk/qualitytours/pages/terms_of_use") {
     $tu_pagina = "Your page";
     $enlace_olvido = "Forgot your password?";
     $administrar_suscripcion_string = "Suscription info";
+    $solicitud_anterior = "Previous requests";
     
     } else if($url == "es" || $url2 == "/pages/condiciones" || $url2 == "/trunk/qualitytours/index" || $url2 == "/trunk/qualitytours/" || $url2 == "/trunk/qualitytours/index/" || $url2 == "/trunk/qualitytours") {
     $leng = "es";
@@ -79,6 +80,7 @@ if ($url == "en" || $url2 == "/trunk/qualitytours/pages/terms_of_use") {
     $tu_pagina = "Tu p&aacute;gina";
     $enlace_olvido = "¿Olvid&oacute; su clave?";
     $administrar_suscripcion_string = "Datos de suscripci&oacute;n";
+    $solicitud_anterior = "Solicitudes anteriores";
 }
 else
 {
@@ -119,6 +121,7 @@ else
     $tu_pagina = "Tu p&aacute;gina";
     $enlace_olvido = "¿Olvid&oacute; su clave?";
     $administrar_suscripcion_string = "Datos de suscripci&oacute;n";
+    $solicitud_anterior = "Solicitudes anteriores";
 }
 ?>
 
@@ -254,8 +257,8 @@ else
                             </a>
                             <ul class="dropdown-menu">
                                 <li><?php echo Html::link('usuario/automodificar/' . $leng, '<i class="icon-file"></i>' . $modificardatos_string . ''); ?></li>
-                                <li><?php echo Html::link('cliente/ingresarsolicitud/', '<i class="icon-thumbs-up"></i>' . $suscripcion_string . ''); ?></li>
-                                <li><?php echo Html::link('solicitud/vertodas/' . Auth::get("id"), '<i class="icon-eye-open"></i>Solicitudes anteriores(t)'); ?></li>
+                                <li><?php echo Html::link('cliente/ingresarsolicitud/'.$leng, '<i class="icon-thumbs-up"></i>' . $suscripcion_string . ''); ?></li>
+                                <li><?php echo Html::link('solicitud/vertodas/' . Auth::get("id").'/'.$leng, '<i class="icon-eye-open"></i>'.$solicitud_anterior.''); ?></li>
                             </ul>
                         </li>
                         <?php

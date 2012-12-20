@@ -16,7 +16,8 @@ class ClienteController extends AppController {
         
     }
 
-    public function ingresarsolicitud() {
+    public function ingresarsolicitud($leng) {
+        $this->leng = $leng;
         // se valida que este logeado el usuario
         if (!Auth::is_valid() || Auth::get("rol_usu") == "administrador") {
             Flash::info('No posee los privilegios necesarios');
@@ -157,7 +158,7 @@ class ClienteController extends AppController {
                             }
                             Flash::success("Solicitud enviada correctamente");
                             Input::delete();
-                            Router::redirect("solicitud/ingresar/" . $id);
+                            Router::redirect("solicitud/ingresar/" . $id."/".$leng);
                         } else {
                             Flash::error("Error en el ingreso del cliente");
                         }
@@ -183,12 +184,12 @@ class ClienteController extends AppController {
                         if ($cliente->sql("UPDATE cliente SET estado_usu='" . $estado_usu . "' , nombre_cli='" . $nombre_cli . "', rut_cli='" . $rut_cli . "', giro_cli='" . $giro . "', telefono_cli='" . $telefono . "', visitas_cli=" . $visitas . " , tipo_plan='" . $plan . "' WHERE id_usu =" . $id . ";")) {
                             //Flash::success("Solicitud modificada correctamente");
                             Input::delete();
-                            Router::redirect("solicitud/ingresar/" . $id);
+                            Router::redirect("solicitud/ingresar/" . $id."/".$leng);
                         }
                     }
                 } else {
                     // en caso de que tenga una solicitud activa se pasa al controlador solicitud
-                    Router::redirect("solicitud/ver/" . $id);
+                    Router::redirect("solicitud/ver/" . $id."/".$leng);
                 }
             }
         }
