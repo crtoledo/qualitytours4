@@ -26,7 +26,7 @@
                 <th><center>Tipo de solicitud</center</th>
 
                 <?php if ($colortabla == "info") { ?>
-                    <th><center>Confirme envio mail</center></th><?php } ?>
+                    <th><center>Confirme env&iacute;o mail</center></th><?php } ?>
             </tr>
         </thead>        
         <tbody>
@@ -39,7 +39,7 @@
                 <?php if ($colortabla == "info"  && $mail_sol == "f") { ?>
                 <td><center><button class="btn btn-small btn-success" type="button" onclick="mail ()">Mail enviado</button></center></td>
 <!--                En el caso de que ya envio el mail, se muestra el aviso-->
-                <?php }else if($mail_sol == "t"){?> <td><center><b>Usted ya confirm&Oacute; el env&iacute;o</b></center></td><?php } ?>
+                <?php }else if($mail_sol == "t"){?> <td><center><b>Usted ya confirm&oacute; el env&iacute;o</b></center></td><?php } ?>
     
                 <?php if ($colortabla == "warning") { ?>
                 <td><a href="/trunk/qualitytours/cliente/ver/<?php echo Auth::get("id")."/".$leng ?>"><button class="btn btn-small btn-info" type="button">Ver datos registro</button></a></td>
