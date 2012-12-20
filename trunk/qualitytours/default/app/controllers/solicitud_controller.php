@@ -50,7 +50,8 @@ class SolicitudController extends AppController {
         }
     }
 
-    public function ver($id) {
+    public function ver($id,$leng) {
+        $this->leng = $leng;
         $solicitud = new solicitud();
         //Se verifica que el turista sea el turista que consulta su solicitud
         if (Auth::get('id') == $id) {
@@ -74,7 +75,7 @@ class SolicitudController extends AppController {
                         $this->colortabla = "info";
                     }
                 } else {
-                    Router::redirect("/solicitud/vertodas/" . Auth::get("id"));
+                    Router::redirect("/solicitud/vertodas/" . Auth::get("id")."/".$leng);
                 }
             } else {
                 Flash::error('Acceso denegado');
@@ -85,7 +86,7 @@ class SolicitudController extends AppController {
         }
     }
 
-    public function vertodas($id) {
+    public function vertodas($id,$leng) {
         // se comprueba que el usuario quien consulta sea el mismo de las solicitudes
         if (Auth::is_valid()) {
         if (Auth::get('id') == $id) {
@@ -148,7 +149,7 @@ class SolicitudController extends AppController {
                 }
             } else {
                 Flash::info('Usted ya ha confirmado el envio del mail');
-                Router::redirect("/solicitud/ver/" . $id);
+                Router::redirect("/solicitud/ver/" . $id."/".$leng);
             }
         } else {
             Router::redirect("/");
