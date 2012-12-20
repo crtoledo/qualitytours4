@@ -392,7 +392,7 @@ else
                 <!-- CAMPO DE BUSQUEDA-->
                 <?php echo Form::open("busqueda/buscando/" . $leng, 'post', 'class=navbar-search'); ?>
                 <i class="icon-search icon-white"></i>
-                <input id="searchinput" name="string" type="text" value="" class='search-query span2 busqueda  mask-alphanum' placeholder='<?php echo $buscardestinos_string; ?>' data-provide='typeahead' >  
+                <input id="searchinput" name="string" type="text" value="" autocomplete="off" class='search-query span2 busqueda  mask-alphanum' placeholder='<?php echo $buscardestinos_string; ?>' data-provide='typeahead' >  
                 <?php echo Form::close() ?>
 
                 <!-- FIN CAMPO DE BUSQUEDA-->
