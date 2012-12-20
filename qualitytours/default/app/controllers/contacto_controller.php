@@ -18,15 +18,19 @@ class ContactoController extends AppController {
     {
         //verifica si se encuentra logueado
         if (!Auth::is_valid()) {
-            Flash::info('Debe iniciar sesión');
+           
            
             if($leng == "es")
             {
+               Flash::info('Debe iniciar sesiónjskajskasj');
                 Router::redirect("/");
             }
-            else
+           if ($leng == "en")
             {
-                router::Redirect("index/en");
+                 
+               Flash::info('Must be logged in');
+                router::Redirect("index/?l=en");
+                
             }
             
         }
