@@ -23,6 +23,7 @@ class SolicitudController extends AppController {
     public function ingresar($id,$leng) {
         // se comprueba que sea turista el que ingresa la solicitud
         if (Auth::get('rol_usu') != "cliente") {
+            $this->leng = $leng;
 
             date_default_timezone_set('America/Santiago');
 
@@ -83,13 +84,14 @@ class SolicitudController extends AppController {
             }
         } else {
             Flash::error("P&aacute;gina no encontrada");
-            Router::redirect("/");
+            Router::redirect("index/".$leng);
         }
     }
 
     public function vertodas($id, $leng) {
         // se comprueba que el usuario quien consulta sea el mismo de las solicitudes
         if (Auth::is_valid()) {
+            $this->leng = $leng;
             if (Auth::get('id') == $id) {
                 $this->id_usuario_solicitud = $id;
             } else {
@@ -116,7 +118,7 @@ class SolicitudController extends AppController {
 
                     if ($cancelacion->update()) {
                         Flash::info('Ha cancelado su solicitud');
-                        Router::redirect("/");
+                        Router::redirect("index/".$leng);
                     } else {
                         Flash::info("Error al cancelar la solicitud");
                     }
@@ -134,9 +136,10 @@ class SolicitudController extends AppController {
         }
     }
 
-    Public function confirmacionmail($id) {
+    Public function confirmacionmail($id,$leng) {
         //se confirma que el que ingresa sea el usuario y no otro
         if (Auth::get("id") == $id) {
+            $this->leng = $leng;
             $confirmacionmail = new solicitud();
             $confirmacionmail->confirmar_mail($id);
 
@@ -146,7 +149,7 @@ class SolicitudController extends AppController {
 
                 if ($confirmacionmail->update()) {
                     Flash::info('Ha confirmado el envio del mail');
-                    Router::redirect("/solicitud/ver/" . $id);
+                    Router::redirect("/solicitud/ver/" . $id. "/" . $leng);
                 } else {
                     Flash::info("Error al confirmar envio mail");
                 }
@@ -592,6 +595,7 @@ class SolicitudController extends AppController {
 
     Public function rechazar($id, $usuario, $leng) {
         if (Auth::get("rol_usu") == "administrador") {
+            $this->leng = $leng;
             // valido que los datos obtenidos sean numericos
             if (is_numeric($id) && is_numeric($usuario)) {
                 $solicitud_rechazar = new solicitud ();
