@@ -63,7 +63,7 @@ $usuario_buscar_administrador = "Delete administrator";
 $usuario_buscar_eliminar = "Delete";
 
 //variales para usuario/automodificar
-$usuario_automodificar_titulo = "Modify your date";
+$usuario_automodificar_titulo = "Modify your data";
 $usuario_automodificar_nombre = "Nombre";
 $usuario_automodificar_apellido = "Apellido";
 $usuario_automodificar_modcontraseña = "Modify your password";
