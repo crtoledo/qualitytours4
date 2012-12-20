@@ -155,7 +155,7 @@ class ClienteController extends AppController {
                             }
                             Flash::success("Solicitud enviada correctamente");
                             Input::delete();
-                            Router::redirect("solicitud/ingresar/" . $id."/".$leng);
+                            Router::redirect("solicitud/ingresar/" . $id . "/" . $leng);
                         } else {
                             Flash::error("Error en el ingreso del cliente");
                         }
@@ -178,15 +178,113 @@ class ClienteController extends AppController {
                         $visitas = 0;
                         $plan = $cliente->tipo_plan;
 
-                        if ($cliente->sql("UPDATE cliente SET estado_usu='" . $estado_usu . "' , nombre_cli='" . $nombre_cli . "', rut_cli='" . $rut_cli . "', giro_cli='" . $giro . "', telefono_cli='" . $telefono . "', visitas_cli=" . $visitas . " , tipo_plan='" . $plan . "' WHERE id_usu =" . $id . ";")) {
-                            //Flash::success("Solicitud modificada correctamente");
-                            Input::delete();
-                            Router::redirect("solicitud/ingresar/" . $id."/".$leng);
+                        if ($_REQUEST["categorias"] != " ") {
+
+                            //Se obtienen las categorias enviadas
+                            $array_categorias_enviadas = $_REQUEST["categorias"];
+
+                            //El string obtenido se pasa a array
+                            $array_categorias = explode(".", $array_categorias_enviadas);
+
+                            //Se elimina el espacio en blanco al principio del array
+                            unset($array_categorias[0]);
+
+                            $sentencia_categoria = new categoria();
+                            $sentencia_eliminacion = new categoria();
+
+                            if ($cliente->sql("UPDATE cliente SET estado_usu='" . $estado_usu . "' , nombre_cli='" . $nombre_cli . "', rut_cli='" . $rut_cli . "', giro_cli='" . $giro . "', telefono_cli='" . $telefono . "', visitas_cli=" . $visitas . " , tipo_plan='" . $plan . "' WHERE id_usu =" . $id . ";")) {
+                                //eliminacion "DELETE"categorias anteriores
+                                if ($sentencia_eliminacion->sql("DELETE FROM categoria WHERE id_usu =" . $id . ";")) {
+                                    foreach ($array_categorias as &$categoria) {
+                                        //Traduccion de las categorias
+                                        $categoria_ingles = "";
+                                        switch ($categoria):
+                                            case "Playa":
+                                                $categoria_ingles = "Beach";
+                                                break;
+                                            case "Lago":
+                                                $categoria_ingles = "Lake";
+                                                break;
+                                            case "Río":
+                                                $categoria_ingles = "River";
+                                                break;
+                                            case "Piscina":
+                                                $categoria_ingles = "Pool";
+                                                break;
+                                            case "Calido":
+                                                $categoria_ingles = "Warm";
+                                                break;
+                                            case "Nieve":
+                                                $categoria_ingles = "Snow";
+                                                break;
+                                            case "Lluvioso":
+                                                $categoria_ingles = "Rainy";
+                                                break;
+                                            case "Templado":
+                                                $categoria_ingles = "Temperate";
+                                                break;
+                                            case "Tercera edad":
+                                                $categoria_ingles = "Seniors";
+                                                break;
+                                            case "Juvenil":
+                                                $categoria_ingles = "Youth";
+                                                break;
+                                            case "Terrestres":
+                                                $categoria_ingles = "Terrestrial";
+                                                break;
+                                            case "Extremos":
+                                                $categoria_ingles = "Extreme";
+                                                break;
+                                            case "Acuáticos":
+                                                $categoria_ingles = "Aquatic";
+                                                break;
+                                            case "Aventura":
+                                                $categoria_ingles = "Adventure";
+                                                break;
+                                            case "Histórico":
+                                                $categoria_ingles = "Historical";
+                                                break;
+                                            case "Festivo":
+                                                $categoria_ingles = "Festive";
+                                                break;
+                                            case "Gastronómico":
+                                                $categoria_ingles = "Gastronomic";
+                                                break;
+                                            case "Televisión":
+                                                $categoria_ingles = "TV";
+                                                break;
+                                            case "Calefacción":
+                                                $categoria_ingles = "Heating";
+                                                break;
+                                            case "Baños individuales":
+                                                $categoria_ingles = "Individual bathrooms";
+                                                break;
+                                            case "Duchas":
+                                                $categoria_ingles = "Showers";
+                                                break;
+                                            case "Duchas individuales":
+                                                $categoria_ingles = "Individual showers";
+                                                break;
+                                            default:
+                                                $categoria_ingles = $categoria;
+                                        endswitch;
+                                        //Fin traduccion de las categorias
+                                        //Se inserta la categoria en la tabla categoria
+                                        $sentencia_categoria->sql("INSERT INTO categoria(id_usu, nombre_cat, estado_cat, nombre_cat_eng) VALUES (" . $id . ", '" . $categoria . "', 'false', '" . $categoria_ingles . "')");
+                                    }
+                                    Input::delete();
+                                    Router::redirect("solicitud/ingresar/" . $id . "/" . $leng);
+                                } else {
+                                    Flash::error("Error al ingreso de categor&iacute;a");
+                                }
+                            }
+                        } else {
+                            Flash::error("Debe ingresar a lo menos una categor&iacute;a");
                         }
                     }
                 } else {
                     // en caso de que tenga una solicitud activa se pasa al controlador solicitud
-                    Router::redirect("solicitud/ver/" . $id."/".$leng);
+                    Router::redirect("solicitud/ver/" . $id . "/" . $leng);
                 }
             }
         }
@@ -223,12 +321,12 @@ class ClienteController extends AppController {
                 $this->ciudad_ubi = $ubicacion->ciudad_ubi;
                 $this->direccion_ubi = $ubicacion->direccion_ubi;
             }
-            
-            
+
+
             $categoria_cli = new Categoria();
             $this->array_categorias = $categoria_cli->find("conditions: id_usu=" . $id . "and estado_cat='t'");
-            
-            
+
+
 
             //Comprueba que no se actualise el contador de visita si es el mismo dueño del centro turistico
             if (Session::get("id") == $id) {
@@ -436,14 +534,13 @@ class ClienteController extends AppController {
                         date_default_timezone_set('America/Santiago');
                         //Se obtiene la fecha actual
                         $fecha_actual = date("Y-m-d");
-                        
+
                         $comprobar = new solicitud(); // sirve para validar que no exista otra solicitud de renovacion
                         //Se obtiene la fecha del fin suscripcion
                         $fecha_fin_suscripcion = $datos_cliente->fecha_fin_sus;
                         //Flash::info($fecha_actual."    ".$fecha_fin_suscripcion);
                         //Paso el dia, mes y año para poder comprarlos despues
                         //list($ano, $mes, $dia) = explode('-', $fecha_fin_suscripcion);
-
                         //Se valida de que se cumpla las condiciones de fecha y de que no exista otra solicitud de renovacion
                         if ($fecha_fin_suscripcion <= $fecha_actual && !$comprobar->solicitud_renovacion($id_cliente)) {
                             // se se cumple las condiciones el boton puede ser mostrado
@@ -486,21 +583,18 @@ class ClienteController extends AppController {
                         ///////////////////////////////FIN MODULO DE RENOVACIÓN/////////////////////////////// 
                         /////////////////////////////////////////////////////////////////////////////////////
                         ////////////////////////////////////////////////////////////////////////////////////  
-                    }else if ($tipo_plan == "free") {
+                    } else if ($tipo_plan == "free") {
                         //////////////////////////////
                         //////MODULO CAMBIO PLAN/////
                         ////////////////////////////
                         $solicitud_cambio_existe = new solicitud;
-                        
-                        if ($solicitud_cambio_existe->verifica_solicitud_cambio(Auth::get("id")))
-                        {
-                            $this->activacion_panel_cambio_plan= "No mostrar";
+
+                        if ($solicitud_cambio_existe->verifica_solicitud_cambio(Auth::get("id"))) {
+                            $this->activacion_panel_cambio_plan = "No mostrar";
                             $this->estado = $solicitud_cambio_existe->estado_sol;
                             $this->mail = $solicitud_cambio_existe->mail_sol;
-                        }
-                        else
-                        {
-                            $this->activacion_panel_cambio_plan= "Mostrar";
+                        } else {
+                            $this->activacion_panel_cambio_plan = "Mostrar";
                         }
                         //////////////////////////////////
                         //////FIN MODULO CAMBIO PLAN/////

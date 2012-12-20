@@ -10,7 +10,7 @@ class SolicitudController extends AppController {
     public function before_filter() {
         if (!Auth::is_valid()) {
             Flash::info('Debe iniciar sesión');
-            Router::redirect("index/".$leng);
+            Router::redirect("index/" . $leng);
         }
     }
 
@@ -20,7 +20,7 @@ class SolicitudController extends AppController {
 //****************************************************//    
 ///////////////////////////////////////////////////////      
 
-    public function ingresar($id,$leng) {
+    public function ingresar($id, $leng) {
         // se comprueba que sea turista el que ingresa la solicitud
         if (Auth::get('rol_usu') != "cliente") {
             $this->leng = $leng;
@@ -41,13 +41,21 @@ class SolicitudController extends AppController {
 
             if ($nueva_solicitud->save()) {
                 Flash::info('Solicitud ingresada correctamente');
-                Router::redirect("index/".$leng);
+                if ($leng == "es") {
+                    Router::redirect("/");
+                } else {
+                    Router::redirect("index/" . $leng);
+                }
             } else {
                 Flash::info('Solicitud no ingresada');
             }
         } else {
             Flash::error("P&aacute;gina no encontrada");
-            Router::redirect("index/".$leng);
+            if ($leng == "es") {
+                Router::redirect("/");
+            } else {
+                Router::redirect("index/" . $leng);
+            }
         }
     }
 
@@ -80,11 +88,19 @@ class SolicitudController extends AppController {
                 }
             } else {
                 Flash::error('Acceso denegado');
-                Router::redirect("index/".$leng);
+                if ($leng == "es") {
+                    Router::redirect("/");
+                } else {
+                    Router::redirect("index/" . $leng);
+                }
             }
         } else {
             Flash::error("P&aacute;gina no encontrada");
-            Router::redirect("index/".$leng);
+            if ($leng == "es") {
+                Router::redirect("/");
+            } else {
+                Router::redirect("index/" . $leng);
+            }
         }
     }
 
@@ -96,11 +112,19 @@ class SolicitudController extends AppController {
                 $this->id_usuario_solicitud = $id;
             } else {
                 Flash::error("Acceso denegado");
-                Router::redirect("index/".$leng);
+                if ($leng == "es") {
+                    Router::redirect("/");
+                } else {
+                    Router::redirect("index/" . $leng);
+                }
             }
         } else {
             Flash::error("P&aacute;gina no encontrada");
-            Router::redirect("index/".$leng);
+            if ($leng == "es") {
+                Router::redirect("/");
+            } else {
+                Router::redirect("index/" . $leng);
+            }
         }
     }
 
@@ -118,25 +142,41 @@ class SolicitudController extends AppController {
 
                     if ($cancelacion->update()) {
                         Flash::info('Ha cancelado su solicitud');
-                        Router::redirect("index/".$leng);
+                        if ($leng == "es") {
+                            Router::redirect("/");
+                        } else {
+                            Router::redirect("index/" . $leng);
+                        }
                     } else {
                         Flash::info("Error al cancelar la solicitud");
                     }
                 } else {
                     Flash::info("No puede cancelar su solicitud");
-                    Router::redirect("index/".$leng);
+                    if ($leng == "es") {
+                        Router::redirect("/");
+                    } else {
+                        Router::redirect("index/" . $leng);
+                    }
                 }
             } else {
                 Flash::info("Solicitud no encontrada");
-                Router::redirect("index/".$leng);
+                if ($leng == "es") {
+                    Router::redirect("/");
+                } else {
+                    Router::redirect("index/" . $leng);
+                }
             }
         } else {
             Flash::error("P&aacute;gina no encontrada");
-            Router::redirect("index/".$leng);
+            if ($leng == "es") {
+                Router::redirect("/");
+            } else {
+                Router::redirect("index/" . $leng);
+            }
         }
     }
 
-    Public function confirmacionmail($id,$leng) {
+    Public function confirmacionmail($id, $leng) {
         //se confirma que el que ingresa sea el usuario y no otro
         if (Auth::get("id") == $id) {
             $this->leng = $leng;
@@ -149,7 +189,7 @@ class SolicitudController extends AppController {
 
                 if ($confirmacionmail->update()) {
                     Flash::info('Ha confirmado el envio del mail');
-                    Router::redirect("/solicitud/ver/" . $id. "/" . $leng);
+                    Router::redirect("/solicitud/ver/" . $id . "/" . $leng);
                 } else {
                     Flash::info("Error al confirmar envio mail");
                 }
@@ -159,7 +199,11 @@ class SolicitudController extends AppController {
             }
         } else {
             Flash::error("P&aacute;gina no encontrada");
-            Router::redirect("index/".$leng);
+            if ($leng == "es") {
+                Router::redirect("/");
+            } else {
+                Router::redirect("index/" . $leng);
+            }
         }
     }
 
@@ -218,15 +262,27 @@ class SolicitudController extends AppController {
                             Router::redirect("/cliente/administrarsuscripcion/" . $leng);
                         } else {
                             Flash::error('Solicitud no ingresada');
-                            Router::redirect("/");
+                            if ($leng == "es") {
+                                Router::redirect("/");
+                            } else {
+                                Router::redirect("index/" . $leng);
+                            }
                         }
                     } else {
                         Flash::info('No cumple los requisitos');
-                        Router::redirect("index/".$leng);
+                        if ($leng == "es") {
+                            Router::redirect("/");
+                        } else {
+                            Router::redirect("index/" . $leng);
+                        }
                     }
                 } else {
                     Flash::notice('No tiene solicitudes aceptadas');
-                    Router::redirect("index/".$leng);
+                    if ($leng == "es") {
+                        Router::redirect("/");
+                    } else {
+                        Router::redirect("index/" . $leng);
+                    }
                 }
             } else {
                 Flash::error('No puede ingresar m&aacute;s de dos solicitudes de renovaci&oacute;n');
@@ -234,7 +290,11 @@ class SolicitudController extends AppController {
             }
         } else {
             Flash::error('No posee los privilegios necesarios');
-            Router::redirect("index/".$leng);
+            if ($leng == "es") {
+                Router::redirect("/");
+            } else {
+                Router::redirect("index/" . $leng);
+            }
         }
     }
 
@@ -261,7 +321,11 @@ class SolicitudController extends AppController {
             }
         } else {
             Flash::error("P&aacute;gina no encontrada");
-            Router::redirect("index/".$leng);
+            if ($leng == "es") {
+                Router::redirect("/");
+            } else {
+                Router::redirect("index/" . $leng);
+            }
         }
     }
 
@@ -286,15 +350,27 @@ class SolicitudController extends AppController {
                     }
                 } else {
                     Flash::info("No puede cancelar su solicitud");
-                    Router::redirect("index/".$leng);
+                    if ($leng == "es") {
+                        Router::redirect("/");
+                    } else {
+                        Router::redirect("index/" . $leng);
+                    }
                 }
             } else {
                 Flash::info("Solicitud no encontrada");
-                Router::redirect("index/".$leng);
+                if ($leng == "es") {
+                    Router::redirect("/");
+                } else {
+                    Router::redirect("index/" . $leng);
+                }
             }
         } else {
             Flash::error("P&aacute;gina no encontrada");
-            Router::redirect("index/".$leng);
+            if ($leng == "es") {
+                Router::redirect("/");
+            } else {
+                Router::redirect("index/" . $leng);
+            }
         }
     }
 
@@ -334,11 +410,19 @@ class SolicitudController extends AppController {
                 }
             } else {
                 Flash::error('Acceso denegado');
-                Router::redirect("index/".$leng);
+                if ($leng == "es") {
+                    Router::redirect("/");
+                } else {
+                    Router::redirect("index/" . $leng);
+                }
             }
         } else {
             Flash::error('No posee los privilegios necesarios');
-            Router::redirect("index/".$leng);
+            if ($leng == "es") {
+                Router::redirect("/");
+            } else {
+                Router::redirect("index/" . $leng);
+            }
         }
     }
 
@@ -365,7 +449,11 @@ class SolicitudController extends AppController {
             }
         } else {
             Flash::error("P&aacute;gina no encontrada");
-            Router::redirect("index/".$leng);
+            if ($leng == "es") {
+                Router::redirect("/");
+            } else {
+                Router::redirect("index/" . $leng);
+            }
         }
     }
 
@@ -390,15 +478,27 @@ class SolicitudController extends AppController {
                     }
                 } else {
                     Flash::info("No puede cancelar su solicitud");
-                    Router::redirect("index/".$leng);
+                    if ($leng == "es") {
+                        Router::redirect("/");
+                    } else {
+                        Router::redirect("index/" . $leng);
+                    }
                 }
             } else {
                 Flash::info("Solicitud no encontrada");
-                Router::redirect("index/".$leng);
+                if ($leng == "es") {
+                    Router::redirect("/");
+                } else {
+                    Router::redirect("index/" . $leng);
+                }
             }
         } else {
             Flash::error("Página no encontrada");
-            Router::redirect("index/".$leng);
+            if ($leng == "es") {
+                Router::redirect("/");
+            } else {
+                Router::redirect("index/" . $leng);
+            }
         }
     }
 
@@ -471,12 +571,20 @@ class SolicitudController extends AppController {
                 }
             } else {
                 Flash::info('No posee los privilegios necesarios');
-                Router::redirect("index/".$leng);
+                if ($leng == "es") {
+                    Router::redirect("/");
+                } else {
+                    Router::redirect("index/" . $leng);
+                }
             }
             //fin if de rol
         } else {
             Flash::info('P&aacute;gina no encontrada ');
-            Router::redirect("index/".$leng);
+            if ($leng == "es") {
+                Router::redirect("/");
+            } else {
+                Router::redirect("index/" . $leng);
+            }
         }
     }
 
@@ -495,11 +603,19 @@ class SolicitudController extends AppController {
                 }
             } else {
                 Flash::error("Acceso denegado");
-                Router::redirect("index/".$leng);
+                if ($leng == "es") {
+                    Router::redirect("/");
+                } else {
+                    Router::redirect("index/" . $leng);
+                }
             }
         } else {
             Flash::info('No tiene los privilegios necesarios');
-            Router::redirect("index/".$leng);
+            if ($leng == "es") {
+                Router::redirect("/");
+            } else {
+                Router::redirect("index/" . $leng);
+            }
         }
     }
 
@@ -581,15 +697,27 @@ class SolicitudController extends AppController {
                     }
                 } else {
                     Flash::info('Datos no corresponden a la solicitud');
-                    Router::redirect("index/".$leng);
+                    if ($leng == "es") {
+                        Router::redirect("/");
+                    } else {
+                        Router::redirect("index/" . $leng);
+                    }
                 }
             } else {
                 Flash::info('Datos no corresponden a la solicitud');
-                Router::redirect("index/".$leng);;
+                if ($leng == "es") {
+                    Router::redirect("/");
+                } else {
+                    Router::redirect("index/" . $leng);
+                }
             }
         } else {
             Flash::info('No tiene los privilegios necesarios');
-            Router::redirect("index/".$leng);
+            if ($leng == "es") {
+                Router::redirect("/");
+            } else {
+                Router::redirect("index/" . $leng);
+            }
         }
     }
 
@@ -614,11 +742,19 @@ class SolicitudController extends AppController {
                 }
             } else {
                 Flash::info('Datos no son correctos');
-                Router::redirect("index/".$leng);
+                if ($leng == "es") {
+                    Router::redirect("/");
+                } else {
+                    Router::redirect("index/" . $leng);
+                }
             }
         } else {
             Flash::info('No tiene los privilegios necesarios');
-            Router::redirect("index/".$leng);
+            if ($leng == "es") {
+                Router::redirect("/");
+            } else {
+                Router::redirect("index/" . $leng);
+            }
         }
     }
 
@@ -642,15 +778,27 @@ class SolicitudController extends AppController {
                     }
                 } else {
                     Flash::info('Datos no corresponden a la solicitud');
-                    Router::redirect("index/".$leng);
+                    if ($leng == "es") {
+                        Router::redirect("/");
+                    } else {
+                        Router::redirect("index/" . $leng);
+                    }
                 }
             } else {
                 Flash::info('Datos no son correctos');
-                Router::redirect("index/".$leng);
+                if ($leng == "es") {
+                    Router::redirect("/");
+                } else {
+                    Router::redirect("index/" . $leng);
+                }
             }
         } else {
             Flash::info('No tiene los privilegios necesarios');
-            Router::redirect("index/".$leng);
+            if ($leng == "es") {
+                Router::redirect("/");
+            } else {
+                Router::redirect("index/" . $leng);
+            }
         }
     }
 
