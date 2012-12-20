@@ -40,11 +40,13 @@ class SolicitudController extends AppController {
             $nueva_solicitud->activo_sol = "true";
 
             if ($nueva_solicitud->save()) {
-                Flash::info('Solicitud ingresada correctamente');
+                
                 if ($leng == "es") {
+                    Flash::info('Solicitud ingresada correctamente');
                     Router::redirect("/");
                 } else {
-                    Router::redirect("index/" . $leng);
+                    Router::redirect("index/?l=en");
+                    Flash::info("request sent successfully");
                 }
             } else {
                 Flash::info('Solicitud no ingresada');
@@ -54,7 +56,7 @@ class SolicitudController extends AppController {
             if ($leng == "es") {
                 Router::redirect("/");
             } else {
-                Router::redirect("index/" . $leng);
+                Router::redirect("index/?l=en");
             }
         }
     }
@@ -91,7 +93,7 @@ class SolicitudController extends AppController {
                 if ($leng == "es") {
                     Router::redirect("/");
                 } else {
-                    Router::redirect("index/" . $leng);
+                    Router::redirect("index/?l=en");
                 }
             }
         } else {
@@ -99,7 +101,7 @@ class SolicitudController extends AppController {
             if ($leng == "es") {
                 Router::redirect("/");
             } else {
-                Router::redirect("index/" . $leng);
+                Router::redirect("index/?l=en");
             }
         }
     }

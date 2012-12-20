@@ -111,7 +111,10 @@ $(document).ready(function () {
     top: 5px;
 }
 </style>
-
+<div class="container-fluid">
+    <div class="row-fluid">
+        <?php View::partial('publicidad_vertical'); ?>
+        <div class="span10 well"  style="background-color: #f9ffff; ">
 <fieldset>
 <?php echo Form::open('usuario/automodificar/'.$leng) ?>
     <div align="center">
@@ -156,3 +159,4 @@ $(document).ready(function () {
     <?php echo Form::hidden('usuario.id'); ?>
     <?php echo Form::close() ?> 
 </fieldset>
+        </div>
