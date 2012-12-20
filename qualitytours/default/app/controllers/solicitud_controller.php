@@ -45,8 +45,9 @@ class SolicitudController extends AppController {
                     Flash::info('Solicitud ingresada correctamente');
                     Router::redirect("/");
                 } else {
+                    Flash::info("Request sent successfully");
                     Router::redirect("index/?l=en");
-                    Flash::info("request sent successfully");
+                    
                 }
             } else {
                 Flash::info('Solicitud no ingresada');
