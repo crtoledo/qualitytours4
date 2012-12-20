@@ -205,8 +205,58 @@ $contacto_contacto_asuntoval = "El asunto debe tener al menos 3 letras";
 $contacto_contacto_mensajeval = "El mensaje no puede estar vac&iacute;o";
 $contacto_contacto_mensajeval2= "El mensaje debe tener al menos 10 letras";
 
-
-
-
-
+//CLIENTE-ingresarsolicitud
+$cliente_ingresarsol_valnombre = "Ingrese su nombre";
+$cliente_ingresarsol_valrut = "Ingrese su rut";
+$cliente_ingresarsol_valrutvalido = "Ingrese un rut v&aacute;lido";
+$cliente_ingresarsol_valgiro = "Ingrese un giro";
+$cliente_ingresarsol_valtelefono = "Ingrese un telefono";
+$cliente_ingresarsol_valterminos = "Debe aceptar los t&eacute;rminos de uso";
+$cliente_ingresarsol_valrutrepetido = "Rut ya ingresado";
+$cliente_ingresarsol_valrutinvalido = "Rut inv&aacute;lido";
+$cliente_ingresarsol_nomcentroturistico = "Nombre centro tur&iacute;stico";
+$cliente_ingresarsol_titulo = "Enviar solicitud de suscripci&oacute;n";
+$cliente_ingresarsol_rutprivado = "Rut privado";
+$cliente_ingresarsol_phnombrecliente = "Nombre cliente";
+$cliente_ingresarsol_rutcomercial = "Rut comercial";
+$cliente_ingresarsol_giro = "Giro";
+$cliente_ingresarsol_telefonocomercial = "Tel&eacute;fono comercial";
+$cliente_ingresarsol_seleccioneplan = "Seleccione plan";
+$cliente_ingresarsol_leidocondiciones = "He le&iacutedo las condiciones del servicio y las acepto";
+$cliente_ingresarsol_seleccioncat = "Selecciones sus categor&iacute;as";
+$cliente_ingresarsol_lugarescat = "Lugares";
+$cliente_ingresarsol_catplaya = "Playa";
+$cliente_ingresarsol_catlago = "Lago";
+$cliente_ingresarsol_catrio = "R&iacute;o";
+$cliente_ingresarsol_catpiscina = "Piscina";
+$cliente_ingresarsol_climacat = "Clima";
+$cliente_ingresarsol_catcalido = "C&aacute;lido";
+$cliente_ingresarsol_catnieve = "Nieve";
+$cliente_ingresarsol_catlluvioso = "Lluvioso";
+$cliente_ingresarsol_cattemplado = "Templado";
+$cliente_ingresarsol_catterceraedad = "Tercera edad";
+$cliente_ingresarsol_catjuvenil = "Juvenil";
+$cliente_ingresarsol_deportescat = "Deportes";
+$cliente_ingresarsol_catterrestres = "Terrestres";
+$cliente_ingresarsol_catextremos = "Extremos";
+$cliente_ingresarsol_catacuaticos = "Acu&aacute;ticos";
+$cliente_ingresarsol_cataventura = "Aventura";
+$cliente_ingresarsol_culturalcat = "Cultural";
+$cliente_ingresarsol_cathistorico = "Hist&oacute;rico";
+$cliente_ingresarsol_catfestivo = "Festivo";
+$cliente_ingresarsol_catgastronomico = "Gastron&oacute;mico";
+$cliente_ingresarsol_tecnologiacat = "Tecnolog&iacute;a";
+$cliente_ingresarsol_servicioscat = "Servicios";
+$cliente_ingresarsol_catcalefaccion = "Calefacci&oacute;n";
+$cliente_ingresarsol_catbanosindividuales = "Baños individuales";
+$cliente_ingresarsol_catduchas = "Duchas";
+$cliente_ingresarsol_catduchasindividuales = "Duchas individuales";
+$cliente_ingresarsol_botenviarsolicitud = "Enviar solicitud";
+$cliente_ingresarsol_botreiniciar = "Reiniciar";
+$cliente_ingresarsol_ = "";
+$cliente_ingresarsol_ = "";
+$cliente_ingresarsol_ = "";
+$cliente_ingresarsol_ = "";
+$cliente_ingresarsol_ = "";
+$cliente_ingresarsol_ = "";
 ?>
