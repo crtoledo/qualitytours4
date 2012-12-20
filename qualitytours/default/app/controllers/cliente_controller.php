@@ -548,7 +548,7 @@ class ClienteController extends AppController {
                             $this->muestra_boton = "Si";
                             $this->estado_sol = "1";
                         } else {
-                            $this->noexiste = "<center><b>Todavia  no cumple los requisitos</b></center>";
+                            $this->noexiste = "<center><b>Todav&iacute;a  no cumple los requisitos de renovaci&oacute;n</b></center>";
                             $this->estado_sol = "1";
                         }
 
