@@ -34,21 +34,42 @@
                         //devuelve los 2 ultimos caracteres de la url si es igual a en se utiliza las variables en inglés
                         $url = substr($url2, -2);
                         if ($url == "en" || $url2 == "/trunk/qualitytours/pages/terms_of_use" )  
-                        {  
-                            echo Html::link('pages/terms_of_use', 'Terms of use'); 
+                        {   
                             $leng = "en";
+                            echo Html::link('pages/terms_of_use', 'Terms of use'); 
+                            echo "&nbsp;| Terms of Service | Privacy Policy |&nbsp;".Html::link('contacto/contacto/'.$leng, 'Contact Us')."</span></p>";
+                           
                         }
                         else
                         {  
                             $leng = "es";
                             echo Html::link('pages/condiciones', 'Condiciones de uso');
+                            echo "&nbsp;| Condiciones del servicio | Pol&iacute;tica de privacidad |&nbsp;".Html::link('contacto/contacto/'.$leng, 'Cont&aacute;ctenos')."</span></p>";
+                          
                         }
                         ?>
-                                | Condiciones del servicio | Pol&iacute;tica de privacidad | <?php echo Html::link('contacto/contacto/'.$leng, 'Cont&aacute;ctenos'); ?> </span></p>
-                        <small style="font-size: 8px">Actualizado al 19 de Diciembre</small>
                     </blockquote>
                 </div>
+                    <?php
+                        $url2 = $_SERVER['REQUEST_URI'];
+                        //devuelve los 2 ultimos caracteres de la url si es igual a en se utiliza las variables en inglés
+                        $url = substr($url2, -2);
+                        if ($url == "en" || $url2 == "/trunk/qualitytours/pages/terms_of_use" )  
+                        {   ?>
+                
                 <div class="span6">  
+                    <blockquote class="pull-right">
+<!--                        <p><span style="font-size: 10px"><a href="http://qualitytours.no-ip.org">Quality Tours 2012</a></span></p>
+                        <span style="font-size: 10px">Algunos derechos reservados</span>-->
+                        <p><span style="font-size: 10px">Quality Tours 2012 </span></p>
+                        <small style="font-size: 10px">Some rights reserved</small>
+                    </blockquote>
+                </div>
+                <?php }  
+                   else
+                   {
+                ?>
+                    <div class="span6">  
                     <blockquote class="pull-right">
 <!--                        <p><span style="font-size: 10px"><a href="http://qualitytours.no-ip.org">Quality Tours 2012</a></span></p>
                         <span style="font-size: 10px">Algunos derechos reservados</span>-->
@@ -56,6 +77,10 @@
                         <small style="font-size: 10px">Algunos derechos reservados</small>
                     </blockquote>
                 </div>
+                
+                
+                
+                <?php } ?>
             </div>
             <div id="toTop"><i class="icon-arrow-up"></i></div>
         </div>    
