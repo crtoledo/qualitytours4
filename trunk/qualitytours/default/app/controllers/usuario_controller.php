@@ -18,6 +18,13 @@ class UsuarioController extends AppController {
         if (!Auth::is_valid()) {
             if (Input::hasPost('usuario')) {
                 $usuario = new Usuario(Input::post('usuario'));
+                
+                //ELIMINACION DE APOSTROFES
+                $usuario->username_usu = str_replace("'", '', $usuario->username_usu);
+                $usuario->password_usu = str_replace("'", '', $usuario->password_usu);
+                $usuario->apellido_usu = str_replace("'", '', $usuario->apellido_usu);
+                $usuario->nombre_usu = str_replace("'", '', $usuario->nombre_usu);
+                
                 $contraseña = $usuario->password_usu;
 
                 $en1 = md5($contraseña);
