@@ -244,7 +244,7 @@ class PublicacionController extends AppController
                 $this->leng = $leng;
                 //buscar publicaciones que no tengan traduccion:
                 $publicacion = new Publicacion();
-                if ($publicacion->count("conditions: estado_pub='t'") == 0) 
+                if ($publicacion->count("conditions: estado_pub= 't' ") == 0) 
                 {
                     $this->cont = 0;
                 }
@@ -252,7 +252,7 @@ class PublicacionController extends AppController
                 {
                     $this->cont = 1;
                     //buscando comentarios:
-                    $arr = $publicacion->find("conditions: estado_pub='t'");
+                    $arr = $publicacion->find_all_by_sql("select * from publicacion where estado_pub=true and detalle_pub_eng is null");
                     $contador = 0;
                     foreach ($arr as $publicacion) 
                     {
