@@ -31,8 +31,8 @@ $Db->close($conn);
                 <tr>
                     <td><?php echo "<b>".$nombre."</b>"; ?>
                 <br>
-                <div align="left"> <?php echo $comentario; ?> </div></td>
-                    <td><div align="right"><?php echo "<b>".$fecha."</b>";?> <a  class="delete" id="<?=$ultimoid ?>"><i class="icon-remove"></i></a> </div></td>
+                <div style="text-align: left;"> <?php echo $comentario; ?> </div></td>
+                    <td><div style="text-align: right;"><?php echo "<b>".$fecha."</b>";?> <a  class="delete" id="<?=$ultimoid ?>"><i class="icon-remove"></i></a> </div></td>
                 </tr>
             
            </table> 

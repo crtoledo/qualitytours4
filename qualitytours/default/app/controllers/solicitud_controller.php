@@ -22,7 +22,8 @@ class SolicitudController extends AppController {
 
     public function ingresar($id, $leng) {
         // se comprueba que sea turista el que ingresa la solicitud
-        if (Auth::is_valid() && Auth::get('rol_usu') != "cliente") {
+        if (Auth::is_valid() && Auth::get('rol_usu') == "turista" && Auth::get("id") == $id) {
+            
             $this->leng = $leng;
 
             date_default_timezone_set('America/Santiago');
