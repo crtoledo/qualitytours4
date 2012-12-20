@@ -510,7 +510,7 @@ class ClienteController extends AppController {
                         ////////////////////////////////
                     }
                 } else {
-                    Flash::info('No tiene suscripcion activa');
+                    Flash::info('No tiene suscripci&oacute;n activa');
                     Router::redirect("cliente/ingresarsolicitud");
                 }
             } else {
@@ -583,10 +583,10 @@ class ClienteController extends AppController {
                         $mail->IsHTML(true);
                         $mail->send();
 
-                        Flash::info('Suscripcion cliente cancelada');
+                        Flash::info('Suscripci&oacute;n cliente cancelada');
                         Router::redirect("usuario/buscar/" . $leng);
                     } else {
-                        Flash::error('No se pudo cancelar la suscripcion');
+                        Flash::error('No se pudo cancelar la suscripci&oacute;n');
                         Router::redirect("usuario/buscar/" . $leng);
                     }
                 } else {
