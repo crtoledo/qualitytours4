@@ -48,7 +48,7 @@ $string = str_replace("'", '', $string);
                     {
                         resultados_encontrados++;
                         $(".tclientes").append("<tr class='c1res"+i+"'>");
-                        $(".c1res"+i).append("<td><a href='/trunk/qualitytours/cliente/detalle/"+data[i].id_cliente+"/es'>"+data[i].nombre_cliente+"</a></td><td>"+data[i].ciudad+"</td><td>"+data[i].region+"</td>")
+                        $(".c1res"+i).append("<td><a href='/trunk/qualitytours/cliente/detalle/"+data[i].id_cliente+"/<?php echo $leng?>'>"+data[i].nombre_cliente+"</a></td><td>"+data[i].ciudad+"</td><td>"+data[i].region+"</td>")
                             
                         if (data[i].promedio == 0)
                         {
@@ -102,7 +102,7 @@ $string = str_replace("'", '', $string);
                     {
                         resultados_encontrados++;
                         $(".tregiones").append("<tr class='c2res"+i+"'>");
-                        $(".c2res"+i).append("<td><a href='/trunk/qualitytours/cliente/detalle/"+data[i].id_cliente+"/es'>"+data[i].nombre_cliente+"</a></td><td>"+data[i].ciudad+"</td><td>"+data[i].region+"</td>")
+                        $(".c2res"+i).append("<td><a href='/trunk/qualitytours/cliente/detalle/"+data[i].id_cliente+"/<?php echo $leng?>'>"+data[i].nombre_cliente+"</a></td><td>"+data[i].ciudad+"</td><td>"+data[i].region+"</td>")
                             
                         if (data[i].promedio == 0)
                         {
@@ -157,7 +157,7 @@ $string = str_replace("'", '', $string);
                     {
                         resultados_encontrados++;
                         $(".tciudades").append("<tr class='c3res"+i+"'>");
-                        $(".c3res"+i).append("<td><a href='/trunk/qualitytours/cliente/detalle/"+data[i].id_cliente+"/es'>"+data[i].nombre_cliente+"</a></td><td>"+data[i].ciudad+"</td><td>"+data[i].region+"</td>")
+                        $(".c3res"+i).append("<td><a href='/trunk/qualitytours/cliente/detalle/"+data[i].id_cliente+"/<?php echo $leng?>'>"+data[i].nombre_cliente+"</a></td><td>"+data[i].ciudad+"</td><td>"+data[i].region+"</td>")
                             
                         if (data[i].promedio == 0)
                         {
@@ -216,7 +216,7 @@ $string = str_replace("'", '', $string);
                     {
                         resultados_encontrados++;
                         $(".tcategorias").append("<tr class='c4res"+i+"'>");
-                        $(".c4res"+i).append("<td><a href='/trunk/qualitytours/cliente/detalle/"+data[i].id_cliente+"/es'>"+data[i].nombre_cliente+"</a></td><td>"+data[i].ciudad+"</td><td>"+data[i].region+"</td>")
+                        $(".c4res"+i).append("<td><a href='/trunk/qualitytours/cliente/detalle/"+data[i].id_cliente+"/<?php echo $leng?>'>"+data[i].nombre_cliente+"</a></td><td>"+data[i].ciudad+"</td><td>"+data[i].region+"</td>")
                             
                         if (data[i].promedio == 0)
                         {
