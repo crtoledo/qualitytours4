@@ -20,8 +20,6 @@ class UsuarioController extends AppController {
                 $usuario = new Usuario(Input::post('usuario'));
                 
                 //ELIMINACION DE APOSTROFES
-                $usuario->username_usu = str_replace("'", '', $usuario->username_usu);
-                $usuario->password_usu = str_replace("'", '', $usuario->password_usu);
                 $usuario->apellido_usu = str_replace("'", '', $usuario->apellido_usu);
                 $usuario->nombre_usu = str_replace("'", '', $usuario->nombre_usu);
                 
