@@ -82,7 +82,7 @@ reemplazo se uso 'errorVal'.
     
     <?php $data = array('free'=>'Free', 'normal'=>'Normal','plus'=>'Plus' ); ?>
     
-<?php echo Form::open('cliente/ver/'.Auth::get("id")) ?>
+<?php echo Form::open('cliente/ver/'.Auth::get("id")."/".$leng) ?>
     <div align="center">
         <h1> Datos de tu suscripción</h1><br>
         <table>
