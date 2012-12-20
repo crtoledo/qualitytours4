@@ -1,3 +1,11 @@
+<?php
+//Código para el idioma
+if ($leng == "en") {
+    include_once APP_PATH . 'libs/en.php';
+} else {
+    include_once APP_PATH . 'libs/es.php';
+}
+?> 
 <div><?php View::content() ?></div> 
 
 <script type="text/javascript">
@@ -34,9 +42,9 @@ $.ajax
                 {
                     $(".table-striped tbody").empty();
                     $(".table-striped tbody").append('<td><center><b>NO</b></center></td>');
-                    $(".table-striped tbody").append('<td><center><b>PRESENTA</b></center></td>');
-                    $(".table-striped tbody").append('<td><center><b>SOLICITUDES</b></center></td>');
-                    $(".table-striped tbody").append('<td><center><b>ANTERIORES</b></center></td>');
+                    $(".table-striped tbody").append('<td><center><b><?php echo $solicitud_vertodas_msjpresenta; ?></b></center></td>');
+                    $(".table-striped tbody").append('<td><center><b><?php echo $solicitud_vertodas_msjsolicitudes; ?></b></center></td>');
+                    $(".table-striped tbody").append('<td><center><b><?php echo $solicitud_vertodas_msjanteriores; ?></b></center></td>');
                 }
             } // cierre success
             
@@ -45,16 +53,16 @@ $.ajax
         });
 </script>
 <div align="center">
-    <h1 style="font-family: SF"> Solicitudes anteriores </h1>
+    <h1 style="font-family: SF"> <?php echo $solicitud_vertodas_titulo; ?> </h1>
     <br></br>
     
     <table class="table table-striped">
         <thead>
             <tr>
-                <th><center>Numero solicitud</center></th>
-                <th><center>Fecha solicitud</center></th>
-                <th><center>Situacion final</center></th>
-                <th><center>Tipo solicitud</center></th>
+                <th><center><?php echo $solicitud_vertodas_numerosolicitud; ?></center></th>
+                <th><center><?php echo $solicitud_vertodas_fechasolicitud; ?></center></th>
+                <th><center><?php echo $solicitud_vertodas_situacionfinal;?></center></th>
+                <th><center><?php echo $solicitud_vertodas_tiposolicitud; ?></center></th>
             </tr>
         </thead>
 
@@ -77,8 +85,8 @@ $.ajax
 <!--    Tabla botones opciones-->
     <table>
         <tr>
-            <td><center><a href="/trunk/qualitytours/cliente/ingresarsolicitud/<?php echo $leng?>"><button class="btn btn-success" type="button">Ingresar solicitud</button>&nbsp;</a></center></td>
-            <td><center><a href="/trunk/qualitytours/solicitud/ver/<?php echo Auth::get("id").'/'.$leng  ?>"><button class="btn btn-info" type="button">Volver</button></a></center></td>
+            <td><center><a href="/trunk/qualitytours/cliente/ingresarsolicitud/<?php echo $leng?>"><button class="btn btn-success" type="button"><?php echo $solicitud_vertodas_botingresar; ?></button>&nbsp;</a></center></td>
+            <td><center><a href="/trunk/qualitytours/solicitud/ver/<?php echo Auth::get("id").'/'.$leng  ?>"><button class="btn btn-info" type="button"><?php echo $solicitud_vertodas_botvolver; ?></button></a></center></td>
         </tr>
     </table>
 </div>
