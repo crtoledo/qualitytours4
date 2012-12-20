@@ -49,7 +49,7 @@
                             <td width="250px"><dd><?php echo $nombre_usu ?></dd></td>
                             </tr>        
                             <tr>
-                                <td><dt>Nombre de centro turistico:</dt></td>
+                                <td><dt>Nombre de centro tur&iacute;stico:</dt></td>
                             <td width="250px"><dd><?php echo $nombre_cli ?></dd></td>
                             </tr>
                             <tr>
@@ -65,7 +65,7 @@
                             <td width="250px"><dd><?php echo $giro_cli ?></dd></td>
                             </tr>
                             <tr>
-                                <td><dt>Telefono comercial:</dt></td>
+                                <td><dt>Tel&eacute;fono comercial:</dt></td>
                             <td width="250px"><dd><?php echo $telefono_cli ?></dd></td>
                             </tr>
                             <tr>
@@ -85,7 +85,7 @@
 
             <?php if (isset($panel_suscripcion_renovacion) && $estado_sol == "Pendiente" || $estado_sol == "Esperando") { ?>
                 <td>
-                    <h4> <center> Datos solicitud renovacion </center></h4>
+                    <h4> <center> Datos solicitud renovaci&oacute;n </center></h4>
                     <!-- ******************************************************* 
                          Panel de administracion de la solicitud de renovacion
                          *******************************************************  -->
@@ -123,11 +123,11 @@
         <center>
             <table>
                 <tr>
-                    <?php if ($estado_sol == "Pendiente") { ?><td><button class="btn btn-danger btn-small" type="submit" onclick="cancelar ();">Cancelar renovacion</button></td> <?php } ?>
-                    <?php if ($estado_sol == "Esperando" && $mail_sol == "f") { ?><td><button class="btn btn-primary btn-small" type="submit" onclick="confirmar ();">Confirmacion mail</button>&nbsp</td>
+                    <?php if ($estado_sol == "Pendiente") { ?><td><button class="btn btn-danger btn-small" type="submit" onclick="cancelar ();">Cancelar renovaci&oacute;n</button></td> <?php } ?>
+                    <?php if ($estado_sol == "Esperando" && $mail_sol == "f") { ?><td><button class="btn btn-primary btn-small" type="submit" onclick="confirmar ();">Confirmaci&oacute;n mail</button>&nbsp</td>
                         <?php
                     } else if ($estado_sol == "Esperando" && $mail_sol == "t") {
-                        echo "<b>Usted ya envio la confirmacion del envio del mail <b>";
+                        echo "<b>Usted ya envi&oacute; la confirmaci&oacute;n del envio del mail <b>";
                     }
                     ?>
 
@@ -158,7 +158,7 @@
             <table class="table table-bordered">
                 <thead>
                     <tr>
-                        <th><center><dt>Observacion</dt></center></th>
+                        <th><center><dt>Observaci&oacute;n</dt></center></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -171,8 +171,8 @@
             if (isset($muestra_boton)) {
                 if ($muestra_boton == "Si") {
                     ?>
-                    <center><button class="btn btn-success" type="submit" onclick="activar_renovar()">Renovar suscripción</button></center>
-                    <p align="center">Si desea cambiar los datos de la suscripcion, debe esperar<br>
+                    <center><button class="btn btn-success" type="submit" onclick="activar_renovar()">Renovar suscripci&oacute;n</button></center>
+                    <p align="center">Si desea cambiar los datos de la suscripci&oacute;n, debe esperar<br>
                         a que la actual termine para mandar una nueva solicitud</p>
                     <?php
                 }
@@ -223,13 +223,13 @@ Seccion de modal
         <div id="renovar" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h3 id="myModalLabel">¿ Esta seguro de renovar la suscripción?</h3>
+                <h3 id="myModalLabel">¿Esta seguro de renovar la suscripci&oacute;n?</h3>
             </div>
             <div class="modal-body">
-                <p><b>Al renovar su suscripción usted acepta las condiciones del servicio</b><br>
+                <p><b>Al renovar su suscripci&oacute;n usted acepta las condiciones del servicio</b><br>
                     Observaciones: <br> 
-                <ul>1.- Asegurece que los datos mostrados corresponden a su centro turistico</ul>
-                <ul>2.- La solicitud de renovacion tiene que ser confirmada por un administrador</ul></p>
+                <ul>1.- Aseg&uacute;rese que los datos mostrados corresponden a su centro turistico</ul>
+                <ul>2.- La solicitud de renovaci&oacute;n tiene que ser confirmada por un administrador</ul></p>
             </div>
             <div class="modal-footer">
                 <button class="btn" data-dismiss="modal" aria-hidden="true">Cerrar</button>
@@ -246,10 +246,10 @@ if (isset($estado_sol)) {
         <div id="cancela" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h3 id="myModalLabel">¿ Esta seguro de cancelar ?</h3>
+                <h3 id="myModalLabel">¿Esta seguro de cancelar?</h3>
             </div>
             <div class="modal-body">
-                <p>La cancelación de esta solicitud no se podra deshacer</p>
+                <p>La cancelaci&oacute;n de esta solicitud no se podra deshacer</p>
             </div>
             <div class="modal-footer">
                 <button class="btn" data-dismiss="modal" aria-hidden="true">Cerrar</button>
@@ -260,7 +260,7 @@ if (isset($estado_sol)) {
             <div id="email" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                    <h3 id="myModalLabel">¿ha enviado el correo correspondiente?</h3>
+                    <h3 id="myModalLabel">¿Ha enviado el correo correspondiente?</h3>
                 </div>
                 <div class="modal-body">
                     <p>Si usted ha enviado el mail con los datos solicitados: </p>
@@ -283,11 +283,11 @@ if (isset($estado_sol)) {
                     <div id="email_cambio" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                            <h3 id="myModalLabel">¿ha enviado el correo correspondiente?</h3>
+                            <h3 id="myModalLabel">¿Ha enviado el correo correspondiente?</h3>
                         </div>
                         <div class="modal-body">
                             <p>Si usted ha enviado el mail con los datos solicitados: </p>
-                            <p>  - Imagen del deposito bancario</p>
+                            <p>  - Imagen del dep&oacute;sito bancario</p>
                             <p>  - Datos solicitados</p>
                         </div>
                         <div class="modal-footer">
@@ -305,7 +305,7 @@ if (isset($estado_sol)) {
                                 <h3 id="myModalLabel">¿Esta seguro de cancelar el cambio de plan?</h3>
                             </div>
                             <div class="modal-body">
-                                <p>Esta acción no se puede revertir, para cambiar el plan con posteridad debe mandar otra solicitud</p>
+                                <p>Esta acci&oacute;n no se puede revertir, para cambiar el plan con posteridad debe mandar otra solicitud</p>
                             </div>
                             <div class="modal-footer">
                                 <button class="btn" data-dismiss="modal" aria-hidden="true">Cerrar</button>
