@@ -431,7 +431,8 @@ class ClienteController extends AppController {
     //*********************************************//
     ////////////////////////////////////////////////
     //Funcion para modificar los datos del cliente una vez ingresada al solicitud.
-    public function ver($id) {
+    public function ver($id,$leng) {
+        $this->leng = $leng;
         $vercliente = new cliente();
 
         if (Input::hasPost('cliente')) {
