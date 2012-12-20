@@ -17,7 +17,7 @@
     $mail->IsSMTP();
     //$mail->SMTPSecure = "ssl";
     $mail->SMTPAuth = true;
-    $mail->SMTPDebug = 1;  // debugging: 1 = errors and messages, 2 = messages only
+    $mail->SMTPDebug = 0;  // debugging: 1 = errors and messages, 2 = messages only
     $mail->Host = "smtp.mail.yahoo.com";
     $mail->Port = 25;
     $mail->Username = "qualitytoursadm@yahoo.com";
@@ -42,12 +42,13 @@ if (isset($_POST['enviar']))
     $mail->AddAddress($email_cli, "Destinatario"); //Dirección a la que enviaremos el correo
     $mail->IsHTML(true);
     
-    if(!$mail->Send()){
-    echo "Error: " . $mail->ErrorInfo;
+    if (!$mail->Send()) {
+        //echo "Error: " . $mail->ErrorInfo;
+        Flash::error("No se pudo enviar el mensaje");
     } else {
-    //echo "Mensaje enviado correctamente";
-    Flash::success("Mensaje enviado correctamente");
-    Router::redirect('/');
+        //echo "Mensaje enviado correctamente";
+        Flash::success("Mensaje enviado correctamente");
+        Router::redirect('/');
     }
   
 }

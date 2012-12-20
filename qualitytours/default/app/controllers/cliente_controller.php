@@ -659,7 +659,7 @@ class ClienteController extends AppController {
                         $mail->IsSMTP();
                         //$mail->SMTPSecure = "ssl";
                         $mail->SMTPAuth = true;
-                        $mail->SMTPDebug = 1;  // debugging: 1 = errors and messages, 2 = messages only
+                        $mail->SMTPDebug = 0;  // debugging: 1 = errors and messages, 2 = messages only
                         $mail->Host = "smtp.mail.yahoo.com";
                         $mail->Port = 25;
                         $mail->Username = "qualitytoursadm@yahoo.com";
@@ -675,6 +675,12 @@ class ClienteController extends AppController {
                         $mail->IsHTML(true);
                         $mail->send();
 
+                         if (!$mail->Send()) {
+                            //echo "Error: " . $mail->ErrorInfo;
+                            Flash::error("Mail error: No se pudo contactar el servidor smtp");
+                            Router::redirect("usuario/buscar/" . $leng);
+                        }
+                        
                         Flash::info('Suscripci&oacute;n cliente cancelada');
                         Router::redirect("usuario/buscar/" . $leng);
                     } else {
