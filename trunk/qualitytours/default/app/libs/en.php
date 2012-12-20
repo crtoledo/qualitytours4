@@ -263,6 +263,6 @@ $solicitud_vertodas_numerosolicitud = "Request number";
 $solicitud_vertodas_fechasolicitud = "Request date";
 $solicitud_vertodas_situacionfinal = "Situation";
 $solicitud_vertodas_tiposolicitud = "Request type";
-$solicitud_vertodas_ = "Send request";
-$solicitud_vertodas_ = "Go back";
+$solicitud_vertodas_botingresar = "Send request";
+$solicitud_vertodas_botvolver = "Go back";
 ?>
