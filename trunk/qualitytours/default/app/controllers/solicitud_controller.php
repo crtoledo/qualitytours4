@@ -23,7 +23,7 @@ class SolicitudController extends AppController {
     public function ingresar($id, $leng) {
         // se comprueba que sea turista el que ingresa la solicitud
         if (Auth::is_valid() && Auth::get('rol_usu') == "turista" && Auth::get("id") == $id) {
-            
+
             $this->leng = $leng;
 
             date_default_timezone_set('America/Santiago');
@@ -41,14 +41,13 @@ class SolicitudController extends AppController {
             $nueva_solicitud->activo_sol = "true";
 
             if ($nueva_solicitud->save()) {
-                
+
                 if ($leng == "es") {
                     Flash::info('Solicitud ingresada correctamente');
                     Router::redirect("/");
                 } else {
                     Flash::info("Request sent successfully");
                     Router::redirect("index/?l=en");
-                    
                 }
             } else {
                 Flash::info('Solicitud no ingresada');
@@ -732,14 +731,17 @@ class SolicitudController extends AppController {
             if (is_numeric($id) && is_numeric($usuario)) {
                 $solicitud_rechazar = new solicitud ();
                 if ($solicitud_rechazar->find($id)) {
-                    $solicitud_rechazar->activo_sol = "false";
-                    $solicitud_rechazar->estado_sol = "Rechazada";
+                    $es = $solicitud_rechazar->estado_sol;
+                    if ($es == "Pendiente") {
+                        $solicitud_rechazar->activo_sol = "false";
+                        $solicitud_rechazar->estado_sol = "Rechazada";
 
-                    if ($solicitud_rechazar->update()) {
-                        Flash::info("Solicitud Rechazada");
-                        Router::redirect("/solicitud/administrar/" . $id . "/" . $usuario . "/" . $leng);
-                    } else {
-                        Flash::error("Error al actualizar");
+                        if ($solicitud_rechazar->update()) {
+                            Flash::info("Solicitud Rechazada");
+                            Router::redirect("/solicitud/administrar/" . $id . "/" . $usuario . "/" . $leng);
+                        } else {
+                            Flash::error("Error al actualizar");
+                        }
                     }
                 } else {
                     Flash::error("Error al rechazar la solicitud");
