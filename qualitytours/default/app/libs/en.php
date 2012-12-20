@@ -205,8 +205,54 @@ $contacto_contacto_mensajeval = "The message can not be empty";
 $contacto_contacto_mensajeval2= "The message must be at least 10 characters";
 
 
-
-
+//CLIENTE-ingresarsolicitud
+$cliente_ingresarsol_valnombre = "Enter your name";
+$cliente_ingresarsol_valrut = "Provide a RUT";
+$cliente_ingresarsol_valrutvalido = "Enter a valid RUT";
+$cliente_ingresarsol_valgiro = "Enter a line of business";
+$cliente_ingresarsol_valtelefono = "Provide a phone number";
+$cliente_ingresarsol_valterminos = "You must accept the Terms of Use";
+$cliente_ingresarsol_valrutrepetido = "Rut already registered";
+$cliente_ingresarsol_valrutinvalido = "Invalid RUT";
+$cliente_ingresarsol_nomcentroturistico = "Tourist center's name";
+$cliente_ingresarsol_titulo = "Send subscription request";
+$cliente_ingresarsol_rutprivado = "Private rut";
+$cliente_ingresarsol_phnombrecliente = "Customer's name";
+$cliente_ingresarsol_rutcomercial = "Business rut";
+$cliente_ingresarsol_giro = "Line of business";
+$cliente_ingresarsol_telefonocomercial = "Business phone";
+$cliente_ingresarsol_seleccioneplan = "Select a plan";
+$cliente_ingresarsol_leidocondiciones = "I have read and accepted the Terms of Service";
+$cliente_ingresarsol_seleccioncat = "Select categories";
+$cliente_ingresarsol_lugarescat = "Places";
+$cliente_ingresarsol_catplaya = "Beach";
+$cliente_ingresarsol_catlago = "Lake";
+$cliente_ingresarsol_catrio = "River";
+$cliente_ingresarsol_catpiscina = "Pool";
+$cliente_ingresarsol_climacat = "Weather";
+$cliente_ingresarsol_catcalido = "Warm";
+$cliente_ingresarsol_catnieve = "Snow";
+$cliente_ingresarsol_catlluvioso = "Rainy";
+$cliente_ingresarsol_cattemplado = "Temperate";
+$cliente_ingresarsol_catterceraedad = "Seniors";
+$cliente_ingresarsol_catjuvenil = "Youth";
+$cliente_ingresarsol_deportescat = "Sports";
+$cliente_ingresarsol_catterrestres = "Terrestrial";
+$cliente_ingresarsol_catextremos = "Extreme";
+$cliente_ingresarsol_catacuaticos = "Aquatic";
+$cliente_ingresarsol_cataventura = "Adventure";
+$cliente_ingresarsol_culturalcat = "Culture";
+$cliente_ingresarsol_cathistorico = "Historical";
+$cliente_ingresarsol_catfestivo = "Festive";
+$cliente_ingresarsol_catgastronomico = "Gastronomic";
+$cliente_ingresarsol_tecnologiacat = "Technology";
+$cliente_ingresarsol_servicioscat = "Services";
+$cliente_ingresarsol_catcalefaccion = "Heating";
+$cliente_ingresarsol_catbanosindividuales = "Individual bathrooms";
+$cliente_ingresarsol_catduchas = "Showers";
+$cliente_ingresarsol_catduchasindividuales = "Individual showers";
+$cliente_ingresarsol_botenviarsolicitud = "Send request";
+$cliente_ingresarsol_botreiniciar = "Reset form";
 
 
 
