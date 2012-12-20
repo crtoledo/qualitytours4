@@ -27,6 +27,12 @@
         
         $(".boton").click(function (){
             
+            //ELIMINAMOS ESPACIOS EN BLANCO AL COMIENZO/FINAL
+            $(".giro").val($.trim($(".giro").val()));
+            $(".nombre").val($.trim($(".nombre").val()));
+            $(".telefono").val($.trim($(".telefono").val()));
+            
+            
             //SE LIMPIA ARRAY CATEGORIAS
             cats=' ';
             //array_categorias.length = 0;
