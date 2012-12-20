@@ -460,7 +460,7 @@ class ClienteController extends AppController {
             if ($cliente->sql("UPDATE cliente SET nombre_cli='" . $nombre_cli . "', giro_cli='" . $giro . "', telefono_cli='" . $telefono . "', tipo_plan='" . $plan . "' WHERE id_usu =" . $id . ";") && $solicitud_modificacion->update()) {
                 Flash::success("Solicitud modificada correctamente");
                 Input::delete();
-                Router::redirect("solicitud/ver/" . $id);
+                Router::redirect("solicitud/ver/" . $id."/".$leng);
             } else {
                 Flash::error("Error en el ingreso del cliente");
             }
