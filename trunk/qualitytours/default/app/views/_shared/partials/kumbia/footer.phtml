@@ -37,14 +37,14 @@
                         {   
                             $leng = "en";
                             echo Html::link('pages/terms_of_use', 'Terms of use'); 
-                            echo "&nbsp;| Terms of Service | Privacy Policy |&nbsp;".Html::link('contacto/contacto/'.$leng, 'Contact Us')."</span></p>";
+                            echo "&nbsp;| ".Html::link('index/servicio/'.$leng,'Terms of Service')." | Privacy Policy |&nbsp;".Html::link('contacto/contacto/'.$leng, 'Contact Us')."</span></p>";
                            
                         }
                         else
                         {  
                             $leng = "es";
                             echo Html::link('pages/condiciones', 'Condiciones de uso');
-                            echo "&nbsp;| Condiciones del servicio | Pol&iacute;tica de privacidad |&nbsp;".Html::link('contacto/contacto/'.$leng, 'Cont&aacute;ctenos')."</span></p>";
+                            echo "&nbsp;| ".Html::link('index/servicio/'.$leng,'Condiciones del servicio')." | Pol&iacute;tica de privacidad |&nbsp;".Html::link('contacto/contacto/'.$leng, 'Cont&aacute;ctenos')."</span></p>";
                           
                         }
                         ?>

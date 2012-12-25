@@ -185,6 +185,10 @@ class IndexController extends AppController
                 $this->contadors = $contador;
             
         }
+        public function servicio($leng)
+        {
+            $this->leng = $leng;
+        }
        
         
        
