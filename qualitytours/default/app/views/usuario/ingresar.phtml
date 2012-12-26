@@ -60,7 +60,7 @@ if ($leng == "en") {
                 $(".email").focus().after("<span class='errorVal'><?php echo $val_email_string; ?></span>");
                 return false;
             }else if($('#acepta').is(':checked') == false){
-                $("#acepta").focus().after("<span class='errorVal'><?php echo $usuario_ingresar_condiciones; ?></span>");
+                $("#acepta").focus().after("<span class='errorVal'><?php echo $usuario_ingresar_condiciones_val; ?></span>");
                 return false;
             }
         });
